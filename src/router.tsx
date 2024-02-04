@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import ForTest from "./forTest/ForTest";
+import ForTestTwo from "./forTest/ForTestTwo";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <ForTest></ForTest>,
+    element: <ForTestTwo></ForTestTwo>,
   },
   {
     path: "/dashboard",

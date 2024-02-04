@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./Filter.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -80,12 +80,12 @@ const Filter = () => {
                   <div className="flex items-center gap-2 justify-center">
                     <DatePicker
                       selected={startDate}
-                      onChange={(date) => setStartDate(date)}
+                      onChange={(date: Date) => setStartDate(date)}
                       className="px-1 py-2 "
                     />
                     <DatePicker
                       selected={startDate}
-                      onChange={(date) => setStartDate(date)}
+                      onChange={(date: Date) => setStartDate(date)}
                       className="px-1 py-2 "
                     />
                   </div>

@@ -9,7 +9,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
     <div>
       <div className="flex justify-between items-center  px-[50px] pt-[36px]">
         <div>
-          <h1 className="m-0">{name}</h1>
+          <h1 className="text-2xl font-semibold">{name}</h1>
         </div>
         <div className="flex justify-center items-center gap-2">
           {/* notification icon */}
