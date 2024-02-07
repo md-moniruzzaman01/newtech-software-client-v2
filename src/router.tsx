@@ -1,13 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import ForTestThree from "./forTest/ForTestThree";
+import Branch from "./forTest/Branch";
+import Product from "./forTest/Product";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <ForTestThree></ForTestThree>,
+    element: <Product></Product>,
   },
   {
     path: "/dashboard",
-    element: <div>Hello world2!</div>,
+    element: <Branch></Branch>,
   },
 ]);

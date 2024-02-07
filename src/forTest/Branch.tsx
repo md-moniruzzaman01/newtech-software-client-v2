@@ -3,7 +3,7 @@ import BranchChart from "../common/components/BranchChart/BranchChart";
 import BranchHeader from "../common/components/BranchHeader/BranchHeader";
 import SideBar from "../common/widgets/SideBar/SideBar";
 
-const ForTestTwo = () => {
+const Branch = () => {
   return (
     <div className="flex">
       <SideBar></SideBar>
@@ -61,4 +61,4 @@ const ForTestTwo = () => {
   );
 };
 
-export default ForTestTwo;
+export default Branch;
