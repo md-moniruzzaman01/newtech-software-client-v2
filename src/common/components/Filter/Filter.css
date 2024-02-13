@@ -4,6 +4,6 @@ a {
 }
 
 a.active {
-  background-color: #0074d9;
   color: #fff;
+  background-color: #0074d9;
 }
