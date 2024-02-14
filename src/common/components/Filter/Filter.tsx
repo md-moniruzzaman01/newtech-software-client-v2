@@ -71,7 +71,7 @@ const Filter = () => {
           >
             <div className="text-black w-full">
               <div className="px-5">
-                <h2 className="">Filter</h2>
+                <h2 className="text-xl py-3 font-semibold">Filter</h2>
                 <hr />
               </div>
               <form>

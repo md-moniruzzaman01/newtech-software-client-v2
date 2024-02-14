@@ -33,8 +33,8 @@ const BranchCard: React.FC<BranchCardProps> = ({
   );
 
   return (
-    <div className={cx("min-h-48 m-2 rounded-md", CBC_CLASSES, CTC_CLASSES)}>
-      <div className="flex flex-col gap-10 h-full justify-center">
+    <div className={cx("min-h-48 m-2 rounded-md ", CBC_CLASSES, CTC_CLASSES)}>
+      <div className="flex flex-col gap-10 h-full pt-10 justify-center">
         <div className="flex justify-between px-8">
           <div className="text-xl font-bold">{headerTitle}</div>
           <div>

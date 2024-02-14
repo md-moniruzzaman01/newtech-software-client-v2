@@ -49,9 +49,11 @@ const RepairCompleteCard: React.FC<RepairCompleteCardProps> = ({
       )}
     >
       <div
-        className={`flex flex-col ${
+        className={`flex flex-col pt-10 ${
           isProduct && "pt-10"
-        }  h-full justify-center ${isWithdraw ? "px-14 gap-5" : "px-8 gap-10"}`}
+        }  h-full justify-center ${
+          isWithdraw ? "px-14 gap-5 pb-10" : "px-8 gap-10"
+        }`}
       >
         <div>
           <div className="text-xl font-bold">{headerTitle}</div>

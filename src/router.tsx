@@ -1,14 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import Branch from "./forTest/Branch";
-import Qc from "./forTest/Qc";
+import ComplaintServiceView from "./forTest/ComplaintServiceView";
+import ComponentPreview from "./forTest/ComponentPreview";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Qc></Qc>,
+    element: <ComplaintServiceView></ComplaintServiceView>,
   },
   {
     path: "/dashboard",
     element: <Branch></Branch>,
+  },
+  {
+    path: "/component-preview",
+    element: <ComponentPreview></ComponentPreview>,
   },
 ]);
