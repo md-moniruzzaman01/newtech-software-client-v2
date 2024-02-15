@@ -10,6 +10,7 @@ export type ButtonProps = {
     loading?: boolean;
     disabled?: boolean;
     secondary?: boolean;
+    status?: boolean;
     type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
     onClick?: () => void;
     children?: ReactNode;

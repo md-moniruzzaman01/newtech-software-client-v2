@@ -1,3 +1,4 @@
+
 import "./Filter.css";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -8,60 +9,11 @@ const btnStyle =
   "btn font-normal text-black shadow-md hover:text-black py-2 px-5 text-xl rounded-sm";
 
 const Filter = () => {
-  const handleFilter = (id: string) => {
-    console.log(id);
-  };
   const [startDate, setStartDate] = useState(new Date());
   return (
     <div>
       <div className="flex justify-between items-center font ">
-        <div className="flex gap-2">
-          <div>
-            <button onClick={() => handleFilter("/")} className={btnStyle}>
-              <span>All</span>
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => handleFilter("/progress")}
-              className={btnStyle}
-            >
-              <span>Progress</span>
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => handleFilter("/complete")}
-              className={btnStyle}
-            >
-              <span>Complete</span>
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => handleFilter("/delivery")}
-              className={btnStyle}
-            >
-              <span>Delivery</span>
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => handleFilter("/buffer")}
-              className={btnStyle}
-            >
-              <span>Buffer</span>
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => handleFilter("/good-product")}
-              className={btnStyle}
-            >
-              <span>Good Products</span>
-            </button>
-          </div>
-        </div>
+
         <details className="dropdown dropdown-end cursor-pointer">
           <summary
             tabIndex={0}

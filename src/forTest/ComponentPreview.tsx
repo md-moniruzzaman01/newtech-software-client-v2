@@ -19,12 +19,16 @@ import SideBar from "../common/widgets/SideBar/SideBar";
 import { FilterOptions2 } from "../shared/config/constaints";
 import userImg from "../../src/assets/user.jpg";
 
+
 const ComponentPreview = () => {
   return (
     <div className="flex">
       <SideBar></SideBar>
       <div className="flex-1">
         <Navbar name="Component Preview"></Navbar>
+        <div>
+       
+        </div>
         <Filter></Filter>
         <SearchBar></SearchBar>
         <BranchCard

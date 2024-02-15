@@ -14,6 +14,7 @@ const Button: FC<ButtonProps> = ({
   type,
   loading,
   secondary,
+  status,
   onClick = () => {},
 }) => {
   const CLASSES = `
@@ -27,6 +28,7 @@ const Button: FC<ButtonProps> = ({
     `;
 
   const SECONDARY_CLASS = `bg-transparent outline outline-[1.7px] text-primary outline-primary hover:!text-white hover:bg-primary`;
+  const STATUS_CLASS = `shadow-md bg-white py-2 px-5 text-xl hover:bg-primary hover:!text-white !text-gray-900 rounded-sm`;
 
   const _renderLoading = () => {
     return (
@@ -56,7 +58,7 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       disabled={disabled || loading}
-      className={cx(CLASSES, secondary && SECONDARY_CLASS)}
+      className={cx(CLASSES, secondary && SECONDARY_CLASS, status && STATUS_CLASS)}
       onClick={onClick}
       type={type}
     >
