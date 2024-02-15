@@ -1,13 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import Branch from "./forTest/Branch";
 import ComponentPreview from "./forTest/ComponentPreview";
-import Dashboard from "./modules/Dashboard";
-
+import ComponentsCreateArea from "./forTest/ComponentsCreateArea";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Dashboard/>,
+    element: <ComponentsCreateArea />,
   },
   {
     path: "/dashboard",

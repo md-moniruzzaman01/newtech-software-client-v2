@@ -1,5 +1,11 @@
+import StatusGroup from "../common/components/Status Group";
+
 const ComponentsCreateArea = () => {
-  return <div></div>;
+  return (
+    <div>
+      <StatusGroup />
+    </div>
+  );
 };
 
 export default ComponentsCreateArea;
