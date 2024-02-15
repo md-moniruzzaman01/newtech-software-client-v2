@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import "./Filter.css";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -6,43 +5,61 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const btnStyle =
-  "text-black shadow-md hover:text-black py-2 px-5 text-xl rounded-sm";
+  "btn font-normal text-black shadow-md hover:text-black py-2 px-5 text-xl rounded-sm";
 
 const Filter = () => {
+  const handleFilter = (id: string) => {
+    console.log(id);
+  };
   const [startDate, setStartDate] = useState(new Date());
   return (
     <div>
-      <div className="flex justify-between items-center font px-[50px] pb-4 pt-5">
+      <div className="flex justify-between items-center font ">
         <div className="flex gap-2">
           <div>
-            <NavLink to="/" className={btnStyle}>
+            <button onClick={() => handleFilter("/")} className={btnStyle}>
               <span>All</span>
-            </NavLink>
+            </button>
           </div>
           <div>
-            <NavLink to="/progress" className={btnStyle}>
+            <button
+              onClick={() => handleFilter("/progress")}
+              className={btnStyle}
+            >
               <span>Progress</span>
-            </NavLink>
+            </button>
           </div>
           <div>
-            <NavLink to="/complete" className={btnStyle}>
+            <button
+              onClick={() => handleFilter("/complete")}
+              className={btnStyle}
+            >
               <span>Complete</span>
-            </NavLink>
+            </button>
           </div>
           <div>
-            <NavLink to="/delivery" className={btnStyle}>
+            <button
+              onClick={() => handleFilter("/delivery")}
+              className={btnStyle}
+            >
               <span>Delivery</span>
-            </NavLink>
+            </button>
           </div>
           <div>
-            <NavLink to="/buffer" className={btnStyle}>
+            <button
+              onClick={() => handleFilter("/buffer")}
+              className={btnStyle}
+            >
               <span>Buffer</span>
-            </NavLink>
+            </button>
           </div>
           <div>
-            <NavLink to="/good-product" className={btnStyle}>
+            <button
+              onClick={() => handleFilter("/good-product")}
+              className={btnStyle}
+            >
               <span>Good Products</span>
-            </NavLink>
+            </button>
           </div>
         </div>
         <details className="dropdown dropdown-end cursor-pointer">
@@ -94,8 +111,11 @@ const Filter = () => {
                 <div className="flex flex-col gap-5 py-5  px-5">
                   <div className="w-full space-y-2">
                     <label className="text-lg font-semibold ">Brand</label>
-                    <select className="select select-bordered join-item w-full">
-                      <option disabled selected>
+                    <select
+                      defaultValue={"brand-name"}
+                      className="select select-bordered join-item w-full"
+                    >
+                      <option value="brand-name" disabled>
                         Brand Name
                       </option>
                       <option>DELL</option>
@@ -108,8 +128,11 @@ const Filter = () => {
                     <label className="text-lg font-semibold pb-2">
                       Customer
                     </label>
-                    <select className="select select-bordered join-item w-full">
-                      <option disabled selected>
+                    <select
+                      defaultValue={"all"}
+                      className="select select-bordered join-item w-full"
+                    >
+                      <option value="all" disabled>
                         ALL
                       </option>
                       <option>DELL</option>
@@ -119,8 +142,11 @@ const Filter = () => {
                   </div>
                   <div className="w-full space-y-2 ">
                     <label className="text-lg font-semibold">Branch</label>
-                    <select className="select select-bordered join-item w-full">
-                      <option disabled selected>
+                    <select
+                      defaultValue={"all"}
+                      className="select select-bordered join-item w-full"
+                    >
+                      <option value={"all"} disabled>
                         ALL
                       </option>
                       <option>DELL</option>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import SideBar from "../common/widgets/SideBar/SideBar";
 import BranchHeader from "../common/components/BranchHeader/BranchHeader";
-import { IoMdEye } from "react-icons/io";
 import Pagination from "../common/widgets/Pagination/Pagination";
 import RepairCompleteCard from "../common/components/RepairCompleteCard/RepairCompleteCard";
 

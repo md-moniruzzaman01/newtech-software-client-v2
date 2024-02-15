@@ -1,8 +1,8 @@
 const btnStyle =
-  "px-5 py-1 bg-[#0074D9] text-[#fff] border-0 text-xl rounded-sm";
+  "btn min-h-0 h-10 px-5  bg-[#0074D9] text-[#fff] border-0 text-lg rounded-sm font-normal";
 const SearchBar = () => {
   return (
-    <div className="px-[50px] py-5">
+    <div>
       <div className="flex justify-between ">
         <div className="flex items-center gap-2">
           <div>
@@ -12,7 +12,7 @@ const SearchBar = () => {
             <button className={btnStyle}>Search</button>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ">
           <div>
             <button className={btnStyle}>+ Add Complaint’s</button>
           </div>

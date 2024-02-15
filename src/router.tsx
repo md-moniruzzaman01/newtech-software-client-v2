@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import Branch from "./forTest/Branch";
-import ComplaintServiceView from "./forTest/ComplaintServiceView";
 import ComponentPreview from "./forTest/ComponentPreview";
+import ComponentsCreateArea from "./forTest/ComponentsCreateArea";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <ComplaintServiceView></ComplaintServiceView>,
+    element: <ComponentsCreateArea></ComponentsCreateArea>,
   },
   {
     path: "/dashboard",
