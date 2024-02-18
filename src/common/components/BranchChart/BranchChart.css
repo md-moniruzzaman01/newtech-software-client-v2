@@ -1,0 +1,34 @@
+#received::-webkit-progress-value {
+  background-color: var(
+    --progress-value-color,
+    #0088ff
+  ); /* Default color is purple */
+}
+
+#pending::-webkit-progress-value {
+  background-color: var(
+    --progress-value-color,
+    #fec868
+  ); /* Default color is purple */
+}
+
+#inProgress::-webkit-progress-value {
+  background-color: var(
+    --progress-value-color,
+    #69dcb5
+  ); /* Default color is purple */
+}
+
+#completed::-webkit-progress-value {
+  background-color: var(
+    --progress-value-color,
+    #69addc
+  ); /* Default color is purple */
+}
+
+#delivered::-webkit-progress-value {
+  background-color: var(
+    --progress-value-color,
+    #97ecf1
+  ); /* Default color is purple */
+}

@@ -1,3 +1,5 @@
+import "./BranchChart.css";
+
 const BranchChart = () => {
   return (
     <div className="px-[50px] py-4">
@@ -35,7 +37,8 @@ const BranchChart = () => {
               <div className="flex px-8 justify-between items-center">
                 <h3 className="w-36 ">Received</h3>
                 <progress
-                  className="progress progress-primary w-56 flex-1"
+                  id="received"
+                  className="h-2  w-56  flex-1"
                   value="70"
                   max="100"
                 ></progress>
@@ -46,7 +49,8 @@ const BranchChart = () => {
               <div className="flex px-8 justify-between items-center">
                 <h3 className="w-36 ">Pending</h3>
                 <progress
-                  className="progress progress-error w-56 flex-1"
+                  id="pending"
+                  className=" w-56 h-2 flex-1"
                   value="70"
                   max="100"
                 ></progress>
@@ -57,7 +61,8 @@ const BranchChart = () => {
               <div className="flex px-8 justify-between items-center">
                 <h3 className="w-36 ">In Progress</h3>
                 <progress
-                  className="progress progress-warning w-56 flex-1"
+                  id="inProgress"
+                  className=" w-56 h-2 flex-1"
                   value="40"
                   max="100"
                 ></progress>
@@ -68,7 +73,8 @@ const BranchChart = () => {
               <div className="flex px-8 justify-between items-center">
                 <h3 className="w-36 ">Completed</h3>
                 <progress
-                  className="progress progress-success w-56 flex-1"
+                  id="completed"
+                  className=" w-56 h-2 flex-1"
                   value="10"
                   max="100"
                 ></progress>
@@ -79,7 +85,8 @@ const BranchChart = () => {
               <div className="flex px-8 justify-between items-center">
                 <h3 className="w-36 ">Delivered</h3>
                 <progress
-                  className="progress progress-info w-56 flex-1"
+                  id="delivered"
+                  className=" w-56 h-2 flex-1"
                   value="100"
                   max="100"
                 ></progress>

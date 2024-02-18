@@ -1,5 +1,5 @@
 const btnStyle =
-  "btn min-h-0 h-10 px-5  bg-[#0074D9] text-[#fff] border-0 text-lg rounded-sm font-normal";
+  "btn min-h-0 h-10 px-5 hover:bg-primary  bg-[#0074D9] text-[#fff] border-0 text-lg rounded-sm font-normal";
 const SearchBar = () => {
   return (
     <div>

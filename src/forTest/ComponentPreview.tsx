@@ -4,7 +4,6 @@ import BranchHeader from "../common/components/BranchHeader/BranchHeader";
 import ComplaintDetailsCard from "../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import ComplaintHeaderCard from "../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintServiceCard from "../common/components/ComplaintServiceViewCard/ComplaintServiceCard";
-import Filter from "../common/components/Filter/Filter";
 import Input from "../common/components/Input/Input";
 import InputFilter from "../common/components/InputFilter/InputFilter";
 import RepairCompleteCard from "../common/components/RepairCompleteCard/RepairCompleteCard";
@@ -18,7 +17,7 @@ import Pagination from "../common/widgets/Pagination/Pagination";
 import SideBar from "../common/widgets/SideBar/SideBar";
 import { FilterOptions2 } from "../shared/config/constaints";
 import userImg from "../../src/assets/user.jpg";
-
+import StatusGroup from "../common/components/Status Group";
 
 const ComponentPreview = () => {
   return (
@@ -26,10 +25,7 @@ const ComponentPreview = () => {
       <SideBar></SideBar>
       <div className="flex-1">
         <Navbar name="Component Preview"></Navbar>
-        <div>
-       
-        </div>
-        <Filter></Filter>
+        <StatusGroup></StatusGroup>
         <SearchBar></SearchBar>
         <BranchCard
           bgColor="primary"

@@ -7,14 +7,14 @@ interface textAreaProps {
 const TextArea: React.FC<textAreaProps> = ({ label, placeholder, name }) => {
   return (
     <div>
-      <label className="form-control w-full ">
+      <label className=" w-full ">
         <div className="label">
           <span className="label-text">{label}</span>
         </div>
         <textarea
           name={name}
           placeholder={placeholder}
-          className="textarea textarea-bordered"
+          className="textarea textarea-bordered w-full"
         />
       </label>
     </div>

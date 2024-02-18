@@ -1,9 +1,9 @@
-import StatusGroup from "../common/components/Status Group";
+import Navbar from "../common/widgets/Navbar/Navbar";
 
 const ComponentsCreateArea = () => {
   return (
     <div>
-      <StatusGroup />
+      <Navbar></Navbar>
     </div>
   );
 };

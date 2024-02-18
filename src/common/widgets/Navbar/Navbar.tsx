@@ -11,15 +11,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
         <div>
           <h1 className="text-2xl font-semibold">{name}</h1>
         </div>
-        <div className="flex justify-center items-center gap-2">
+        <div className="flex justify-center items-center gap-10">
           {/* notification icon */}
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
-              <div className="indicator">
+          <details className="relative">
+            <summary tabIndex={0} role="button" className="">
+              <div>
                 <svg
                   width="24"
                   height="24"
@@ -48,10 +44,10 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                   8
                 </span>
               </div>
-            </div>
+            </summary>
             <div
               tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+              className="absolute right-0 mt-3 z-[1] w-52 bg-base-500 shadow"
             >
               <div className="card-body">
                 <span className="font-bold text-lg">8 Items</span>
@@ -63,14 +59,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </details>
+
           {/* setting icon */}
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
+          <details className="relative">
+            <summary tabIndex={0} role="button">
               <svg
                 width="24"
                 height="24"
@@ -86,10 +79,10 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                   />
                 </g>
               </svg>
-            </div>
+            </summary>
             <div
               tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+              className="absolute right-0 mt-3 z-[1]  w-52 bg-base-500 shadow"
             >
               <div className="card-body">
                 <span className="font-bold text-lg">8 Items</span>
@@ -101,14 +94,10 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </details>
           {/* user icon  */}
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
+          <details className="relative">
+            <summary tabIndex={0} role="button">
               <svg
                 width="24"
                 height="24"
@@ -129,10 +118,10 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                   />
                 </g>
               </svg>
-            </div>
+            </summary>
             <div
               tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+              className="absolute right-0 mt-3 z-[1]  w-52 bg-base-500 shadow"
             >
               <div className="card-body">
                 <span className="font-bold text-lg">8 Items</span>
@@ -144,7 +133,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </details>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ const StatusGroup = () => {
     console.log(id);
   };
   return (
-    <div className="flex justify-between items-center ">
+    <div className="flex justify-between items-center  ">
       <div className="flex gap-2 flex-wrap">
         <Button status onClick={() => handleFilter("/")}>
           All{" "}
@@ -39,7 +39,7 @@ const StatusGroup = () => {
         </Button>
       </div>
       <div>
-        <details className="absolute right-0 top-0 cursor-pointer w-[120px]">
+        <details className="relative   cursor-pointer w-[120px]">
           <summary
             tabIndex={0}
             role="button"
@@ -61,7 +61,7 @@ const StatusGroup = () => {
           </summary>
           <ul
             tabIndex={0}
-            className=" z-[1] menu p-2 shadow bg-[#fff] absolute top-14 right-5   rounded-box w-[420px]"
+            className=" z-[1]  p-2 shadow bg-[#fff] absolute top-14 right-5   rounded-box w-[420px]"
           >
             <div className="text-black w-full">
               <div className="px-5">
@@ -119,12 +119,16 @@ const StatusGroup = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-around items-center">
+                <div className="flex justify-around items-center pb-5">
                   <div>
-                    <Button status>Clear</Button>
+                    <Button className="!bg-shadeOfRed !text-white" status>
+                      Clear
+                    </Button>
                   </div>
                   <div>
-                    <Button status>Save</Button>
+                    <Button className="!bg-primary !text-white" status>
+                      Save
+                    </Button>
                   </div>
                 </div>
               </form>

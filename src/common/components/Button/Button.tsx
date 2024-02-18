@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { ButtonProps } from "../../../shared/config/types";
 import { cx } from "../../../shared/config/constaints";
 //
@@ -58,7 +58,11 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       disabled={disabled || loading}
-      className={cx(CLASSES, secondary && SECONDARY_CLASS, status && STATUS_CLASS)}
+      className={cx(
+        CLASSES,
+        secondary && SECONDARY_CLASS,
+        status && STATUS_CLASS
+      )}
       onClick={onClick}
       type={type}
     >

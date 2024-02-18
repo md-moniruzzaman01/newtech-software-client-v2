@@ -1,5 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import InputFilter from "../InputFilter/InputFilter";
+import { FilterOptions } from "../../../shared/config/constaints";
 
 interface BranchHeaderProps {
   name?: string;
@@ -21,14 +23,7 @@ const BranchHeader: React.FC<BranchHeaderProps> = ({ name = "Hello" }) => {
             </div>
           )}
           <div className="w-[200px]">
-            <select
-              className="select select-bordered join-item w-full"
-              defaultValue={""}
-            >
-              <option value="all">All</option>
-              <option value="desc">Latest</option>
-              <option value="asc">Oldest</option>
-            </select>
+            <InputFilter Filter={FilterOptions}></InputFilter>
           </div>
         </div>
       </div>
