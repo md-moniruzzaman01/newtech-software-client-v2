@@ -1,9 +1,9 @@
-import Navbar from "../common/widgets/Navbar/Navbar";
+import PhotoAttach from "../common/components/PhotoAttach/PhotoAttach";
 
 const ComponentsCreateArea = () => {
   return (
     <div>
-      <Navbar></Navbar>
+      <PhotoAttach></PhotoAttach>
     </div>
   );
 };

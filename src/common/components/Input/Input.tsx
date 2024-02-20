@@ -16,13 +16,13 @@ const Input: React.FC<InputProps> = ({
       <div>
         <label className="form-control w-full ">
           <div className="label">
-            <span className="label-text">{labelName}</span>
+            <span className="text-lg font-semibold">{labelName}</span>
           </div>
           <input
             name={inputName}
             type={inputType}
             placeholder={inputPlaceholder}
-            className="input input-bordered w-full  rounded-sm"
+            className="border-2 w-full rounded-sm mt-2 py-2 pl-2"
           />
         </label>
       </div>

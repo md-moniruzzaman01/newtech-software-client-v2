@@ -14,7 +14,12 @@ import UserProfile from "../common/components/UserProfile/UserProfile";
 import Navbar from "../common/widgets/Navbar/Navbar";
 import Pagination from "../common/widgets/Pagination/Pagination";
 import SideBar from "../common/widgets/SideBar/SideBar";
-import { ComplaintDetails, DemoTableHeader, DemoTableValue, FilterOptions2 } from "../shared/config/constaints";
+import {
+  ComplaintDetails,
+  DemoTableHeader,
+  DemoTableValue,
+  FilterOptions2,
+} from "../shared/config/constaints";
 import userImg from "../../src/assets/user.jpg";
 import StatusGroup from "../common/components/Status Group";
 
@@ -34,15 +39,16 @@ const ComponentPreview = () => {
           headerTitle="Branch Header"
           price="5500"
         ></BranchCard>
-        <BranchChart status={[{label:"Recieved",value:50}]}></BranchChart>
-        <ComplaintDetailsCard Cardinfo={ComplaintDetails}/>
+        <BranchChart status={[{ label: "Recieved", value: 50 }]}></BranchChart>
+        <ComplaintDetailsCard Cardinfo={ComplaintDetails} />
         <RepairCompleteCard
           bgColor="primary"
           branchTitle="Repair Title"
           color="yellow"
           headerTitle="Repair Header Title"
           isProduct={true}
-          isWithdraw={true}        ></RepairCompleteCard>
+          isWithdraw={true}
+        ></RepairCompleteCard>
 
         <Input
           inputName="name"
@@ -51,9 +57,13 @@ const ComponentPreview = () => {
           labelName="Your Name"
         ></Input>
 
-        <InputFilter Filter={FilterOptions2}></InputFilter>
+        <InputFilter label="Select" Filter={FilterOptions2}></InputFilter>
 
-        <TextArea name="hello" label="hello" placeholder="bye bye"></TextArea>
+        <TextArea
+          name="hello"
+          label="Text Area"
+          placeholder="bye bye"
+        ></TextArea>
 
         <ComplaintServiceCard
           details="Complaint Service"
@@ -93,8 +103,6 @@ const ComponentPreview = () => {
           color="yellow"
           headerTitle="hello "
         ></ComplaintHeaderCard>
-
-   
 
         <Table HeaderData={DemoTableHeader} itemData={DemoTableValue}></Table>
 

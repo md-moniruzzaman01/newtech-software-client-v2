@@ -8,13 +8,13 @@ const TextArea: React.FC<textAreaProps> = ({ label, placeholder, name }) => {
   return (
     <div>
       <label className=" w-full ">
-        <div className="label">
-          <span className="label-text">{label}</span>
+        <div>
+          <span className="text-lg font-semibold">{label}</span>
         </div>
         <textarea
           name={name}
           placeholder={placeholder}
-          className="textarea textarea-bordered w-full"
+          className=" border-2 mt-2   w-full pl-2 pt-2"
         />
       </label>
     </div>
