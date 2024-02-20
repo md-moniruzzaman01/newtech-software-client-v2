@@ -1,6 +1,5 @@
 import BranchCard from "../common/components/BranchCard/BranchCard";
 import BranchChart from "../common/components/BranchChart/BranchChart";
-import BranchHeader from "../common/components/BranchHeader/BranchHeader";
 import SideBar from "../common/widgets/SideBar/SideBar";
 
 const Branch = () => {
@@ -8,7 +7,6 @@ const Branch = () => {
     <div className="flex">
       <SideBar></SideBar>
       <div className="flex-1 ">
-        <BranchHeader name={"Branch"}></BranchHeader>
         <div className="grid grid-cols-3  pt-5 px-[50px] ">
           <BranchCard
             bgColor="primary"
@@ -54,7 +52,7 @@ const Branch = () => {
           ></BranchCard>
         </div>
         <div className="w-full ">
-          <BranchChart></BranchChart>
+          <BranchChart  status={[{label:"Recieved",value:50}]}></BranchChart>
         </div>
       </div>
     </div>

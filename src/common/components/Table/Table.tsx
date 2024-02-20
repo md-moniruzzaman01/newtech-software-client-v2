@@ -1,4 +1,8 @@
-const Table = () => {
+import { FC } from "react";
+import { TableBodyProps, TableProps } from "../../../shared/config/types";
+
+
+const Table:FC<TableProps> = ({HeaderData,itemData}) => {
   return (
     <>
       <div className="flex justify-center">
@@ -15,20 +19,17 @@ const Table = () => {
                     />
                   </label>
                 </th>
-                <th>Order Id</th>
-                <th>Create Date</th>
-                <th>Due Date</th>
-                <th>Customer Name</th>
-                <th>Items</th>
-                <th>Problem</th>
-                <th>Brand Name</th>
-                <th>Engineers</th>
-                <th>Status</th>
+                {
+                 HeaderData && HeaderData.map((title: string,index:number) => (
+                    <th key={index}>{title}</th>
+                  ))
+                }
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
-              <tr>
+             {
+              itemData && itemData.map((item : TableBodyProps,index:number)=>(
+                <tr key={index}>
                 <td className="border border-gray-800">
                   <label className="inline-flex items-center">
                     <input
@@ -37,7 +38,7 @@ const Table = () => {
                     />
                   </label>
                 </td>
-                <td className="border border-gray-800">1554541</td>
+                <td className="border border-gray-800">{item.order_id}</td>
                 <td className="border border-gray-800">12/12/2023</td>
                 <td className="border border-gray-800">12/12/2023</td>
                 <td className="border border-gray-800">John doe</td>
@@ -47,25 +48,9 @@ const Table = () => {
                 <th className="border border-gray-800">No Assign</th>
                 <th className="border border-gray-800">Progress</th>
               </tr>
-              <tr>
-                <th className="border border-gray-800">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-5 w-5 text-indigo-600"
-                    />
-                  </label>
-                </th>
-                <td className="border border-gray-800">1554541</td>
-                <td className="border border-gray-800">12/12/2023</td>
-                <td className="border border-gray-800">12/12/2023</td>
-                <td className="border border-gray-800">John doe</td>
-                <th className="border border-gray-800">Monitor</th>
-                <th className="border border-gray-800">No display</th>
-                <th className="border border-gray-800">Acer</th>
-                <th className="border border-gray-800">No Assign</th>
-                <th className="border border-gray-800">Progress</th>
-              </tr>
+              ))
+             }
+             
             </tbody>
           </table>
         </div>

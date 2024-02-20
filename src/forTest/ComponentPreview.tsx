@@ -1,6 +1,5 @@
 import BranchCard from "../common/components/BranchCard/BranchCard";
 import BranchChart from "../common/components/BranchChart/BranchChart";
-import BranchHeader from "../common/components/BranchHeader/BranchHeader";
 import ComplaintDetailsCard from "../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import ComplaintHeaderCard from "../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintServiceCard from "../common/components/ComplaintServiceViewCard/ComplaintServiceCard";
@@ -15,13 +14,13 @@ import UserProfile from "../common/components/UserProfile/UserProfile";
 import Navbar from "../common/widgets/Navbar/Navbar";
 import Pagination from "../common/widgets/Pagination/Pagination";
 import SideBar from "../common/widgets/SideBar/SideBar";
-import { FilterOptions2 } from "../shared/config/constaints";
+import { ComplaintDetails, DemoTableHeader, DemoTableValue, FilterOptions2 } from "../shared/config/constaints";
 import userImg from "../../src/assets/user.jpg";
 import StatusGroup from "../common/components/Status Group";
 
 const ComponentPreview = () => {
   return (
-    <div className="flex">
+    <div className="flex space-y-8">
       <SideBar></SideBar>
       <div className="flex-1">
         <Navbar name="Component Preview"></Navbar>
@@ -35,17 +34,15 @@ const ComponentPreview = () => {
           headerTitle="Branch Header"
           price="5500"
         ></BranchCard>
-        <BranchHeader name="Branch Header"></BranchHeader>
-        <BranchChart></BranchChart>
-
+        <BranchChart status={[{label:"Recieved",value:50}]}></BranchChart>
+        <ComplaintDetailsCard Cardinfo={ComplaintDetails}/>
         <RepairCompleteCard
           bgColor="primary"
           branchTitle="Repair Title"
           color="yellow"
           headerTitle="Repair Header Title"
           isProduct={true}
-          isWithdraw={true}
-        ></RepairCompleteCard>
+          isWithdraw={true}        ></RepairCompleteCard>
 
         <Input
           inputName="name"
@@ -97,17 +94,9 @@ const ComponentPreview = () => {
           headerTitle="hello "
         ></ComplaintHeaderCard>
 
-        <ComplaintDetailsCard
-          details1="hello"
-          details2="hello"
-          details3="hello"
-          headerTitle="hello title"
-          title1="world"
-          title2="world"
-          title3="world"
-        ></ComplaintDetailsCard>
+   
 
-        <Table></Table>
+        <Table HeaderData={DemoTableHeader} itemData={DemoTableValue}></Table>
 
         <Pagination></Pagination>
       </div>
