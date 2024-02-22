@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import ComponentPreview from "./forTest/ComponentPreview";
 import ComponentsCreateArea from "./forTest/ComponentsCreateArea";
-import TotalRepaired from "./modules/Finance/TotalRepaired/Dashboard";
+import OrderCount from "./modules/Finance/OrderCount/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <TotalRepaired></TotalRepaired>,
+    element: <OrderCount></OrderCount>,
   },
   {
     path: "/components",

@@ -13,19 +13,40 @@ export const FilterOptions2 = [
   { label: "Latest", value: "desc" },
   { label: "Oldest", value: "asc" },
 ];
-export const ComplaintDetails = [
-  { label: "This is level", value: 1 }
+export const ComplaintDetails = [{ label: "This is level", value: 1 }];
+export const DemoTableHeader = [
+  "Order ID",
+  "Create Date",
+  "Due Date",
+  "Customer Name",
+  "Items",
+  "Problem",
+  "Brand Name",
+  "Engineers",
+  "Status",
 ];
-export const DemoTableHeader =[ "Order ID", "Create Date","Due Date",	"Customer Name","Items","Problem","Brand Name",	"Engineers",	"Status", ] ;
-export const DemoTableValue =[{
-  order_id: "1554541",
-  created_at: "12/12/2023",
-  due_date: "12/12/2023",
-  customer_name: "Jhon doe",
-  items: "Jhon doe",
-  problem: "Jhon doe",
-  brand_name: "ACER",
-  engineer: "Jhon doe",
-  status: "Jhon doe",
-
-} ] ;
+export const DemoTableHeaderView = [
+  "Order ID",
+  "Create Date",
+  "Due Date",
+  "Customer Name",
+  "Items",
+  "Problem",
+  "Brand Name",
+  "Engineers",
+  "Status",
+  "action",
+];
+export const DemoTableValue = [
+  {
+    order_id: "1554541",
+    created_at: "12/12/2023",
+    due_date: "12/12/2023",
+    customer_name: "Jhon doe",
+    items: "Jhon doe",
+    problem: "Jhon doe",
+    brand_name: "ACER",
+    engineer: "Jhon doe",
+    status: "Jhon doe",
+  },
+];

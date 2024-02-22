@@ -17,7 +17,7 @@ const BranchChart: FC<BranchChartProps> = ({
 }) => {
   return (
     <div className=" py-4">
-      <div className=" bg-[#F7F7F7] rounded-md max-w-[600px]">
+      <div className=" bg-grayWhite rounded-md max-w-[600px]">
         <div>
           <div className="flex justify-between px-8 pt-5">
             <div className="text-xl font-bold  pb-2 pr-5">

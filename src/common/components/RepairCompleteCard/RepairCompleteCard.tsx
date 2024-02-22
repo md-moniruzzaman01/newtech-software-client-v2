@@ -41,18 +41,18 @@ const RepairCompleteCard: React.FC<RepairCompleteCardProps> = ({
   return (
     <div
       className={cx(
-        `${isWithdraw ? "min-h-32 " : "min-h-48"}  ${
-          isProduct ? "m-0 mb-6 mr-2" : ""
+        `${isWithdraw ? "min-h-32 pt-5" : "min-h-40"}  ${
+          isProduct ? " mb-5 mr-2 min-h-40" : "min-h-40"
         }  rounded-md`,
         CBC_CLASSES,
         CTC_CLASSES
       )}
     >
       <div
-        className={`flex flex-col pt-10 ${
-          isProduct && "pt-10"
+        className={`flex flex-col  ${
+          isProduct && "pt-5"
         }  h-full justify-center ${
-          isWithdraw ? "px-14 gap-5 pb-10" : "px-8 gap-10"
+          isWithdraw ? "px-14 gap-5 pb-5" : "px-8 gap-10"
         }`}
       >
         <div>
@@ -60,7 +60,7 @@ const RepairCompleteCard: React.FC<RepairCompleteCardProps> = ({
         </div>
         <div>
           <div>
-            <h3 className={` font-bold ${isWithdraw && "text-end"} text-4xl`}>
+            <h3 className={` font-bold ${isWithdraw && "text-end"} text-3xl`}>
               {branchTitle}
             </h3>
           </div>

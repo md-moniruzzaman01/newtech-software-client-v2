@@ -20,18 +20,21 @@ export type ButtonProps = {
 export type complaintDetailsCardProps = {
   headerTitle?: string;
   className?: string;
-  Cardinfo: complaintSingleDetailsProps[]
-}
+  Cardinfo: complaintSingleDetailsProps[];
+};
 export type complaintSingleDetailsProps = {
   label: string;
   value: number;
-}
+};
 export type TableProps = {
   HeaderData: TableHeaderProps[];
   itemData: TableBodyProps[];
-}
-export type TableHeaderProps = string
+  view?: boolean;
+  Link?: string;
+};
+export type TableHeaderProps = string;
 export type TableBodyProps = {
+  id?: string;
   order_id: string;
   created_at: string;
   due_date: string;
@@ -41,4 +44,4 @@ export type TableBodyProps = {
   brand_name: string;
   engineer: string;
   status: string;
-}
+};
