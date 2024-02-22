@@ -3,15 +3,12 @@ interface inputFilterProps {
   label?: string;
 }
 
-const InputFilter: React.FC<inputFilterProps> = ({
-  Filter = [],
-  label = "hello",
-}) => {
+const InputFilter: React.FC<inputFilterProps> = ({ Filter = [], label }) => {
   return (
     <div>
       <label className="text-lg font-semibold ">{label}</label>
       <select
-        className="py-2  rounded-sm w-full border-2 border-gray-200 shadow-sm ml-0 mt-2"
+        className="py-2  rounded-sm w-full border-2 border-gray-200 shadow-sm ml-0 "
         defaultValue={"all"}
       >
         <option value="all" disabled>

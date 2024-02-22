@@ -42,7 +42,7 @@ const RepairCompleteCard: React.FC<RepairCompleteCardProps> = ({
     <div
       className={cx(
         `${isWithdraw ? "min-h-32 " : "min-h-48"}  ${
-          isProduct ? "m-0 mb-6 mr-2" : "m-2"
+          isProduct ? "m-0 mb-6 mr-2" : ""
         }  rounded-md`,
         CBC_CLASSES,
         CTC_CLASSES

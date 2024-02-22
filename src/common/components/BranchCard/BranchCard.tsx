@@ -1,4 +1,5 @@
 import { cx } from "../../../shared/config/constaints";
+import Button from "../Button";
 
 interface BranchCardProps {
   bgColor?: string;
@@ -33,14 +34,17 @@ const BranchCard: React.FC<BranchCardProps> = ({
   );
 
   return (
-    <div className={cx("min-h-48 m-2 rounded-md ", CBC_CLASSES, CTC_CLASSES)}>
-      <div className="flex flex-col gap-10 h-full pt-10 justify-center">
+    <div className={cx("min-h-48  rounded-md ", CBC_CLASSES, CTC_CLASSES)}>
+      <div className="flex flex-col gap-10 h-full  justify-center">
         <div className="flex justify-between px-8">
           <div className="text-xl font-bold">{headerTitle}</div>
           <div>
-            <button className="btn btn-outline min-h-6 h-0 rounded-full">
+            <Button
+              className="bg-transparent !text-black hover:!text-gray-400 outline rounded-full py-0 
+            !px-3"
+            >
               view
-            </button>
+            </Button>
           </div>
         </div>
         <div className="flex justify-between items-center px-8">

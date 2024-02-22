@@ -1,14 +1,14 @@
-import BranchHeader from "../common/components/BranchHeader/BranchHeader";
 import RepairCompleteCard from "../common/components/RepairCompleteCard/RepairCompleteCard";
 import RepairCompleteDetails from "../common/components/RepairCompleteDetails/RepairCompleteDetails";
 import SideBar from "../common/widgets/SideBar/SideBar";
+import BranchHeader from "../modules/Finance/Branch/partials/BranchHeader";
 
 const TotalRepaired = () => {
   return (
     <div className="flex">
       <SideBar></SideBar>
       <div className="flex-1">
-        <BranchHeader name="Total Repaired"></BranchHeader>
+        <BranchHeader></BranchHeader>
         <div className="grid grid-cols-3  pt-5 px-[50px] ">
           <RepairCompleteCard
             bgColor="lightGreen"

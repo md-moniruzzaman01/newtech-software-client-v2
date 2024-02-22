@@ -22,6 +22,7 @@ import {
 } from "../shared/config/constaints";
 import userImg from "../../src/assets/user.jpg";
 import StatusGroup from "../common/components/Status Group";
+import BranchCommonHeader from "../common/components/BranchCommonHeader/BranchCommonHeader";
 
 const ComponentPreview = () => {
   return (
@@ -31,6 +32,12 @@ const ComponentPreview = () => {
         <Navbar name="Component Preview"></Navbar>
         <StatusGroup></StatusGroup>
         <SearchBar></SearchBar>
+
+        <BranchCommonHeader
+          selectItems={FilterOptions2}
+          title="hello"
+        ></BranchCommonHeader>
+
         <BranchCard
           bgColor="primary"
           branchTitle="Branch Title"

@@ -1,15 +1,19 @@
-import RepairCompleteCard from "../common/components/RepairCompleteCard/RepairCompleteCard";
-import RepairCompleteDetails from "../common/components/RepairCompleteDetails/RepairCompleteDetails";
-import SideBar from "../common/widgets/SideBar/SideBar";
-import BranchHeader from "../modules/Finance/Branch/partials/BranchHeader";
+import BranchCommonHeader from "../../../common/components/BranchCommonHeader/BranchCommonHeader";
+import RepairCompleteCard from "../../../common/components/RepairCompleteCard/RepairCompleteCard";
+import RepairCompleteDetails from "../../../common/components/RepairCompleteDetails/RepairCompleteDetails";
+import SideBar from "../../../common/widgets/SideBar/SideBar";
+import { FilterOptions } from "../../../shared/config/constaints";
 
 const TotalRepairing = () => {
   return (
     <div className="flex">
       <SideBar></SideBar>
-      <div className="flex-1 ">
-        <BranchHeader></BranchHeader>
-        <div className="grid grid-cols-3  pt-5  ">
+      <div className="flex-1 px-5">
+        <BranchCommonHeader
+          selectItems={FilterOptions}
+          title="Total Repairing"
+        ></BranchCommonHeader>
+        <div className="grid grid-cols-3 gap-3 pt-5  ">
           <RepairCompleteCard
             bgColor="lightSky"
             headerTitle="Total Repairing"

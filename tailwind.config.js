@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        btn_secondary: "#253275",
         primary: "#0088FF",
         secondary: "#FEC868",
         lightBlue: "#FFFFE6",

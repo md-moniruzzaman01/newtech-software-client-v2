@@ -1,27 +1,31 @@
-import RepairCompleteCard from "../common/components/RepairCompleteCard/RepairCompleteCard";
-import RepairCompleteDetails from "../common/components/RepairCompleteDetails/RepairCompleteDetails";
-import SideBar from "../common/widgets/SideBar/SideBar";
-import BranchHeader from "../modules/Finance/Branch/partials/BranchHeader";
+import BranchCommonHeader from "../../../common/components/BranchCommonHeader/BranchCommonHeader";
+import RepairCompleteCard from "../../../common/components/RepairCompleteCard/RepairCompleteCard";
+import RepairCompleteDetails from "../../../common/components/RepairCompleteDetails/RepairCompleteDetails";
+import SideBar from "../../../common/widgets/SideBar/SideBar";
+import { FilterOptions } from "../../../shared/config/constaints";
 
-const TotalRepairing = () => {
+const TotalRepaired = () => {
   return (
     <div className="flex">
       <SideBar></SideBar>
-      <div className="flex-1 ">
-        <BranchHeader></BranchHeader>
-        <div className="grid grid-cols-3  pt-5  ">
+      <div className="flex-1 px-5">
+        <BranchCommonHeader
+          selectItems={FilterOptions}
+          title="Total Repaired"
+        ></BranchCommonHeader>
+        <div className="grid grid-cols-3 gap-3 pt-5  ">
           <RepairCompleteCard
-            bgColor="lightSky"
-            headerTitle="Total Repairing"
+            bgColor="lightGreen"
+            headerTitle="Total Repaired"
             branchTitle="25"
           ></RepairCompleteCard>
           <RepairCompleteCard
-            bgColor="darkBlue"
+            bgColor="lightBlueGreen"
             headerTitle="Total Repair warranty"
             branchTitle="25"
           ></RepairCompleteCard>
           <RepairCompleteCard
-            bgColor="darkYellow"
+            bgColor="lightBlueColor"
             headerTitle="Total Repair Non Warranty"
             branchTitle="$ 5,500"
           ></RepairCompleteCard>
@@ -59,4 +63,4 @@ const TotalRepairing = () => {
   );
 };
 
-export default TotalRepairing;
+export default TotalRepaired;

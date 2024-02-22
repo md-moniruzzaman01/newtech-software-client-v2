@@ -1,15 +1,19 @@
-import RepairCompleteCard from "../common/components/RepairCompleteCard/RepairCompleteCard";
-import RepairCompleteDetails from "../common/components/RepairCompleteDetails/RepairCompleteDetails";
-import SideBar from "../common/widgets/SideBar/SideBar";
-import BranchHeader from "../modules/Finance/Branch/partials/BranchHeader";
+import BranchCommonHeader from "../../../common/components/BranchCommonHeader/BranchCommonHeader";
+import RepairCompleteCard from "../../../common/components/RepairCompleteCard/RepairCompleteCard";
+import RepairCompleteDetails from "../../../common/components/RepairCompleteDetails/RepairCompleteDetails";
+import SideBar from "../../../common/widgets/SideBar/SideBar";
+import { FilterOptions } from "../../../shared/config/constaints";
 
 const RepairComplete = () => {
   return (
     <div className="flex">
       <SideBar></SideBar>
-      <div className="flex-1">
-        <BranchHeader></BranchHeader>
-        <div className="grid grid-cols-3  pt-5 ">
+      <div className="flex-1 px-5">
+        <BranchCommonHeader
+          selectItems={FilterOptions}
+          title="Repair Complete"
+        ></BranchCommonHeader>
+        <div className="grid grid-cols-3 gap-3 pt-5 ">
           <RepairCompleteCard
             bgColor="primary"
             headerTitle="Total Repair Complete"
@@ -26,7 +30,7 @@ const RepairComplete = () => {
             branchTitle="$ 5,500"
           ></RepairCompleteCard>
         </div>
-        <div className="w-full grid grid-cols-2 gap-4 py-5 px-[58px]">
+        <div className="w-full grid grid-cols-2 gap-4 py-5 ">
           <RepairCompleteDetails
             header="Recent Delivered"
             branch1="Branch 1"
