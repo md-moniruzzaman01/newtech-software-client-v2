@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import ComponentPreview from "./forTest/ComponentPreview";
 import ComponentsCreateArea from "./forTest/ComponentsCreateArea";
-import OrderCount from "./modules/Finance/OrderCount/Dashboard";
+import Qc from "./forTest/Qc";
 
 export const router = createBrowserRouter([
   {
@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <OrderCount></OrderCount>,
+    element: <Qc></Qc>,
   },
   {
     path: "/components",

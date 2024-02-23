@@ -10,11 +10,12 @@ const Button: FC<ButtonProps> = ({
   fontSize = "text-[16px]",
   disabled = false,
   children,
-
   type,
   loading,
   secondary,
   status,
+  primary,
+  ghost,
   onClick = () => {},
 }) => {
   const CLASSES = `
@@ -29,6 +30,10 @@ const Button: FC<ButtonProps> = ({
 
   const SECONDARY_CLASS = `bg-transparent outline outline-[1.7px] text-primary outline-primary hover:!text-white hover:bg-primary`;
   const STATUS_CLASS = `shadow-md bg-white py-2 px-5 text-xl hover:bg-primary hover:!text-white !text-gray-900 rounded-sm`;
+  const btn_primary =
+    "px-5 hover:!bg-primary  !bg-[#0074D9] !text-[#fff] border-0 text-lg rounded-sm font-normal";
+  const btn_ghost =
+    " px-5 hover:!bg-primary  !bg-[#D9D9D9] !text-solidBlack border-0 text-lg rounded-sm font-normal";
 
   const _renderLoading = () => {
     return (
@@ -61,7 +66,9 @@ const Button: FC<ButtonProps> = ({
       className={cx(
         CLASSES,
         secondary && SECONDARY_CLASS,
-        status && STATUS_CLASS
+        status && STATUS_CLASS,
+        primary && btn_primary,
+        ghost && btn_ghost
       )}
       onClick={onClick}
       type={type}

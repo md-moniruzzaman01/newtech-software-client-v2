@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
             name={inputName}
             type={inputType}
             placeholder={inputPlaceholder}
-            className="border-2 w-full rounded-sm mt-2 py-2 pl-2"
+            className="border-2 w-full rounded-sm  py-2 pl-2"
           />
         </label>
       </div>

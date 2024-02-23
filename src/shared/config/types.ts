@@ -15,6 +15,8 @@ export type ButtonProps = {
   onClick?: () => void;
   children?: ReactNode;
   icon?: string;
+  primary?: boolean;
+  ghost?: boolean;
 };
 
 export type complaintDetailsCardProps = {
@@ -32,6 +34,12 @@ export type TableProps = {
   view?: boolean;
   Link?: string;
 };
+
+export type TableWithPhotoProps = {
+  HeaderData: TableHeaderProps[];
+  itemData?: TableBodyProps[];
+};
+
 export type TableHeaderProps = string;
 export type TableBodyProps = {
   id?: string;
