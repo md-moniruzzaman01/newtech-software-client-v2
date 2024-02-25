@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { cx } from "../../../shared/config/constaints";
 import Button from "../Button";
 
@@ -8,6 +9,7 @@ interface BranchCardProps {
   details?: string;
   price?: string;
   color?: string;
+  link?: string;
 }
 
 const BranchCard: React.FC<BranchCardProps> = ({
@@ -17,6 +19,7 @@ const BranchCard: React.FC<BranchCardProps> = ({
   details,
   price,
   color,
+  link,
 }) => {
   const CBC_CLASSES = cx(
     bgColor === "primary" && "bg-[#8FD3FE]",
@@ -39,12 +42,9 @@ const BranchCard: React.FC<BranchCardProps> = ({
         <div className="flex justify-between px-8">
           <div className="text-xl font-bold">{headerTitle}</div>
           <div>
-            <Button
-              className="bg-transparent !text-black hover:!text-gray-400 outline rounded-full py-0 
-            !px-3"
-            >
-              view
-            </Button>
+            <NavLink to={`${link}`}>
+              <Button btn_outline>view</Button>
+            </NavLink>
           </div>
         </div>
         <div className="flex justify-between items-center px-8">

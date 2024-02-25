@@ -17,16 +17,17 @@ export type ButtonProps = {
   icon?: string;
   primary?: boolean;
   ghost?: boolean;
+  btn_outline?: boolean;
 };
 
 export type complaintDetailsCardProps = {
   headerTitle?: string;
   className?: string;
-  Cardinfo: complaintSingleDetailsProps[];
+  CardInformation: complaintSingleDetailsProps[];
 };
 export type complaintSingleDetailsProps = {
   label: string;
-  value: number;
+  value: string;
 };
 export type TableProps = {
   HeaderData: TableHeaderProps[];
@@ -38,6 +39,7 @@ export type TableProps = {
 export type TableWithPhotoProps = {
   HeaderData: TableHeaderProps[];
   itemData?: TableBodyProps[];
+  link?: string;
 };
 
 export type TableHeaderProps = string;
@@ -52,4 +54,10 @@ export type TableBodyProps = {
   brand_name: string;
   engineer: string;
   status: string;
+};
+
+export type SearchBarProps = {
+  link?: string;
+  linkBtn?: string;
+  normalBtn?: string;
 };

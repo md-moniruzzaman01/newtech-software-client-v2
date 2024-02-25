@@ -13,7 +13,6 @@ import TextArea from "../common/components/TextArea/TextArea";
 import UserProfile from "../common/components/UserProfile/UserProfile";
 import Navbar from "../common/widgets/Navbar/Navbar";
 import Pagination from "../common/widgets/Pagination/Pagination";
-import SideBar from "../common/widgets/SideBar/SideBar";
 import {
   ComplaintDetails,
   DemoTableHeader,
@@ -26,95 +25,88 @@ import BranchCommonHeader from "../common/components/BranchCommonHeader/BranchCo
 
 const ComponentPreview = () => {
   return (
-    <div className="flex space-y-8">
-      <SideBar></SideBar>
-      <div className="flex-1">
-        <Navbar name="Component Preview"></Navbar>
-        <StatusGroup></StatusGroup>
-        <SearchBar></SearchBar>
+    <div className="space-y-8">
+      <Navbar name="Component Preview"></Navbar>
+      <StatusGroup></StatusGroup>
+      <SearchBar></SearchBar>
 
-        <BranchCommonHeader
-          selectItems={FilterOptions2}
-          title="hello"
-        ></BranchCommonHeader>
+      <BranchCommonHeader
+        selectItems={FilterOptions2}
+        title="hello"
+      ></BranchCommonHeader>
 
-        <BranchCard
-          bgColor="primary"
-          branchTitle="Branch Title"
-          color="yellow"
-          details="Branch Details"
-          headerTitle="Branch Header"
-          price="5500"
-        ></BranchCard>
-        <BranchChart status={[{ label: "Recieved", value: 50 }]}></BranchChart>
-        <ComplaintDetailsCard Cardinfo={ComplaintDetails} />
-        <RepairCompleteCard
-          bgColor="primary"
-          branchTitle="Repair Title"
-          color="yellow"
-          headerTitle="Repair Header Title"
-          isProduct={true}
-          isWithdraw={true}
-        ></RepairCompleteCard>
+      <BranchCard
+        bgColor="primary"
+        branchTitle="Branch Title"
+        color="yellow"
+        details="Branch Details"
+        headerTitle="Branch Header"
+        price="5500"
+      ></BranchCard>
+      <BranchChart status={[{ label: "Recieved", value: 50 }]}></BranchChart>
+      <ComplaintDetailsCard CardInformation={ComplaintDetails} />
+      <RepairCompleteCard
+        bgColor="primary"
+        branchTitle="Repair Title"
+        color="yellow"
+        headerTitle="Repair Header Title"
+        isProduct={true}
+        isWithdraw={true}
+      ></RepairCompleteCard>
 
-        <Input
-          inputName="name"
-          inputPlaceholder="Write Your Name..."
-          inputType="text"
-          labelName="Your Name"
-        ></Input>
+      <Input
+        inputName="name"
+        inputPlaceholder="Write Your Name..."
+        inputType="text"
+        labelName="Your Name"
+      ></Input>
 
-        <InputFilter label="Select" Filter={FilterOptions2}></InputFilter>
+      <InputFilter label="Select" Filter={FilterOptions2}></InputFilter>
 
-        <TextArea
-          name="hello"
-          label="Text Area"
-          placeholder="bye bye"
-        ></TextArea>
+      <TextArea name="hello" label="Text Area" placeholder="bye bye"></TextArea>
 
-        <ComplaintServiceCard
-          details="Complaint Service"
-          styleCol="col-span-2"
-          title="Complaint Service Card"
-        ></ComplaintServiceCard>
+      <ComplaintServiceCard
+        details="Complaint Service"
+        styleCol="col-span-2"
+        title="Complaint Service Card"
+      ></ComplaintServiceCard>
 
-        <UserProfile
-          userDepartment="Software
+      <UserProfile
+        userDepartment="Software
           Development"
-          userDesignation="Frontend Developer"
-          userEmail="fahimkhandakar01@gmail.com"
-          userId="23232"
-          userImg={userImg}
-          userJoinedDate="20/01/24"
-          userName="Fahim Khandakar"
-          userPhone={+8801903994195}
-        ></UserProfile>
+        userDesignation="Frontend Developer"
+        userEmail="fahimkhandakar01@gmail.com"
+        userId="23232"
+        userImg={userImg}
+        userJoinedDate="20/01/24"
+        userName="Fahim Khandakar"
+        userPhone={+8801903994195}
+      ></UserProfile>
 
-        <RepairCompleteDetails
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="1"
-          branchData2="2"
-          branchData3="3"
-          branchData4="4"
-          branchData5="5"
-          header="Repair Complete Details"
-        ></RepairCompleteDetails>
+      <RepairCompleteDetails
+        branch1="Branch 1"
+        branch2="Branch 2"
+        branch3="Branch 3"
+        branch4="Branch 4"
+        branch5="Branch 5"
+        branchData1="1"
+        branchData2="2"
+        branchData3="3"
+        branchData4="4"
+        branchData5="5"
+        header="Repair Complete Details"
+      ></RepairCompleteDetails>
 
-        <ComplaintHeaderCard
-          bgColor="primary"
-          headerDetails="hello"
-          color="yellow"
-          headerTitle="hello "
-        ></ComplaintHeaderCard>
+      <ComplaintHeaderCard
+        bgColor="primary"
+        headerDetails="hello"
+        color="yellow"
+        headerTitle="hello "
+      ></ComplaintHeaderCard>
 
-        <Table HeaderData={DemoTableHeader} itemData={DemoTableValue}></Table>
+      <Table HeaderData={DemoTableHeader} itemData={DemoTableValue}></Table>
 
-        <Pagination></Pagination>
-      </div>
+      <Pagination></Pagination>
     </div>
   );
 };

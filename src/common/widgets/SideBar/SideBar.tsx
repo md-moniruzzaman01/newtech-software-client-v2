@@ -47,7 +47,7 @@ const SideBar = () => {
               <span>Items</span>
             </div>
           </NavLink>
-          <NavLink to="/qc-items">
+          <NavLink to="/qc">
             <div className={routeStyle}>
               <FiMonitor className="text-xl" />
               <span>QC Items</span>

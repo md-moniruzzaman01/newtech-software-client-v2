@@ -1,6 +1,7 @@
 import { FC } from "react";
 import "./BranchChart.css";
 import Button from "../Button";
+import { NavLink } from "react-router-dom";
 interface SingleStatus {
   label: string;
   value: number;
@@ -9,11 +10,13 @@ interface SingleStatus {
 interface BranchChartProps {
   header?: string;
   status: SingleStatus[];
+  link?: string;
 }
 
 const BranchChart: FC<BranchChartProps> = ({
   header = "Order count",
   status = [{ label: "Recieved", value: 0 }],
+  link,
 }) => {
   return (
     <div className=" py-4">
@@ -24,12 +27,9 @@ const BranchChart: FC<BranchChartProps> = ({
               {header} <hr className="border-1 w-40 border-black" />
             </div>
             <div>
-              <Button
-                className="bg-transparent !text-black hover:!text-gray-400 outline rounded-full py-0 
-            !px-3"
-              >
-                view
-              </Button>
+              <NavLink to={`${link}`}>
+                <Button btn_outline>view</Button>
+              </NavLink>
             </div>
           </div>
           {status &&

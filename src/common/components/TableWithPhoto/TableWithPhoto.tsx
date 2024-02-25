@@ -1,10 +1,12 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoMdEye } from "react-icons/io";
 import { TableWithPhotoProps } from "../../../shared/config/types";
+import { NavLink } from "react-router-dom";
 
 const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
   HeaderData,
   itemData,
+  link,
 }) => {
   return (
     <div className="overflow-x-auto">
@@ -54,8 +56,10 @@ const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
               </div>
             </td>
             <td className="border">QC</td>
-            <td className="flex items-center gap-3">
-              <IoMdEye />
+            <td className="pl-2">
+              <NavLink to={`${link}`}>
+                <IoMdEye className="!text-black" />
+              </NavLink>
             </td>
           </tr>
         </tbody>

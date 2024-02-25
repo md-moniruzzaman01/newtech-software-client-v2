@@ -16,6 +16,7 @@ const Button: FC<ButtonProps> = ({
   status,
   primary,
   ghost,
+  btn_outline,
   onClick = () => {},
 }) => {
   const CLASSES = `
@@ -34,6 +35,9 @@ const Button: FC<ButtonProps> = ({
     "px-5 hover:!bg-primary  !bg-[#0074D9] !text-[#fff] border-0 text-lg rounded-sm font-normal";
   const btn_ghost =
     " px-5 hover:!bg-primary  !bg-[#D9D9D9] !text-solidBlack border-0 text-lg rounded-sm font-normal";
+
+  const btn_outline_style =
+    "bg-transparent !text-black hover:!text-gray-400 outline rounded-full !py-0 !px-3";
 
   const _renderLoading = () => {
     return (
@@ -68,7 +72,8 @@ const Button: FC<ButtonProps> = ({
         secondary && SECONDARY_CLASS,
         status && STATUS_CLASS,
         primary && btn_primary,
-        ghost && btn_ghost
+        ghost && btn_ghost,
+        btn_outline && btn_outline_style
       )}
       onClick={onClick}
       type={type}

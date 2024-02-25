@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { TableBodyProps, TableProps } from "../../../shared/config/types";
 import { NavLink } from "react-router-dom";
+import { IoMdEye } from "react-icons/io";
 
 const Table: FC<TableProps> = ({
   HeaderData,
@@ -31,8 +32,11 @@ const Table: FC<TableProps> = ({
         <td className="border border-gray-800">Progress</td>
         <td className="border border-gray-800 ">
           {Link && (
-            <NavLink className=" !text-black" to={`${Link}/${item.id}`}>
-              view
+            <NavLink
+              className=" !text-black flex justify-center"
+              to={`${Link}`}
+            >
+              <IoMdEye />
             </NavLink>
           )}
         </td>

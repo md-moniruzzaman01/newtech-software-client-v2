@@ -13,7 +13,10 @@ export const FilterOptions2 = [
   { label: "Latest", value: "desc" },
   { label: "Oldest", value: "asc" },
 ];
-export const ComplaintDetails = [{ label: "This is level", value: 1 }];
+export const ComplaintDetails = [
+  { label: "Email", value: "fahimkhandakar01@gmail.com" },
+  { label: "Address", value: "dhaka, bangladesh" },
+];
 export const DemoTableHeader = [
   "Order ID",
   "Create Date",

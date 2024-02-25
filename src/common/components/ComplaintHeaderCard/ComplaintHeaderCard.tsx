@@ -35,16 +35,18 @@ const ComplaintHeaderCard: React.FC<ComplaintHeaderCardProps> = ({
   );
 
   return (
-    <div className={cx(` rounded-md  min-h-48`, CBC_CLASSES, CTC_CLASSES)}>
+    <div className={cx(` rounded-md  min-h-32`, CBC_CLASSES, CTC_CLASSES)}>
       <div
-        className={`flex flex-col pt-10  text-center  h-full justify-center  px-8 gap-10`}
+        className={`flex flex-col   text-center  h-full justify-center gap-2  px-2`}
       >
         <div>
-          <div className="text-3xl font-bold">{headerTitle}</div>
+          <div className="text-xl font-semibold">{headerTitle}</div>
         </div>
         <div>
           <div>
-            <h3 className={` font-medium  text-xl`}>{headerDetails}</h3>
+            <h3 className={`font-medium text-sm overflow-auto`}>
+              {headerDetails}
+            </h3>
           </div>
         </div>
       </div>
