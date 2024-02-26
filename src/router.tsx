@@ -13,7 +13,8 @@ import Complaint from "./modules/Finance/Complaint/Complaint";
 import ComplaintService from "./modules/Finance/ComplaintService/ComplaintService";
 import Qc from "./modules/Finance/Qc/Qc";
 import ComplaintOrderDetails from "./modules/Finance/ComplaintOrderDetails/ComplaintOrderDetails";
-import ComponentPreview from "./forTest/ComponentPreview";
+// import ComponentPreview from "./forTest/ComponentPreview";
+import CreateArea from "./forTest/CreateArea";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/components",
-        element: <ComponentPreview></ComponentPreview>,
+        element: <CreateArea></CreateArea>,
       },
       // branch start here
       {

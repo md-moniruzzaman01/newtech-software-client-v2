@@ -25,6 +25,7 @@ export default {
         primary: "#0088FF",
         secondary: "#FEC868",
         grayWhite: "#F7F7F7",
+        shadeOfRed: "#FF4136",
       },
     },
   },
