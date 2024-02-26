@@ -3,6 +3,8 @@ import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { ComplaintDetails } from "../../../shared/config/constaints";
 import { MdModeEdit } from "react-icons/md";
+import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
+import ComplaintOrderStatus from "./partials/ComplaintOrderStatus";
 
 const ComplaintOrderDetails = () => {
   return (
@@ -51,47 +53,24 @@ const ComplaintOrderDetails = () => {
           CardInformation={ComplaintDetails}
         />
 
-        <div className="col-span-2 bg-[#D9D9D9] px-5">
+        <div className="col-span-2 bg-[#D9D9D9] px-5 py-5">
           <div className="flex justify-between items-center  py-2 ">
-            <h2 className="text-xl font-semibold">Order Summery</h2>
+            <h2 className="text-2xl font-semibold">Order Summery</h2>
             <div>
               <MdModeEdit />
             </div>
           </div>
-          <div className="grid grid-cols-5 gap-2  text-center p-2 font-semibold border-b-2 border-black">
-            <div>SL Number</div>
-            <div>Items</div>
-            <div>Problem</div>
-            <div>Remark</div>
-            <div>Price</div>
-          </div>
-          <div className="grid grid-cols-5 gap-2  text-center p-2 border-b-2 border-black">
-            <div>SL Number</div>
-            <div>Items</div>
-            <div>Problem</div>
-            <div>Remark</div>
-            <div>1,00,000.00</div>
-          </div>
-          <div className="flex justify-between px-10  py-2 border-b-2 border-black">
-            <div>Consulting</div>
+          <ComplaintOrderDetailsTable />
+        </div>
 
-            <div>1,00,000.00</div>
-          </div>
-          <div className="flex justify-between px-10  py-2 border-b-2 border-black">
-            <div>Materials Replacement: Yes / No</div>
-
-            <div>1,00,000.00</div>
-          </div>
-          <div className="flex justify-end">
-            <div className="col-span-2">
-              <div>
-                <span className="font-medium">Subtotal:</span>
-                <p></p>
-              </div>
-              <div></div>
-              <div></div>
+        <div className=" bg-[#D9D9D9] px-5 py-5">
+          <div className="flex justify-between items-center  py-2 ">
+            <h2 className="text-2xl font-semibold">Status Order</h2>
+            <div>
+              <MdModeEdit />
             </div>
           </div>
+          <ComplaintOrderStatus />
         </div>
       </div>
     </div>
