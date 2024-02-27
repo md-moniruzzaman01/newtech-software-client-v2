@@ -60,4 +60,19 @@ export type SearchBarProps = {
   link?: string;
   linkBtn?: string;
   normalBtn?: string;
+  isNeedFilter?: boolean;
+  filterPlaceHolder?: string;
+};
+
+// export type ComplaintMiniCardObject = {
+//   header?: string;
+//   name?: string;
+//   img?: string;
+//   notes?: string;
+// };
+export type ComplaintMiniCardProps = {
+  header?: string;
+  name?: string;
+  img?: string;
+  notes?: string;
 };

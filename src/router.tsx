@@ -15,6 +15,11 @@ import Qc from "./modules/Finance/Qc/Qc";
 import ComplaintOrderDetails from "./modules/Finance/ComplaintOrderDetails/ComplaintOrderDetails";
 // import ComponentPreview from "./forTest/ComponentPreview";
 import CreateArea from "./forTest/CreateArea";
+import ComplaintOrderDetailsQC from "./modules/Finance/ComplaintOrderDetailsQC/ComplaintOrderDetailsQC";
+import EngineerItems from "./modules/Finance/EngineerItems/EngineerItems";
+import EngineerItemsOrderDetails from "./modules/Finance/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
+import QAItems from "./modules/Finance/QA/QAItems";
+import QAItemOrderDetails from "./modules/Finance/QAItemOrderDetails/QAItemOrderDetails";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +80,29 @@ export const router = createBrowserRouter([
       {
         path: "/qc",
         element: <Qc />,
+      },
+      {
+        path: "/qc/order-details",
+        element: <ComplaintOrderDetailsQC />,
+      },
+
+      // Engineer items start here
+      {
+        path: "/engineer-items",
+        element: <EngineerItems />,
+      },
+      {
+        path: "/engineer-items/order-details",
+        element: <EngineerItemsOrderDetails />,
+      },
+      // qa start here
+      {
+        path: "/qa-items",
+        element: <QAItems />,
+      },
+      {
+        path: "/qa-items/order-details",
+        element: <QAItemOrderDetails />,
       },
     ],
   },

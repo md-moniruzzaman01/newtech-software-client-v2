@@ -12,7 +12,7 @@ const InputFilter: React.FC<inputFilterProps> = ({
   placeholder = "All",
 }) => {
   return (
-    <div className="space-y-1">
+    <div className={`${label && "space-y-1"}`}>
       <label className="text-lg font-semibold ">{label}</label>
       <select
         disabled={IsDisabled}

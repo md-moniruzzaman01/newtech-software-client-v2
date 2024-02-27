@@ -2,11 +2,15 @@ import { NavLink } from "react-router-dom";
 import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
+import InputFilter from "../InputFilter/InputFilter";
+import { FilterOptions } from "../../../shared/config/constaints";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link,
   linkBtn = "+ Add Complaint’s",
   normalBtn = "+ Assign to QC",
+  isNeedFilter = false,
+  filterPlaceHolder,
 }) => {
   return (
     <div>
@@ -29,7 +33,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
             )}
           </div>
           <div>
-            <Button primary>{normalBtn}</Button>
+            {isNeedFilter ? (
+              <InputFilter
+                placeholder={filterPlaceHolder}
+                Filter={FilterOptions}
+              />
+            ) : (
+              <Button primary>{normalBtn}</Button>
+            )}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ const ComplaintOrderDetailsTable = () => {
         <div className="">Remark</div>
         <div className="">Price</div>
       </div>
-      <hr className="border-b border-black my-2" />
+      <hr className="border-b border-shadeOfGray my-2" />
 
       <div className="text-center">
         {/* second row start here  */}
@@ -21,7 +21,7 @@ const ComplaintOrderDetailsTable = () => {
           <div className="border py-2 border-gray-400">1000000</div>
         </div>
 
-        <hr className="border-b border-black my-2" />
+        <hr className="border-b border-shadeOfGray my-2" />
         {/* third row start here  */}
         <div className="grid grid-cols-5  text-center">
           <div className="border-l py-2 border-y border-gray-400">
@@ -33,10 +33,10 @@ const ComplaintOrderDetailsTable = () => {
           <div className="border py-2 border-gray-400">1000000</div>
         </div>
 
-        <hr className="border-b border-black my-2" />
+        <hr className="border-b border-shadeOfGray my-2" />
         {/* fourth row start here  */}
         <div className="grid grid-cols-5  text-start">
-          <div className="border-l py-2 border-y border-gray-400 col-span-2 pl-[60px]">
+          <div className="border-l  py-2 border-y border-gray-400 col-span-2 pl-9">
             Materials Replacement: Yes / No
           </div>
           <div className="border-t border-b border-gray-400"></div>
@@ -45,7 +45,7 @@ const ComplaintOrderDetailsTable = () => {
         </div>
 
         <div className="flex justify-end">
-          <hr className="border-b border-black my-2 w-1/2" />
+          <hr className="border-b border-shadeOfGray my-2 w-1/2" />
         </div>
         {/* calculate area start here  */}
         <div className="grid grid-cols-5  text-center">
@@ -76,7 +76,7 @@ const ComplaintOrderDetailsTable = () => {
           <div className="border py-2 border-gray-400 my-1">1,00,000.00</div>
         </div>
         <div className="flex justify-end">
-          <hr className="border-b border-black my-2 w-1/2" />
+          <hr className="border-b border-shadeOfGray my-2 w-1/2" />
         </div>
         {/* total calculate area  */}
         <div className="grid grid-cols-5  text-center">

@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        solidWhite: "#FFFFFF",
         solidBlack: "#000000",
         shadeOfGray: "#888888",
         shadeOfBlueDark: "#253275",
