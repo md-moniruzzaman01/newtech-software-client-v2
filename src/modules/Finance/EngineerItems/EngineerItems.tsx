@@ -20,7 +20,7 @@ const EngineerItems = () => {
           normalBtn="+ Assign Engineer"
         />
       </div>
-      <div className="bg-[#FBFBFB]">
+      <div className="bg-[#FBFBFB] p-3">
         <filter></filter>
         <div className="  rounded-t-md ">
           <TableWithPhoto

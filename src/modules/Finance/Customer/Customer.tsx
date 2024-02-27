@@ -18,8 +18,8 @@ const Customer = () => {
       </div>
 
       {/* table start here  */}
-      <div className="bg-solidWhite py-3">
-        <div className="space-x-3 pl-5 py-3">
+      <div className="bg-solidWhite p-3">
+        <div className="space-x-3  pb-2">
           <Button className="bg-transparent !text-solidBlack shadow">
             All
           </Button>
@@ -30,7 +30,7 @@ const Customer = () => {
             Deactivate
           </Button>
         </div>
-        <div className="px-5">
+        <div>
           <CustomerInfoTable
             HeaderData={DemoTableHeaderForCustomer}
             link="/customer/order-details"
