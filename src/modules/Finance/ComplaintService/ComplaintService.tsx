@@ -6,8 +6,8 @@ import Navbar from "../../../common/widgets/Navbar/Navbar";
 const ComplaintService = () => {
   return (
     <div className="px-5">
-      <Navbar name={"Complaint's / Service"}></Navbar>
-      <div className=" mt-5 py-5  rounded-t-md bg-[#FBFBFB]">
+      <Navbar name={"Complaint's Add"}></Navbar>
+      <div className=" mt-5 py-5  rounded-t-md bg-[#FBFBFB] px-5">
         <div className="grid grid-cols-4 gap-8">
           {/* Customers Name  */}
           <div>

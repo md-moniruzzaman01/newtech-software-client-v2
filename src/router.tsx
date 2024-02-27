@@ -13,13 +13,15 @@ import Complaint from "./modules/Finance/Complaint/Complaint";
 import ComplaintService from "./modules/Finance/ComplaintService/ComplaintService";
 import Qc from "./modules/Finance/Qc/Qc";
 import ComplaintOrderDetails from "./modules/Finance/ComplaintOrderDetails/ComplaintOrderDetails";
-// import ComponentPreview from "./forTest/ComponentPreview";
-import CreateArea from "./forTest/CreateArea";
+
 import ComplaintOrderDetailsQC from "./modules/Finance/ComplaintOrderDetailsQC/ComplaintOrderDetailsQC";
 import EngineerItems from "./modules/Finance/EngineerItems/EngineerItems";
 import EngineerItemsOrderDetails from "./modules/Finance/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 import QAItems from "./modules/Finance/QA/QAItems";
 import QAItemOrderDetails from "./modules/Finance/QAItemOrderDetails/QAItemOrderDetails";
+import Customer from "./modules/Finance/Customer/Customer";
+import CustomerDetailsPage from "./modules/Finance/CustomerDetailsPage/CustomerDetailsPage";
+import ComponentPreview from "./forTest/ComponentPreview";
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +30,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/components",
-        element: <CreateArea></CreateArea>,
+        element: <ComponentPreview></ComponentPreview>,
       },
       // branch start here
       {
@@ -103,6 +105,15 @@ export const router = createBrowserRouter([
       {
         path: "/qa-items/order-details",
         element: <QAItemOrderDetails />,
+      },
+      // customer route start here
+      {
+        path: "/customer",
+        element: <Customer />,
+      },
+      {
+        path: "/customer/order-details",
+        element: <CustomerDetailsPage />,
       },
     ],
   },

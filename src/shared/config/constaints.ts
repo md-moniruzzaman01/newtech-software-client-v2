@@ -28,6 +28,26 @@ export const DemoTableHeader = [
   "Engineers",
   "Status",
 ];
+export const DemoTableHeaderForCustomer = [
+  "ID",
+  "Create Date",
+  "Photo",
+  "Customer Name",
+  "Email",
+  "Phone",
+  "Designation",
+  "Brand Name",
+  "Status",
+];
+export const DemoTableHeaderForCustomerDetails = [
+  "ID",
+  "Create Date",
+  "Due Date",
+  "Items",
+  "Count",
+  "Status",
+  "Action",
+];
 export const DemoTableHeaderView = [
   "Order ID",
   "Create Date",

@@ -20,7 +20,7 @@ const Button: FC<ButtonProps> = ({
   onClick = () => {},
 }) => {
   const CLASSES = `
-        relative text-white h-auto bg-primary inline-flex items-center justify-center rounded-[4px] transition-all font-medium hover:bg-primary-dark duration-300	
+        relative text-white h-auto bg-primary inline-flex items-center justify-center rounded-[4px] transition-all font-medium hover:bg-primary-dark duration-300	hover:bg-lightGray
         ${disabled && "!bg-primary/50 hover:!bg-disable cursor-not-allowed"} 
         ${loading && "cursor-not-allowed !bg-disable hover:!bg-disable"}
         ${fontSize} 

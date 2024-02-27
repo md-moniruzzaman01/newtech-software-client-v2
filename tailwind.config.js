@@ -7,6 +7,7 @@ export default {
         solidWhite: "#FFFFFF",
         solidBlack: "#000000",
         shadeOfGray: "#888888",
+        lightGray: "#e2e9eca6",
         shadeOfBlueDark: "#253275",
         orangeRedShade: "#F24E1E",
         shadeOfBlueLight: "#0088FF",

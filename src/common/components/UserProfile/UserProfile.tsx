@@ -7,6 +7,7 @@ interface userProfileProps {
   userJoinedDate?: string;
   userDesignation?: string;
   userDepartment?: string;
+  companyName?: string;
 }
 
 const UserProfile: React.FC<userProfileProps> = ({
@@ -18,35 +19,57 @@ const UserProfile: React.FC<userProfileProps> = ({
   userJoinedDate,
   userName,
   userPhone,
+  companyName,
 }) => {
   return (
-    <div className="bg-[#D9D9D9] w-[400px]  py-10">
+    <div className="bg-solidWhite w-[400px]  py-10">
       <h2 className="text-xl font-semibold pl-10">Profile</h2>
-      <div className="w-36 mx-auto px-0  pt-5 pb-2">
-        <img className="w-full" src={userImg} alt="" />
-      </div>
+      {userImg && (
+        <div className="w-36 mx-auto px-0  pt-5 pb-2">
+          <img className="w-full" src={userImg} alt="" />
+        </div>
+      )}
       <div className=" text-center">
         <p>
-          <span className="font-semibold">ID:</span> {userId}
+          {userId && (
+            <>
+              <span className="font-semibold">ID: </span> <span>{userId}</span>
+            </>
+          )}
         </p>
-        <h2 className="text-xl font-bold">{userName}</h2>
+        {userName && <h2 className="text-xl font-bold">{userName}</h2>}
       </div>
       <div className="pl-10 pt-5 space-y-5">
+        {userPhone && (
+          <p>
+            <span className="font-semibold">Phone: </span> {userPhone}
+          </p>
+        )}
         <p>
-          <span className="font-semibold">Phone: </span> {userPhone}
-        </p>
-        <p>
-          <span className="font-semibold">Email: </span>
+          {userEmail && <span className="font-semibold">Email: </span>}
           {userEmail}
         </p>
         <p>
-          <span className="font-semibold">Joining Date: </span> {userJoinedDate}
+          {userJoinedDate && (
+            <span className="font-semibold">Joining Date: </span>
+          )}
+          {userJoinedDate}
         </p>
         <p>
-          <span className="font-semibold">Designation: </span> {userDesignation}
+          {userDesignation && (
+            <span className="font-semibold">Designation: </span>
+          )}
+          {userDesignation}
         </p>
         <p>
-          <span className="font-semibold">Department: </span> {userDepartment}
+          {userDepartment && (
+            <span className="font-semibold">Department: </span>
+          )}
+          {userDepartment}
+        </p>
+        <p>
+          {companyName && <span className="font-semibold">Company Name: </span>}
+          {companyName}
         </p>
       </div>
     </div>

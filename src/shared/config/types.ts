@@ -41,6 +41,42 @@ export type TableWithPhotoProps = {
   itemData?: TableBodyProps[];
   link?: string;
 };
+export type CustomerDetailsTableProps = {
+  HeaderData: TableHeaderProps[];
+  itemData?: CustomerDetailsTableBodyProps[];
+  link?: string;
+};
+export type CustomerInfoTableProps = {
+  HeaderData: TableHeaderProps[];
+  itemData?: CustomerInfoTableBodyProps[];
+  link?: string;
+};
+
+export type CustomerInfoTableBodyProps = {
+  id?: string;
+  order_id: string;
+  created_at: string;
+  due_date: string;
+  customer_name: string;
+  items: string;
+  problem: string;
+  brand_name: string;
+  engineer: string;
+  status: string;
+};
+
+export type CustomerDetailsTableBodyProps = {
+  id?: string;
+  order_id: string;
+  created_at: string;
+  due_date: string;
+  customer_name: string;
+  items: string;
+  problem: string;
+  brand_name: string;
+  engineer: string;
+  status: string;
+};
 
 export type TableHeaderProps = string;
 export type TableBodyProps = {
