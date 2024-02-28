@@ -10,6 +10,7 @@ const Button: FC<ButtonProps> = ({
   fontSize = "text-[16px]",
   disabled = false,
   children,
+  mini,
   type,
   loading,
   secondary,
@@ -23,6 +24,7 @@ const Button: FC<ButtonProps> = ({
         relative text-white h-auto bg-primary inline-flex items-center justify-center rounded-[4px] transition-all font-medium hover:bg-primary-dark duration-300	hover:bg-lightGray
         ${disabled && "!bg-primary/50 hover:!bg-disable cursor-not-allowed"} 
         ${loading && "cursor-not-allowed !bg-disable hover:!bg-disable"}
+        ${mini && "!py-1 !px-2 !text-sm !h-7"}
         ${fontSize} 
         ${sizeClass} 
         ${translate}

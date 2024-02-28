@@ -3,21 +3,20 @@ import Button from "../../../common/components/Button";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import { DemoTableHeaderForCustomer } from "../../../shared/config/constaints";
-import CustomerInfoTable from "./partials/CustomerInfoTable";
-import { NavLink } from "react-router-dom";
 
-const Customer = () => {
+import SearchBar from "../../../common/components/SearchBar/SearchBar";
+import EmployeeTable from "./partials/EmployeeTable";
+
+const Employee = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(50);
   const limit = 10;
   return (
     <div className="px-5 relative h-full">
-      <Navbar name="Customer Info" />
+      <Navbar name="Employee" />
 
-      <div className="flex justify-end py-5">
-        <NavLink to="/customer/add">
-          <Button primary>+ Add Customer</Button>
-        </NavLink>
+      <div className="py-5">
+        <SearchBar linkBtn="+ Add Team" normalBtn="+ Add Employee" />
       </div>
 
       {/* table start here  */}
@@ -34,9 +33,9 @@ const Customer = () => {
           </Button>
         </div>
         <div>
-          <CustomerInfoTable
+          <EmployeeTable
             HeaderData={DemoTableHeaderForCustomer}
-            link="/customer/order-details"
+            link="/employee/order-details"
           />
         </div>
       </div>
@@ -53,4 +52,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default Employee;

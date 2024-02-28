@@ -6,11 +6,11 @@ import {
   ComplaintDetails,
   DemoTableHeaderForCustomerDetails,
 } from "../../../shared/config/constaints";
-import CustomerDetailsTable from "./partials/CustomerDetailsTable";
 import { useState } from "react";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
+import EmployeeDetailsTable from "./partials/EmployeeDetailsTable";
 
-const CustomerDetailsPage = () => {
+const EmployeeInfoDetailsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(50);
   const limit = 10;
@@ -45,8 +45,8 @@ const CustomerDetailsPage = () => {
               />
             </div>
           </div>
-          <div className="py-5 relative h-full bg-solidWhite my-2 px-2">
-            <CustomerDetailsTable
+          <div className="py-5 relative h-full bg-solidWhite my-2 px-2 ">
+            <EmployeeDetailsTable
               HeaderData={DemoTableHeaderForCustomerDetails}
             />
             <div className="absolute bottom-5 right-5">
@@ -65,4 +65,4 @@ const CustomerDetailsPage = () => {
   );
 };
 
-export default CustomerDetailsPage;
+export default EmployeeInfoDetailsPage;

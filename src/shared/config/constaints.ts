@@ -39,6 +39,21 @@ export const DemoTableHeaderForCustomer = [
   "Brand Name",
   "Status",
 ];
+export const DemoTableHeaderForInventory = [
+  "Name",
+  "Designation",
+  "Team",
+  "Email",
+  "Contact No",
+  "Branch",
+  "Items Name",
+];
+export const DemoTableHeaderForInventoryChartTable = [
+  "SL",
+  "Item Name",
+  "Team",
+  "Email",
+];
 export const DemoTableHeaderForCustomerDetails = [
   "ID",
   "Create Date",

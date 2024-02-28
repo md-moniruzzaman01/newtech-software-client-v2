@@ -22,6 +22,12 @@ import QAItemOrderDetails from "./modules/Finance/QAItemOrderDetails/QAItemOrder
 import Customer from "./modules/Finance/Customer/Customer";
 import CustomerDetailsPage from "./modules/Finance/CustomerDetailsPage/CustomerDetailsPage";
 import ComponentPreview from "./forTest/ComponentPreview";
+import CustomerAddOrEdit from "./modules/Finance/CustomerAdd/CustomerAddOrEdit";
+import Employee from "./modules/Finance/Employee/Employee";
+import EmployeeInfoDetailsPage from "./modules/Finance/EmployeeInfoDetails/EmployeeInfoDetailsPage";
+import Inventory from "./modules/Finance/Inventory/Inventory";
+import InventoryRequest from "./modules/Finance/InventoryRequest/InventoryRequest";
+import InventoryApprove from "./modules/Finance/InventoryApprove/InventoryApprove";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +71,20 @@ export const router = createBrowserRouter([
         path: "/branch/order-count",
         element: <OrderCount />,
       },
+      // inventory start here
+      {
+        path: "/inventory",
+        element: <Inventory />,
+      },
+      {
+        path: "/inventory/request",
+        element: <InventoryRequest />,
+      },
+      {
+        path: "/inventory/approve",
+        element: <InventoryApprove />,
+      },
+
       // complaint start here
       {
         path: "/complaints",
@@ -114,6 +134,19 @@ export const router = createBrowserRouter([
       {
         path: "/customer/order-details",
         element: <CustomerDetailsPage />,
+      },
+      {
+        path: "/customer/add",
+        element: <CustomerAddOrEdit />,
+      },
+      // employee route start here
+      {
+        path: "/employee",
+        element: <Employee />,
+      },
+      {
+        path: "/employee/order-details",
+        element: <EmployeeInfoDetailsPage />,
       },
     ],
   },

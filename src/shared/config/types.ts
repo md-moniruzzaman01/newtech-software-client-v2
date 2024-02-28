@@ -18,6 +18,16 @@ export type ButtonProps = {
   primary?: boolean;
   ghost?: boolean;
   btn_outline?: boolean;
+  mini?: boolean;
+};
+
+export type InventoryTableFilterProps = {
+  header: string;
+};
+
+export type InventoryChartTableProps = {
+  HeaderData: TableHeaderProps[];
+  itemData?: TableBodyProps[];
 };
 
 export type complaintDetailsCardProps = {
@@ -46,7 +56,17 @@ export type CustomerDetailsTableProps = {
   itemData?: CustomerDetailsTableBodyProps[];
   link?: string;
 };
+export type EmployeeDetailsTableProps = {
+  HeaderData: TableHeaderProps[];
+  itemData?: CustomerDetailsTableBodyProps[];
+  link?: string;
+};
 export type CustomerInfoTableProps = {
+  HeaderData: TableHeaderProps[];
+  itemData?: CustomerInfoTableBodyProps[];
+  link?: string;
+};
+export type InventoryInfoTableProps = {
   HeaderData: TableHeaderProps[];
   itemData?: CustomerInfoTableBodyProps[];
   link?: string;

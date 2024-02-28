@@ -41,10 +41,10 @@ const SideBar = () => {
             </div>
           </NavLink>
 
-          <NavLink to="/items">
+          <NavLink to="/inventory">
             <div className={routeStyle}>
               <FiMonitor className="text-xl" />
-              <span>Items</span>
+              <span>Inventory</span>
             </div>
           </NavLink>
           <NavLink to="/qc">
