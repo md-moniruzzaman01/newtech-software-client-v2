@@ -18,10 +18,11 @@ const Button: FC<ButtonProps> = ({
   primary,
   ghost,
   btn_outline,
+  danger,
   onClick = () => {},
 }) => {
   const CLASSES = `
-        relative text-white h-auto bg-primary inline-flex items-center justify-center rounded-[4px] transition-all font-medium hover:bg-primary-dark duration-300	hover:bg-lightGray
+        relative text-white h-auto bg-primary inline-flex items-center justify-center rounded-[4px] transition-all font-medium hover:bg-primary-dark duration-300	hover:bg-shadeOfLightBlue
         ${disabled && "!bg-primary/50 hover:!bg-disable cursor-not-allowed"} 
         ${loading && "cursor-not-allowed !bg-disable hover:!bg-disable"}
         ${mini && "!py-1 !px-2 !text-sm !h-7"}
@@ -34,12 +35,14 @@ const Button: FC<ButtonProps> = ({
   const SECONDARY_CLASS = `bg-transparent outline outline-[1.7px] text-primary outline-primary hover:!text-white hover:bg-primary`;
   const STATUS_CLASS = `shadow-md bg-white py-2 px-5 text-xl hover:bg-primary hover:!text-white !text-gray-900 rounded-md`;
   const btn_primary =
-    "px-5 hover:!bg-primary  !bg-[#0074D9] !text-[#fff] border-0 text-lg rounded-md font-normal rounded-[4px]";
+    "px-5 hover:!bg-primary  bg-shadeOfBlueLight !text-[#fff] border-0 text-lg rounded-md font-normal rounded-[4px]";
   const btn_ghost =
     " px-5 hover:!bg-primary  !bg-[#D9D9D9] !text-solidBlack border-0 text-lg rounded-md font-normal";
 
   const btn_outline_style =
     "bg-transparent !text-black hover:!text-gray-400 outline rounded-full !py-0 !px-3";
+
+  const btn_danger = "px-5 rounded-md rounded-[4px] text-lg bg-shadeOfRed";
 
   const _renderLoading = () => {
     return (
@@ -75,7 +78,8 @@ const Button: FC<ButtonProps> = ({
         status && STATUS_CLASS,
         primary && btn_primary,
         ghost && btn_ghost,
-        btn_outline && btn_outline_style
+        btn_outline && btn_outline_style,
+        danger && btn_danger
       )}
       onClick={onClick}
       type={type}

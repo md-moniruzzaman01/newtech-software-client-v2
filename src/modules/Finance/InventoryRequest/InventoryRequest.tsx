@@ -20,7 +20,10 @@ const InventoryRequest = () => {
         <div className="pb-3">
           <InventoryRequestStatusGroup />
         </div>
-        <InventoryRequestInfoTable HeaderData={DemoTableHeaderForInventory} />
+        <InventoryRequestInfoTable
+          HeaderData={DemoTableHeaderForInventory}
+          link="/inventory/request-details"
+        />
         <div className="absolute bottom-0 right-5">
           <Pagination />
         </div>

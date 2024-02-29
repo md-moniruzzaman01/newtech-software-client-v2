@@ -16,7 +16,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <div>
       <div className="flex justify-between ">
         <div className="flex items-center gap-2">
-          <Input inputName="search" inputPlaceholder="Search"></Input>
+          <Input inputName="search" inputPlaceholder="Search" />
 
           <div>
             <Button primary>Search</Button>

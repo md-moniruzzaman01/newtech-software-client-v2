@@ -28,6 +28,7 @@ import EmployeeInfoDetailsPage from "./modules/Finance/EmployeeInfoDetails/Emplo
 import Inventory from "./modules/Finance/Inventory/Inventory";
 import InventoryRequest from "./modules/Finance/InventoryRequest/InventoryRequest";
 import InventoryApprove from "./modules/Finance/InventoryApprove/InventoryApprove";
+import InventoryRequestDetailsPage from "./modules/Finance/InventoryRequestDetailsPage/InventoryRequestDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       {
         path: "/inventory/request",
         element: <InventoryRequest />,
+      },
+      {
+        path: "/inventory/request-details",
+        element: <InventoryRequestDetailsPage />,
       },
       {
         path: "/inventory/approve",

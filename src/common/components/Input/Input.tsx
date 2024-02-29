@@ -16,7 +16,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div>
       <div>
-        <div className="form-control w-full space-y-1">
+        <div className={`form-control w-full ${labelName && "space-y-1"}`}>
           <div className="label">
             <label className="text-lg font-semibold">{labelName}</label>
           </div>

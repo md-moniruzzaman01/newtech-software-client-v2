@@ -19,6 +19,7 @@ export type ButtonProps = {
   ghost?: boolean;
   btn_outline?: boolean;
   mini?: boolean;
+  danger?: boolean;
 };
 
 export type InventoryTableFilterProps = {
@@ -120,15 +121,22 @@ export type SearchBarProps = {
   filterPlaceHolder?: string;
 };
 
-// export type ComplaintMiniCardObject = {
-//   header?: string;
-//   name?: string;
-//   img?: string;
-//   notes?: string;
-// };
 export type ComplaintMiniCardProps = {
   header?: string;
   name?: string;
   img?: string;
   notes?: string;
+};
+
+export type InventoryRequestDetailsCardProps = {
+  header?: string;
+  className?: string;
+  name?: string;
+  designation?: string;
+  team?: string;
+  contact?: string;
+};
+
+export type InventoryRequestInfoDetailsProps = {
+  headerData: TableHeaderProps[];
 };

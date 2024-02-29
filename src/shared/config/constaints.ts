@@ -88,3 +88,12 @@ export const DemoTableValue = [
     status: "Jhon doe",
   },
 ];
+
+export const demoHeaderValueForInventoryRequestDetails = [
+  "Date",
+  "Item Name",
+  "Item No",
+  "Brand",
+  "Quantity",
+  "Stock",
+];
