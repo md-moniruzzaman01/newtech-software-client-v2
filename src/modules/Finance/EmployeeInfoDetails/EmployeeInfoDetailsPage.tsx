@@ -6,14 +6,13 @@ import {
   ComplaintDetails,
   DemoTableHeaderForCustomerDetails,
 } from "../../../shared/config/constaints";
-import { useState } from "react";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import EmployeeDetailsTable from "./partials/EmployeeDetailsTable";
 
 const EmployeeInfoDetailsPage = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(50);
-  const limit = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalItems, setTotalItems] = useState(50);
+  // const limit = 10;
   return (
     <div className="px-5">
       <Navbar name="Customer Info Details" />
@@ -50,12 +49,7 @@ const EmployeeInfoDetailsPage = () => {
               HeaderData={DemoTableHeaderForCustomerDetails}
             />
             <div className="absolute bottom-5 right-5">
-              <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalItems={totalItems}
-                limit={limit}
-              ></Pagination>
+              <Pagination></Pagination>
             </div>
           </div>
         </div>

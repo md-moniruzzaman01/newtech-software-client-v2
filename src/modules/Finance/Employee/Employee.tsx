@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "../../../common/components/Button";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
@@ -8,9 +7,6 @@ import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import EmployeeTable from "./partials/EmployeeTable";
 
 const Employee = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(50);
-  const limit = 10;
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Employee" />
@@ -41,12 +37,7 @@ const Employee = () => {
       </div>
 
       <div className="absolute bottom-0 right-5">
-        <Pagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalItems={totalItems}
-          limit={limit}
-        ></Pagination>
+        <Pagination></Pagination>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import BranchCommonHeader from "../../../common/components/BranchCommonHeader/BranchCommonHeader";
 import {
   DemoTableHeader,
@@ -9,9 +8,9 @@ import Pagination from "../../../common/widgets/Pagination/Pagination";
 import Table from "../../../common/components/Table/Table";
 
 const DiscountAmount = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(50);
-  const limit = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalItems, setTotalItems] = useState(50);
+  // const limit = 10;
   return (
     <div className=" px-5">
       <BranchCommonHeader
@@ -23,12 +22,7 @@ const DiscountAmount = () => {
           <Table itemData={DemoTableValue} HeaderData={DemoTableHeader}></Table>
         </div>
         <div className="absolute bottom-2 right-[50px]">
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalItems={totalItems}
-            limit={limit}
-          ></Pagination>
+          <Pagination></Pagination>
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import StatusGroup from "../../../common/components/Status Group";
 import Table from "../../../common/components/Table/Table";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
@@ -10,9 +9,8 @@ import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 
 const Complaint = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(50);
-  const limit = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalItems, setTotalItems] = useState(50);
   return (
     <div className=" px-5">
       <Navbar name="Complaint"></Navbar>
@@ -32,12 +30,7 @@ const Complaint = () => {
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalItems={totalItems}
-            limit={limit}
-          ></Pagination>
+          <Pagination></Pagination>
         </div>
       </div>
     </div>

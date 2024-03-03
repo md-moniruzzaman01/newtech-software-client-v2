@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SideBar from "../../../common/widgets/SideBar/SideBar";
 import BranchCommonHeader from "../../../common/components/BranchCommonHeader/BranchCommonHeader";
 import {
@@ -11,9 +10,9 @@ import Pagination from "../../../common/widgets/Pagination/Pagination";
 import Table from "../../../common/components/Table/Table";
 
 const Product = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(50);
-  const limit = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalItems, setTotalItems] = useState(50);
+  // const limit = 10;
   return (
     <div className="flex">
       <SideBar></SideBar>
@@ -50,12 +49,7 @@ const Product = () => {
                 ></Table>
               </div>
               <div className="flex justify-end pt-10 pr-5">
-                <Pagination
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                  totalItems={totalItems}
-                  limit={limit}
-                ></Pagination>
+                <Pagination></Pagination>
               </div>
             </div>
             <div className=" col-span-1 text-center">

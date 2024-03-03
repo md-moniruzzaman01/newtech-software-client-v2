@@ -1,4 +1,3 @@
-import { useState } from "react";
 import BranchCommonHeader from "../../../common/components/BranchCommonHeader/BranchCommonHeader";
 import {
   DemoTableHeader,
@@ -13,9 +12,9 @@ import Input from "../../../common/components/Input";
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
 
 const Withdraw = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(50);
-  const limit = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalItems, setTotalItems] = useState(50);
+  // const limit = 10;
   return (
     <div className=" px-5">
       <BranchCommonHeader
@@ -47,12 +46,7 @@ const Withdraw = () => {
               ></Table>
             </div>
             <div className="flex justify-end pt-10 pr-5">
-              <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalItems={totalItems}
-                limit={limit}
-              ></Pagination>
+              <Pagination></Pagination>
             </div>
           </div>
           <div className="col-span-1 bg-[#FBFBFB] rounded-md text-center">
