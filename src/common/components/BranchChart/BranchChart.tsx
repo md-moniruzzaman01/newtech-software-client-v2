@@ -19,10 +19,10 @@ const BranchChart: FC<BranchChartProps> = ({
   link,
 }) => {
   return (
-    <div className=" py-4 ">
-      <div className=" bg-solidWhite rounded-md max-w-[600px] h-[23rem]">
+    <div className="h-full ">
+      <div className=" bg-solidWhite rounded-md h-full">
         <div>
-          <div className="flex justify-between px-8 pt-5">
+          <div className="flex justify-between px-5 pt-5">
             <div className="text-xl font-bold  pb-2 pr-5">
               {header} <hr className="border-1 w-40 border-black" />
             </div>
@@ -35,7 +35,7 @@ const BranchChart: FC<BranchChartProps> = ({
           {status &&
             status.map((item: SingleStatus, i: number) => (
               <div key={i} className="grid grid-cols-1 gap-4 py-4 ">
-                <div className="flex px-8 justify-between items-center">
+                <div className="flex px-5 justify-between items-center">
                   <h3 className="w-36 ">{item.label || "Recived"}</h3>
                   <progress
                     id="received"

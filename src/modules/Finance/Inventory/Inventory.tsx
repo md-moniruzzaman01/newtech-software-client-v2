@@ -35,15 +35,15 @@ const Inventory = () => {
         <InventoryInfoTable HeaderData={DemoTableHeaderForInventory} />
       </div>
 
-      <div className="flex justify-between items-center gap-2">
-        <div className="w-1/2  ">
+      <div className="grid grid-cols-2 gap-2 py-5">
+        <div className="">
           <BranchChart
             header="Stock"
             link="/inventory/stock"
             status={[{ label: "Recieved", value: 50 }]}
           />
         </div>
-        <div className="w-1/2">
+        <div className="">
           <VerticalChart />
         </div>
       </div>

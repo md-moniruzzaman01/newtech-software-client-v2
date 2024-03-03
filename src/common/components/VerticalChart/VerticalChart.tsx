@@ -60,7 +60,7 @@ const VerticalChart = () => {
     ],
   };
   return (
-    <div className="w-full bg-solidWhite h-[23rem] rounded-md ">
+    <div className="w-full bg-solidWhite  rounded-md ">
       <div className="grid grid-cols-5 py-3 pr-5 relative top-0">
         <h1 className="text-left py-2 pl-5 font-semibold  text-xl">Usage</h1>
         <InputFilter placeholder="Monitor" Filter={FilterOptions} />
@@ -68,7 +68,7 @@ const VerticalChart = () => {
         <InputFilter placeholder="From date" Filter={FilterOptions} />
         <InputFilter placeholder="To date" Filter={FilterOptions} />
       </div>
-      <div className="px-5">
+      <div className="px-5 pb-5">
         <Bar options={options} data={data} />
       </div>
     </div>
