@@ -5,7 +5,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 const CustomerInfoTable: React.FC<CustomerInfoTableProps> = ({
   HeaderData,
-  itemData,
   link,
 }) => {
   return (
