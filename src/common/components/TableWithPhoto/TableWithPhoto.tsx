@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 
 const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
   HeaderData,
-  itemData,
   link,
 }) => {
   return (
