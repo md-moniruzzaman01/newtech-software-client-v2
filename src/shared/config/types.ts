@@ -20,6 +20,9 @@ export type ButtonProps = {
   btn_outline?: boolean;
   mini?: boolean;
   danger?: boolean;
+  small?: boolean;
+  link?: boolean;
+  transparent?: boolean;
 };
 
 export type InventoryTableFilterProps = {
@@ -119,6 +122,8 @@ export type SearchBarProps = {
   normalBtn?: string;
   isNeedFilter?: boolean;
   filterPlaceHolder?: string;
+  isLinkBtn?: boolean;
+  isNormalBtn?: boolean;
 };
 
 export type ComplaintMiniCardProps = {

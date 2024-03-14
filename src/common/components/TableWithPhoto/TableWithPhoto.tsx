@@ -35,11 +35,11 @@ const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
                 <input type="checkbox" className="checkbox" />
               </label>
             </th>
-            <th className="border">Branch 1</th>
+            <td className="border">Branch 1</td>
             <td className="border">Cy Ganderton</td>
             <td className="border">Quality Control Specialist</td>
             <td className="border">Blue</td>
-            <th className="border">1</th>
+            <td className="border">1</td>
             <td className="border">Cy Ganderton</td>
             <td className="border">Quality Control</td>
             <td className="border">

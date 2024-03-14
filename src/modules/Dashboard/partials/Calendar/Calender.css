@@ -1,0 +1,12 @@
+.custom-calendar .react-calendar__month-view__weekdays abbr {
+  text-decoration: none !important;
+}
+
+.today {
+  border-radius: 5px;
+  background-color: #2563eb;
+}
+
+.react-calendar {
+  border: none !important;
+}

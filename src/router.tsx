@@ -29,12 +29,19 @@ import Inventory from "./modules/Finance/Inventory/Inventory";
 import InventoryRequest from "./modules/Finance/InventoryRequest/InventoryRequest";
 import InventoryApprove from "./modules/Finance/InventoryApprove/InventoryApprove";
 import InventoryRequestDetailsPage from "./modules/Finance/InventoryRequestDetailsPage/InventoryRequestDetailsPage";
+import Dashboard from "./modules/Dashboard";
+import SettingPage from "./modules/Finance/SettingPage";
+import MyLibrary from "./modules/Finance/MyLibrary/MyLibrary";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
     children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+      },
       {
         path: "/components",
         element: <ComponentPreview></ComponentPreview>,
@@ -152,6 +159,16 @@ export const router = createBrowserRouter([
       {
         path: "/employee/order-details",
         element: <EmployeeInfoDetailsPage />,
+      },
+      // settings
+      {
+        path: "/setting",
+        element: <SettingPage />,
+      },
+      // my library
+      {
+        path: "/my-library",
+        element: <MyLibrary />,
       },
     ],
   },

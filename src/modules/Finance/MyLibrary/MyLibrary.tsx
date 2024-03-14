@@ -4,9 +4,9 @@ import TableWithPhoto from "../../../common/components/TableWithPhoto/TableWithP
 import { DemoTableHeader } from "../../../shared/config/constaints";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import TableStatus from "../../../common/components/TableStatus/TableStatus";
-import { EngineerTableBtnValue } from "./config/constants";
+import { LibraryTableBtnValue } from "./config/constants";
 
-const EngineerItems = () => {
+const MyLibrary = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalItems, setTotalItems] = useState(50);
   // const limit = 10;
@@ -14,17 +14,10 @@ const EngineerItems = () => {
     <div className="px-5">
       <Navbar name={"Engineer Items"}></Navbar>
       <div className="py-5">
-        <SearchBar
-          isNeedFilter
-          isLinkBtn
-          isNormalBtn
-          filterPlaceHolder="+ Assign Engineer"
-          linkBtn="+ Delivered to Desk"
-          normalBtn="+ Assign Engineer"
-        />
+        <SearchBar isNeedFilter />
       </div>
       <div className="bg-[#FBFBFB] p-5 space-y-3">
-        <TableStatus btnValues={EngineerTableBtnValue} />
+        <TableStatus btnValues={LibraryTableBtnValue} />
         <div className="  rounded-t-md ">
           <TableWithPhoto
             HeaderData={DemoTableHeader}
@@ -39,4 +32,4 @@ const EngineerItems = () => {
   );
 };
 
-export default EngineerItems;
+export default MyLibrary;

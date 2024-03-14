@@ -4,6 +4,7 @@ interface InputProps {
   inputType?: string;
   inputName?: string;
   IsDisabled?: boolean;
+  defaultValue?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -12,6 +13,7 @@ const Input: React.FC<InputProps> = ({
   inputType = "text",
   inputName,
   IsDisabled = false,
+  defaultValue,
 }) => {
   return (
     <div>
@@ -25,6 +27,7 @@ const Input: React.FC<InputProps> = ({
             type={inputType}
             disabled={IsDisabled}
             placeholder={inputPlaceholder}
+            defaultValue={defaultValue}
             className="border-2 w-full rounded-sm  py-2 pl-2"
           />
         </div>

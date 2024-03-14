@@ -11,6 +11,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   normalBtn = "+ Assign to QC",
   isNeedFilter = false,
   filterPlaceHolder,
+  isLinkBtn = false,
+  isNormalBtn = false,
 }) => {
   return (
     <div>
@@ -29,18 +31,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 <Button primary>{linkBtn}</Button>
               </NavLink>
             ) : (
-              <Button primary>{linkBtn}</Button>
+              isLinkBtn && <Button primary>{linkBtn}</Button>
             )}
           </div>
           <div>
-            {isNeedFilter ? (
-              <InputFilter
-                placeholder={filterPlaceHolder}
-                Filter={FilterOptions}
-              />
-            ) : (
-              <Button primary>{normalBtn}</Button>
-            )}
+            {isNeedFilter
+              ? isNormalBtn && (
+                  <InputFilter
+                    placeholder={filterPlaceHolder}
+                    Filter={FilterOptions}
+                  />
+                )
+              : isNormalBtn && <Button primary>{normalBtn}</Button>}
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-export const EngineerTableBtnValue = [
+export const StatusGroupBtnValue = [
   "all",
   "pending",
   "accepted",

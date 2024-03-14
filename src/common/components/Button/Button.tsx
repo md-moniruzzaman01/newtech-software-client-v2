@@ -19,6 +19,9 @@ const Button: FC<ButtonProps> = ({
   ghost,
   btn_outline,
   danger,
+  small,
+  link,
+  transparent,
   onClick = () => {},
 }) => {
   const CLASSES = `
@@ -33,7 +36,7 @@ const Button: FC<ButtonProps> = ({
     `;
 
   const SECONDARY_CLASS = `bg-transparent outline outline-[1.7px] text-primary outline-primary hover:!text-white hover:bg-primary`;
-  const STATUS_CLASS = `shadow-md bg-white py-2 px-5 text-xl hover:bg-primary hover:!text-white !text-gray-900 rounded-md`;
+  const STATUS_CLASS = `bg-transparent border-shadeOfGrayishWhite !text-solidBlack border rounded-full text-sm  !py-1`;
   const btn_primary =
     "px-5 hover:!bg-primary  bg-shadeOfBlueLight !text-[#fff] border-0 text-lg rounded-md font-normal rounded-[4px]";
   const btn_ghost =
@@ -43,6 +46,11 @@ const Button: FC<ButtonProps> = ({
     "bg-transparent !text-black hover:!text-gray-400 outline rounded-full !py-0 !px-3";
 
   const btn_danger = "px-5 rounded-md rounded-[4px] text-lg bg-shadeOfRed";
+  const smallStyle =
+    "!px-3 !py-1 rounded-md text-xs bg-shadeOfLightBlue hover:bg-sideBarBtnColor hover:text-solidWhite text-solidBlack";
+
+  const linkStyle = `!text-linkColor !px-0 !py-0 hover:text-shadeOfBlue hover:underline !bg-transparent`;
+  const transparentStyle = `!px-0 !py-0 !bg-transparent`;
 
   const _renderLoading = () => {
     return (
@@ -79,7 +87,10 @@ const Button: FC<ButtonProps> = ({
         primary && btn_primary,
         ghost && btn_ghost,
         btn_outline && btn_outline_style,
-        danger && btn_danger
+        danger && btn_danger,
+        small && smallStyle,
+        link && linkStyle,
+        transparent && transparentStyle
       )}
       onClick={onClick}
       type={type}

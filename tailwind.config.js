@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        solidWhite: "#FFFFFF",
+        solidWhite: "#FBFBFB",
         solidBlack: "#000000",
         shadeOfGray: "#888888",
         lightGray: "#FAFAFA",
@@ -32,6 +32,12 @@ export default {
         lightTurquoise: "#D9F8FA",
         lightSkyBlue: "#D6ECFF",
         grayForBorder: "#D9D9D9",
+        sideBarBtnColor: "#0074d9",
+        creamyPeach: "#FFF2DD",
+        mintFrost: "#DDFFEF",
+        coralBlush: "#FFEEED",
+        linkColor: "#808080",
+        sideBarService: "#004fab",
       },
     },
   },

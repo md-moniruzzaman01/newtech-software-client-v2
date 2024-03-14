@@ -1,4 +1,4 @@
-export const EngineerTableBtnValue = [
+export const LibraryTableBtnValue = [
   "all",
   "pending",
   "accepted",

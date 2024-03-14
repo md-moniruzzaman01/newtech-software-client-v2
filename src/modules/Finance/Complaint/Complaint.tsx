@@ -17,7 +17,7 @@ const Complaint = () => {
       <div className="pt-5">
         <SearchBar link="/complaints/add-complaint"></SearchBar>
       </div>
-      <div className="mt-5 p-3 bg-[#FBFBFB]">
+      <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <StatusGroup></StatusGroup>
           <div className="pt-5">
