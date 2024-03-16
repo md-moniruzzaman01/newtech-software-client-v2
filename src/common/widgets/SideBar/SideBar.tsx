@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaCodeBranch } from "react-icons/fa";
 import { MdOutlineEventNote } from "react-icons/md";
@@ -18,15 +18,19 @@ const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
 //sidebar
 const SideBar = () => {
   const [activeRoute, setActiveRoute] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const activeRouteValue = localStorage.getItem("activeRoute");
-    setActiveRoute(activeRouteValue === "true"); // Convert string to boolean
+    if (activeRouteValue) {
+      setActiveRoute(JSON.parse(activeRouteValue));
+    }
   }, []);
 
   const handleFilter = () => {
     const updatedActiveRoute = !activeRoute;
     setActiveRoute(updatedActiveRoute);
+    navigate("/");
     localStorage.setItem("activeRoute", updatedActiveRoute.toString());
   };
 

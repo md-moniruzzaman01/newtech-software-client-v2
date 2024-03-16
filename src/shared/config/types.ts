@@ -12,7 +12,7 @@ export type ButtonProps = {
   secondary?: boolean;
   status?: boolean;
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   children?: ReactNode;
   icon?: string;
   primary?: boolean;

@@ -32,11 +32,19 @@ import InventoryRequestDetailsPage from "./modules/Finance/InventoryRequestDetai
 import Dashboard from "./modules/Dashboard";
 import SettingPage from "./modules/Finance/SettingPage";
 import MyLibrary from "./modules/Finance/MyLibrary/MyLibrary";
+import Error from "./modules/Error/Error";
+import PrivateRoute from "./PrivateRoute";
+import ComplaintAddForWarranty from "./modules/Finance/ComplaintAddForWarranty/ComplaintAddForWarranty";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
+    ),
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -109,6 +117,10 @@ export const router = createBrowserRouter([
       {
         path: "/complaints/order-details",
         element: <ComplaintOrderDetails />,
+      },
+      {
+        path: "/complaints/add-warranty-complaint",
+        element: <ComplaintAddForWarranty />,
       },
       // qc start here
       {

@@ -5,6 +5,7 @@ interface InputProps {
   inputName?: string;
   IsDisabled?: boolean;
   defaultValue?: string;
+  required?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -14,6 +15,7 @@ const Input: React.FC<InputProps> = ({
   inputName,
   IsDisabled = false,
   defaultValue,
+  required = false,
 }) => {
   return (
     <div>
@@ -23,6 +25,7 @@ const Input: React.FC<InputProps> = ({
             <label className="text-lg font-semibold">{labelName}</label>
           </div>
           <input
+            required={required}
             name={inputName}
             type={inputType}
             disabled={IsDisabled}

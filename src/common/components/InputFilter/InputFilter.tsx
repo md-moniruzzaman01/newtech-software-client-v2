@@ -4,6 +4,9 @@ interface inputFilterProps {
   IsDisabled?: boolean;
   placeholder?: string;
   className?: string;
+  defaultValue?: string;
+  required?: boolean;
+  inputName?: string;
 }
 
 const InputFilter: React.FC<inputFilterProps> = ({
@@ -12,14 +15,19 @@ const InputFilter: React.FC<inputFilterProps> = ({
   IsDisabled = false,
   placeholder = "All",
   className,
+  defaultValue,
+  required = false,
+  inputName,
 }) => {
   return (
     <div className={`${label && "space-y-1"}`}>
-      <label className="text-lg font-semibold ">{label}</label>
+      {label && <label className="text-lg font-semibold ">{label}</label>}
       <select
+        name={inputName}
+        required={required}
         disabled={IsDisabled}
         className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        defaultValue={"all"}
+        defaultValue={defaultValue}
       >
         <option value="all" disabled>
           {placeholder}

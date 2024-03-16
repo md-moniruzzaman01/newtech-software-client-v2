@@ -1,50 +1,62 @@
+import swal from "sweetalert";
+import Input from "../../../common/components/Input";
+import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import Button from "../../../common/components/Button";
-import Input from "../../../common/components/Input";
 import TextArea from "../../../common/components/TextArea/TextArea";
-import Navbar from "../../../common/widgets/Navbar/Navbar";
 import {
-  ComplaintServiceProps,
-  partnerProps,
-  updateAddedItemProps,
+  warrantyPartnerProps,
+  warrantyUpdateAddedItemProps,
 } from "./config/types";
-import swal from "sweetalert";
+import InputFilter from "../../../common/components/InputFilter/InputFilter";
+import { FilterOptions } from "../../../shared/config/constaints";
+import { brandOptions } from "./config/constants";
 
-const ComplaintService: React.FC<ComplaintServiceProps> = () => {
-  const [addedItem, setAddedItem] = useState<updateAddedItemProps[]>([]);
-  const [selectData, setSelectData] = useState<updateAddedItemProps | null>(
-    null
-  );
+const ComplaintAddForWarranty = () => {
+  const [warrantyAddedItem, setWarrantyAddedItem] = useState<
+    warrantyUpdateAddedItemProps[]
+  >([]);
+  const [selectData, setSelectData] =
+    useState<warrantyUpdateAddedItemProps | null>(null);
+  const [isNewPartner, setIsNewPartner] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [partnerInfo, setPartnerInfo] = useState<partnerProps | undefined>(
-    undefined
-  );
+  const [partnerInfo, setPartnerInfo] = useState<
+    warrantyPartnerProps | undefined
+  >(undefined);
   // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
     const storedPartnerInfo = localStorage.getItem("partnerInfo");
-
+    const storedNewCustomer = localStorage.getItem("newCustomer");
     if (storedAddedItem) {
-      setAddedItem(JSON.parse(storedAddedItem));
+      setWarrantyAddedItem(JSON.parse(storedAddedItem));
     }
     if (storedPartnerInfo) {
       setPartnerInfo(JSON.parse(storedPartnerInfo));
     }
+    if (storedNewCustomer) {
+      setPartnerInfo(JSON.parse(storedNewCustomer));
+      setIsNewPartner(true);
+    } else {
+      setIsNewPartner(false);
+    }
   }, []);
-
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
-    const customer_name = (
-      form.elements.namedItem("customer_name") as HTMLInputElement
+    const partner_name = (
+      form.elements.namedItem("partner_name") as HTMLInputElement
     ).value;
     const contact_number = (
       form.elements.namedItem("contact_number") as HTMLInputElement
     ).value;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const address = (form.elements.namedItem("address") as HTMLInputElement)
-      .value;
+    const email =
+      isNewPartner &&
+      (form.elements.namedItem("email") as HTMLInputElement).value;
+    const address =
+      isNewPartner &&
+      (form.elements.namedItem("address") as HTMLInputElement).value;
     const product_or_items_name = (
       form.elements.namedItem("product_or_items_name") as HTMLInputElement
     ).value;
@@ -57,9 +69,9 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     const serial_number = (
       form.elements.namedItem("serial_number") as HTMLInputElement
     ).value;
-    // const warranty_type = (
-    //   form.elements.namedItem("warranty_type") as HTMLInputElement
-    // ).value;
+    const warranty_type = (
+      form.elements.namedItem("warranty_type") as HTMLInputElement
+    ).value;
     const remark = (form.elements.namedItem("remark") as HTMLInputElement)
       .value;
     const branch_name = (
@@ -68,59 +80,74 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     const problem = (form.elements.namedItem("problem") as HTMLInputElement)
       .value;
 
-    const partner = {
-      customer_name,
+    const newCustomer = {
+      partner_name,
       contact_number,
       email,
       address,
+      brand_name,
+    };
+    const partnerInfo = {
+      partner_name,
+      contact_number,
+      brand_name,
     };
 
-    setPartnerInfo(partner);
+    if (isNewPartner) {
+      setPartnerInfo(newCustomer);
+    } else {
+      setPartnerInfo(partnerInfo);
+    }
 
     const data = {
       product_or_items_name,
-      brand_name,
+      branch_name,
       model_number,
       serial_number,
-      // warranty_type,
+      warranty_type,
       remark,
-      branch_name,
       problem,
     };
 
-    let updatedAddedItem: updateAddedItemProps[];
+    let updatedAddedItem: warrantyUpdateAddedItemProps[];
 
-    if (!Array.isArray(addedItem)) {
+    if (!Array.isArray(warrantyAddedItem)) {
       // Handle the case where addedItem is not an array
       updatedAddedItem = [data];
     } else if (selectedItem !== null) {
       // Update the selected item in the array
       updatedAddedItem = [
-        ...addedItem.slice(0, selectedItem),
+        ...warrantyAddedItem.slice(0, selectedItem),
         data,
-        ...addedItem.slice(selectedItem + 1),
+        ...warrantyAddedItem.slice(selectedItem + 1),
       ];
       setSelectedItem(null);
       setSelectData(null);
     } else {
-      updatedAddedItem = [...addedItem, data];
+      updatedAddedItem = [...warrantyAddedItem, data];
     }
 
     // Update state with the new array
-    setAddedItem(updatedAddedItem);
+    setWarrantyAddedItem(updatedAddedItem);
 
     // Save the updated array in local storage
     localStorage.setItem("addedItem", JSON.stringify(updatedAddedItem));
-    localStorage.setItem("partnerInfo", JSON.stringify(partner));
+    if (isNewPartner) {
+      localStorage.setItem("newCustomer", JSON.stringify(partnerInfo));
+    } else {
+      localStorage.setItem("partnerInfo", JSON.stringify(partnerInfo));
+    }
     form.reset();
   };
 
   const updateData = (index: number) => {
-    const selectedItemData: updateAddedItemProps = addedItem[index];
+    const selectedItemData: warrantyUpdateAddedItemProps =
+      warrantyAddedItem[index];
 
     setSelectedItem(index);
     setSelectData(selectedItemData);
   };
+  console.log(partnerInfo, warrantyAddedItem);
 
   const deleteData = (index: number) => {
     swal({
@@ -132,10 +159,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }).then((willDelete: boolean) => {
       if (willDelete) {
         // Remove the item at the specified index from addedItem state
-        const updatedAddedItem = addedItem.filter((_, i) => i !== index);
+        const updatedAddedItem = warrantyAddedItem.filter(
+          (_, i) => i !== index
+        );
 
         // Update state with the new array
-        setAddedItem(updatedAddedItem);
+        setWarrantyAddedItem(updatedAddedItem);
 
         // Save the updated array in local storage
         localStorage.setItem("addedItem", JSON.stringify(updatedAddedItem));
@@ -159,10 +188,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        setAddedItem([]);
+        setWarrantyAddedItem([]);
         setPartnerInfo(undefined);
         localStorage.removeItem("addedItem");
         localStorage.removeItem("partnerInfo");
+        localStorage.removeItem("newCustomer");
+        setIsNewPartner(false);
         swal("Your data has been successfully deleted.", {
           icon: "success",
         });
@@ -176,57 +207,133 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
       <div className="grid grid-cols-[auto,320px] gap-1  mt-10 ">
-        <div className="py-5  rounded-md bg-[#FBFBFB] px-5">
+        <div className="py-5  rounded-md bg-[#FBFBFB] px-5 relative">
+          <div className=" absolute right-5 top-5">
+            <Button
+              disabled={warrantyAddedItem?.length > 0 ? true : false}
+              onClick={() => setIsNewPartner(!isNewPartner)}
+              primary
+              className="text-xs !px-2 !py-1"
+            >
+              {isNewPartner ? "Partner" : "New Walk In Customer"}
+            </Button>
+          </div>
           <form onSubmit={handleAddItem}>
-            <div className="grid grid-cols-4 gap-8">
-              {/* Customers Name  */}
-              <div>
-                <Input
-                  defaultValue={`${
-                    partnerInfo ? partnerInfo?.customer_name : ""
-                  }`}
-                  IsDisabled={addedItem?.length > 0 ? true : false}
-                  required
-                  inputName="customer_name"
-                  inputPlaceholder="Customer Name"
-                  labelName="Customer Name"
-                />
-              </div>
-              {/* Contact Number  */}
-              <div>
-                <Input
-                  defaultValue={`${
-                    partnerInfo ? partnerInfo?.contact_number : ""
-                  }`}
-                  IsDisabled={addedItem?.length > 0 ? true : false}
-                  required
-                  inputPlaceholder="Contact Number"
-                  labelName="Contact Number"
-                  inputName="contact_number"
-                ></Input>
-              </div>
-              {/* Email  */}
-              <div>
-                <Input
-                  defaultValue={`${partnerInfo ? partnerInfo?.email : ""}`}
-                  IsDisabled={addedItem?.length > 0 ? true : false}
-                  required
-                  inputPlaceholder="Email"
-                  inputName="email"
-                  labelName="Email"
-                ></Input>
-              </div>
-              {/* Address  */}
-              <div>
-                <Input
-                  defaultValue={`${partnerInfo ? partnerInfo?.address : ""}`}
-                  IsDisabled={addedItem?.length > 0 ? true : false}
-                  required
-                  inputName="address"
-                  inputPlaceholder="Address"
-                  labelName="Address"
-                ></Input>
-              </div>
+            <div className="grid grid-cols-3  gap-8 mt-10">
+              {isNewPartner ? (
+                <div className="col-span-3 grid grid-cols-3 gap-8">
+                  {/* Brand Name  */}
+                  <div>
+                    <InputFilter
+                      Filter={brandOptions}
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.brand_name : ""
+                      }`}
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      inputName="brand_name"
+                      placeholder="Brand Name"
+                      label="Brand Name"
+                    ></InputFilter>
+                  </div>
+
+                  {/* Partner Name  */}
+                  <div>
+                    <InputFilter
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.partner_name : ""
+                      }`}
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      required
+                      inputName="partner_name"
+                      label="Partner Name"
+                      Filter={FilterOptions}
+                    />
+                  </div>
+                  {/* Contact Number  */}
+                  <div>
+                    <Input
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.contact_number : ""
+                      }`}
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      required
+                      inputPlaceholder="Contact Number"
+                      labelName="Contact Number"
+                      inputName="contact_number"
+                    ></Input>
+                  </div>
+                  {/* Email  */}
+                  <div>
+                    <Input
+                      defaultValue={`${partnerInfo ? partnerInfo?.email : ""}`}
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      required
+                      inputPlaceholder="Email"
+                      inputName="email"
+                      labelName="Email"
+                    ></Input>
+                  </div>
+                  {/* Address  */}
+                  <div>
+                    <Input
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.address : ""
+                      }`}
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      required
+                      inputName="address"
+                      inputPlaceholder="Address"
+                      labelName="Address"
+                    ></Input>
+                  </div>
+                </div>
+              ) : (
+                <div className="col-span-3 grid grid-cols-3 gap-8">
+                  {/* Brand Name  */}
+                  <div>
+                    <InputFilter
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      Filter={brandOptions}
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.brand_name : ""
+                      }`}
+                      required
+                      inputName="brand_name"
+                      placeholder="Brand Name"
+                      label="Brand Name"
+                    ></InputFilter>
+                  </div>
+
+                  {/* Partner Name  */}
+                  <div>
+                    <InputFilter
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.partner_name : ""
+                      }`}
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      required
+                      inputName="partner_name"
+                      placeholder="Partner Name"
+                      label="Partner Name"
+                      Filter={FilterOptions}
+                    />
+                  </div>
+                  {/* Contact Number  */}
+                  <div>
+                    <Input
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.contact_number : ""
+                      }`}
+                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      required
+                      inputPlaceholder="Contact Number"
+                      labelName="Contact Number"
+                      inputName="contact_number"
+                    ></Input>
+                  </div>
+                </div>
+              )}
+
               {/* Product / Items Name  */}
               <div>
                 <Input
@@ -239,16 +346,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   labelName="Product / Items Name"
                 ></Input>
               </div>
-              {/* Brand Name  */}
-              <div>
-                <Input
-                  defaultValue={`${selectData ? selectData?.brand_name : ""}`}
-                  required
-                  inputName="brand_name"
-                  inputPlaceholder="Brand Name"
-                  labelName="Brand Name"
-                ></Input>
-              </div>
+
               {/* Model Number   */}
               <div>
                 <Input
@@ -271,7 +369,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   labelName="Serial Number"
                 ></Input>
               </div>
-              {/* Warranty Type
+              {/* Warranty Type  */}
               <div>
                 <Input
                   defaultValue={`${
@@ -282,9 +380,9 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   inputPlaceholder="Warranty Type"
                   labelName="Warranty Type"
                 ></Input>
-              </div> */}
+              </div>
               {/* Remark  */}
-              <div className="col-span-2">
+              <div>
                 <Input
                   defaultValue={`${selectData ? selectData?.remark : ""}`}
                   required
@@ -304,24 +402,26 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                 ></Input>
               </div>
               {/* Problem  */}
-              <div className="col-span-3">
+              <div className="col-span-2">
                 <TextArea
                   defaultValue={`${selectData ? selectData?.problem : ""}`}
                   name="problem"
                   label="Write Problem"
                   placeholder="Write Problem"
                 ></TextArea>
-                <div className="flex justify-end py-5">
-                  <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
-                    Add More
-                  </Button>
-                </div>
+              </div>
+              <div className="flex items-end justify-center pb-5">
+                <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
+                  Add More
+                </Button>
               </div>
             </div>
           </form>
           <div className="flex justify-center  pt-10">
             <div>
-              <Button primary>Submit {addedItem?.length > 0 && "All"}</Button>
+              <Button primary>
+                Submit {warrantyAddedItem?.length > 0 && "All"}
+              </Button>
             </div>
           </div>
         </div>
@@ -329,7 +429,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
           <h1 className="text-center font-semibold text-xl underline">
             Added Item
           </h1>
-          {addedItem?.length > 0 && (
+          {warrantyAddedItem?.length > 0 && (
             <div className="py-5 text-center">
               <Button onClick={deleteAll} danger className="px-2 py-1 text-xs">
                 Delete All
@@ -338,8 +438,8 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
           )}
           <div>
             <div className="mt-5 mx-2 flex flex-col gap-5">
-              {addedItem.length ? (
-                addedItem.map((item, index) => (
+              {warrantyAddedItem.length ? (
+                warrantyAddedItem.map((item, index) => (
                   <div
                     key={index}
                     className="p-5 rounded-xl shadow-xl space-y-2 bg-paleShadeOfBlue"
@@ -368,12 +468,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                         <span>: {item?.serial_number}</span>
                       </span>
                     </div>
-                    {/* <div className="text-base font-semibold flex flex-col">
+                    <div className="text-base font-semibold flex flex-col">
                       Warranty Type
                       <span className="text-sm font-normal">
                         : {item?.warranty_type}
                       </span>
-                    </div> */}
+                    </div>
                     <div className="text-base font-semibold flex flex-col">
                       <span className="text-sm font-normal"></span>
                     </div>
@@ -408,4 +508,4 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   );
 };
 
-export default ComplaintService;
+export default ComplaintAddForWarranty;

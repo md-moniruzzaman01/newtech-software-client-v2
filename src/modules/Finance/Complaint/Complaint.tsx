@@ -7,15 +7,30 @@ import {
 } from "../../../shared/config/constaints";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
+import { useEffect, useState } from "react";
 
 const Complaint = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalItems, setTotalItems] = useState(50);
+  const [activeRoute, setActiveRoute] = useState(false);
+  useEffect(() => {
+    const storedActiveRoute = localStorage.getItem("activeRoute");
+    if (storedActiveRoute) {
+      setActiveRoute(JSON.parse(storedActiveRoute));
+    }
+  }, []);
+  console.log(activeRoute);
   return (
     <div className=" px-5">
       <Navbar name="Complaint"></Navbar>
       <div className="pt-5">
-        <SearchBar link="/complaints/add-complaint"></SearchBar>
+        <SearchBar
+          link={`${
+            activeRoute
+              ? "/complaints/add-warranty-complaint"
+              : "/complaints/add-complaint"
+          }`}
+        ></SearchBar>
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
