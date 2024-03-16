@@ -43,7 +43,7 @@ const ComplaintOrderDetailsQC = () => {
           CardInformation={ComplaintDetails}
         />
 
-        <div className="col-span-2 bg-solidWhite px-5 py-5 relative h-2/3">
+        <div className="col-span-2 bg-solidWhite px-5  relative h-2/3">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
             <div>

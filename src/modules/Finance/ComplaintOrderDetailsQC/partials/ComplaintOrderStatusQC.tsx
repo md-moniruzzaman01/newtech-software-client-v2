@@ -1,7 +1,6 @@
 import Button from "../../../../common/components/Button";
 import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
-import PhotoAttach from "../../../../common/components/PhotoAttach/PhotoAttach";
 import TextArea from "../../../../common/components/TextArea/TextArea";
 import { FilterOptions } from "../../../../shared/config/constaints";
 
@@ -39,13 +38,12 @@ const ComplaintOrderStatusQC = () => {
         labelName="Order Transaction :"
       />
 
-      <div>
-        <h1 className="font-medium">Upload Item Image :</h1>
-        <PhotoAttach />
-        <div className="text-center text-shadeOfBlueLight">
-          Browse your computer
-        </div>
-      </div>
+      <InputFilter
+        IsDisabled
+        placeholder="Diagnosis"
+        label="Assign Engineer"
+        Filter={FilterOptions}
+      />
       <TextArea IsDisabled label="Note" placeholder="write your note" />
       <Button primary>Submit</Button>
     </div>

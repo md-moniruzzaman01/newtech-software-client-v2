@@ -26,7 +26,7 @@ const ComplaintAddForWarranty = () => {
   // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const storedAddedItem = localStorage.getItem("addedItem");
+    const storedAddedItem = localStorage.getItem("warrantyAddedItem");
     const storedPartnerInfo = localStorage.getItem("partnerInfo");
     const storedNewCustomer = localStorage.getItem("newCustomer");
     if (storedAddedItem) {
@@ -34,6 +34,7 @@ const ComplaintAddForWarranty = () => {
     }
     if (storedPartnerInfo) {
       setPartnerInfo(JSON.parse(storedPartnerInfo));
+      setIsNewPartner(false);
     }
     if (storedNewCustomer) {
       setPartnerInfo(JSON.parse(storedNewCustomer));
@@ -63,6 +64,11 @@ const ComplaintAddForWarranty = () => {
     const brand_name = (
       form.elements.namedItem("brand_name") as HTMLInputElement
     ).value;
+    const main_category = (
+      form.elements.namedItem("main_category") as HTMLInputElement
+    ).value;
+    const category = (form.elements.namedItem("category") as HTMLInputElement)
+      .value;
     const model_number = (
       form.elements.namedItem("model_number") as HTMLInputElement
     ).value;
@@ -87,7 +93,7 @@ const ComplaintAddForWarranty = () => {
       address,
       brand_name,
     };
-    const partnerInfo = {
+    const partner = {
       partner_name,
       contact_number,
       brand_name,
@@ -95,8 +101,13 @@ const ComplaintAddForWarranty = () => {
 
     if (isNewPartner) {
       setPartnerInfo(newCustomer);
-    } else {
-      setPartnerInfo(partnerInfo);
+      localStorage.setItem("newCustomer", JSON.stringify(newCustomer));
+    }
+
+    if (!isNewPartner) {
+      setPartnerInfo(partner);
+      localStorage.setItem("partnerInfo", JSON.stringify(partner));
+      console.log(partnerInfo);
     }
 
     const data = {
@@ -107,6 +118,8 @@ const ComplaintAddForWarranty = () => {
       warranty_type,
       remark,
       problem,
+      category,
+      main_category,
     };
 
     let updatedAddedItem: warrantyUpdateAddedItemProps[];
@@ -131,12 +144,8 @@ const ComplaintAddForWarranty = () => {
     setWarrantyAddedItem(updatedAddedItem);
 
     // Save the updated array in local storage
-    localStorage.setItem("addedItem", JSON.stringify(updatedAddedItem));
-    if (isNewPartner) {
-      localStorage.setItem("newCustomer", JSON.stringify(partnerInfo));
-    } else {
-      localStorage.setItem("partnerInfo", JSON.stringify(partnerInfo));
-    }
+    localStorage.setItem("warrantyAddedItem", JSON.stringify(updatedAddedItem));
+
     form.reset();
   };
 
@@ -147,7 +156,7 @@ const ComplaintAddForWarranty = () => {
     setSelectedItem(index);
     setSelectData(selectedItemData);
   };
-  console.log(partnerInfo, warrantyAddedItem);
+  // console.log(partnerInfo, warrantyAddedItem, isNewPartner);
 
   const deleteData = (index: number) => {
     swal({
@@ -162,12 +171,19 @@ const ComplaintAddForWarranty = () => {
         const updatedAddedItem = warrantyAddedItem.filter(
           (_, i) => i !== index
         );
-
+        if (updatedAddedItem?.length === 0) {
+          localStorage.removeItem("partnerInfo");
+          localStorage.removeItem("newCustomer");
+          setPartnerInfo(undefined);
+        }
         // Update state with the new array
         setWarrantyAddedItem(updatedAddedItem);
 
         // Save the updated array in local storage
-        localStorage.setItem("addedItem", JSON.stringify(updatedAddedItem));
+        localStorage.setItem(
+          "warrantyAddedItem",
+          JSON.stringify(updatedAddedItem)
+        );
 
         setSelectedItem(null);
         swal("Your data has been successfully deleted.", {
@@ -190,7 +206,7 @@ const ComplaintAddForWarranty = () => {
       if (willDelete) {
         setWarrantyAddedItem([]);
         setPartnerInfo(undefined);
-        localStorage.removeItem("addedItem");
+        localStorage.removeItem("warrantyAddedItem");
         localStorage.removeItem("partnerInfo");
         localStorage.removeItem("newCustomer");
         setIsNewPartner(false);
@@ -224,29 +240,28 @@ const ComplaintAddForWarranty = () => {
                 <div className="col-span-3 grid grid-cols-3 gap-8">
                   {/* Brand Name  */}
                   <div>
-                    <InputFilter
-                      Filter={brandOptions}
+                    <Input
                       defaultValue={`${
                         partnerInfo ? partnerInfo?.brand_name : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       inputName="brand_name"
-                      placeholder="Brand Name"
-                      label="Brand Name"
-                    ></InputFilter>
+                      inputPlaceholder="Brand Name"
+                      labelName="Brand Name"
+                    ></Input>
                   </div>
 
                   {/* Partner Name  */}
                   <div>
-                    <InputFilter
+                    <Input
                       defaultValue={`${
                         partnerInfo ? partnerInfo?.partner_name : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputName="partner_name"
-                      label="Partner Name"
-                      Filter={FilterOptions}
+                      labelName="Partner Name"
+                      inputPlaceholder="Partner Name"
                     />
                   </div>
                   {/* Contact Number  */}
@@ -333,6 +348,33 @@ const ComplaintAddForWarranty = () => {
                   </div>
                 </div>
               )}
+
+              {/* main category  */}
+              <div>
+                <InputFilter
+                  defaultValue={`${
+                    selectData ? selectData?.main_category : ""
+                  }`}
+                  IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                  required
+                  inputName="main_category"
+                  placeholder="Main Category"
+                  label="Main Category"
+                  Filter={FilterOptions}
+                />
+              </div>
+              {/* category  */}
+              <div>
+                <InputFilter
+                  defaultValue={`${selectData ? selectData?.category : ""}`}
+                  IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                  required
+                  inputName="category"
+                  placeholder="Category"
+                  label="Category"
+                  Filter={FilterOptions}
+                />
+              </div>
 
               {/* Product / Items Name  */}
               <div>

@@ -19,7 +19,6 @@ const Complaint = () => {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
   }, []);
-  console.log(activeRoute);
   return (
     <div className=" px-5">
       <Navbar name="Complaint"></Navbar>

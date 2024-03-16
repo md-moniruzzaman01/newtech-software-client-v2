@@ -2,7 +2,7 @@ import PhotoAttach from "../../../../common/components/PhotoAttach/PhotoAttach";
 
 const ComplaintOrderDetailsTableQC = () => {
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {/* header row start here  */}
       <div className="grid grid-cols-4 gap-5 text-center">
         <div className="">SL Number</div>
@@ -38,11 +38,11 @@ const ComplaintOrderDetailsTableQC = () => {
           <hr className="border-b border-shadeOfGray my-2" />
         </div>
         <h1 className="text-start font-medium py-3">Item Image</h1>
-        <div className="w-1/2 pb-5">
+        <div className="w-full pb-5">
           <PhotoAttach />
         </div>
       </div>
-      <div className="absolute bottom-5">QC by : Johnson doe</div>
+      <div className="absolute bottom-3">QC by : Johnson doe</div>
     </div>
   );
 };

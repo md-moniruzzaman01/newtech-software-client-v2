@@ -6,6 +6,10 @@ import { NavLink } from "react-router-dom";
 const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
   HeaderData,
   link,
+  checkedRows = [], // Add a default value for checkedRows
+  handleCheckboxChange,
+  handleAllCheckboxChange,
+  data,
 }) => {
   return (
     <div className="overflow-x-auto">
@@ -15,7 +19,12 @@ const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
           <tr>
             <th>
               <label>
-                <input type="checkbox" className="checkbox" />
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={checkedRows.length === data?.length}
+                  onChange={handleAllCheckboxChange}
+                />
               </label>
             </th>
             {HeaderData &&
@@ -29,38 +38,45 @@ const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
         </thead>
         <tbody className="text-center">
           {/* row 1 */}
-          <tr>
-            <th className="border">
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
-            </th>
-            <td className="border">Branch 1</td>
-            <td className="border">Cy Ganderton</td>
-            <td className="border">Quality Control Specialist</td>
-            <td className="border">Blue</td>
-            <td className="border">1</td>
-            <td className="border">Cy Ganderton</td>
-            <td className="border">Quality Control</td>
-            <td className="border">
-              <div className="flex justify-center items-center relative">
-                <div className="avatar">
-                  <div className="w-6">
-                    <img
-                      className="rounded-full"
-                      src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    />
+          {data?.map((item, index) => (
+            <tr key={index}>
+              <th className="border">
+                <label>
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    checked={checkedRows.includes(index)}
+                    onChange={() => handleCheckboxChange(index)}
+                  />
+                </label>
+              </th>
+              <td className="border">Branch 1</td>
+              <td className="border">Cy Ganderton</td>
+              <td className="border">Quality Control Specialist</td>
+              <td className="border">Blue</td>
+              <td className="border">1</td>
+              <td className="border">Cy Ganderton</td>
+              <td className="border">Quality Control</td>
+              <td className="border">
+                <div className="flex justify-center items-center relative">
+                  <div className="avatar">
+                    <div className="w-6">
+                      <img
+                        className="rounded-full"
+                        src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-            <td className="border">QC</td>
-            <td className="pl-2">
-              <NavLink to={`${link}`}>
-                <IoMdEye className="!text-black" />
-              </NavLink>
-            </td>
-          </tr>
+              </td>
+              <td className="border">QC</td>
+              <td className="pl-2">
+                <NavLink to={`${link}`}>
+                  <IoMdEye className="!text-black" />
+                </NavLink>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

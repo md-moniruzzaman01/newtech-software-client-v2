@@ -4,7 +4,8 @@ export type ComplaintServiceProps = {
 
 export type warrantyUpdateAddedItemProps = {
   product_or_items_name?: string;
-
+  category?: string;
+  main_category?: string;
   model_number?: string;
   serial_number?: string;
   warranty_type?: string;

@@ -23,7 +23,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
-    const storedPartnerInfo = localStorage.getItem("partnerInfo");
+    const storedPartnerInfo = localStorage.getItem("customerInfo");
 
     if (storedAddedItem) {
       setAddedItem(JSON.parse(storedAddedItem));
@@ -111,7 +111,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
     // Save the updated array in local storage
     localStorage.setItem("addedItem", JSON.stringify(updatedAddedItem));
-    localStorage.setItem("partnerInfo", JSON.stringify(partner));
+    localStorage.setItem("customerInfo", JSON.stringify(partner));
     form.reset();
   };
 
@@ -133,6 +133,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       if (willDelete) {
         // Remove the item at the specified index from addedItem state
         const updatedAddedItem = addedItem.filter((_, i) => i !== index);
+
+        if (updatedAddedItem?.length === 0) {
+          setPartnerInfo(undefined);
+          localStorage.removeItem("partnerInfo");
+          localStorage.removeItem("customerInfo");
+        }
 
         // Update state with the new array
         setAddedItem(updatedAddedItem);
@@ -163,6 +169,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
         setPartnerInfo(undefined);
         localStorage.removeItem("addedItem");
         localStorage.removeItem("partnerInfo");
+        localStorage.removeItem("customerInfo");
         swal("Your data has been successfully deleted.", {
           icon: "success",
         });

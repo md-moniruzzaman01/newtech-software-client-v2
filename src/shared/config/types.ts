@@ -51,10 +51,14 @@ export type TableProps = {
 };
 
 export type TableWithPhotoProps = {
-  HeaderData: TableHeaderProps[];
-  itemData?: TableBodyProps[];
+  HeaderData?: string[];
   link?: string;
+  checkedRows?: number[];
+  handleCheckboxChange: (index: number) => void;
+  handleAllCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  data?: number[];
 };
+
 export type CustomerDetailsTableProps = {
   HeaderData: TableHeaderProps[];
   itemData?: CustomerDetailsTableBodyProps[];
