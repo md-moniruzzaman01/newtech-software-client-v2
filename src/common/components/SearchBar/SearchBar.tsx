@@ -3,7 +3,10 @@ import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
 import InputFilter from "../InputFilter/InputFilter";
-import { FilterOptions } from "../../../shared/config/constaints";
+import {
+  FilterOptions,
+  FilterOptions2,
+} from "../../../shared/config/constaints";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link,
@@ -11,8 +14,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
   normalBtn = "+ Assign to QC",
   isNeedFilter = false,
   filterPlaceHolder,
-  isLinkBtn = false,
+  isDropdown = false,
   isNormalBtn = false,
+  dropdown = false,
 }) => {
   return (
     <div>
@@ -31,7 +35,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 <Button primary>{linkBtn}</Button>
               </NavLink>
             ) : (
-              isLinkBtn && <Button primary>{linkBtn}</Button>
+              isDropdown && (
+                <InputFilter IsDisabled={dropdown} Filter={FilterOptions2} />
+              )
             )}
           </div>
           <div>

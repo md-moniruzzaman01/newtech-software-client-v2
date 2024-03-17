@@ -19,7 +19,6 @@ import EngineerItems from "./modules/Finance/EngineerItems/EngineerItems";
 import EngineerItemsOrderDetails from "./modules/Finance/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 import QAItems from "./modules/Finance/QA/QAItems";
 import QAItemOrderDetails from "./modules/Finance/QAItemOrderDetails/QAItemOrderDetails";
-import Customer from "./modules/Finance/Customer/Customer";
 import CustomerDetailsPage from "./modules/Finance/CustomerDetailsPage/CustomerDetailsPage";
 import ComponentPreview from "./forTest/ComponentPreview";
 import CustomerAddOrEdit from "./modules/Finance/CustomerAdd/CustomerAddOrEdit";
@@ -35,6 +34,14 @@ import MyLibrary from "./modules/Finance/MyLibrary/MyLibrary";
 import Error from "./modules/Error/Error";
 import PrivateRoute from "./PrivateRoute";
 import ComplaintAddForWarranty from "./modules/Finance/ComplaintAddForWarranty/ComplaintAddForWarranty";
+import WarrantyCategoryAddPage from "./modules/Finance/WarrantyCategoryAddPage/WarrantyCategoryAddPage";
+import BrandAddPage from "./modules/Finance/BrandAddPage";
+import MyProfile from "./modules/Finance/MyProfile/MyProfile";
+import CategoryList from "./modules/Finance/CategoryList";
+import Principle from "./modules/Finance/Principle/Principle";
+import Admin from "./modules/Finance/Admin/Admin";
+import Engineer from "./modules/Finance/Engineer/Engineer";
+import Partner from "./modules/Finance/Partner/Partner";
 
 export const router = createBrowserRouter([
   {
@@ -134,6 +141,10 @@ export const router = createBrowserRouter([
 
       // Engineer items start here
       {
+        path: "/engineer",
+        element: <Engineer />,
+      },
+      {
         path: "/engineer-items",
         element: <EngineerItems />,
       },
@@ -152,15 +163,15 @@ export const router = createBrowserRouter([
       },
       // customer route start here
       {
-        path: "/customer",
-        element: <Customer />,
+        path: "/partner",
+        element: <Partner />,
       },
       {
-        path: "/customer/order-details",
+        path: "/partner/order-details",
         element: <CustomerDetailsPage />,
       },
       {
-        path: "/customer/add",
+        path: "/partner/add",
         element: <CustomerAddOrEdit />,
       },
       // employee route start here
@@ -181,6 +192,35 @@ export const router = createBrowserRouter([
       {
         path: "/my-library",
         element: <MyLibrary />,
+      },
+
+      // add category page
+      {
+        path: "/category",
+        element: <CategoryList />,
+      },
+      {
+        path: "/category/add-category",
+        element: <WarrantyCategoryAddPage />,
+      },
+      // add brand
+      {
+        path: "/add-brand",
+        element: <BrandAddPage />,
+      },
+      // my profile
+      {
+        path: "/my-profile",
+        element: <MyProfile />,
+      },
+      // other
+      {
+        path: "/principle",
+        element: <Principle />,
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
       },
     ],
   },

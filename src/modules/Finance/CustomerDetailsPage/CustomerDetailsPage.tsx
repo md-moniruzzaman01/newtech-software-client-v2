@@ -15,9 +15,9 @@ const CustomerDetailsPage = () => {
   // const limit = 10;
   return (
     <div className="px-5">
-      <Navbar name="Customer Info Details" />
+      <Navbar name="Partner Info Details" />
       <div className="grid grid-cols-3 gap-2 py-10">
-        <div>
+        <div className="col-span-1">
           <UserProfile
             userId="22334455"
             userName="John Doe"

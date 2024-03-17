@@ -4,13 +4,16 @@ import { FaCodeBranch } from "react-icons/fa";
 import { MdOutlineEventNote } from "react-icons/md";
 import { FiMonitor } from "react-icons/fi";
 import { IoPeople } from "react-icons/io5";
-import { FaRegCircleUser } from "react-icons/fa6";
+// import { FaRegCircleUser } from "react-icons/fa6";
 import { IoIosPeople } from "react-icons/io";
 // import { MdEditNote } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import "./SideBar.css";
 import Button from "../../components/Button";
 import { useEffect, useState } from "react";
+import { MdCategory } from "react-icons/md";
+// import { SiBrandfolder } from "react-icons/si";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 // routeStyle
 const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
@@ -102,6 +105,12 @@ const SideBar = () => {
               </div>
             </NavLink>
           )}
+          <NavLink to="/engineer">
+            <div className={routeStyle}>
+              <FiMonitor className="text-xl" />
+              <span>Engineer</span>
+            </div>
+          </NavLink>
           <NavLink to="/engineer-items">
             <div className={routeStyle}>
               <FiMonitor className="text-xl" />
@@ -122,30 +131,55 @@ const SideBar = () => {
               <span>My Library</span>
             </div>
           </NavLink>
-          <NavLink to="/customer">
+          <NavLink to="/partner">
             <div className={routeStyle}>
               <IoPeople className="text-xl" />
-              <span>Customer</span>
+              <span>Partner</span>
             </div>
           </NavLink>
-          <NavLink to="/admin">
+          <NavLink to="/principle">
+            <div className={routeStyle}>
+              <IoPeople className="text-xl" />
+              <span>Principle</span>
+            </div>
+          </NavLink>
+
+          {/* <NavLink to="/my-profile">
             <div className={routeStyle}>
               <FaRegCircleUser className="text-xl" />
-              <span>Admin</span>
+              <span>My Profile</span>
             </div>
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/employee">
             <div className={routeStyle}>
               <IoIosPeople className="text-xl" />
               <span>Employee</span>
             </div>
           </NavLink>
+          <NavLink to="/category">
+            <div className={routeStyle}>
+              <MdCategory className="text-xl" />
+              <span>Category List</span>
+            </div>
+          </NavLink>
+          {/* <NavLink to="/add-brand">
+            <div className={routeStyle}>
+              <SiBrandfolder className="text-xl" />
+              <span>Add Brand</span>
+            </div>
+          </NavLink> */}
           {/* <NavLink to="/blog">
             <div className={routeStyle}>
               <MdEditNote className="text-xl" />
               <span>Blog</span>
             </div>
           </NavLink> */}
+          <NavLink to="/admin">
+            <div className={routeStyle}>
+              <MdAdminPanelSettings className="text-xl" />
+              <span>Admin</span>
+            </div>
+          </NavLink>
           <NavLink to="/setting">
             <div className={routeStyle}>
               <IoSettingsOutline className="text-xl" />

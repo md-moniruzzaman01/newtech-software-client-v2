@@ -22,7 +22,7 @@ const UserProfile: React.FC<userProfileProps> = ({
   companyName,
 }) => {
   return (
-    <div className="bg-solidWhite w-[400px]  py-10">
+    <div className="bg-solidWhite min-w-[400px]  py-10">
       <h2 className="text-xl font-semibold pl-10">Profile</h2>
       {userImg && (
         <div className="w-36 mx-auto px-0  pt-5 pb-2">

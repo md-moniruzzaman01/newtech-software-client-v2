@@ -126,8 +126,9 @@ export type SearchBarProps = {
   normalBtn?: string;
   isNeedFilter?: boolean;
   filterPlaceHolder?: string;
-  isLinkBtn?: boolean;
+  isDropdown?: boolean;
   isNormalBtn?: boolean;
+  dropdown?: boolean;
 };
 
 export type ComplaintMiniCardProps = {

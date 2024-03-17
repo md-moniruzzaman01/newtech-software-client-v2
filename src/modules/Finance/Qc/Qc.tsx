@@ -41,7 +41,7 @@ const Qc = () => {
         <div className="  rounded-t-md ">
           <TableWithPhoto
             HeaderData={DemoTableHeader}
-            link="/engineer-items/order-details"
+            link="/qc/order-details"
             checkedRows={checkedRows}
             handleCheckboxChange={handleCheckboxChange}
             handleAllCheckboxChange={handleAllCheckboxChange}

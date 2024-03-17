@@ -13,9 +13,8 @@ const InputFilter: React.FC<inputFilterProps> = ({
   Filter = [],
   label,
   IsDisabled = false,
-  placeholder = "All",
+  placeholder,
   className,
-  defaultValue,
   required = false,
   inputName,
 }) => {
@@ -27,9 +26,9 @@ const InputFilter: React.FC<inputFilterProps> = ({
         required={required}
         disabled={IsDisabled}
         className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        defaultValue={defaultValue}
+        defaultValue={placeholder}
       >
-        <option value="all" disabled>
+        <option value={placeholder} disabled>
           {placeholder}
         </option>
         {Filter &&

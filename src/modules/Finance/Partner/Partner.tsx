@@ -5,17 +5,17 @@ import { DemoTableHeaderForCustomer } from "../../../shared/config/constaints";
 import CustomerInfoTable from "./partials/CustomerInfoTable";
 import { NavLink } from "react-router-dom";
 
-const Customer = () => {
+const Partner = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalItems, setTotalItems] = useState(50);
   // const limit = 10;
   return (
     <div className="px-5 relative h-full">
-      <Navbar name="Customer Info" />
+      <Navbar name="Partner Info" />
 
       <div className="flex justify-end py-5">
-        <NavLink to="/customer/add">
-          <Button primary>+ Add Customer</Button>
+        <NavLink to="/partner/add">
+          <Button primary>+ Add Partner</Button>
         </NavLink>
       </div>
 
@@ -35,7 +35,7 @@ const Customer = () => {
         <div>
           <CustomerInfoTable
             HeaderData={DemoTableHeaderForCustomer}
-            link="/customer/order-details"
+            link="/partner/order-details"
           />
         </div>
       </div>
@@ -47,4 +47,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default Partner;

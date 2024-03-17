@@ -37,11 +37,12 @@ const EngineerItems = () => {
       <div className="py-5">
         <SearchBar
           isNeedFilter
-          isLinkBtn
+          isDropdown
           isNormalBtn
           filterPlaceHolder="+ Assign Engineer"
           linkBtn="+ Delivered to Desk"
           normalBtn="+ Assign Engineer"
+          dropdown={checkedRows?.length > 0 ? false : true}
         />
       </div>
       <div className="bg-[#FBFBFB] p-5 space-y-3">

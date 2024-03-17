@@ -123,14 +123,27 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                     tabIndex={0}
                     className="absolute right-0 mt-3 z-[1] w-52  shadow"
                   >
-                    <div className="bg-solidWhite rounded-md">
-                      <h3 className="pt-3  font-semibold text-center">
-                        John Doe
-                      </h3>
-                      <h3 className="pt-1 text-center">258963</h3>
+                    <div className="bg-solidWhite rounded-md px-2">
+                      <h3 className="pt-3  font-semibold ">John Doe</h3>
+                      <h3 className="pt-1 ">258963</h3>
+                      <p className="pt-1"> john@doe.gmail.com</p>
                       <hr className="mt-2" />
-                      <div className="py-3 pl-5">
-                        <p> john@doe.gmail.com</p>
+                      <div className="py-3 space-y-1">
+                        <div>
+                          <NavLink
+                            className="!bg-transparent"
+                            to={"/my-profile"}
+                          >
+                            <Button link>My Profile</Button>
+                          </NavLink>
+                        </div>
+
+                        <div>
+                          <NavLink className="!bg-transparent" to={"/setting"}>
+                            <Button link>Setting</Button>
+                          </NavLink>
+                        </div>
+                        <Button link>Logout</Button>
                       </div>
                     </div>
                   </div>

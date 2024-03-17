@@ -10,7 +10,7 @@ interface InputProps {
 
 const Input: React.FC<InputProps> = ({
   labelName,
-  inputPlaceholder,
+  inputPlaceholder = "Write here...",
   inputType = "text",
   inputName,
   IsDisabled = false,
