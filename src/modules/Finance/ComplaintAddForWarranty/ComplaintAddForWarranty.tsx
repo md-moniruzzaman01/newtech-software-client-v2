@@ -265,7 +265,7 @@ const ComplaintAddForWarranty = () => {
             </Button>
           </div>
           <form onSubmit={handleAddItem}>
-            <div className="grid grid-cols-3  gap-8 mt-10">
+            <div className="grid grid-cols-3  gap-8 mt-20">
               {isNewPartner ? (
                 <div className="col-span-3 grid grid-cols-3 gap-8">
                   {/* Brand Name  */}
