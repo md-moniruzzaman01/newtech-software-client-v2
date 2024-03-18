@@ -3,14 +3,11 @@ import Button from "../../../common/components/Button";
 import InventoryStatusGroup from "../../../common/components/InventoryStatusGroup/InventoryStatusGroup";
 import VerticalChart from "../../../common/components/VerticalChart/VerticalChart";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-import { useGetPostQuery } from "../../../redux/features/api/baseApi";
 import { DemoTableHeaderForInventory } from "../../../shared/config/constaints";
 
 import InventoryInfoTable from "./partials/InventoryInfoTable";
 
 const Inventory = () => {
-  const { data } = useGetPostQuery({});
-  console.log(data);
   return (
     <div className="px-5">
       <Navbar name="Inventory" />

@@ -50,7 +50,7 @@ const TableWithPhoto: React.FC<TableWithPhotoProps> = ({
                   />
                 </label>
               </th>
-              <td className="border">Branch 1</td>
+              <td className="border">{item}</td>
               <td className="border">Cy Ganderton</td>
               <td className="border">Quality Control Specialist</td>
               <td className="border">Blue</td>

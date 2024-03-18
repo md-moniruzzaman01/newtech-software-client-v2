@@ -11,8 +11,14 @@ import {
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
 import { FilterOptions } from "../../../shared/config/constaints";
 import { brandOptions } from "./config/constants";
+import { useComplaintAddMutation } from "../../../redux/features/api/baseApi";
+import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 
 const ComplaintAddForWarranty = () => {
+  // redux
+  const [addComplaint, { isLoading }] = useComplaintAddMutation();
+
+  // other state
   const [warrantyAddedItem, setWarrantyAddedItem] = useState<
     warrantyUpdateAddedItemProps[]
   >([]);
@@ -20,9 +26,11 @@ const ComplaintAddForWarranty = () => {
     useState<warrantyUpdateAddedItemProps | null>(null);
   const [isNewPartner, setIsNewPartner] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [partnerInfo, setPartnerInfo] = useState<
-    warrantyPartnerProps | undefined
-  >(undefined);
+  const [partnerInfo, setPartnerInfo] = useState<warrantyPartnerProps>({
+    partner_name: "",
+    contact_number: "",
+    brand_name: "",
+  });
   // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -75,9 +83,7 @@ const ComplaintAddForWarranty = () => {
 
     const remark = (form.elements.namedItem("remark") as HTMLInputElement)
       .value;
-    const branch_name = (
-      form.elements.namedItem("branch_name") as HTMLInputElement
-    ).value;
+
     const problems = (form.elements.namedItem("problems") as HTMLInputElement)
       .value;
 
@@ -102,12 +108,10 @@ const ComplaintAddForWarranty = () => {
     if (!isNewPartner) {
       setPartnerInfo(partner);
       localStorage.setItem("partnerInfo", JSON.stringify(partner));
-      console.log(partnerInfo);
     }
 
     const data = {
       product_or_items_name,
-      branch_name,
       model_number,
       serial_number,
       remark,
@@ -168,7 +172,11 @@ const ComplaintAddForWarranty = () => {
         if (updatedAddedItem?.length === 0) {
           localStorage.removeItem("partnerInfo");
           localStorage.removeItem("newCustomer");
-          setPartnerInfo(undefined);
+          setPartnerInfo({
+            partner_name: "",
+            contact_number: "",
+            brand_name: "",
+          });
         }
         // Update state with the new array
         setWarrantyAddedItem(updatedAddedItem);
@@ -199,7 +207,11 @@ const ComplaintAddForWarranty = () => {
     }).then((willDelete) => {
       if (willDelete) {
         setWarrantyAddedItem([]);
-        setPartnerInfo(undefined);
+        setPartnerInfo({
+          partner_name: "",
+          contact_number: "",
+          brand_name: "",
+        });
         localStorage.removeItem("warrantyAddedItem");
         localStorage.removeItem("partnerInfo");
         localStorage.removeItem("newCustomer");
@@ -212,7 +224,31 @@ const ComplaintAddForWarranty = () => {
       }
     });
   };
-  console.log(warrantyAddedItem);
+  const { partner_name, contact_number, brand_name } = partnerInfo;
+  const fullData = {
+    partner_name,
+    contact_number,
+    brand_name,
+    inputFields: warrantyAddedItem,
+  };
+  const handleDataSubmit = async () => {
+    try {
+      const result = await addComplaint(fullData);
+
+      if ("data" in result) {
+        console.log("Complaint added successfully:", result.data);
+      } else if ("error" in result) {
+        console.error("Error adding complaint:", result.error);
+      }
+    } catch (error) {
+      console.error("Error adding complaint:", error);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -274,7 +310,9 @@ const ComplaintAddForWarranty = () => {
                   {/* Email  */}
                   <div>
                     <Input
-                      defaultValue={`${partnerInfo ? partnerInfo?.email : ""}`}
+                      defaultValue={`${
+                        warrantyAddedItem?.length > 0 ? partnerInfo?.email : ""
+                      }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputPlaceholder="Email"
@@ -286,7 +324,9 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        partnerInfo ? partnerInfo?.address : ""
+                        warrantyAddedItem?.length > 0
+                          ? partnerInfo?.address
+                          : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
@@ -349,7 +389,6 @@ const ComplaintAddForWarranty = () => {
                   defaultValue={`${
                     selectData ? selectData?.main_category : ""
                   }`}
-                  IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                   required
                   inputName="main_category"
                   placeholder="Main Category"
@@ -361,7 +400,6 @@ const ComplaintAddForWarranty = () => {
               <div>
                 <InputFilter
                   defaultValue={`${selectData ? selectData?.category : ""}`}
-                  IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                   required
                   inputName="category"
                   placeholder="Category"
@@ -416,16 +454,6 @@ const ComplaintAddForWarranty = () => {
                   labelName="Remark"
                 ></Input>
               </div>
-              {/* Branch Name  */}
-              <div>
-                <Input
-                  defaultValue={`${selectData ? selectData?.branch_name : ""}`}
-                  required
-                  inputName="branch_name"
-                  inputPlaceholder="Branch Name"
-                  labelName="Branch Name"
-                ></Input>
-              </div>
               {/* Problem  */}
               <div className="col-span-3">
                 <TextArea
@@ -435,16 +463,16 @@ const ComplaintAddForWarranty = () => {
                   placeholder="Write Problems"
                 ></TextArea>
               </div>
-              <div className="flex items-end pb-5">
+              <div className="col-span-3  justify-end flex items-end pb-5">
                 <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
                   Add More
                 </Button>
               </div>
             </div>
           </form>
-          <div className="flex justify-center  pt-10">
-            <div>
-              <Button primary>
+          <div className="flex justify-center  pt-7 pb-5">
+            <div className="w-1/2">
+              <Button className="w-full" onClick={handleDataSubmit} primary>
                 Submit {warrantyAddedItem?.length > 0 && "All"}
               </Button>
             </div>
@@ -469,12 +497,6 @@ const ComplaintAddForWarranty = () => {
                     key={index}
                     className="p-5 rounded-xl shadow-xl space-y-2 bg-paleShadeOfBlue"
                   >
-                    <div className="text-base font-semibold flex flex-col">
-                      Brand Name
-                      <span className="text-sm font-normal">
-                        : {item?.branch_name}
-                      </span>
-                    </div>
                     <div className="text-base font-semibold flex flex-col">
                       Product Name
                       <span className="text-sm font-normal">

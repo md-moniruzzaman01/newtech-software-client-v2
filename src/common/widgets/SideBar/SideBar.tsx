@@ -47,6 +47,7 @@ const SideBar = () => {
         <h1 className="text-[#fff] font-bold text-[32px] my-0">Newtech</h1>
         <div className="flex justify-center items-center gap-5 h-20 ">
           <Button
+            disabled={activeRoute}
             className={
               activeRoute
                 ? "!bg-sideBarBtnColor !text-solidWhite  !text-base"
@@ -58,6 +59,7 @@ const SideBar = () => {
             Warranty
           </Button>
           <Button
+            disabled={!activeRoute}
             className={
               !activeRoute
                 ? "!bg-sideBarBtnColor !text-solidWhite  !text-base"

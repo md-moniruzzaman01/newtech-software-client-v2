@@ -40,7 +40,6 @@ const EngineerItems = () => {
           isDropdown
           isNormalBtn
           filterPlaceHolder="+ Assign Engineer"
-          linkBtn="+ Delivered to Desk"
           normalBtn="+ Assign Engineer"
           dropdown={checkedRows?.length > 0 ? false : true}
         />

@@ -9,7 +9,6 @@ export type warrantyUpdateAddedItemProps = {
   model_number?: string;
   serial_number?: string;
   remark?: string;
-  branch_name?: string;
   problems?: string;
 };
 

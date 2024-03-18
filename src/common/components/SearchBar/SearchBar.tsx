@@ -9,7 +9,7 @@ import {
 } from "../../../shared/config/constaints";
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  link,
+  link = false,
   linkBtn = "+ Add Complaint’s",
   normalBtn = "+ Assign to QC",
   isNeedFilter = false,
