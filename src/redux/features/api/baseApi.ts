@@ -3,15 +3,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com",
+    baseUrl: "http://localhost:5000/api/v2",
   }),
   endpoints: (builder) => ({
     getPost: builder.query({
       query: () => "/posts",
     }),
-    createPost: builder.mutation({
+    complaintAdd: builder.mutation({
       query: (newPost) => ({
-        url: "/posts",
+        url: "/complaints/create",
         method: "POST",
         body: newPost,
       }),
@@ -34,7 +34,7 @@ const baseApi = createApi({
 
 export const {
   useGetPostQuery,
-  useCreatePostMutation,
+  useComplaintAddMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
 } = baseApi;

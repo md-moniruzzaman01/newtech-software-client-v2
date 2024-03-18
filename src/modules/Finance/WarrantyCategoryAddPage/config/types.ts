@@ -8,3 +8,7 @@ export type addCategoryProps = {
   CID?: string | false;
   swap?: string | false;
 };
+
+export type complaintAddProps = {
+  data?: addCategoryProps[];
+};

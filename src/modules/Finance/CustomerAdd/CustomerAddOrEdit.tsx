@@ -3,6 +3,8 @@ import InputFilter from "../../../common/components/InputFilter/InputFilter";
 import PhotoAttach from "../../../common/components/PhotoAttach/PhotoAttach";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { FilterOptions } from "../../../shared/config/constaints";
+import { HTML5Backend } from "react-dnd-html5-backend"; // or any other backend you prefer
+import { DndProvider } from "react-dnd";
 
 const CustomerAddOrEdit = () => {
   return (
@@ -33,7 +35,9 @@ const CustomerAddOrEdit = () => {
             />
             <div className="space-y-2">
               <h2 className="font-semibold">Upload Profile Image:</h2>
-              <PhotoAttach />
+              <DndProvider backend={HTML5Backend}>
+                <PhotoAttach />
+              </DndProvider>
             </div>
           </div>
         </div>

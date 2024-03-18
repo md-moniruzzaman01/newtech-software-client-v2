@@ -1,6 +1,10 @@
 import PhotoAttach from "../../../../common/components/PhotoAttach/PhotoAttach";
+import { HTML5Backend } from "react-dnd-html5-backend"; // or any other backend you prefer
+import { DndProvider } from "react-dnd";
+import { useState } from "react";
 
 const QAItemOrderDetailsTable = () => {
+  const [droppedImage, setDroppedImage] = useState<string>();
   return (
     <div className="w-full ">
       {/* header row start here  */}
@@ -39,7 +43,12 @@ const QAItemOrderDetailsTable = () => {
         </div>
         <h1 className="text-start font-medium py-3">Item Image</h1>
         <div className="w-1/2 pb-5">
-          <PhotoAttach />
+          <DndProvider backend={HTML5Backend}>
+            <PhotoAttach
+              droppedImage={droppedImage}
+              setDroppedImage={setDroppedImage}
+            />
+          </DndProvider>
         </div>
       </div>
       <div className="absolute bottom-5">QA by : Johnson doe</div>

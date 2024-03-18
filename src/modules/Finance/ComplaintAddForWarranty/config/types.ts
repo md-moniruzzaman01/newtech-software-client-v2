@@ -8,16 +8,15 @@ export type warrantyUpdateAddedItemProps = {
   main_category?: string;
   model_number?: string;
   serial_number?: string;
-  warranty_type?: string;
   remark?: string;
   branch_name?: string;
-  problem?: string;
+  problems?: string;
 };
 
 export type warrantyPartnerProps = {
   partner_name?: string;
   contact_number?: string;
-  email?: string | false;
-  address?: string | false;
+  email?: string | undefined;
+  address?: string | undefined;
   brand_name?: string;
 };

@@ -10,10 +10,13 @@ import {
 import { addCategoryProps } from "./config/types";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { handleFormReset } from "../../../common/widgets/FormResetFunction/FormResetFunction";
+// import { useComplaintAddMutation } from "../../../redux/features/api/baseApi";
 
 const WarrantyCategoryAddPage = () => {
   const [activeRoute, setActiveRoute] = useState(false);
   const [data, setData] = useState<addCategoryProps>();
+
+  // const [] = useComplaintAddMutation();
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");

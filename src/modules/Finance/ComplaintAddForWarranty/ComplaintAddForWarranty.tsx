@@ -52,12 +52,9 @@ const ComplaintAddForWarranty = () => {
     const contact_number = (
       form.elements.namedItem("contact_number") as HTMLInputElement
     ).value;
-    const email =
-      isNewPartner &&
-      (form.elements.namedItem("email") as HTMLInputElement).value;
-    const address =
-      isNewPartner &&
-      (form.elements.namedItem("address") as HTMLInputElement).value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
+    const address = (form.elements.namedItem("address") as HTMLInputElement)
+      ?.value;
     const product_or_items_name = (
       form.elements.namedItem("product_or_items_name") as HTMLInputElement
     ).value;
@@ -75,22 +72,20 @@ const ComplaintAddForWarranty = () => {
     const serial_number = (
       form.elements.namedItem("serial_number") as HTMLInputElement
     ).value;
-    const warranty_type = (
-      form.elements.namedItem("warranty_type") as HTMLInputElement
-    ).value;
+
     const remark = (form.elements.namedItem("remark") as HTMLInputElement)
       .value;
     const branch_name = (
       form.elements.namedItem("branch_name") as HTMLInputElement
     ).value;
-    const problem = (form.elements.namedItem("problem") as HTMLInputElement)
+    const problems = (form.elements.namedItem("problems") as HTMLInputElement)
       .value;
 
     const newCustomer = {
       partner_name,
       contact_number,
-      email,
-      address,
+      email: email,
+      address: address,
       brand_name,
     };
     const partner = {
@@ -115,9 +110,8 @@ const ComplaintAddForWarranty = () => {
       branch_name,
       model_number,
       serial_number,
-      warranty_type,
       remark,
-      problem,
+      problems,
       category,
       main_category,
     };
@@ -218,7 +212,7 @@ const ComplaintAddForWarranty = () => {
       }
     });
   };
-
+  console.log(warrantyAddedItem);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -411,18 +405,7 @@ const ComplaintAddForWarranty = () => {
                   labelName="Serial Number"
                 ></Input>
               </div>
-              {/* Warranty Type  */}
-              <div>
-                <Input
-                  defaultValue={`${
-                    selectData ? selectData?.warranty_type : ""
-                  }`}
-                  required
-                  inputName="warranty_type"
-                  inputPlaceholder="Warranty Type"
-                  labelName="Warranty Type"
-                ></Input>
-              </div>
+
               {/* Remark  */}
               <div>
                 <Input
@@ -444,15 +427,15 @@ const ComplaintAddForWarranty = () => {
                 ></Input>
               </div>
               {/* Problem  */}
-              <div className="col-span-2">
+              <div className="col-span-3">
                 <TextArea
-                  defaultValue={`${selectData ? selectData?.problem : ""}`}
-                  name="problem"
-                  label="Write Problem"
-                  placeholder="Write Problem"
+                  defaultValue={`${selectData ? selectData?.problems : ""}`}
+                  name="problems"
+                  label="Write Problems"
+                  placeholder="Write Problems"
                 ></TextArea>
               </div>
-              <div className="flex items-end justify-center pb-5">
+              <div className="flex items-end pb-5">
                 <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
                   Add More
                 </Button>
@@ -510,12 +493,7 @@ const ComplaintAddForWarranty = () => {
                         <span>: {item?.serial_number}</span>
                       </span>
                     </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Warranty Type
-                      <span className="text-sm font-normal">
-                        : {item?.warranty_type}
-                      </span>
-                    </div>
+
                     <div className="text-base font-semibold flex flex-col">
                       <span className="text-sm font-normal"></span>
                     </div>
