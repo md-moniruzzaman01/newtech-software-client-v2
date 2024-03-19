@@ -24,11 +24,7 @@ const Complaint = () => {
       <Navbar name="Complaint"></Navbar>
       <div className="pt-5">
         <SearchBar
-          link={`${
-            activeRoute
-              ? "/complaints/add-warranty-complaint"
-              : "/complaints/add-complaint"
-          }`}
+          link={`${activeRoute ? "/add-warranty-complaint" : "/add-complaint"}`}
         ></SearchBar>
       </div>
       <div className="mt-5 p-3 bg-solidWhite">

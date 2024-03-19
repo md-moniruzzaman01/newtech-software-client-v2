@@ -185,7 +185,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       <div className="grid grid-cols-[auto,320px] gap-1  mt-10 ">
         <div className="py-5  rounded-md bg-[#FBFBFB] px-5">
           <form onSubmit={handleAddItem}>
-            <div className="grid grid-cols-4 gap-8">
+            <div className="grid grid-cols-3 gap-8">
               {/* Customers Name  */}
               <div>
                 <Input

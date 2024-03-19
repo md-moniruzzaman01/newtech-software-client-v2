@@ -1,19 +1,24 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaCodeBranch } from "react-icons/fa";
-import { MdOutlineEventNote } from "react-icons/md";
 import { FiMonitor } from "react-icons/fi";
-import { IoPeople } from "react-icons/io5";
 // import { FaRegCircleUser } from "react-icons/fa6";
-import { IoIosPeople } from "react-icons/io";
+// import { IoIosPeople } from "react-icons/io";
 // import { MdEditNote } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import "./SideBar.css";
 import Button from "../../components/Button";
 import { useEffect, useState } from "react";
-import { MdCategory } from "react-icons/md";
+// import { MdCategory } from "react-icons/md";
 // import { SiBrandfolder } from "react-icons/si";
-import { MdAdminPanelSettings } from "react-icons/md";
+// import { MdAdminPanelSettings } from "react-icons/md";
+import ComplaintsRoute from "./partials/ComplaintsRoute/ComplaintsRoute";
+import QCRoute from "./partials/QCRoute/QCRoute";
+import EngineerRoute from "./partials/EngineerRoute/EngineerRoute";
+import QARoute from "./partials/QARoute/QARoute";
+import UsersRoute from "./partials/UsersRoute/UsersRoute";
+import OthersRoute from "./partials/OthersRoute/OthersRoute";
+import BillRoute from "./partials/BillRoute/BillRoute";
 
 // routeStyle
 const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
@@ -44,7 +49,7 @@ const SideBar = () => {
       } w-[256px]`}
     >
       <div className="w-full text-center pt-[38px]">
-        <h1 className="text-[#fff] font-bold text-[32px] my-0">Newtech</h1>
+        <h1 className="text-solidWhite font-bold text-[32px] my-0">Newtech</h1>
         <div className="flex justify-center items-center gap-5 h-20 ">
           <Button
             disabled={activeRoute}
@@ -73,11 +78,17 @@ const SideBar = () => {
         </div>
       </div>
       <div className="  font-semibold ">
-        <div className="flex flex-col gap-3 ">
+        <div className="flex flex-col gap-3 pb-20">
           <NavLink to="/">
             <div className={routeStyle}>
               <MdOutlineDashboardCustomize className="text-xl" />
               <span>Dashboard</span>
+            </div>
+          </NavLink>
+          <NavLink to="/engineer-dashboard">
+            <div className={routeStyle}>
+              <FiMonitor className="text-xl" />
+              <span>Engineer Dashboard</span>
             </div>
           </NavLink>
           <NavLink to="/branch">
@@ -86,13 +97,9 @@ const SideBar = () => {
               <span>Branch</span>
             </div>
           </NavLink>
-          <NavLink to="/complaints">
-            <div className={routeStyle}>
-              <MdOutlineEventNote className="text-xl" />
-              <span>Complaints</span>
-            </div>
-          </NavLink>
-
+          <div>
+            <ComplaintsRoute />
+          </div>
           <NavLink to="/inventory">
             <div className={routeStyle}>
               <FiMonitor className="text-xl" />
@@ -100,70 +107,52 @@ const SideBar = () => {
             </div>
           </NavLink>
           {activeRoute && (
-            <NavLink to="/qc">
-              <div className={routeStyle}>
-                <FiMonitor className="text-xl" />
-                <span>QC Items</span>
-              </div>
-            </NavLink>
+            <div>
+              <QCRoute />
+            </div>
           )}
-          <NavLink to="/engineer">
+          <div>
+            <EngineerRoute />
+          </div>
+          {activeRoute && (
+            <div>
+              <QARoute />
+            </div>
+          )}
+
+          {/* <NavLink to="/category">
+            <div className={routeStyle}>
+              <MdCategory className="text-xl" />
+              <span>Category List</span>
+            </div>
+          </NavLink> */}
+          {/* <NavLink to="/engineer">
             <div className={routeStyle}>
               <FiMonitor className="text-xl" />
               <span>Engineer</span>
             </div>
-          </NavLink>
-          <NavLink to="/engineer-items">
-            <div className={routeStyle}>
-              <FiMonitor className="text-xl" />
-              <span>Engineer Items</span>
-            </div>
-          </NavLink>
-          {activeRoute && (
-            <NavLink to="/qa-items">
-              <div className={routeStyle}>
-                <FiMonitor className="text-xl" />
-                <span>QA Items</span>
-              </div>
-            </NavLink>
-          )}
-          <NavLink to="/my-library">
-            <div className={routeStyle}>
-              <IoPeople className="text-xl" />
-              <span>My Library</span>
-            </div>
-          </NavLink>
-          <NavLink to="/partner">
+          </NavLink> */}
+          <div>
+            <BillRoute />
+          </div>
+          {/* <NavLink to="/partner">
             <div className={routeStyle}>
               <IoPeople className="text-xl" />
               <span>Partner</span>
             </div>
-          </NavLink>
-          <NavLink to="/principle">
+          </NavLink> */}
+          {/* <NavLink to="/principle">
             <div className={routeStyle}>
               <IoPeople className="text-xl" />
               <span>Principle</span>
             </div>
-          </NavLink>
-
+          </NavLink> */}
           {/* <NavLink to="/my-profile">
             <div className={routeStyle}>
               <FaRegCircleUser className="text-xl" />
               <span>My Profile</span>
             </div>
           </NavLink> */}
-          <NavLink to="/employee">
-            <div className={routeStyle}>
-              <IoIosPeople className="text-xl" />
-              <span>Employee</span>
-            </div>
-          </NavLink>
-          <NavLink to="/category">
-            <div className={routeStyle}>
-              <MdCategory className="text-xl" />
-              <span>Category List</span>
-            </div>
-          </NavLink>
           {/* <NavLink to="/add-brand">
             <div className={routeStyle}>
               <SiBrandfolder className="text-xl" />
@@ -176,12 +165,19 @@ const SideBar = () => {
               <span>Blog</span>
             </div>
           </NavLink> */}
-          <NavLink to="/admin">
+          {/* <NavLink to="/admin">
             <div className={routeStyle}>
               <MdAdminPanelSettings className="text-xl" />
               <span>Admin</span>
             </div>
-          </NavLink>
+          </NavLink> */}
+
+          <div>
+            <UsersRoute />
+          </div>
+          <div>
+            <OthersRoute />
+          </div>
           <NavLink to="/setting">
             <div className={routeStyle}>
               <IoSettingsOutline className="text-xl" />

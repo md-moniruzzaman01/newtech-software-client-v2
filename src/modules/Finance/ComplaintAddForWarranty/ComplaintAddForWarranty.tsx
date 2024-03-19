@@ -231,6 +231,7 @@ const ComplaintAddForWarranty = () => {
     brand_name,
     inputFields: warrantyAddedItem,
   };
+
   const handleDataSubmit = async () => {
     try {
       const result = await addComplaint(fullData);

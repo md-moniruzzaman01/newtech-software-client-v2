@@ -42,6 +42,12 @@ import Principle from "./modules/Finance/Principle/Principle";
 import Admin from "./modules/Finance/Admin/Admin";
 import Engineer from "./modules/Finance/Engineer/Engineer";
 import Partner from "./modules/Finance/Partner/Partner";
+import EngineerDashboard from "./modules/Finance/EngineerDashboard/EngineerDashboard";
+import MyComplaints from "./modules/Finance/MyComplaints/MyComplaints";
+import ComplaintBuffers from "./modules/Finance/ComplaintBuffers/ComplaintBuffers";
+import ComplaintsDelivered from "./modules/Finance/ComplaintsDelivered/ComplaintsDelivered";
+import QCMyLibrary from "./modules/Finance/QCMyLibrary/QCMyLibrary";
+import QCMyItems from "./modules/Finance/QCMyItems/QCMyItems";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "/engineer-dashboard",
+        element: <EngineerDashboard />,
       },
       {
         path: "/components",
@@ -118,7 +128,7 @@ export const router = createBrowserRouter([
         element: <Complaint />,
       },
       {
-        path: "/complaints/add-complaint",
+        path: "add-complaint",
         element: <ComplaintService />,
       },
       {
@@ -126,13 +136,33 @@ export const router = createBrowserRouter([
         element: <ComplaintOrderDetails />,
       },
       {
-        path: "/complaints/add-warranty-complaint",
+        path: "/add-warranty-complaint",
         element: <ComplaintAddForWarranty />,
+      },
+      {
+        path: "/my-complaints",
+        element: <MyComplaints />,
+      },
+      {
+        path: "/buffers",
+        element: <ComplaintBuffers />,
+      },
+      {
+        path: "/complaints-delivered",
+        element: <ComplaintsDelivered />,
       },
       // qc start here
       {
         path: "/qc",
         element: <Qc />,
+      },
+      {
+        path: "/qc-my-library",
+        element: <QCMyLibrary />,
+      },
+      {
+        path: "/qc-my-items",
+        element: <QCMyItems />,
       },
       {
         path: "/qc/order-details",

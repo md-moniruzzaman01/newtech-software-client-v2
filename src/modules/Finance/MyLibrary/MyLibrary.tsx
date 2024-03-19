@@ -32,7 +32,7 @@ const MyLibrary = () => {
 
   return (
     <div className="px-5">
-      <Navbar name={"Engineer Items"}></Navbar>
+      <Navbar name={"My Library"}></Navbar>
       <div className="py-5">
         <SearchBar isNeedFilter />
       </div>

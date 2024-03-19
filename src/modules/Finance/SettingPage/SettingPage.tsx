@@ -4,7 +4,7 @@ import Input from "../../../common/components/Input";
 
 const SettingPage = () => {
   return (
-    <div className="flex items-center h-full">
+    <div className="pt-20">
       <div className="w-2/3 mx-auto bg-solidWhite rounded-md p-8 ">
         <HeaderWithCrossBtn name="Change Password" />
         <div className="space-y-3 py-5">
