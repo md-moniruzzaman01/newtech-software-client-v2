@@ -14,7 +14,6 @@ const OthersRoute = () => {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
   }, [storedActiveRoute]);
-  console.log(activeRoute);
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <div
@@ -43,7 +42,7 @@ const OthersRoute = () => {
             <span>Category List</span>
           </div>
         </NavLink>
-        <NavLink to="/report">
+        <NavLink to="/other-report">
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Report</span>

@@ -32,9 +32,9 @@ const InputFilter: React.FC<inputFilterProps> = ({
           {placeholder}
         </option>
         {Filter &&
-          Filter.map((item, i) => (
+          Filter?.map((item, i) => (
             <option key={i} value={item?.value}>
-              {item?.label}
+              {item?.value}
             </option>
           ))}
       </select>

@@ -48,6 +48,15 @@ import ComplaintBuffers from "./modules/Finance/ComplaintBuffers/ComplaintBuffer
 import ComplaintsDelivered from "./modules/Finance/ComplaintsDelivered/ComplaintsDelivered";
 import QCMyLibrary from "./modules/Finance/QCMyLibrary/QCMyLibrary";
 import QCMyItems from "./modules/Finance/QCMyItems/QCMyItems";
+import EngineerMyRepaired from "./modules/Finance/EngineerMyRepaired/EngineerMyRepaired";
+import EngineerAllRepairs from "./modules/Finance/EngineerAllRepairs/EngineerAllRepairs";
+import QAMyLibrary from "./modules/Finance/QAMyLibrary/QAMyLibrary";
+import QAAll from "./modules/Finance/QAAll/QAAll";
+import BillList from "./modules/Finance/BillList/BillList";
+import CreateABill from "./modules/Finance/CreateABill/CreateABill";
+import BillPending from "./modules/Finance/BillPending/BillPending";
+import OtherReport from "./modules/Finance/OtherReport/OtherReport";
+import MainCategoryPage from "./modules/Utilitis/Main Category/MainCategory";
 
 export const router = createBrowserRouter([
   {
@@ -179,13 +188,43 @@ export const router = createBrowserRouter([
         element: <EngineerItems />,
       },
       {
+        path: "/engineer-my-repaired",
+        element: <EngineerMyRepaired />,
+      },
+      {
+        path: "/engineer-all-repairs",
+        element: <EngineerAllRepairs />,
+      },
+      {
         path: "/engineer-items/order-details",
         element: <EngineerItemsOrderDetails />,
       },
+      // bill route start here
+      {
+        path: "/bill-list",
+        element: <BillList />,
+      },
+      {
+        path: "/create-bill",
+        element: <CreateABill />,
+      },
+      {
+        path: "/bill-pending",
+        element: <BillPending />,
+      },
+
       // qa start here
       {
         path: "/qa-items",
         element: <QAItems />,
+      },
+      {
+        path: "/qa-my-library",
+        element: <QAMyLibrary />,
+      },
+      {
+        path: "/qa-all",
+        element: <QAAll />,
       },
       {
         path: "/qa-items/order-details",
@@ -213,6 +252,10 @@ export const router = createBrowserRouter([
         path: "/employee/order-details",
         element: <EmployeeInfoDetailsPage />,
       },
+      {
+        path: "/other-report",
+        element: <OtherReport />,
+      },
       // settings
       {
         path: "/setting",
@@ -230,8 +273,12 @@ export const router = createBrowserRouter([
         element: <CategoryList />,
       },
       {
-        path: "/category/add-category",
+        path: "/add-category",
         element: <WarrantyCategoryAddPage />,
+      },
+      {
+        path: "/add-main-category",
+        element: <MainCategoryPage />,
       },
       // add brand
       {

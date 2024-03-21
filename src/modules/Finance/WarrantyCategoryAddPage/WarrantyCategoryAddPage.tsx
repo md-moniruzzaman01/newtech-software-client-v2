@@ -3,20 +3,21 @@ import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
-import {
-  WarrantyBrands,
-  WarrantyCategoryFilterOption,
-} from "./config/constants";
 import { addCategoryProps } from "./config/types";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { handleFormReset } from "../../../common/widgets/FormResetFunction/FormResetFunction";
-// import { useComplaintAddMutation } from "../../../redux/features/api/baseApi";
+import {
+  useCreateCategoryMutation,
+  useGetMainCategoryQuery,
+} from "../../../redux/features/api/Category";
+import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
 
 const WarrantyCategoryAddPage = () => {
   const [activeRoute, setActiveRoute] = useState(false);
-  const [data, setData] = useState<addCategoryProps>();
-
-  // const [] = useComplaintAddMutation();
+  const [fullData, setFullData] = useState<addCategoryProps>();
+  const { data: mainCategory } = useGetMainCategoryQuery({});
+  const { data: brands } = useGetBrandsQuery({});
+  const [createCategory] = useCreateCategoryMutation();
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
@@ -25,30 +26,39 @@ const WarrantyCategoryAddPage = () => {
     }
   }, []);
 
-  const handleAddCategory = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const value = (form.elements.namedItem("value") as HTMLInputElement).value;
     const category = (form.elements.namedItem("category") as HTMLInputElement)
       .value;
-    const basicServiceCharge = (
-      form.elements.namedItem("basic_service_charge") as HTMLInputElement
-    ).value;
-    const brand = (form.elements.namedItem("brand") as HTMLInputElement).value;
-    const NTF =
-      activeRoute && (form.elements.namedItem("NTF") as HTMLInputElement).value;
-    const CN =
-      activeRoute && (form.elements.namedItem("CN") as HTMLInputElement).value;
-    const CID =
-      activeRoute && (form.elements.namedItem("CID") as HTMLInputElement).value;
-    const swap =
-      activeRoute &&
-      (form.elements.namedItem("swap") as HTMLInputElement).value;
+    const basic_service_charge = parseInt(
+      (form.elements.namedItem("basic_service_charge") as HTMLInputElement)
+        ?.value || "0",
+      10
+    );
+    const brand = (form.elements.namedItem("brand") as HTMLInputElement)?.value;
+    const NTF = parseInt(
+      (form.elements.namedItem("NTF") as HTMLInputElement)?.value || "0",
+      10
+    );
+    const CN = parseInt(
+      (form.elements.namedItem("CN") as HTMLInputElement)?.value || "0",
+      10
+    );
+    const CID = parseInt(
+      (form.elements.namedItem("CID") as HTMLInputElement)?.value || "0",
+      10
+    );
+    const swap = parseInt(
+      (form.elements.namedItem("swap") as HTMLInputElement)?.value || "0",
+      10
+    );
 
     const warrantyData = {
       value,
       category,
-      basicServiceCharge,
+      basic_service_charge,
       brand,
       NTF,
       CN,
@@ -59,19 +69,26 @@ const WarrantyCategoryAddPage = () => {
     const serviceData = {
       value,
       category,
-      basicServiceCharge,
-      brand,
+      basic_service_charge,
     };
 
     if (activeRoute) {
-      setData(warrantyData);
+      setFullData(warrantyData);
     }
     if (!activeRoute) {
-      setData(serviceData);
+      setFullData(serviceData);
+    }
+
+    try {
+      await createCategory(fullData);
+      console.log("Category added successfully");
+      form.reset();
+    } catch (error) {
+      console.error("Error adding brand:", error);
     }
   };
 
-  console.log(data);
+  console.log(fullData);
   return (
     <div>
       <div className="py-5 px-5">
@@ -88,7 +105,7 @@ const WarrantyCategoryAddPage = () => {
             <div className="space-y-3 py-5">
               <Input labelName="Value" inputName="value" />
               <InputFilter
-                Filter={WarrantyCategoryFilterOption}
+                Filter={mainCategory?.data}
                 placeholder="Select Category"
                 label="Category"
                 inputName="category"
@@ -96,19 +113,28 @@ const WarrantyCategoryAddPage = () => {
               <Input
                 labelName="Basic Service Charge"
                 inputName="basic_service_charge"
+                inputType="number"
               />
               {activeRoute && (
                 <>
                   <InputFilter
                     placeholder="Select Brands"
-                    Filter={WarrantyBrands}
+                    Filter={brands?.data}
                     label="Brand"
                     inputName="brand"
                   />
-                  <Input labelName="NTF" inputName="NTF" />
-                  <Input labelName="CN" inputName="CN" />
-                  <Input labelName="CID Fee" inputName="CID" />
-                  <Input labelName="Swap Price" inputName="swap" />
+                  <Input labelName="NTF" inputName="NTF" inputType="number" />
+                  <Input labelName="CN" inputName="CN" inputType="number" />
+                  <Input
+                    labelName="CID Fee"
+                    inputName="CID"
+                    inputType="number"
+                  />
+                  <Input
+                    labelName="Swap Price"
+                    inputName="swap"
+                    inputType="number"
+                  />
                 </>
               )}
             </div>

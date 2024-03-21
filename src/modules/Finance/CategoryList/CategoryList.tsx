@@ -31,9 +31,16 @@ const CategoryList = () => {
     <div className="px-5 relative h-full">
       <Navbar name="Category List" />
 
-      <div className="flex justify-end py-5">
-        <NavLink to="/category/add-category">
-          <Button primary>+ Add Category</Button>
+      <div className="flex gap-2 justify-end py-5">
+        <NavLink to="/add-category">
+          <Button mini primary>
+            + Add Category
+          </Button>
+        </NavLink>
+        <NavLink to="/add-main-category">
+          <Button mini primary>
+            + Add Main Category
+          </Button>
         </NavLink>
       </div>
 

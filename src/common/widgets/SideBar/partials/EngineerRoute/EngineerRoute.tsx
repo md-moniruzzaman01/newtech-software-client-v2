@@ -14,7 +14,6 @@ const EngineerRoute = () => {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
   }, [storedActiveRoute]);
-  console.log(activeRoute);
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <div
@@ -43,13 +42,13 @@ const EngineerRoute = () => {
             <span>Engineer Library</span>
           </div>
         </NavLink>
-        <NavLink to="/my-repaired">
+        <NavLink to="/engineer-my-repaired">
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>My Repaired</span>
           </div>
         </NavLink>
-        <NavLink to={`/all-repairs`}>
+        <NavLink to={`/engineer-all-repairs`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>All Repairs</span>

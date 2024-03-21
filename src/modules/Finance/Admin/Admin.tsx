@@ -18,21 +18,36 @@ const Admin = () => {
       <div className="flex justify-end py-5 gap-2">
         <div>
           <NavLink className="!bg-transparent" to={"/complaints/add-complaint"}>
-            <Button primary>+ Add Complaints</Button>
+            <Button mini primary>
+              + Add Complaints
+            </Button>
           </NavLink>
         </div>
         <div>
           <NavLink className="!bg-transparent" to={"/Add-brand"}>
-            <Button primary>+ Add Brand</Button>
+            <Button mini primary>
+              + Add Brand
+            </Button>
           </NavLink>
         </div>
         <div>
-          <NavLink className="!bg-transparent" to={"/category/add-category"}>
-            <Button primary>+ Add Category</Button>
+          <NavLink className="!bg-transparent" to={"/add-category"}>
+            <Button mini primary>
+              + Add Category
+            </Button>
+          </NavLink>
+        </div>
+        <div>
+          <NavLink className="!bg-transparent" to={"/add-main-category"}>
+            <Button mini primary>
+              + Add Main Category
+            </Button>
           </NavLink>
         </div>
         <NavLink to="/partner/add">
-          <Button primary>+ Add Partner</Button>
+          <Button mini primary>
+            + Add Partner
+          </Button>
         </NavLink>
       </div>
 

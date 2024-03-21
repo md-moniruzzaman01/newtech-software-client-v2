@@ -15,7 +15,6 @@ const BillRoute = () => {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
   }, [storedActiveRoute]);
-  console.log(activeRoute);
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <div

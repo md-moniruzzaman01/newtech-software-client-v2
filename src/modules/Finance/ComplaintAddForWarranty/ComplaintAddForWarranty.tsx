@@ -11,8 +11,8 @@ import {
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
 import { FilterOptions } from "../../../shared/config/constaints";
 import { brandOptions } from "./config/constants";
-import { useComplaintAddMutation } from "../../../redux/features/api/baseApi";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import { useComplaintAddMutation } from "../../../redux/features/api/complaints";
+import { useGetPartnersQuery } from "../../../redux/features/api/Partner";
 
 const ComplaintAddForWarranty = () => {
   // redux
@@ -26,12 +26,22 @@ const ComplaintAddForWarranty = () => {
     useState<warrantyUpdateAddedItemProps | null>(null);
   const [isNewPartner, setIsNewPartner] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
+  const [partners, setPartners] = useState([]);
   const [partnerInfo, setPartnerInfo] = useState<warrantyPartnerProps>({
-    partner_name: "",
+    partner_id: "",
     contact_number: "",
     brand_name: "",
   });
-  // const [loading, setLoading] = useState(false);
+
+  const {
+    data,
+    isLoading: partnerLoading,
+    isError: partnerError,
+  } = useGetPartnersQuery({});
+
+  if (!partnerLoading && partnerError) {
+    setPartners(data?.data);
+  }
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("warrantyAddedItem");
@@ -54,8 +64,8 @@ const ComplaintAddForWarranty = () => {
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
-    const partner_name = (
-      form.elements.namedItem("partner_name") as HTMLInputElement
+    const partner_id = (
+      form.elements.namedItem("partner_id") as HTMLInputElement
     ).value;
     const contact_number = (
       form.elements.namedItem("contact_number") as HTMLInputElement
@@ -63,9 +73,7 @@ const ComplaintAddForWarranty = () => {
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
     const address = (form.elements.namedItem("address") as HTMLInputElement)
       ?.value;
-    const product_or_items_name = (
-      form.elements.namedItem("product_or_items_name") as HTMLInputElement
-    ).value;
+
     const brand_name = (
       form.elements.namedItem("brand_name") as HTMLInputElement
     ).value;
@@ -81,21 +89,21 @@ const ComplaintAddForWarranty = () => {
       form.elements.namedItem("serial_number") as HTMLInputElement
     ).value;
 
-    const remark = (form.elements.namedItem("remark") as HTMLInputElement)
+    const attachments = (form.elements.namedItem("remark") as HTMLInputElement)
       .value;
 
     const problems = (form.elements.namedItem("problems") as HTMLInputElement)
       .value;
 
     const newCustomer = {
-      partner_name,
+      partner_id,
       contact_number,
       email: email,
       address: address,
       brand_name,
     };
     const partner = {
-      partner_name,
+      partner_id,
       contact_number,
       brand_name,
     };
@@ -111,10 +119,9 @@ const ComplaintAddForWarranty = () => {
     }
 
     const data = {
-      product_or_items_name,
       model_number,
       serial_number,
-      remark,
+      attachments,
       problems,
       category,
       main_category,
@@ -173,7 +180,7 @@ const ComplaintAddForWarranty = () => {
           localStorage.removeItem("partnerInfo");
           localStorage.removeItem("newCustomer");
           setPartnerInfo({
-            partner_name: "",
+            partner_id: "",
             contact_number: "",
             brand_name: "",
           });
@@ -208,7 +215,7 @@ const ComplaintAddForWarranty = () => {
       if (willDelete) {
         setWarrantyAddedItem([]);
         setPartnerInfo({
-          partner_name: "",
+          partner_id: "",
           contact_number: "",
           brand_name: "",
         });
@@ -224,15 +231,16 @@ const ComplaintAddForWarranty = () => {
       }
     });
   };
-  const { partner_name, contact_number, brand_name } = partnerInfo;
+  const { brand_name } = partnerInfo;
+  const partner_id = "65fbed2388dfa2925691c779";
   const fullData = {
-    partner_name,
-    contact_number,
+    partner_id,
     brand_name,
     inputFields: warrantyAddedItem,
   };
 
   const handleDataSubmit = async () => {
+    console.log("data:", fullData);
     try {
       const result = await addComplaint(fullData);
 
@@ -245,10 +253,6 @@ const ComplaintAddForWarranty = () => {
       console.error("Error adding complaint:", error);
     }
   };
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
 
   return (
     <div className="px-5">
@@ -286,11 +290,11 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        partnerInfo ? partnerInfo?.partner_name : ""
+                        partnerInfo ? partnerInfo?.partner_id : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
-                      inputName="partner_name"
+                      inputName="partner_id"
                       labelName="Partner Name"
                       inputPlaceholder="Partner Name"
                     />
@@ -358,14 +362,14 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <InputFilter
                       defaultValue={`${
-                        partnerInfo ? partnerInfo?.partner_name : ""
+                        partnerInfo ? partnerInfo?.partner_id : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
-                      inputName="partner_name"
+                      inputName="partner_id"
                       placeholder="Partner Name"
                       label="Partner Name"
-                      Filter={FilterOptions}
+                      Filter={partners}
                     />
                   </div>
                   {/* Contact Number  */}
@@ -410,17 +414,6 @@ const ComplaintAddForWarranty = () => {
               </div>
 
               {/* Product / Items Name  */}
-              <div>
-                <Input
-                  defaultValue={`${
-                    selectData ? selectData?.product_or_items_name : ""
-                  }`}
-                  required
-                  inputName="product_or_items_name"
-                  inputPlaceholder="Product / Items Name"
-                  labelName="Product / Items Name"
-                ></Input>
-              </div>
 
               {/* Model Number   */}
               <div>
@@ -448,7 +441,7 @@ const ComplaintAddForWarranty = () => {
               {/* Remark  */}
               <div>
                 <Input
-                  defaultValue={`${selectData ? selectData?.remark : ""}`}
+                  defaultValue={`${selectData ? selectData?.attachments : ""}`}
                   required
                   inputName="remark"
                   inputPlaceholder="Remark"
@@ -473,7 +466,12 @@ const ComplaintAddForWarranty = () => {
           </form>
           <div className="flex justify-center  pt-7 pb-5">
             <div className="w-1/2">
-              <Button className="w-full" onClick={handleDataSubmit} primary>
+              <Button
+                loading={isLoading}
+                className="w-full"
+                onClick={handleDataSubmit}
+                primary
+              >
                 Submit {warrantyAddedItem?.length > 0 && "All"}
               </Button>
             </div>
@@ -501,7 +499,7 @@ const ComplaintAddForWarranty = () => {
                     <div className="text-base font-semibold flex flex-col">
                       Product Name
                       <span className="text-sm font-normal">
-                        : {item?.product_or_items_name}
+                        : {item?.serial_number}
                       </span>
                     </div>
                     <div className="text-base font-semibold flex flex-col">

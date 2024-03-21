@@ -1,25 +1,27 @@
+import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
-import Button from "../../../common/components/Button";
-import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { handleFormReset } from "../../../common/widgets/FormResetFunction/FormResetFunction";
-import { useCreateBrandMutation } from "../../../redux/features/api/Brand";
+import Navbar from "../../../common/widgets/Navbar/Navbar";
+import { useCreateMainCategoryMutation } from "../../../redux/features/api/Category";
 
-const BrandAddPage = () => {
-  const [createBrand, { isLoading }] = useCreateBrandMutation();
-
+const MainCategoryPage = () => {
+  const [createMainCategory, { isLoading }] = useCreateMainCategoryMutation();
   const handleAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const brand = (form.elements.namedItem("brand") as HTMLInputElement).value;
+    const category = (form.elements.namedItem("brand") as HTMLInputElement)
+      .value;
 
-    const brandData = {
-      value: brand.toUpperCase(),
+    const mainCategory = {
+      value: category,
     };
 
+    console.log(mainCategory);
+
     try {
-      await createBrand(brandData);
-      console.log("Brand added successfully");
+      await createMainCategory(mainCategory);
+      console.log("Main Category added successfully");
       form.reset();
     } catch (error) {
       console.error("Error adding brand:", error);
@@ -29,14 +31,14 @@ const BrandAddPage = () => {
   return (
     <div>
       <div className="py-5 px-5">
-        <Navbar name="Add Brand" />
+        <Navbar name="Add Main Category" />
       </div>
       <div className="flex items-center h-full">
         <div className="w-2/3 mx-auto bg-solidWhite rounded-md p-8 ">
-          <HeaderWithCrossBtn name="Add Brand" />
+          <HeaderWithCrossBtn name="Main Category" />
           <form onSubmit={handleAddCategory}>
             <div className="space-y-3 py-5">
-              <Input required labelName="Brand" inputName="brand" />
+              <Input required labelName="Category" inputName="brand" />
             </div>
 
             <div className="flex justify-center gap-20 items-center pt-8">
@@ -54,4 +56,4 @@ const BrandAddPage = () => {
   );
 };
 
-export default BrandAddPage;
+export default MainCategoryPage;

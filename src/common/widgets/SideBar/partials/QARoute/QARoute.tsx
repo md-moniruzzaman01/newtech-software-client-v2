@@ -14,7 +14,6 @@ const QARoute = () => {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
   }, [storedActiveRoute]);
-  console.log(activeRoute);
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <div
@@ -43,13 +42,13 @@ const QARoute = () => {
             <span>QA Library</span>
           </div>
         </NavLink>
-        <NavLink to="/my-qa-library">
+        <NavLink to="/qa-my-library">
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>My QA Library</span>
           </div>
         </NavLink>
-        <NavLink to={`/all-qa`}>
+        <NavLink to={`/qa-all`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>All QA</span>
