@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
 import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
 import { btnValue } from "./config/constants";
+import { useSearchParams } from "react-router-dom";
 
 const Complaint = () => {
   const [complaints, setComplaints] = useState();
@@ -17,11 +18,34 @@ const Complaint = () => {
   // const [totalItems, setTotalItems] = useState(50);
   const [activeRoute, setActiveRoute] = useState(false);
 
+  const [searchParams] = useSearchParams();
+
+  const queryParams = [];
+  const fields =
+    "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest";
+  const brand = searchParams.get("brand");
+  const branch = searchParams.get("branch");
+  const sort = searchParams.get("sort");
+  const status = searchParams.get("repair-status");
+  if (brand) {
+    queryParams.push(`brand=${brand}`);
+  }
+  if (branch) {
+    queryParams.push(`branch=${branch}`);
+  }
+  if (sort) {
+    queryParams.push(`sort=${sort}`);
+  }
+  if (status) {
+    queryParams.push(`repair_status=${status}`);
+  }
+  queryParams.push(`selectedFields=${fields}`);
+  const query = queryParams?.join("&");
   const {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({});
+  } = useGetComplaintsQuery({ query });
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
