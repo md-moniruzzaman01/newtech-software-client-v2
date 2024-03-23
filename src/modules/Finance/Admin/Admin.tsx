@@ -17,7 +17,7 @@ const Admin = () => {
 
       <div className="flex justify-end py-5 gap-2">
         <div>
-          <NavLink className="!bg-transparent" to={"/complaints/add-complaint"}>
+          <NavLink className="!bg-transparent" to={"/add-warranty-complaint"}>
             <Button mini primary>
               + Add Complaints
             </Button>

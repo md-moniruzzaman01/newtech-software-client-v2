@@ -9,15 +9,16 @@ import {
   warrantyUpdateAddedItemProps,
 } from "./config/types";
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
-import { FilterOptions } from "../../../shared/config/constaints";
-import { brandOptions } from "./config/constants";
 import { useComplaintAddMutation } from "../../../redux/features/api/complaints";
 import { useGetPartnersQuery } from "../../../redux/features/api/Partner";
+import SelectForPartner from "../../../common/components/SelectForPartner/SelectForPartner";
+import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
+import {
+  useGetCategoryQuery,
+  useGetMainCategoryQuery,
+} from "../../../redux/features/api/Category";
 
 const ComplaintAddForWarranty = () => {
-  // redux
-  const [addComplaint, { isLoading }] = useComplaintAddMutation();
-
   // other state
   const [warrantyAddedItem, setWarrantyAddedItem] = useState<
     warrantyUpdateAddedItemProps[]
@@ -27,21 +28,66 @@ const ComplaintAddForWarranty = () => {
   const [isNewPartner, setIsNewPartner] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [partners, setPartners] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [mainCategories, setMainCategories] = useState([]);
   const [partnerInfo, setPartnerInfo] = useState<warrantyPartnerProps>({
     partner_id: "",
     contact_number: "",
     brand_name: "",
   });
 
+  // redux
+  const [addComplaint, { isLoading }] = useComplaintAddMutation();
   const {
-    data,
+    data: partnersData,
     isLoading: partnerLoading,
     isError: partnerError,
   } = useGetPartnersQuery({});
+  const {
+    data: brandData,
+    isError: brandsError,
+    isLoading: brandsLoading,
+  } = useGetBrandsQuery({});
+  const {
+    data: categoryData,
+    isError: categoryError,
+    isLoading: categoryLoading,
+  } = useGetCategoryQuery({});
 
-  if (!partnerLoading && partnerError) {
-    setPartners(data?.data);
-  }
+  const {
+    data: mainCategoryData,
+    isError: mainCategoryError,
+    isLoading: mainCategoryLoading,
+  } = useGetMainCategoryQuery({});
+
+  useEffect(() => {
+    if (!partnerLoading && !partnerError) {
+      setPartners(partnersData?.data);
+    }
+    if (!brandsError && !brandsLoading) {
+      setBrands(brandData?.data);
+    }
+    if (!categoryLoading && !categoryError) {
+      setCategories(categoryData?.data);
+    }
+    if (!mainCategoryLoading && !mainCategoryError) {
+      setMainCategories(mainCategoryData?.data);
+    }
+  }, [
+    partnerLoading,
+    partnerError,
+    partnersData,
+    brandData,
+    brandsError,
+    brandsLoading,
+    categoryData,
+    categoryError,
+    categoryLoading,
+    mainCategoryData,
+    mainCategoryError,
+    mainCategoryLoading,
+  ]);
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("warrantyAddedItem");
@@ -77,7 +123,7 @@ const ComplaintAddForWarranty = () => {
     const brand_name = (
       form.elements.namedItem("brand_name") as HTMLInputElement
     ).value;
-    const main_category = (
+    const category_name = (
       form.elements.namedItem("main_category") as HTMLInputElement
     ).value;
     const category = (form.elements.namedItem("category") as HTMLInputElement)
@@ -124,7 +170,7 @@ const ComplaintAddForWarranty = () => {
       attachments,
       problems,
       category,
-      main_category,
+      category_name,
     };
 
     let updatedAddedItem: warrantyUpdateAddedItemProps[];
@@ -245,9 +291,23 @@ const ComplaintAddForWarranty = () => {
       const result = await addComplaint(fullData);
 
       if ("data" in result) {
-        console.log("Complaint added successfully:", result.data);
+        setWarrantyAddedItem([]);
+        setPartnerInfo({
+          partner_id: "",
+          contact_number: "",
+          brand_name: "",
+        });
+        localStorage.removeItem("warrantyAddedItem");
+        localStorage.removeItem("partnerInfo");
+        localStorage.removeItem("newCustomer");
+        setIsNewPartner(false);
+        swal("Your data has been successfully submitted.", {
+          icon: "success",
+        });
       } else if ("error" in result) {
-        console.error("Error adding complaint:", result.error);
+        swal("Something went wrong!", {
+          icon: "error",
+        });
       }
     } catch (error) {
       console.error("Error adding complaint:", error);
@@ -347,7 +407,7 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <InputFilter
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
-                      Filter={brandOptions}
+                      Filter={brands}
                       defaultValue={`${
                         partnerInfo ? partnerInfo?.brand_name : ""
                       }`}
@@ -360,7 +420,7 @@ const ComplaintAddForWarranty = () => {
 
                   {/* Partner Name  */}
                   <div>
-                    <InputFilter
+                    <SelectForPartner
                       defaultValue={`${
                         partnerInfo ? partnerInfo?.partner_id : ""
                       }`}
@@ -398,7 +458,7 @@ const ComplaintAddForWarranty = () => {
                   inputName="main_category"
                   placeholder="Main Category"
                   label="Main Category"
-                  Filter={FilterOptions}
+                  Filter={mainCategories}
                 />
               </div>
               {/* category  */}
@@ -409,7 +469,7 @@ const ComplaintAddForWarranty = () => {
                   inputName="category"
                   placeholder="Category"
                   label="Category"
-                  Filter={FilterOptions}
+                  Filter={categories}
                 />
               </div>
 
@@ -459,7 +519,7 @@ const ComplaintAddForWarranty = () => {
               </div>
               <div className="col-span-3  justify-end flex items-end pb-5">
                 <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
-                  Add More
+                  Add {warrantyAddedItem?.length > 0 ? "More" : "Please"}
                 </Button>
               </div>
             </div>
@@ -467,6 +527,7 @@ const ComplaintAddForWarranty = () => {
           <div className="flex justify-center  pt-7 pb-5">
             <div className="w-1/2">
               <Button
+                disabled={warrantyAddedItem?.length <= 0}
                 loading={isLoading}
                 className="w-full"
                 onClick={handleDataSubmit}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Button from "../Button";
 import DatePicker from "react-datepicker";
 import { Menu, Transition } from "@headlessui/react";
@@ -8,15 +8,59 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputFilter from "../InputFilter/InputFilter";
 import { FilterOptions } from "../../../shared/config/constaints";
 import TableStatus from "../TableStatus/TableStatus";
-import { StatusGroupBtnValue } from "./config/constants";
+import { statusGroupProps } from "./config/types";
+import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
+import { filterOptionsForFiler } from "./config/constants";
+import SelectForFilter from "../SelectForFilter/SelectForFilter";
 
-const StatusGroup = () => {
+const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [brands, setBrands] = useState([]);
+
+  const {
+    data: brandData,
+    isError: brandsError,
+    isLoading: brandsLoading,
+  } = useGetBrandsQuery({});
+
+  useEffect(() => {
+    if (!brandsError && !brandsLoading) {
+      setBrands(brandData?.data);
+    }
+  }, [brandData, brandsLoading, brandsError]);
+
+  const handleFilter = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const brand = (form.elements.namedItem("brand") as HTMLInputElement).value;
+    const sort = (form.elements.namedItem("sort") as HTMLInputElement).value;
+    const branch = (form.elements.namedItem("branch") as HTMLInputElement)
+      .value;
+
+    // Constructing the query parameters
+    const queryParams = new URLSearchParams();
+    queryParams.append("brand", brand);
+    queryParams.append("sort", sort);
+    queryParams.append("branch", branch);
+
+    // Get the current URL
+    const currentUrl = window.location.href;
+
+    // Constructing the new URL with the query parameters
+    const newUrl = `${
+      currentUrl.includes("?") ? currentUrl.split("?")[0] : currentUrl
+    }?${queryParams.toString()}`;
+
+    // Setting the new URL
+    window.location.href = newUrl;
+
+    console.log(brand, branch, sort);
+  };
 
   return (
     <div className="flex justify-between items-center  ">
-      <TableStatus btnValues={StatusGroupBtnValue} />
+      <TableStatus btnValues={btnGroupValue || []} />
       <div>
         <div className="w-full">
           <Menu as="div" className="relative inline-block text-left">
@@ -54,7 +98,7 @@ const StatusGroup = () => {
                     <h2 className="text-2xl py-3 font-semibold">Filter</h2>
                     <hr />
                   </div>
-                  <form className="w-full">
+                  <form onSubmit={handleFilter} className="w-full">
                     <div className="px-5 pt-5  w-full">
                       <label className="text-lg font-semibold ">Date</label>
                       <div className="flex items-center gap-2 justify-center pt-2">
@@ -77,31 +121,28 @@ const StatusGroup = () => {
                     <div className="flex flex-col gap-5 py-5  px-5">
                       <div className="w-full space-y-2">
                         <InputFilter
-                          Filter={FilterOptions}
+                          Filter={brands}
                           label="Brand"
+                          inputName="brand"
+                          placeholder="Select a brand"
                         ></InputFilter>
                       </div>
 
                       <div className="w-full space-y-2">
-                        <InputFilter
-                          Filter={FilterOptions}
-                          label="Status"
-                        ></InputFilter>
+                        <SelectForFilter
+                          Filter={filterOptionsForFiler}
+                          label="Sort By"
+                          inputName="sort"
+                          placeholder="Sort"
+                        />
                       </div>
 
                       <div className="w-full space-y-2 ">
                         <InputFilter
                           Filter={FilterOptions}
                           label="Branch"
+                          inputName="branch"
                         ></InputFilter>
-                      </div>
-
-                      <div className="w-full space-y-2 ">
-                        <InputFilter
-                          Filter={FilterOptions}
-                          label="Product Item"
-                        ></InputFilter>
-                        <hr />
                       </div>
                     </div>
 

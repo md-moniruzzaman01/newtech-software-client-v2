@@ -1,11 +1,22 @@
 import Button from "../Button";
 import { useState } from "react";
 import { TableStatusProps } from "./config/types";
+import { useNavigate } from "react-router-dom";
 
 const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
   const [activeRoute, setActiveRoute] = useState("/all");
 
+  const navigate = useNavigate();
+
+  const setQuery = (paramName: string, paramValue: string) => {
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.set(paramName, paramValue);
+    navigate(`?${queryParams.toString()}`);
+  };
+
   const handleFilter = (route: string) => {
+    setQuery("repair-status", route);
+
     setActiveRoute(route);
   };
 
@@ -16,14 +27,21 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
   return (
     <div>
       <div className="flex gap-2 flex-wrap">
+        <Button
+          status
+          className="!bg-grayForBorder"
+          onClick={() => handleFilter(`/`)}
+        >
+          All
+        </Button>
         {btnValues?.map((btnValue, index) => (
           <Button
             key={index}
             status
             className={
-              activeRoute === `/${btnValue}` ? "!bg-grayForBorder  " : ""
+              activeRoute === `${btnValue}` ? "!bg-grayForBorder  " : ""
             }
-            onClick={() => handleFilter(`/${btnValue}`)}
+            onClick={() => handleFilter(btnValue)}
           >
             {capitalize(btnValue)}
           </Button>

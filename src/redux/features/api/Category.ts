@@ -20,6 +20,9 @@ const CategoryApi = baseApi.injectEndpoints({
     getMainCategory: builder.query({
       query: () => "/main/category",
     }),
+    getCategory: builder.query({
+      query: () => "/category",
+    }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
     //     url: `/posts/${postId}`,
@@ -40,4 +43,5 @@ export const {
   useCreateMainCategoryMutation,
   useGetMainCategoryQuery,
   useCreateCategoryMutation,
+  useGetCategoryQuery,
 } = CategoryApi;

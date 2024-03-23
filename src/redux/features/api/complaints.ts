@@ -10,7 +10,10 @@ const ComplaintsApi = baseApi.injectEndpoints({
       }),
     }),
     getComplaints: builder.query({
-      query: () => "/complaints",
+      query: (params) => {
+        console.log(`/complaints?${params}`);
+        return `/complaints?${params}`;
+      },
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
