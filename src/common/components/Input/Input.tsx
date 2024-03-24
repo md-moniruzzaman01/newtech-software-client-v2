@@ -6,6 +6,8 @@ interface InputProps {
   IsDisabled?: boolean;
   defaultValue?: string;
   required?: boolean;
+  value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,6 +18,8 @@ const Input: React.FC<InputProps> = ({
   IsDisabled = false,
   defaultValue,
   required = false,
+  value,
+  onChange,
 }) => {
   return (
     <div>
@@ -25,7 +29,9 @@ const Input: React.FC<InputProps> = ({
             <label className="text-lg font-semibold">{labelName}</label>
           </div>
           <input
+            value={value}
             required={required}
+            onChange={onChange} // Added onChange event handler
             name={inputName}
             type={inputType}
             disabled={IsDisabled}

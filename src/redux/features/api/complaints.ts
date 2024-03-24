@@ -11,9 +11,16 @@ const ComplaintsApi = baseApi.injectEndpoints({
     }),
     getComplaints: builder.query({
       query: (params) => {
-        console.log(`/complaints?${params?.query}`);
+        // console.log(`/complaints?${params?.query}`);
         // console.log(params);
-        return `/complaints?${params?.query}`;
+        const token = params?.token;
+        console.log(token);
+        return {
+          url: `/complaints?${params?.query}`,
+          headers: {
+            Authorization: token,
+          },
+        };
       },
     }),
     // updatePost: builder.mutation({
@@ -24,7 +31,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
     //   }),
     // }),
     // deletePost: builder.mutation({
-    //   query: (postId) => ({
+    //   query: (postId) => ({a
     //     url: `/posts/${postId}`,
     //     method: "DELETE",
     //   }),

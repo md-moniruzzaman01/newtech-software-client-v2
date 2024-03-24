@@ -7,10 +7,10 @@ import {
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import { useEffect, useState } from "react";
-import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
 import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
 import { btnValue } from "./config/constants";
 import { useSearchParams } from "react-router-dom";
+import ComplaintTable from "./partials/ComplaintsTable/ComplaintsTable";
 
 const Complaint = () => {
   const [complaints, setComplaints] = useState();
@@ -41,11 +41,16 @@ const Complaint = () => {
   }
   queryParams.push(`selectedFields=${fields}`);
   const query = queryParams?.join("&");
+  const token = localStorage.getItem("token"); // Replace with your actual token retrieval logic
+
   const {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({ query });
+  } = useGetComplaintsQuery({
+    query,
+    token,
+  });
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");

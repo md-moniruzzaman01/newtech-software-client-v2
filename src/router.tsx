@@ -57,6 +57,8 @@ import CreateABill from "./modules/Finance/CreateABill/CreateABill";
 import BillPending from "./modules/Finance/BillPending/BillPending";
 import OtherReport from "./modules/Finance/OtherReport/OtherReport";
 import MainCategoryPage from "./modules/Utilitis/Main Category/MainCategory";
+import Register from "./modules/Utilitis/Register/Register";
+import Login from "./modules/Utilitis/Login/Login";
 
 export const router = createBrowserRouter([
   {
@@ -300,5 +302,13 @@ export const router = createBrowserRouter([
         element: <Admin />,
       },
     ],
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
