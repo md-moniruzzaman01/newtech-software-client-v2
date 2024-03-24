@@ -12,9 +12,9 @@ const ComplaintTable: FC<ComplaintsTableProps> = ({
     <>
       <div className="flex justify-center w-full">
         <div className="overflow-x-auto w-full">
-          <table className="table text-center w-full border border-collapse border-gray-800">
+          <table className="table text-center w-full border border-collapse border-gray-800 text-xs">
             {/* head */}
-            <thead className="bg-[#D9D9D9]">
+            <thead>
               <tr>
                 <td className=" border border-gray-800">
                   <label className="flex justify-center items-center">
@@ -41,20 +41,35 @@ const ComplaintTable: FC<ComplaintsTableProps> = ({
                       />
                     </label>
                   </td>
-                  <td className="border border-gray-800">{item.order_id}</td>
-                  <td className="border border-gray-800">12/12/2023</td>
-                  <td className="border border-gray-800">12/12/2023</td>
-                  <td className="border border-gray-800">John doe</td>
-                  <td className="border border-gray-800">Monitor</td>
-                  <td className="border border-gray-800">No display</td>
-                  <td className="border border-gray-800">Acer</td>
-                  <td className="border border-gray-800">No Assign</td>
-                  <td className="border border-gray-800">Progress</td>
+                  <td className="border border-gray-800">
+                    {item?.order_number}
+                  </td>
+                  <td className="border border-gray-800">
+                    {item?.products?.serial_number}
+                  </td>
+                  <td className="border border-gray-800">
+                    {item?.customer?.contact_person}
+                  </td>
+                  <td className="border border-gray-800">{item?.brand_name}</td>
+                  <td className="border border-gray-800">
+                    {item?.products?.model_number}
+                  </td>
+                  <td className="border border-gray-800">{""}</td>
+                  <td className="border border-gray-800">{""}</td>
+                  <td className="border border-gray-800">
+                    {item?.partrequest?.length}
+                  </td>
+                  <td className="border border-gray-800">
+                    {item?.repair_status}
+                  </td>
+                  <td className="border border-gray-800">
+                    {item?.received_date}
+                  </td>
                   <td className="border border-gray-800">
                     {Link && (
                       <NavLink
                         className=" !text-black flex justify-center"
-                        to={`${Link}`}
+                        to={`${Link}/${item?._id}`}
                       >
                         <IoMdEye />
                       </NavLink>

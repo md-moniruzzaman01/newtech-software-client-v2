@@ -4,13 +4,19 @@ import { TableStatusProps } from "./config/types";
 import { useNavigate } from "react-router-dom";
 
 const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
-  const [activeRoute, setActiveRoute] = useState("/all");
+  const [activeRoute, setActiveRoute] = useState("");
 
   const navigate = useNavigate();
 
   const setQuery = (paramName: string, paramValue: string) => {
     const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set(paramName, paramValue);
+    if (paramValue === "") {
+      queryParams.forEach((value, key) => {
+        queryParams.delete(key);
+      });
+    } else {
+      queryParams.set(paramName, paramValue); // Set the search parameter if paramValue is not empty
+    }
     navigate(`?${queryParams.toString()}`);
   };
 
@@ -29,8 +35,8 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
       <div className="flex gap-2 flex-wrap">
         <Button
           status
-          className="!bg-grayForBorder"
-          onClick={() => handleFilter(`/`)}
+          className={activeRoute === "" ? "!bg-grayForBorder  " : ""}
+          onClick={() => handleFilter("")}
         >
           All
         </Button>
@@ -46,42 +52,6 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
             {capitalize(btnValue)}
           </Button>
         ))}
-        {/* <Button
-          status
-          className={
-            activeRoute === "/order-out/processing" ? "!bg-grayForBorder  " : ""
-          }
-          onClick={() => handleFilter("/order-out/processing")}
-        >
-          Processing
-        </Button>
-        <Button
-          status
-          className={
-            activeRoute === "/order-out/received" ? "!bg-grayForBorder  " : ""
-          }
-          onClick={() => handleFilter("/order-out/received")}
-        >
-          Received
-        </Button>
-        <Button
-          status
-          className={
-            activeRoute === "/order-out/delivered" ? "!bg-grayForBorder  " : ""
-          }
-          onClick={() => handleFilter("/order-out/delivered")}
-        >
-          Delivered
-        </Button>
-        <Button
-          status
-          className={
-            activeRoute === "/order-out/cancel" ? "!bg-grayForBorder  " : ""
-          }
-          onClick={() => handleFilter("/order-out/cancel")}
-        >
-          Cancel
-        </Button> */}
       </div>
     </div>
   );

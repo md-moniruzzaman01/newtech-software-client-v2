@@ -19,3 +19,17 @@ export type SearchParams = {
   sort: string | null;
   status: string | null;
 };
+
+export const tableHeaderForComplaints = [
+  "Order No",
+  "Serial No",
+  "Customer Name",
+  "Brand",
+  "Model No",
+  "QC Name",
+  "Repair Name",
+  "QA Name",
+  "Parts Request",
+  "Repair Status",
+  "Received Date",
+];

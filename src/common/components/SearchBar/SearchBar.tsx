@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
@@ -7,6 +7,7 @@ import {
   FilterOptions,
   FilterOptions2,
 } from "../../../shared/config/constaints";
+import { useState } from "react";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link = false,
@@ -18,14 +19,40 @@ const SearchBar: React.FC<SearchBarProps> = ({
   isNormalBtn = false,
   dropdown = false,
 }) => {
+  const [activeRoute, setActiveRoute] = useState("");
+  const navigate = useNavigate();
+
+  const setQuery = (paramName: string, paramValue: string) => {
+    const queryParams = new URLSearchParams(window.location.search);
+    if (paramValue === "") {
+      queryParams.delete(paramName); // Remove the search parameter if paramValue is empty
+    } else {
+      queryParams.set(paramName, paramValue); // Set the search parameter if paramValue is not empty
+    }
+    navigate(`?${queryParams.toString()}`);
+  };
+
+  const handleFilter = (route: string) => {
+    setQuery("search", route);
+
+    setActiveRoute(route);
+  };
+
   return (
     <div>
       <div className="flex justify-between ">
         <div className="flex items-center gap-2">
-          <Input inputName="search" inputPlaceholder="Search" />
+          <Input
+            value={activeRoute}
+            onChange={(e) => setActiveRoute(e.target.value)}
+            inputName="search"
+            inputPlaceholder="Search"
+          />
 
           <div>
-            <Button primary>Search</Button>
+            <Button onClick={() => handleFilter(activeRoute)} primary>
+              Search
+            </Button>
           </div>
         </div>
         <div className="flex items-center gap-2 ">

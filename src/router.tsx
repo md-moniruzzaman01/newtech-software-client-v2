@@ -143,7 +143,7 @@ export const router = createBrowserRouter([
         element: <ComplaintService />,
       },
       {
-        path: "/complaints/order-details",
+        path: "/complaints/order-details/:id",
         element: <ComplaintOrderDetails />,
       },
       {
