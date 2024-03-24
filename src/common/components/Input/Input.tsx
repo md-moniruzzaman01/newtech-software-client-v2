@@ -7,7 +7,7 @@ interface InputProps {
   defaultValue?: string;
   required?: boolean;
   value?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({

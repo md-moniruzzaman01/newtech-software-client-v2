@@ -8,10 +8,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputFilter from "../InputFilter/InputFilter";
 import { FilterOptions } from "../../../shared/config/constaints";
 import TableStatus from "../TableStatus/TableStatus";
-import { statusGroupProps } from "./config/types";
 import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
 import { filterOptionsForFiler } from "./config/constants";
 import SelectForFilter from "../SelectForFilter/SelectForFilter";
+import { statusGroupProps } from "./config/types";
 
 const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
   const [startDate, setStartDate] = useState(new Date());

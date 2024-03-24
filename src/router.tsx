@@ -2,63 +2,60 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Layout from "./common/widgets/Layout";
 import Branch from "./modules/Finance/Branch/Branch";
-import RepairComplete from "./modules/Finance/RepaireComplete/RepairComplete";
 import TotalRepairing from "./modules/Finance/Total repairing/TotalRepairing";
 import TotalRepaired from "./modules/Finance/TotalRepaired/TotalRepaired";
 import AvailableMoney from "./modules/Finance/AvailableMoney/AvailableMoney";
 import DiscountAmount from "./modules/Finance/DiscountAmount/DiscountAmount";
 import Withdraw from "./modules/Finance/Withdraw/Withdraw";
 import OrderCount from "./modules/Finance/OrderCount/OrderCount";
-import Complaint from "./modules/Finance/Complaint/Complaint";
-import ComplaintService from "./modules/Finance/ComplaintService/ComplaintService";
-import Qc from "./modules/Finance/Qc/Qc";
-import ComplaintOrderDetails from "./modules/Finance/ComplaintOrderDetails/ComplaintOrderDetails";
-
-import ComplaintOrderDetailsQC from "./modules/Finance/ComplaintOrderDetailsQC/ComplaintOrderDetailsQC";
-import EngineerItems from "./modules/Finance/EngineerItems/EngineerItems";
-import EngineerItemsOrderDetails from "./modules/Finance/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
-import QAItems from "./modules/Finance/QA/QAItems";
-import QAItemOrderDetails from "./modules/Finance/QAItemOrderDetails/QAItemOrderDetails";
-import CustomerDetailsPage from "./modules/Finance/CustomerDetailsPage/CustomerDetailsPage";
-import ComponentPreview from "./forTest/ComponentPreview";
-import CustomerAddOrEdit from "./modules/Finance/CustomerAdd/CustomerAddOrEdit";
-import Employee from "./modules/Finance/Employee/Employee";
-import EmployeeInfoDetailsPage from "./modules/Finance/EmployeeInfoDetails/EmployeeInfoDetailsPage";
-import Inventory from "./modules/Finance/Inventory/Inventory";
-import InventoryRequest from "./modules/Finance/InventoryRequest/InventoryRequest";
-import InventoryApprove from "./modules/Finance/InventoryApprove/InventoryApprove";
-import InventoryRequestDetailsPage from "./modules/Finance/InventoryRequestDetailsPage/InventoryRequestDetailsPage";
-import Dashboard from "./modules/Dashboard";
-import SettingPage from "./modules/Finance/SettingPage";
-import MyLibrary from "./modules/Finance/MyLibrary/MyLibrary";
 import Error from "./modules/Error/Error";
 import PrivateRoute from "./PrivateRoute";
-import ComplaintAddForWarranty from "./modules/Finance/ComplaintAddForWarranty/ComplaintAddForWarranty";
-import WarrantyCategoryAddPage from "./modules/Finance/WarrantyCategoryAddPage/WarrantyCategoryAddPage";
-import BrandAddPage from "./modules/Finance/BrandAddPage";
-import MyProfile from "./modules/Finance/MyProfile/MyProfile";
-import CategoryList from "./modules/Finance/CategoryList";
-import Principle from "./modules/Finance/Principle/Principle";
 import Admin from "./modules/Finance/Admin/Admin";
-import Engineer from "./modules/Finance/Engineer/Engineer";
-import Partner from "./modules/Finance/Partner/Partner";
-import EngineerDashboard from "./modules/Finance/EngineerDashboard/EngineerDashboard";
-import MyComplaints from "./modules/Finance/MyComplaints/MyComplaints";
-import ComplaintBuffers from "./modules/Finance/ComplaintBuffers/ComplaintBuffers";
-import ComplaintsDelivered from "./modules/Finance/ComplaintsDelivered/ComplaintsDelivered";
-import QCMyLibrary from "./modules/Finance/QCMyLibrary/QCMyLibrary";
-import QCMyItems from "./modules/Finance/QCMyItems/QCMyItems";
-import EngineerMyRepaired from "./modules/Finance/EngineerMyRepaired/EngineerMyRepaired";
-import EngineerAllRepairs from "./modules/Finance/EngineerAllRepairs/EngineerAllRepairs";
-import QAMyLibrary from "./modules/Finance/QAMyLibrary/QAMyLibrary";
-import QAAll from "./modules/Finance/QAAll/QAAll";
-import BillList from "./modules/Finance/BillList/BillList";
-import CreateABill from "./modules/Finance/CreateABill/CreateABill";
-import BillPending from "./modules/Finance/BillPending/BillPending";
 import OtherReport from "./modules/Finance/OtherReport/OtherReport";
 import MainCategoryPage from "./modules/Utilitis/Main Category/MainCategory";
-import Register from "./modules/Utilitis/Register/Register";
 import Login from "./modules/Utilitis/Login/Login";
+import Dashboard from "./modules/Dashboard/admin Dashboard/Dashboard";
+import EngineerDashboard from "./modules/Dashboard/Engineer Dashboard";
+import RepairComplete from "./modules/warranty/repair/RepaireComplete/RepairComplete";
+import Inventory from "./modules/inventory/Inventory/Inventory";
+import InventoryRequest from "./modules/inventory/InventoryRequest/InventoryRequest";
+import InventoryRequestDetailsPage from "./modules/inventory/InventoryRequestDetailsPage/InventoryRequestDetailsPage";
+import InventoryApprove from "./modules/inventory/InventoryApprove/InventoryApprove";
+import Complaint from "./modules/warranty/complaints/Complaint/Complaint";
+import ComplaintService from "./modules/services/ComplaintService/ComplaintService";
+import ComplaintOrderDetails from "./modules/warranty/complaints/ComplaintOrderDetails/ComplaintOrderDetails";
+import ComplaintAddForWarranty from "./modules/warranty/complaints/ComplaintAddForWarranty/ComplaintAddForWarranty";
+import MyComplaints from "./modules/warranty/complaints/MyComplaints/MyComplaints";
+import ComplaintBuffers from "./modules/warranty/complaints/ComplaintBuffers/ComplaintBuffers";
+import ComplaintsDelivered from "./modules/warranty/complaints/ComplaintsDelivered/ComplaintsDelivered";
+import Qc from "./modules/warranty/QC/Qc/Qc";
+import QCMyLibrary from "./modules/warranty/QC/QCMyLibrary/QCMyLibrary";
+import QCMyItems from "./modules/warranty/QC/QCMyItems/QCMyItems";
+import ComplaintOrderDetailsQC from "./modules/warranty/QC/ComplaintOrderDetailsQC/ComplaintOrderDetailsQC";
+import Engineer from "./modules/Utilitis/Engineer/Engineer";
+import EngineerItems from "./modules/warranty/repair/EngineerItems/EngineerItems";
+import EngineerMyRepaired from "./modules/warranty/repair/EngineerMyRepaired/EngineerMyRepaired";
+import EngineerAllRepairs from "./modules/warranty/repair/EngineerAllRepairs/EngineerAllRepairs";
+import EngineerItemsOrderDetails from "./modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
+import BillList from "./modules/services/invoice/BillList/BillList";
+import CreateABill from "./modules/services/invoice/CreateABill/CreateABill";
+import BillPending from "./modules/services/invoice/BillPending/BillPending";
+import QAItems from "./modules/warranty/QA/QA/QAItems";
+import QAMyLibrary from "./modules/warranty/QA/QAMyLibrary/QAMyLibrary";
+import QAAll from "./modules/warranty/QA/QAAll/QAAll";
+import QAItemOrderDetails from "./modules/warranty/QA/QAItemOrderDetails/QAItemOrderDetails";
+import Partner from "./modules/Utilitis/Partner/Partner list/Partner";
+import CustomerDetailsPage from "./modules/Utilitis/Partner/CustomerDetailsPage/CustomerDetailsPage";
+import CustomerAddOrEdit from "./modules/Utilitis/Partner/CustomerAdd/CustomerAddOrEdit";
+import Employee from "./modules/Utilitis/Employee/Employee";
+import EmployeeInfoDetailsPage from "./modules/Utilitis/EmployeeInfoDetails/EmployeeInfoDetailsPage";
+import SettingPage from "./modules/Utilitis/SettingPage";
+import MyLibrary from "./modules/warranty/repair/MyLibrary/MyLibrary";
+import CategoryList from "./modules/warranty/category/CategoryList";
+import WarrantyCategoryAddPage from "./modules/warranty/category/WarrantyCategoryAddPage";
+import BrandAddPage from "./modules/warranty/brand/BrandAddPage";
+import MyProfile from "./modules/Utilitis/MyProfile/MyProfile";
+import Principle from "./modules/Utilitis/Principle/Principle list/Principle";
 
 export const router = createBrowserRouter([
   {
@@ -77,10 +74,6 @@ export const router = createBrowserRouter([
       {
         path: "/engineer-dashboard",
         element: <EngineerDashboard />,
-      },
-      {
-        path: "/components",
-        element: <ComponentPreview></ComponentPreview>,
       },
       // branch start here
       {
@@ -144,7 +137,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/complaints/order-details",
-        element: <ComplaintOrderDetails />,
+        element: <ComplaintOrderDetails/>,
       },
       {
         path: "/add-warranty-complaint",
@@ -169,11 +162,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/qc-my-library",
-        element: <QCMyLibrary />,
+        element: <QCMyLibrary/>,
       },
       {
         path: "/qc-my-items",
-        element: <QCMyItems />,
+        element: <QCMyItems/>,
       },
       {
         path: "/qc/order-details",
@@ -187,7 +180,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/engineer-items",
-        element: <EngineerItems />,
+        element: <EngineerItems/>,
       },
       {
         path: "/engineer-my-repaired",
@@ -208,7 +201,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/create-bill",
-        element: <CreateABill />,
+        element: <CreateABill/>,
       },
       {
         path: "/bill-pending",
@@ -302,10 +295,6 @@ export const router = createBrowserRouter([
         element: <Admin />,
       },
     ],
-  },
-  {
-    path: "/register",
-    element: <Register />,
   },
   {
     path: "/login",
