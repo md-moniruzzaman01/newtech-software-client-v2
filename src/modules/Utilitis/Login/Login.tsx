@@ -3,6 +3,7 @@ import Button from "../../../common/components/Button";
 import Input from "../../../common/components/Input";
 import { useState } from "react";
 import swal from "sweetalert";
+import { authKey } from "../../../shared/config/constaints";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Login = () => {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          localStorage.setItem("token", data.data.accessToken);
+          localStorage.setItem(authKey, data.data.accessToken);
           localStorage.setItem("refreshToken", data.data.accessToken);
           navigate("/");
         } else {
