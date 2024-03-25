@@ -5,6 +5,7 @@ export type SelectForPartnerProps = {
     contact_person?: string;
     company?: string;
     _id?: string;
+    id?: string;
   }[];
   label?: string;
   IsDisabled?: boolean;

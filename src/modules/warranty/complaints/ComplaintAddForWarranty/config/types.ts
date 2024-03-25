@@ -19,3 +19,10 @@ export type warrantyPartnerProps = {
   brand_name?: string;
   partner_name?: string | undefined;
 };
+
+export type PartnerProps = {
+  id?: string;
+  contact_person?: string;
+  company?: string;
+  partner_id?: string;
+};

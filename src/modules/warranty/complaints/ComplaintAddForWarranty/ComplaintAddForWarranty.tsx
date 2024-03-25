@@ -16,8 +16,12 @@ import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import SelectForPartner from "../../../../common/components/SelectForPartner/SelectForPartner";
 import TextArea from "../../../../common/components/TextArea/TextArea";
-import { deleteAll, deleteData, handleDataSubmit } from "./config/helpers";
+
 import { defualtpartnerInfo } from "./config/constants";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { defaultPartner } from "./helpers/findDefaultPartner";
+import { handleDataSubmit } from "./helpers/submitData";
+import { deleteAll, deleteData } from "./helpers/deleteProducts";
 
 const ComplaintAddForWarranty = () => {
   // other state
@@ -88,9 +92,9 @@ const ComplaintAddForWarranty = () => {
   ]);
 
   useEffect(() => {
-    const storedAddedItem = localStorage.getItem("warrantyAddedItem");
-    const storedPartnerInfo = localStorage.getItem("partnerInfo");
-    const storedNewCustomer = localStorage.getItem("newCustomer");
+    const storedAddedItem = getFromLocalStorage("warrantyAddedItem");
+    const storedPartnerInfo = getFromLocalStorage("partnerInfo");
+    const storedNewCustomer = getFromLocalStorage("newCustomer");
     if (storedAddedItem) {
       setWarrantyAddedItem(JSON.parse(storedAddedItem));
     }
@@ -206,7 +210,9 @@ const ComplaintAddForWarranty = () => {
     brand_name,
     inputFields: warrantyAddedItem,
   };
-
+  const defaultPartnerInfo = defaultPartner(partnerInfo, partners);
+  const defaultPartnerName = `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
+  console.log(defaultPartnerName);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -314,7 +320,7 @@ const ComplaintAddForWarranty = () => {
                   {/* Partner Name  */}
                   <div>
                     <SelectForPartner
-                      defaultValue="Select Contact person"
+                      defaultValue={defaultPartnerName}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputName="partner_id"

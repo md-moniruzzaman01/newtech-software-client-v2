@@ -12,7 +12,7 @@ import {
 } from "../../../../shared/config/constaints";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
-import { getFromLocalStorage } from "../../../../libs/local_storage";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 //internal
 

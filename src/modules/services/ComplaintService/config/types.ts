@@ -14,8 +14,8 @@ export type updateAddedItemProps = {
 };
 
 export type partnerProps = {
-  customer_name: string;
-  contact_number: string;
-  email: string;
-  address: string;
+  customer_name?: string;
+  contact_number?: string;
+  email?: string;
+  address?: string;
 };
