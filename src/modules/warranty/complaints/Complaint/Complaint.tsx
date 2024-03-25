@@ -6,9 +6,13 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import { btnValue } from "./config/constants";
 import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
-import { DemoTableHeaderView } from "../../../../shared/config/constaints";
+import {
+  DemoTableHeaderView,
+  authKey,
+} from "../../../../shared/config/constaints";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { getFromLocalStorage } from "../../../../libs/local_storage";
 
 //internal
 
@@ -44,9 +48,8 @@ const Complaint = () => {
     queryParams.push(`search=${search}`);
   }
   queryParams.push(`selectedFields=${fields}`);
-  const query = queryParams?.join("&");
-  const token = localStorage.getItem("token"); // Replace with your actual token retrieval logic
-
+  const query = queryParams?.join("&"); // Replace with your actual token retrieval logic
+  const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
     isError: complaintsError,

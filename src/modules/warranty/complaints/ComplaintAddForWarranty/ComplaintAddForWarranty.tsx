@@ -10,14 +10,13 @@ import {
   useGetCategoryQuery,
   useGetMainCategoryQuery,
 } from "../../../../redux/features/api/Category";
-import swal from "sweetalert";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Button from "../../../../common/components/Button";
 import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import SelectForPartner from "../../../../common/components/SelectForPartner/SelectForPartner";
 import TextArea from "../../../../common/components/TextArea/TextArea";
-import { deleteAll, deleteData } from "./config/helpers";
+import { deleteAll, deleteData, handleDataSubmit } from "./config/helpers";
 import { defualtpartnerInfo } from "./config/constants";
 
 const ComplaintAddForWarranty = () => {
@@ -201,40 +200,11 @@ const ComplaintAddForWarranty = () => {
     setSelectData(selectedItemData);
   };
 
-  const { brand_name } = partnerInfo;
-  const partner_id = "65fbed2388dfa2925691c779";
+  const { brand_name, partner_id } = partnerInfo;
   const fullData = {
     partner_id,
     brand_name,
     inputFields: warrantyAddedItem,
-  };
-
-  const handleDataSubmit = async () => {
-    try {
-      const result = await addComplaint(fullData);
-
-      if ("data" in result) {
-        setWarrantyAddedItem([]);
-        setPartnerInfo({
-          partner_id: "",
-          contact_number: "",
-          brand_name: "",
-        });
-        localStorage.removeItem("warrantyAddedItem");
-        localStorage.removeItem("partnerInfo");
-        localStorage.removeItem("newCustomer");
-        setIsNewPartner(false);
-        swal("Your data has been successfully submitted.", {
-          icon: "success",
-        });
-      } else if ("error" in result) {
-        swal("Something went wrong!", {
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      console.error("Error adding complaint:", error);
-    }
   };
 
   return (
@@ -344,16 +314,7 @@ const ComplaintAddForWarranty = () => {
                   {/* Partner Name  */}
                   <div>
                     <SelectForPartner
-                      defaultValue={`${
-                        partnerInfo
-                          ? console.log(
-                              partners.find(
-                                (partner: { _id: string }) =>
-                                  partner?._id === partnerInfo?.partner_id
-                              )
-                            )
-                          : ""
-                      }`}
+                      defaultValue="Select Contact person"
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputName="partner_id"
@@ -460,7 +421,15 @@ const ComplaintAddForWarranty = () => {
                 disabled={warrantyAddedItem?.length <= 0}
                 loading={isLoading}
                 className="w-full"
-                onClick={handleDataSubmit}
+                onClick={() =>
+                  handleDataSubmit(
+                    addComplaint,
+                    fullData,
+                    setWarrantyAddedItem,
+                    setPartnerInfo,
+                    setIsNewPartner
+                  )
+                }
                 primary
               >
                 Submit {warrantyAddedItem?.length > 0 && "All"}

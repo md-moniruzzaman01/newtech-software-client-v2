@@ -4,7 +4,6 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
   Filter = [],
   label,
   IsDisabled = false,
-  placeholder,
   className,
   required = false,
   inputName,
@@ -20,9 +19,7 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
         className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
         defaultValue={defaultValue}
       >
-        <option value={""} disabled>
-          {defaultValue || placeholder}
-        </option>
+        <option value={defaultValue}>{defaultValue}</option>
         {Filter &&
           Filter?.map((item, i) => (
             <option key={i} value={item?._id}>
