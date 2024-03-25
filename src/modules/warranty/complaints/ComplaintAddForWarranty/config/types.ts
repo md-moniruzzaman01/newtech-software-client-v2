@@ -17,4 +17,5 @@ export type warrantyPartnerProps = {
   email?: string | undefined;
   address?: string | undefined;
   brand_name?: string;
+  partner_name?: string | undefined;
 };

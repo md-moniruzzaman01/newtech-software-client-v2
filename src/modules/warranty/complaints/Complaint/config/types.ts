@@ -1,20 +1,22 @@
 export type ComplaintsTableProps = {
   HeaderData: TableHeaderProps[];
-  itemData: TableBodyProps[];
+  itemData?: TableBodyProps[];
   view?: boolean;
   Link?: string;
 };
 
 export type TableHeaderProps = string;
 export type TableBodyProps = {
-  id?: string;
-  order_id: string;
-  created_at: string;
-  due_date: string;
-  customer_name: string;
-  items: string;
-  problem: string;
-  brand_name: string;
-  engineer: string;
-  status: string;
+  _id?: string;
+  order_number?: string;
+  products?: {
+    model_number?: string;
+    brand_name?: string;
+    serial_number?: string;
+  };
+  customer?: { contact_person?: string };
+  brand_name?: string;
+  partrequest?: string;
+  repair_status?: string;
+  received_date?: string;
 };

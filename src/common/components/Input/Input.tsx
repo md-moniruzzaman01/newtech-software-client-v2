@@ -16,11 +16,12 @@ const Input: React.FC<InputProps> = ({
   inputType = "text",
   inputName,
   IsDisabled = false,
-  defaultValue,
+  defaultValue = "",
   required = false,
   value,
   onChange,
 }) => {
+  console.log(defaultValue);
   return (
     <div>
       <div>
@@ -35,7 +36,7 @@ const Input: React.FC<InputProps> = ({
             name={inputName}
             type={inputType}
             disabled={IsDisabled}
-            placeholder={inputPlaceholder}
+            placeholder={defaultValue || inputPlaceholder}
             defaultValue={defaultValue}
             className="border-2 w-full rounded-sm  py-2 pl-2"
           />

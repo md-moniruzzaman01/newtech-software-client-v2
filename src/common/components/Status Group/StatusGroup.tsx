@@ -8,15 +8,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputFilter from "../InputFilter/InputFilter";
 import { FilterOptions } from "../../../shared/config/constaints";
 import TableStatus from "../TableStatus/TableStatus";
+import { statusGroupProps } from "./config/types";
 import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
 import { filterOptionsForFiler } from "./config/constants";
-import SelectForFilter from "../SelectForFilter/SelectForFilter";
-import { statusGroupProps } from "./config/types";
+import { useGetMainCategoryQuery } from "../../../redux/features/api/Category";
+import { useNavigate } from "react-router-dom";
+import InputFilterById from "../InputFilterById/InputFilterById";
 
 const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [brands, setBrands] = useState([]);
+  const [category, setCategory] = useState([]);
+  const navigate = useNavigate();
 
   const {
     data: brandData,
@@ -24,40 +28,58 @@ const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
     isLoading: brandsLoading,
   } = useGetBrandsQuery({});
 
+  const {
+    data: categoryData,
+    isError: categoryError,
+    isLoading: categoryLoading,
+  } = useGetMainCategoryQuery({});
+
   useEffect(() => {
     if (!brandsError && !brandsLoading) {
       setBrands(brandData?.data);
     }
-  }, [brandData, brandsLoading, brandsError]);
+    if (!categoryError && !categoryLoading) {
+      setCategory(categoryData?.data);
+    }
+  }, [
+    brandData,
+    brandsLoading,
+    brandsError,
+    categoryData,
+    categoryError,
+    categoryLoading,
+  ]);
 
   const handleFilter = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const brand = (form.elements.namedItem("brand") as HTMLInputElement).value;
-    const sort = (form.elements.namedItem("sort") as HTMLInputElement).value;
+    const brand = (form.elements.namedItem("brand") as HTMLInputElement)?.value;
+    const sort = (form.elements.namedItem("sort") as HTMLInputElement)?.value;
     const branch = (form.elements.namedItem("branch") as HTMLInputElement)
-      .value;
-
+      ?.value;
+    const category = (form.elements.namedItem("category") as HTMLInputElement)
+      ?.value;
     // Constructing the query parameters
     const queryParams = new URLSearchParams();
-    queryParams.append("brand", brand);
-    queryParams.append("sort", sort);
-    queryParams.append("branch", branch);
+    if (sort) {
+      queryParams.append("sort", sort);
+    }
 
-    // Get the current URL
-    const currentUrl = window.location.href;
+    if (brand) {
+      queryParams.append("brand_name", brand);
+    }
+    if (branch) {
+      queryParams.append("branch", branch);
+    }
+    if (category) {
+      queryParams.append("category", category);
+    }
 
     // Constructing the new URL with the query parameters
-    const newUrl = `${
-      currentUrl.includes("?") ? currentUrl.split("?")[0] : currentUrl
-    }?${queryParams.toString()}`;
 
     // Setting the new URL
-    window.location.href = newUrl;
-
-    console.log(brand, branch, sort);
+    navigate(`?${queryParams.toString()}`);
   };
-
   return (
     <div className="flex justify-between items-center  ">
       <TableStatus btnValues={btnGroupValue || []} />
@@ -120,16 +142,16 @@ const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
 
                     <div className="flex flex-col gap-5 py-5  px-5">
                       <div className="w-full space-y-2">
-                        <InputFilter
+                        <InputFilterById
                           Filter={brands}
                           label="Brand"
                           inputName="brand"
                           placeholder="Select a brand"
-                        ></InputFilter>
+                        />
                       </div>
 
                       <div className="w-full space-y-2">
-                        <SelectForFilter
+                        <InputFilter
                           Filter={filterOptionsForFiler}
                           label="Sort By"
                           inputName="sort"
@@ -138,11 +160,20 @@ const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
                       </div>
 
                       <div className="w-full space-y-2 ">
+                        <InputFilterById
+                          Filter={category}
+                          label="Category"
+                          inputName="category"
+                          placeholder="Select a Category"
+                        />
+                      </div>
+                      <div className="w-full space-y-2 ">
                         <InputFilter
                           Filter={FilterOptions}
                           label="Branch"
                           inputName="branch"
-                        ></InputFilter>
+                          placeholder="Select a Branch"
+                        />
                       </div>
                     </div>
 
@@ -153,8 +184,12 @@ const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
                         </Button>
                       </div>
                       <div>
-                        <Button className="!bg-primary !text-white" status>
-                          Save
+                        <Button
+                          type="submit"
+                          className="!bg-primary !text-white"
+                          status
+                        >
+                          Filter
                         </Button>
                       </div>
                     </div>

@@ -6,11 +6,11 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import { btnValue } from "./config/constants";
 import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
-import { DemoTableHeaderView, DemoTableValue } from "../../../../shared/config/constaints";
+import { DemoTableHeaderView } from "../../../../shared/config/constaints";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 
 //internal
-
 
 const Complaint = () => {
   const [complaints, setComplaints] = useState();
@@ -27,6 +27,7 @@ const Complaint = () => {
   const branch = searchParams.get("branch");
   const sort = searchParams.get("sort");
   const status = searchParams.get("repair-status");
+  const search = searchParams.get("search");
   if (brand) {
     queryParams.push(`brand=${brand}`);
   }
@@ -38,6 +39,9 @@ const Complaint = () => {
   }
   if (status) {
     queryParams.push(`repair_status=${status}`);
+  }
+  if (search) {
+    queryParams.push(`search=${search}`);
   }
   queryParams.push(`selectedFields=${fields}`);
   const query = queryParams?.join("&");
@@ -62,7 +66,9 @@ const Complaint = () => {
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
 
-  console.log(complaints);
+  if (complaintsLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className=" px-5">
@@ -78,7 +84,7 @@ const Complaint = () => {
           <div className="pt-5">
             <ComplaintTable
               Link="/complaints/order-details"
-              itemData={DemoTableValue}
+              itemData={complaints}
               HeaderData={DemoTableHeaderView}
             />
           </div>

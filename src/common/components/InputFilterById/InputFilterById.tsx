@@ -1,6 +1,6 @@
-import { SelectForPartnerProps } from "./config/types";
+import { inputFilterByIdProps } from "./Config/types";
 
-const SelectForPartner: React.FC<SelectForPartnerProps> = ({
+const InputFilterById: React.FC<inputFilterByIdProps> = ({
   Filter = [],
   label,
   IsDisabled = false,
@@ -8,7 +8,6 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
   className,
   required = false,
   inputName,
-  defaultValue = "",
 }) => {
   return (
     <div className={`${label && "space-y-1"}`}>
@@ -18,15 +17,15 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
         required={required}
         disabled={IsDisabled}
         className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        defaultValue={defaultValue}
+        defaultValue={""}
       >
         <option value={""} disabled>
-          {defaultValue || placeholder}
+          {placeholder}
         </option>
         {Filter &&
           Filter?.map((item, i) => (
-            <option key={i} value={item?._id}>
-              {item?.contact_person + ` (${item?.company})`}
+            <option key={i} value={item?.id}>
+              {item?.value}
             </option>
           ))}
       </select>
@@ -34,4 +33,4 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
   );
 };
 
-export default SelectForPartner;
+export default InputFilterById;

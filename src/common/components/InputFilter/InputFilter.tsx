@@ -17,6 +17,7 @@ const InputFilter: React.FC<inputFilterProps> = ({
   className,
   required = false,
   inputName,
+  defaultValue = "",
 }) => {
   return (
     <div className={`${label && "space-y-1"}`}>
@@ -25,11 +26,11 @@ const InputFilter: React.FC<inputFilterProps> = ({
         name={inputName}
         required={required}
         disabled={IsDisabled}
-        className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        defaultValue={placeholder}
+        className={`${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
+        defaultValue={defaultValue}
       >
-        <option value={placeholder} disabled>
-          {placeholder}
+        <option value={""} disabled>
+          {defaultValue || placeholder}
         </option>
         {Filter &&
           Filter?.map((item, i) => (
