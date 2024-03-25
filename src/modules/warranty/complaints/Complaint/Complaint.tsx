@@ -48,7 +48,7 @@ const Complaint = () => {
     queryParams.push(`search=${search}`);
   }
   queryParams.push(`selectedFields=${fields}`);
-  const query = queryParams?.join("&"); // Replace with your actual token retrieval logic
+  const query = queryParams?.join("&");
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
