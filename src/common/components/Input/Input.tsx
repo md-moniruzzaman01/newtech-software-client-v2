@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({
   value,
   onChange,
 }) => {
-  console.log(defaultValue);
+  // console.log(defaultValue);
   return (
     <div>
       <div>
@@ -36,7 +36,7 @@ const Input: React.FC<InputProps> = ({
             name={inputName}
             type={inputType}
             disabled={IsDisabled}
-            placeholder={defaultValue || inputPlaceholder}
+            placeholder={inputPlaceholder}
             defaultValue={defaultValue}
             className="border-2 w-full rounded-sm  py-2 pl-2"
           />

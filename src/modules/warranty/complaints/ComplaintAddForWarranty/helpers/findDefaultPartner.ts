@@ -3,7 +3,7 @@ import { PartnerProps } from "../config/types";
 export const defaultPartner = (
   partnerInfo: PartnerProps,
   partners: PartnerProps[]
-): PartnerProps | null => {
+): PartnerProps | "" => {
   if (partnerInfo && partners) {
     const defaultPartner = partners.find(
       (partner) => partner.id === partnerInfo.partner_id
@@ -11,9 +11,9 @@ export const defaultPartner = (
     if (defaultPartner) {
       return defaultPartner;
     } else {
-      return null;
+      return "";
     }
   } else {
-    return null;
+    return "";
   }
 };

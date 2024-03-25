@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { SelectForPartnerProps } from "./config/types";
 
 const SelectForPartner: React.FC<SelectForPartnerProps> = ({
@@ -7,9 +8,24 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
   className,
   required = false,
   inputName,
-  defaultValue = "",
   placeholder,
+  setSelectPartner,
+  // selectPartner,
+  defaultValue,
 }) => {
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    // Find the selected item
+    const selectedItem = Filter.find((item) => item.id === selectedValue);
+
+    // Ensure setSelectPartner is defined before calling it
+    if (setSelectPartner && selectedItem !== undefined) {
+      setSelectPartner(selectedItem);
+    }
+  };
+
+  console.log(defaultValue);
+
   return (
     <div className={`${label && "space-y-1"}`}>
       {label && <label className="text-lg font-semibold ">{label}</label>}
@@ -18,9 +34,13 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
         required={required}
         disabled={IsDisabled}
         className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
+        // value={selectPartner?.id || ""} // Set the value attribute to the id of selectPartner
+        onChange={handleSelectChange}
         defaultValue={defaultValue}
       >
-        <option value={""}>{defaultValue || placeholder}</option>
+        <option value={""} disabled>
+          {defaultValue || placeholder}
+        </option>
         {Filter &&
           Filter?.map((item, i) => (
             <option key={i} value={item?.id}>
