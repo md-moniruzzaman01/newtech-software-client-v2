@@ -4,51 +4,23 @@ import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import { btnValue } from "./config/constants";
+import { btnValue, complaintsTableHeader, fields, keys } from "./config/constants";
 import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
 import {
-  DemoTableHeaderView,
-  authKey,
+  authKey
 } from "../../../../shared/config/constaints";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
-import { getFromLocalStorage } from "../../../../libs/local_storage";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 //internal
 
 const Complaint = () => {
   const [complaints, setComplaints] = useState();
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
   const [activeRoute, setActiveRoute] = useState(false);
-
   const [searchParams] = useSearchParams();
-
-  const queryParams = [];
-  const fields =
-    "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest";
-  const brand = searchParams.get("brand");
-  const branch = searchParams.get("branch");
-  const sort = searchParams.get("sort");
-  const status = searchParams.get("repair-status");
-  const search = searchParams.get("search");
-  if (brand) {
-    queryParams.push(`brand=${brand}`);
-  }
-  if (branch) {
-    queryParams.push(`branch=${branch}`);
-  }
-  if (sort) {
-    queryParams.push(`sort=${sort}`);
-  }
-  if (status) {
-    queryParams.push(`repair_status=${status}`);
-  }
-  if (search) {
-    queryParams.push(`search=${search}`);
-  }
-  queryParams.push(`selectedFields=${fields}`);
-  const query = queryParams?.join("&");
+  const query = constructQuery(searchParams, fields, keys)
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
@@ -88,7 +60,7 @@ const Complaint = () => {
             <ComplaintTable
               Link="/complaints/order-details"
               itemData={complaints}
-              HeaderData={DemoTableHeaderView}
+              HeaderData={complaintsTableHeader}
             />
           </div>
         </div>

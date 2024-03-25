@@ -32,6 +32,7 @@ const ComplaintTable: FC<ComplaintsTableProps> = ({
             </thead>
             <tbody>
               {itemData?.map((item: TableBodyProps, index) => (
+                
                 <tr key={index}>
                   <td className=" border border-gray-800">
                     <label className="flex justify-center items-center">
@@ -41,29 +42,27 @@ const ComplaintTable: FC<ComplaintsTableProps> = ({
                       />
                     </label>
                   </td>
+                
+                  <td className="border border-gray-800"> { item?.order_number}</td>
                   <td className="border border-gray-800">
-                    {item?.order_number}
+                    {item?.products?.model_number}
                   </td>
                   <td className="border border-gray-800">
                     {item?.products?.serial_number}
                   </td>
                   <td className="border border-gray-800">
-                    {item?.customer?.contact_person}
+                    {item?.customer?.contact_person  || item?.Nonwarrentycustomer?.name || "N/A"}
                   </td>
+                  <td className="border border-gray-800">{item?.category_name}</td>
                   <td className="border border-gray-800">{item?.brand_name}</td>
-                  <td className="border border-gray-800">
-                    {item?.products?.model_number}
-                  </td>
-                  <td className="border border-gray-800">{""}</td>
-                  <td className="border border-gray-800">{""}</td>
-                  <td className="border border-gray-800">
-                    {item?.partrequest?.length}
-                  </td>
+                  <td className="border border-gray-800">{item.Qc?.user_name}</td>
+                  <td className="border border-gray-800">{item?.RepairItem?.user_name}</td>
+                  <td className="border border-gray-800">{item?.Qa?.user_name}</td>
                   <td className="border border-gray-800">
                     {item?.repair_status}
                   </td>
                   <td className="border border-gray-800">
-                    {item?.received_date}
+                    {item?.received_date?.toString().slice(0,10)}
                   </td>
                   <td className="border border-gray-800">
                     {Link && (

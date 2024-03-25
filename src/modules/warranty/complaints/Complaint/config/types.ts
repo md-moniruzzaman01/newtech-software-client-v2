@@ -10,11 +10,25 @@ export type TableBodyProps = {
   _id?: string;
   order_number?: string;
   products?: {
+    id?: string;
     model_number?: string;
-    brand_name?: string;
     serial_number?: string;
   };
+  Qc?: {
+    id?: string;
+    user_name?: string;
+  };
+  RepairItem?: {
+    id?: string;
+    user_name?: string;
+  };
+  Qa?: {
+    id?: string;
+    user_name?: string;
+  };
+  category_name?: string;
   customer?: { contact_person?: string };
+  Nonwarrentycustomer?: { name?: string };
   brand_name?: string;
   partrequest?: string;
   repair_status?: string;
