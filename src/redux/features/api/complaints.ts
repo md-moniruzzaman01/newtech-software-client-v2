@@ -13,12 +13,10 @@ const ComplaintsApi = baseApi.injectEndpoints({
       query: (params) => {
         // console.log(`/complaints?${params?.query}`);
         // console.log(params);
-        const token = params?.token;
-        console.log(token);
         return {
           url: `/complaints?${params?.query}`,
           headers: {
-            Authorization: token,
+            Authorization: params?.token,
           },
         };
       },

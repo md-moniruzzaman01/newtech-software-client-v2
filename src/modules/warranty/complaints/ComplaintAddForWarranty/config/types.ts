@@ -9,6 +9,7 @@ export type warrantyUpdateAddedItemProps = {
   serial_number?: string;
   attachments?: string;
   problems?: string;
+  category_name?: string;
 };
 
 export type warrantyPartnerProps = {
@@ -17,4 +18,13 @@ export type warrantyPartnerProps = {
   email?: string | undefined;
   address?: string | undefined;
   brand_name?: string;
+  partner_name?: string | undefined;
+};
+
+export type PartnerProps = {
+  id?: string;
+  contact_person?: string;
+  company?: string;
+  partner_id?: string;
+  contactNo?: string;
 };

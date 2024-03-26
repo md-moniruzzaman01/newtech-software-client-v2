@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
 export const cx = classNames;
-export const authKey = "accessToken"
+export const authKey = "accessToken";
 
 export const FilterOptions = [
   { label: " withdrow method", value: "all" },
