@@ -147,3 +147,17 @@ export type InventoryRequestDetailsCardProps = {
 export type InventoryRequestInfoDetailsProps = {
   headerData: TableHeaderProps[];
 };
+
+
+export type UserEvent  ={
+  userId: string;
+  role: string;
+  Skill: string[]
+  power:string[]
+  asp:string[];
+  iat: number;
+  exp: number;
+
+}
+
+
