@@ -42,6 +42,7 @@ const ComplaintAddForWarranty = () => {
   const [partnerInfo, setPartnerInfo] = useState<warrantyPartnerProps>(
     defaultPartnerInfoStatic
   );
+
   // redux
   const [addComplaint, { isLoading }] = useComplaintAddMutation();
   const {
@@ -221,7 +222,6 @@ const ComplaintAddForWarranty = () => {
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
 
-  console.log(selectPartner, partnerInfo);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>

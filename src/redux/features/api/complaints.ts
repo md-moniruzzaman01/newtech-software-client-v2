@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "../../api/apiSlice";
 
 const ComplaintsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     complaintAdd: builder.mutation({
-      query: (newPost) => ({
+      query: ({ fullData, token }) => ({
         url: "/complaints/create",
         method: "POST",
-        body: newPost,
+        headers: {
+          Authorization: token,
+        },
+        body: fullData,
       }),
     }),
     getComplaints: builder.query({

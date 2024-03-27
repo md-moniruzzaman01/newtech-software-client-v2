@@ -1,9 +1,13 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
+import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
-import TableWithPhoto from "../../../../common/components/TableWithPhoto/TableWithPhoto";
-import { DemoTableHeader } from "../../../../shared/config/constaints";
+import StatusGroup from "../../../../common/components/Status Group";
+import QATable from "./partials/QATable/QATable";
+import { QATableHeader } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 
 const QAItems = () => {
@@ -11,7 +15,20 @@ const QAItems = () => {
   // const [totalItems, setTotalItems] = useState(50);
   // const limit = 10;
   const [checkedRows, setCheckedRows] = useState<number[]>([]);
-  const arr = [1, 2, 2, 3, 4, 5, 6, 7, 8];
+  const [qcData, setQCData] = useState([]);
+  const token = getFromLocalStorage(authKey);
+  const {
+    data: complaintsData,
+    isError: complaintsError,
+    isLoading: complaintsLoading,
+  } = useGetComplaintsQuery({
+    token,
+  });
+  useEffect(() => {
+    if (!complaintsLoading && !complaintsError) {
+      setQCData(complaintsData?.data);
+    }
+  }, [complaintsData, complaintsLoading, complaintsError]);
 
   const handleCheckboxChange = (index: number) => {
     if (checkedRows.includes(index)) {
@@ -21,36 +38,41 @@ const QAItems = () => {
     }
   };
   const handleAllCheckboxChange = () => {
-    const allIndexes = Array.from({ length: arr.length }, (_, i) => i);
-    if (checkedRows.length === arr.length) {
+    const allIndexes = Array.from({ length: qcData?.length }, (_, i) => i);
+    if (checkedRows.length === qcData?.length) {
       setCheckedRows([]);
     } else {
       setCheckedRows(allIndexes);
     }
   };
 
+  if (complaintsLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
-      <Navbar name={"QC"}></Navbar>
+      <Navbar name={"QA Items"} />
       <div className="py-5">
         <SearchBar
-          linkBtn="+ Delivered to Desk"
-          filterPlaceHolder="+ Assign Engineer"
-          isNeedFilter
-        ></SearchBar>
+          dropdownPlaceHolder="Assign to QA"
+          isDropdown
+          dropdown={checkedRows?.length <= 0}
+        />
       </div>
-      <div className="bg-[#FBFBFB] p-3">
-        <div className="  rounded-t-md ">
-          <TableWithPhoto
-            HeaderData={DemoTableHeader}
-            link="/engineer-items/order-details"
+      <div className="bg-solidWhite p-3 space-y-3">
+        <StatusGroup />
+        <div className=" rounded-t-md ">
+          <QATable
+            HeaderData={QATableHeader}
+            itemData={qcData}
+            Link="/qc/order-details"
             checkedRows={checkedRows}
             handleCheckboxChange={handleCheckboxChange}
             handleAllCheckboxChange={handleAllCheckboxChange}
-            data={arr} // Passing the function to handle all checkbox change
-          ></TableWithPhoto>
+          />
+
           <div className="absolute bottom-2 right-[50px]">
-            <Pagination></Pagination>
+            <Pagination />
           </div>
         </div>
       </div>

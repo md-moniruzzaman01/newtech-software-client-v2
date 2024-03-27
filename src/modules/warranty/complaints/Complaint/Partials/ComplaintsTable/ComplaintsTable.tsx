@@ -18,10 +18,7 @@ const ComplaintTable: FC<ComplaintsTableProps> = ({
               <tr>
                 <td className=" border border-gray-800">
                   <label className="flex justify-center items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox h-5 w-5 text-indigo-600"
-                    />
+                    <input type="checkbox" className="form-checkbox h-5 w-5 " />
                   </label>
                 </td>
                 {HeaderData &&

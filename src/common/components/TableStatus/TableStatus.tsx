@@ -36,13 +36,15 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
   return (
     <div>
       <div className="flex gap-2 flex-wrap">
-        <Button
-          status
-          className={activeRoute === "" ? "!bg-grayForBorder  " : ""}
-          onClick={() => handleFilter("")}
-        >
-          All
-        </Button>
+        {btnValues?.length > 0 && (
+          <Button
+            status
+            className={activeRoute === "" ? "!bg-grayForBorder  " : ""}
+            onClick={() => handleFilter("")}
+          >
+            All
+          </Button>
+        )}
         {btnValues?.map((btnValue, index) => (
           <Button
             key={index}

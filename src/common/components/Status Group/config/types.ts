@@ -3,5 +3,5 @@ export type TableStatusProps = {
 };
 
 export type statusGroupProps = {
-  btnGroupValue: string[];
+  btnGroupValue?: string[];
 };

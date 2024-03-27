@@ -123,12 +123,9 @@ export type TableBodyProps = {
 export type SearchBarProps = {
   link?: string;
   linkBtn?: string;
-  normalBtn?: string;
-  isNeedFilter?: boolean;
-  filterPlaceHolder?: string;
   isDropdown?: boolean;
-  isNormalBtn?: boolean;
   dropdown?: boolean;
+  dropdownPlaceHolder?: string;
 };
 
 export type ComplaintMiniCardProps = {

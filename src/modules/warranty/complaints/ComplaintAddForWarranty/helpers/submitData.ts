@@ -1,5 +1,9 @@
 import swal from "sweetalert";
-import { removeFromLocalStorage } from "../../../../../shared/helpers/local_storage";
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+} from "../../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../../shared/config/constaints";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const handleDataSubmit = async (
@@ -9,8 +13,9 @@ export const handleDataSubmit = async (
   setPartnerInfo: any,
   setIsNewPartner: any
 ) => {
+  const token = getFromLocalStorage(authKey);
   try {
-    const result = await addComplaint(fullData);
+    const result = await addComplaint({ fullData, token });
 
     if ("data" in result) {
       setWarrantyAddedItem([]);
