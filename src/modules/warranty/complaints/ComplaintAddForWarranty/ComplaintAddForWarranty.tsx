@@ -218,8 +218,6 @@ const ComplaintAddForWarranty = () => {
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
 
-  console.log(defaultPartnerInfo);
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -342,7 +340,10 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        selectPartner ? selectPartner?.contactNo : ""
+                        selectPartner || partnerInfo
+                          ? selectPartner?.contactNo ||
+                            partnerInfo?.contact_number
+                          : ""
                       }`}
                       IsDisabled
                       required

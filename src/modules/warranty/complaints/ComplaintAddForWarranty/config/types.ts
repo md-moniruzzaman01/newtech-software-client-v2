@@ -23,6 +23,7 @@ export type warrantyPartnerProps = {
 
 export type PartnerProps = {
   id?: string;
+  _id?: string;
   contact_person?: string;
   company?: string;
   partner_id?: string;
