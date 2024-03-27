@@ -6,15 +6,15 @@ import SettingIcon from "../../../shared/libs/custom icons/SettingIcon";
 import { NavLink } from "react-router-dom";
 import Button from "../../components/Button";
 import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
-import { getUserInfo, removeUserInfo, } from "../../../services/auth.service";
+import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
+import { authKey } from "../../../shared/config/constaints";
 
 interface NavbarProps {
   name?: string;
 }
 
-
 const user = getUserInfo();
-console.log(user)
+console.log(user);
 
 const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   return (
@@ -131,7 +131,9 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                     <div className="bg-solidWhite rounded-md px-2">
                       <h3 className="pt-3  font-semibold ">John Doe</h3>
                       <h3 className="pt-1 ">ID: {user?.userId}</h3>
-                      {user?.role === "engineer" && <p className="pt-1">Engineer</p>}
+                      {user?.role === "engineer" && (
+                        <p className="pt-1">Engineer</p>
+                      )}
                       <hr className="mt-2" />
                       <div className="py-3 space-y-1">
                         <div>
@@ -148,7 +150,9 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                             <Button link>Setting</Button>
                           </NavLink>
                         </div>
-                        <Button link onClick={() => removeUserInfo()}>Logout</Button>
+                        <Button link onClick={() => removeUserInfo(authKey)}>
+                          Logout
+                        </Button>
                       </div>
                     </div>
                   </div>

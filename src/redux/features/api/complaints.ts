@@ -8,7 +8,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
         url: "/complaints/create",
         method: "POST",
         headers: {
-          Authorization: token,
+          authorization: token,
         },
         body: fullData,
       }),
@@ -20,7 +20,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
         return {
           url: `/complaints?${params?.query}`,
           headers: {
-            Authorization: params?.token,
+            authorization: params?.token,
           },
         };
       },
