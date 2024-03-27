@@ -119,7 +119,10 @@ const ComplaintAddForWarranty = () => {
     const partner_id = (
       form.elements.namedItem("partner_id") as HTMLInputElement
     ).value;
-    const contact_number = selectPartner?.contactNo;
+    const contactNo = selectPartner?.contactNo;
+    const contact_number = (
+      form.elements.namedItem("contact_number") as HTMLInputElement
+    )?.value;
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
     const address = (form.elements.namedItem("address") as HTMLInputElement)
       ?.value;
@@ -153,7 +156,7 @@ const ComplaintAddForWarranty = () => {
     };
     const partner = {
       partner_id,
-      contact_number,
+      contactNo,
       brand_name,
     };
 
@@ -218,6 +221,7 @@ const ComplaintAddForWarranty = () => {
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
 
+  console.log(selectPartner, partnerInfo);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -340,9 +344,8 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        selectPartner || partnerInfo
-                          ? selectPartner?.contactNo ||
-                            partnerInfo?.contact_number
+                        selectPartner || partnerInfo?.contactNo
+                          ? selectPartner?.contactNo || partnerInfo?.contactNo
                           : ""
                       }`}
                       IsDisabled
@@ -380,8 +383,6 @@ const ComplaintAddForWarranty = () => {
                 />
               </div>
 
-              {/* Product / Items Name  */}
-
               {/* Model Number   */}
               <div>
                 <Input
@@ -417,7 +418,8 @@ const ComplaintAddForWarranty = () => {
                 <TextArea
                   defaultValue={`${selectData ? selectData?.problems : ""}`}
                   name="problems"
-                  label="Write Problems"
+                  label="Problems"
+                  placeholder="Write here..."
                 />
               </div>
               <div className="col-span-3  justify-end flex items-end pb-5">
@@ -449,7 +451,7 @@ const ComplaintAddForWarranty = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div>
           <h1 className="text-center font-semibold text-xl underline">
             Added Item
           </h1>
@@ -460,7 +462,8 @@ const ComplaintAddForWarranty = () => {
                   deleteAll(
                     setPartnerInfo,
                     setWarrantyAddedItem,
-                    setIsNewPartner
+                    setIsNewPartner,
+                    setSelectPartner
                   )
                 }
                 danger
@@ -476,30 +479,40 @@ const ComplaintAddForWarranty = () => {
                 warrantyAddedItem.map((item, index) => (
                   <div
                     key={index}
-                    className="p-5 rounded-xl shadow-xl space-y-2 bg-paleShadeOfBlue"
+                    className="p-5 rounded-xl shadow-xl space-y-5 bg-lightGray"
                   >
-                    <div className="text-base font-semibold flex flex-col">
-                      Product Name
-                      <span className="text-sm font-normal">
-                        : {item?.serial_number}
-                      </span>
-                    </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Model Number
-                      <span className="text-sm font-normal">
-                        : {item?.model_number}
-                      </span>
-                    </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Serial Number
-                      <span className="text-sm font-normal">
-                        <span>: {item?.serial_number}</span>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Main Category :
+                      <span className="text-sm font-normal ">
+                        {item?.category_name}
                       </span>
                     </div>
 
-                    <div className="text-base font-semibold flex flex-col">
-                      <span className="text-sm font-normal"></span>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Category :{" "}
+                      <span className="text-sm font-normal">
+                        {item?.category}
+                      </span>
                     </div>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Model Number :{" "}
+                      <span className="text-sm font-normal">
+                        {item?.model_number}
+                      </span>
+                    </div>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Serial Number :{" "}
+                      <span className="text-sm font-normal">
+                        {item?.serial_number}
+                      </span>
+                    </div>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Remark :{" "}
+                      <span className="text-sm font-normal">
+                        <span>{item?.attachments}</span>
+                      </span>
+                    </div>
+
                     <div className="flex justify-between ">
                       <Button
                         className="px-2 py-1 text-xs"
@@ -509,7 +522,8 @@ const ComplaintAddForWarranty = () => {
                             warrantyAddedItem,
                             setPartnerInfo,
                             setWarrantyAddedItem,
-                            setSelectedItem
+                            setSelectedItem,
+                            setSelectPartner
                           )
                         }
                         danger

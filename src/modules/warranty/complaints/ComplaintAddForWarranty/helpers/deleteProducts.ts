@@ -1,10 +1,12 @@
 import swal from "sweetalert";
+import { removeFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const deleteAll = (
   setPartnerInfo: any,
   setWarrantyAddedItem: any,
-  setIsNewPartner: any
+  setIsNewPartner: any,
+  setSelectPartner: any
 ) => {
   swal({
     title: "Are you sure?",
@@ -20,6 +22,7 @@ export const deleteAll = (
         contact_number: "",
         brand_name: "",
       });
+      setSelectPartner(null);
       localStorage.removeItem("warrantyAddedItem");
       localStorage.removeItem("partnerInfo");
       localStorage.removeItem("newCustomer");
@@ -38,7 +41,8 @@ export const deleteData = (
   warrantyAddedItem: any,
   setPartnerInfo: any,
   setWarrantyAddedItem: any,
-  setSelectedItem: any
+  setSelectedItem: any,
+  setSelectPartner: any
 ) => {
   swal({
     title: "Are you sure?",
@@ -53,13 +57,14 @@ export const deleteData = (
         (_: any, i: number) => i !== index
       );
       if (updatedAddedItem?.length === 0) {
-        localStorage.removeItem("partnerInfo");
-        localStorage.removeItem("newCustomer");
+        removeFromLocalStorage("partnerInfo");
+        removeFromLocalStorage("newCustomer");
         setPartnerInfo({
           partner_id: "",
           contact_number: "",
           brand_name: "",
         });
+        setSelectPartner(null);
       }
       // Update state with the new array
       setWarrantyAddedItem(updatedAddedItem);

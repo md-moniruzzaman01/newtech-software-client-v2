@@ -15,6 +15,7 @@ export type warrantyUpdateAddedItemProps = {
 export type warrantyPartnerProps = {
   partner_id?: string;
   contact_number?: string;
+  contactNo?: string;
   email?: string | undefined;
   address?: string | undefined;
   brand_name?: string;
