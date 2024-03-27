@@ -2,9 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
-import InputFilter from "../InputFilter/InputFilter";
-import { FilterOptions2 } from "../../../shared/config/constaints";
 import { useState } from "react";
+import EngineersFilter from "../EngineersFilter/EngineersFilter";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link = false,
@@ -12,6 +11,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   isDropdown = false,
   dropdown = false,
   dropdownPlaceHolder = "Assign to qc",
+  filtersOptions = [],
+  setSelectEngineer,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -62,10 +63,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
               </NavLink>
             ) : (
               isDropdown && (
-                <InputFilter
+                <EngineersFilter
                   IsDisabled={dropdown}
                   placeholder={dropdownPlaceHolder}
-                  Filter={FilterOptions2}
+                  Filter={filtersOptions}
+                  setSelectEngineer={setSelectEngineer}
                 />
               )
             )}

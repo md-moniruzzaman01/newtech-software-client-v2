@@ -9,14 +9,22 @@ import StatusGroup from "../../../../common/components/Status Group";
 import { EngineerTableHeader } from "./config/constants";
 import EngineerTable from "./partials/EngineerTable/EngineerTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
+import { EngineerTableBodyProps } from "./config/types";
+import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
 
 const EngineerItems = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalItems, setTotalItems] = useState(50);
   // const limit = 10;
-  const [checkedRows, setCheckedRows] = useState<number[]>([]);
-  const [qcData, setQCData] = useState([]);
+  const [checkedRows, setCheckedRows] = useState<string[]>([]);
+  const [engineerData, setEngineerData] = useState<
+    EngineerTableBodyProps[] | []
+  >([]);
+  const [engineers, setEngineers] = useState([]);
+  const [selectEngineer, setSelectEngineer] = useState(null);
+  const assign_data = { qc_checker_id: selectEngineer, id: checkedRows };
   const token = getFromLocalStorage(authKey);
+  console.log(assign_data);
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -24,25 +32,48 @@ const EngineerItems = () => {
   } = useGetComplaintsQuery({
     token,
   });
+  const {
+    data: engineersData,
+    isError: engineerError,
+    isLoading: engineerLoading,
+  } = useGetEngineersQuery({ token });
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
-      setQCData(complaintsData?.data);
+      setEngineerData(complaintsData?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+    if (!engineerError && !engineerLoading) {
+      setEngineers(engineersData?.data);
+    }
+  }, [
+    complaintsData,
+    complaintsLoading,
+    complaintsError,
+    engineerError,
+    engineerLoading,
+    engineersData,
+  ]);
 
-  const handleCheckboxChange = (index: number) => {
+  const handleCheckboxChange = (index: string) => {
     if (checkedRows.includes(index)) {
       setCheckedRows(checkedRows.filter((item) => item !== index));
     } else {
       setCheckedRows([...checkedRows, index]);
     }
   };
+
   const handleAllCheckboxChange = () => {
-    const allIndexes = Array.from({ length: qcData?.length }, (_, i) => i);
-    if (checkedRows.length === qcData?.length) {
+    if (checkedRows.length === engineerData?.length) {
+      // If all checkboxes are already checked, uncheck them all
       setCheckedRows([]);
     } else {
-      setCheckedRows(allIndexes);
+      // If not all checkboxes are checked, set checkedRows to contain all _id values
+      const allIds =
+        engineerData
+          ?.map((item) => item?._id)
+          .filter((id) => id !== undefined) || []; // Filter out undefined values
+      if (allIds.length > 0) {
+        setCheckedRows(allIds as string[]);
+      }
     }
   };
 
@@ -57,6 +88,8 @@ const EngineerItems = () => {
           dropdownPlaceHolder="Assign to Engineer"
           isDropdown
           dropdown={checkedRows?.length <= 0}
+          filtersOptions={engineers}
+          setSelectEngineer={setSelectEngineer}
         />
       </div>
       <div className="bg-solidWhite p-3 space-y-3">
@@ -64,7 +97,7 @@ const EngineerItems = () => {
         <div className=" rounded-t-md ">
           <EngineerTable
             HeaderData={EngineerTableHeader}
-            itemData={qcData}
+            itemData={engineerData}
             Link="/qc/order-details"
             checkedRows={checkedRows}
             handleCheckboxChange={handleCheckboxChange}
