@@ -12,16 +12,17 @@ const CategoryApi = baseApi.injectEndpoints({
     }),
     createCategory: builder.mutation({
       query: (category) => ({
-        url: "/category",
+        url: "/brand/category",
         method: "POST",
         body: category,
       }),
     }),
     getMainCategory: builder.query({
       query: () => "/main/category",
+      providesTags: ['brand_category'],
     }),
     getCategory: builder.query({
-      query: () => "/category",
+      query: () => "/brand/category",
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({

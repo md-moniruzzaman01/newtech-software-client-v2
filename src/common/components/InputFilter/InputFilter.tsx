@@ -1,5 +1,5 @@
 interface inputFilterProps {
-  Filter: { label: string; value: string }[];
+  Filter: { id: string; value: string }[];
   label?: string;
   IsDisabled?: boolean;
   placeholder?: string;
@@ -35,7 +35,7 @@ const InputFilter: React.FC<inputFilterProps> = ({
         </option>
         {Filter &&
           Filter?.map((item, i) => (
-            <option key={i} value={item?.value}>
+            <option key={i} value={item?.id}>
               {item?.value}
             </option>
           ))}

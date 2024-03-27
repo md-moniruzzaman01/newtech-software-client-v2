@@ -79,9 +79,16 @@ const WarrantyCategoryAddPage = () => {
     }
 
     try {
-      await createCategory(fullData);
-      console.log("Category added successfully");
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     const result:any= await createCategory(fullData);
+
+     if (result?.data?.success) {
       form.reset();
+      console.log("Category added successfully");
+     }else{
+      console.log("something went wrong");
+     }
+      
     } catch (error) {
       console.error("Error adding brand:", error);
     }
