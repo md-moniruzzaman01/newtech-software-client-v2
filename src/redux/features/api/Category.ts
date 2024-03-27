@@ -19,6 +19,7 @@ const CategoryApi = baseApi.injectEndpoints({
     }),
     getMainCategory: builder.query({
       query: () => "/main/category",
+      providesTags: ['brand_category'],
     }),
     getCategory: builder.query({
       query: () => "/brand/category",
