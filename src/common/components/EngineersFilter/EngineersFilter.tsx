@@ -37,7 +37,17 @@ const EngineersFilter: React.FC<engineersFilterProps> = ({
 
     // Ensure setSelectPartner is defined before calling it
     if (setSelectEngineer && selectedItem !== undefined) {
-      setSelectEngineer(selectedItem?._id);
+      setSelectEngineer({
+        id: selectedItem?._id,
+        user:
+          (selectedItem?.name?.firstName ? selectedItem?.name?.firstName : "") +
+          " " +
+          (selectedItem?.name?.middleName
+            ? selectedItem?.name?.middleName
+            : "") +
+          " " +
+          (selectedItem?.name?.lastName ? selectedItem?.name?.lastName : ""),
+      });
     }
   };
 

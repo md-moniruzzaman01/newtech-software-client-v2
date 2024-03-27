@@ -10,7 +10,7 @@ export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getUserInfo = ():any => {
+export const getUserInfo = (): any => {
   const authToken = getFromLocalStorage(authKey);
   if (authToken) {
     const decodedData = decodedToken(authToken);
