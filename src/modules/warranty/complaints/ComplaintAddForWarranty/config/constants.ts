@@ -11,7 +11,7 @@ export type PartnerProps = {
   // Add other properties if necessary
 };
 
-export const defualtpartnerInfo = {
+export const defaultPartnerInfoStatic = {
   partner_id: "",
   contact_number: "",
   brand_name: "",

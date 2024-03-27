@@ -10,7 +10,7 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
   inputName,
   placeholder,
   setSelectPartner,
-  // selectPartner,
+  selectPartner,
   defaultValue,
 }) => {
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -34,9 +34,9 @@ const SelectForPartner: React.FC<SelectForPartnerProps> = ({
         required={required}
         disabled={IsDisabled}
         className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        // value={selectPartner?.id || ""} // Set the value attribute to the id of selectPartner
+        value={selectPartner?.id || ""} // Set the value attribute to the id of selectPartner
         onChange={handleSelectChange}
-        defaultValue={defaultValue}
+        // defaultValue={defaultValue}
       >
         <option value={""} disabled>
           {defaultValue || placeholder}

@@ -28,10 +28,10 @@ const InputFilter: React.FC<inputFilterProps> = ({
         required={required}
         disabled={IsDisabled}
         className={`${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        // defaultValue={defaultValue}
+        defaultValue={defaultValue}
       >
-        <option value={defaultValue} disabled>
-          {placeholder}
+        <option value={defaultValue || ""} disabled>
+          {defaultValue || placeholder}
         </option>
         {Filter &&
           Filter?.map((item, i) => (

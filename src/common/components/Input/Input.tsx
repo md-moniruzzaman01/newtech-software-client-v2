@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({
   IsDisabled = false,
   defaultValue = "",
   required = false,
-  value,
+  // value,
   onChange,
 }) => {
   // console.log(defaultValue);
@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
             <label className="text-lg font-semibold">{labelName}</label>
           </div>
           <input
-            value={value}
+            // value={value}
             required={required}
             onChange={onChange} // Added onChange event handler
             name={inputName}

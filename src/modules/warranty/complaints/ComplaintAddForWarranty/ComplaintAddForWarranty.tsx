@@ -18,7 +18,7 @@ import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import SelectForPartner from "../../../../common/components/SelectForPartner/SelectForPartner";
 import TextArea from "../../../../common/components/TextArea/TextArea";
 
-import { defualtpartnerInfo } from "./config/constants";
+import { defaultPartnerInfoStatic } from "./config/constants";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { defaultPartner } from "./helpers/findDefaultPartner";
 import { handleDataSubmit } from "./helpers/submitData";
@@ -39,9 +39,9 @@ const ComplaintAddForWarranty = () => {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [mainCategories, setMainCategories] = useState([]);
-  const [partnerInfo, setPartnerInfo] =
-    useState<warrantyPartnerProps>(defualtpartnerInfo);
-
+  const [partnerInfo, setPartnerInfo] = useState<warrantyPartnerProps>(
+    defaultPartnerInfoStatic
+  );
   // redux
   const [addComplaint, { isLoading }] = useComplaintAddMutation();
   const {
@@ -112,6 +112,7 @@ const ComplaintAddForWarranty = () => {
       setIsNewPartner(false);
     }
   }, []);
+
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
@@ -161,7 +162,7 @@ const ComplaintAddForWarranty = () => {
       localStorage.setItem("newCustomer", JSON.stringify(newCustomer));
     }
 
-    if (!isNewPartner) {
+    if (!isNewPartner && warrantyAddedItem?.length <= 0) {
       setPartnerInfo(partner);
       localStorage.setItem("partnerInfo", JSON.stringify(partner));
     }
@@ -210,12 +211,15 @@ const ComplaintAddForWarranty = () => {
     brand_name,
     inputFields: warrantyAddedItem,
   };
-  const defaultPartnerInfo = defaultPartner(partnerInfo, partners);
+  const defaultPartnerInfo =
+    partnerInfo && defaultPartner(partnerInfo, partners);
 
   const defaultPartnerName =
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
-  console.log(selectData);
+
+  console.log(defaultPartnerInfo);
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -317,7 +321,7 @@ const ComplaintAddForWarranty = () => {
                       inputName="brand_name"
                       placeholder="Brand Name"
                       label="Brand Name"
-                    ></InputFilter>
+                    />
                   </div>
 
                   {/* Partner Name  */}
@@ -345,7 +349,7 @@ const ComplaintAddForWarranty = () => {
                       inputPlaceholder="Contact Number"
                       labelName="Contact Number"
                       inputName="contact_number"
-                    ></Input>
+                    />
                   </div>
                 </div>
               )}
@@ -380,7 +384,7 @@ const ComplaintAddForWarranty = () => {
               {/* Model Number   */}
               <div>
                 <Input
-                  value={`${selectData ? selectData?.model_number : ""}`}
+                  defaultValue={`${selectData ? selectData?.model_number : ""}`}
                   required
                   inputName="model_number"
                   labelName="Model Number"
@@ -389,7 +393,9 @@ const ComplaintAddForWarranty = () => {
               {/* Serial Number  */}
               <div>
                 <Input
-                  value={`${selectData ? selectData?.serial_number : ""}`}
+                  defaultValue={`${
+                    selectData ? selectData?.serial_number : ""
+                  }`}
                   required
                   inputName="serial_number"
                   labelName="Serial Number"
@@ -399,7 +405,7 @@ const ComplaintAddForWarranty = () => {
               {/* Remark  */}
               <div>
                 <Input
-                  value={`${selectData ? selectData?.attachments : ""}`}
+                  defaultValue={`${selectData ? selectData?.attachments : ""}`}
                   required
                   inputName="remark"
                   labelName="Remark"
@@ -411,7 +417,7 @@ const ComplaintAddForWarranty = () => {
                   defaultValue={`${selectData ? selectData?.problems : ""}`}
                   name="problems"
                   label="Write Problems"
-                ></TextArea>
+                />
               </div>
               <div className="col-span-3  justify-end flex items-end pb-5">
                 <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
