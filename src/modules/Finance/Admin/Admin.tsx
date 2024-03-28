@@ -49,6 +49,11 @@ const Admin = () => {
             + Add Partner
           </Button>
         </NavLink>
+        <NavLink to="/add-engineer">
+          <Button mini primary>
+            + Add Engineer
+          </Button>
+        </NavLink>
       </div>
 
       {/* table start here  */}

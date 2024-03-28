@@ -21,6 +21,7 @@ export const deleteAll = (
         partner_id: "",
         contact_number: "",
         brand_name: "",
+        brandValue: "",
       });
       setSelectPartner(null);
       localStorage.removeItem("warrantyAddedItem");

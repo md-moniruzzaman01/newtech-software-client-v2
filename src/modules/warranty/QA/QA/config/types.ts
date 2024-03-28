@@ -36,3 +36,8 @@ export type QATableBodyProps = {
   repair_status?: string;
   received_date?: string;
 };
+
+export type qaDateProps = {
+  id?: string;
+  user?: string;
+};

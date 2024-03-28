@@ -42,6 +42,9 @@ const ComplaintAddForWarranty = () => {
   const [partnerInfo, setPartnerInfo] = useState<warrantyPartnerProps>(
     defaultPartnerInfoStatic
   );
+  const [brandValue, setBrandValue] = useState("");
+  const [mainCategoryValue, setMainCategoryValue] = useState("");
+  const [categoryValue, setCategoryValue] = useState("");
 
   // redux
   const [addComplaint, { isLoading }] = useComplaintAddMutation();
@@ -131,9 +134,10 @@ const ComplaintAddForWarranty = () => {
     const brand_name = (
       form.elements.namedItem("brand_name") as HTMLInputElement
     ).value;
-    const category_name = (
-      form.elements.namedItem("main_category") as HTMLInputElement
-    ).value;
+    // const category_name = (
+    //   form.elements.namedItem("main_category") as HTMLInputElement
+    // ).value;
+
     const category = (form.elements.namedItem("category") as HTMLInputElement)
       .value;
     const model_number = (
@@ -156,6 +160,7 @@ const ComplaintAddForWarranty = () => {
       brand_name,
     };
     const partner = {
+      brandValue,
       partner_id,
       contactNo,
       brand_name,
@@ -177,7 +182,9 @@ const ComplaintAddForWarranty = () => {
       attachments,
       problems,
       category,
-      category_name,
+      category_name: mainCategoryValue,
+
+      categoryValue,
     };
 
     let updatedAddedItem: warrantyUpdateAddedItemProps[];
@@ -213,15 +220,18 @@ const ComplaintAddForWarranty = () => {
   const fullData = {
     partner_id,
     brand_name,
-    inputFields: warrantyAddedItem,
+    inputFields: warrantyAddedItem.map(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ({ mainCategoryValue, categoryValue, ...rest }) => ({
+        ...rest,
+      })
+    ),
   };
   const defaultPartnerInfo =
     partnerInfo && defaultPartner(partnerInfo, partners);
-
   const defaultPartnerName =
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -314,15 +324,18 @@ const ComplaintAddForWarranty = () => {
                   {/* Brand Name  */}
                   <div>
                     <InputFilter
-                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      isDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       Filter={brands}
-                      defaultValue={`${
-                        partnerInfo ? partnerInfo?.brand_name : ""
-                      }`}
+                      defaultValue={
+                        partnerInfo && partnerInfo.brandValue
+                          ? partnerInfo.brandValue
+                          : ""
+                      }
                       required
                       inputName="brand_name"
                       placeholder="Brand Name"
                       label="Brand Name"
+                      onChange={(value) => setBrandValue(value)}
                     />
                   </div>
 
@@ -362,24 +375,28 @@ const ComplaintAddForWarranty = () => {
               <div>
                 <InputFilter
                   defaultValue={`${
-                    selectData ? selectData?.category_name : ""
+                    selectData ? selectData?.mainCategoryValue : ""
                   }`}
                   required
                   inputName="main_category"
                   placeholder="Main Category"
                   label="Main Category"
                   Filter={mainCategories}
+                  onChange={(value) => setMainCategoryValue(value)}
                 />
               </div>
               {/* category  */}
               <div>
                 <InputFilter
-                  defaultValue={`${selectData ? selectData?.category : ""}`}
+                  defaultValue={`${
+                    selectData ? selectData?.categoryValue : ""
+                  }`}
                   required
                   inputName="category"
                   placeholder="Category"
                   label="Category"
                   Filter={categories}
+                  onChange={(value) => setCategoryValue(value)}
                 />
               </div>
 
@@ -484,14 +501,14 @@ const ComplaintAddForWarranty = () => {
                     <div className="text-base font-semibold overflow-x-auto">
                       Main Category :
                       <span className="text-sm font-normal ">
-                        {item?.category_name}
+                        {item?.mainCategoryValue}
                       </span>
                     </div>
 
                     <div className="text-base font-semibold overflow-x-auto">
                       Category :{" "}
                       <span className="text-sm font-normal">
-                        {item?.category}
+                        {item?.categoryValue}
                       </span>
                     </div>
                     <div className="text-base font-semibold overflow-x-auto">

@@ -7,10 +7,11 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import QATable from "./partials/QATable/QATable";
-import { QATableHeader } from "./config/constants";
+import { QATableHeader, qaSelectData } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { QATableBodyProps } from "./config/types";
+import { QATableBodyProps, qaDateProps } from "./config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
+import { useCreateQCMutation } from "../../../../redux/features/api/qc";
 
 const QAItems = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -19,10 +20,14 @@ const QAItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qaData, setQAData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
-  const [selectEngineer, setSelectEngineer] = useState(null);
-  const assign_data = { qc_checker_id: selectEngineer, id: checkedRows };
+  const [selectEngineer, setSelectEngineer] =
+    useState<qaDateProps>(qaSelectData);
+  const fullData = {
+    qc_checker_id: selectEngineer?.id,
+    user_name: selectEngineer?.user,
+    repairIds: checkedRows,
+  };
   const token = getFromLocalStorage(authKey);
-  console.log(assign_data);
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -35,6 +40,14 @@ const QAItems = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
+
+  const [createQC] = useCreateQCMutation();
+
+  if (selectEngineer?.id) {
+    createQC({ fullData, token });
+    setSelectEngineer(qaSelectData);
+  }
+
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
       setQAData(complaintsData?.data);

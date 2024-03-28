@@ -10,6 +10,8 @@ export type warrantyUpdateAddedItemProps = {
   attachments?: string;
   problems?: string;
   category_name?: string;
+  categoryValue?: string | undefined;
+  mainCategoryValue?: string | undefined;
 };
 
 export type warrantyPartnerProps = {
@@ -20,6 +22,7 @@ export type warrantyPartnerProps = {
   address?: string | undefined;
   brand_name?: string;
   partner_name?: string | undefined;
+  brandValue?: string;
 };
 
 export type PartnerProps = {
