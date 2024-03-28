@@ -9,6 +9,12 @@ import {
   updateAddedItemProps,
 } from "./config/types";
 import swal from "sweetalert";
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+} from "../../../shared/helpers/local_storage";
+import { authKey } from "../../../shared/config/constaints";
+import { useServiceAddMutation } from "../../../redux/features/api/service";
 
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [addedItem, setAddedItem] = useState<updateAddedItemProps[]>([]);
@@ -16,10 +22,10 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     null
   );
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [partnerInfo, setPartnerInfo] = useState<partnerProps | undefined>(
-    undefined
-  );
+  const [partnerInfo, setPartnerInfo] = useState<partnerProps | null>(null);
   // const [loading, setLoading] = useState(false);
+
+  const [serviceAdd] = useServiceAddMutation();
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
@@ -135,7 +141,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
         const updatedAddedItem = addedItem.filter((_, i) => i !== index);
 
         if (updatedAddedItem?.length === 0) {
-          setPartnerInfo(undefined);
+          setPartnerInfo(null);
           localStorage.removeItem("partnerInfo");
           localStorage.removeItem("customerInfo");
         }
@@ -166,7 +172,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }).then((willDelete) => {
       if (willDelete) {
         setAddedItem([]);
-        setPartnerInfo(undefined);
+        setPartnerInfo(null);
         localStorage.removeItem("addedItem");
         localStorage.removeItem("partnerInfo");
         localStorage.removeItem("customerInfo");
@@ -177,6 +183,31 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
         swal("Your imaginary file is safe!");
       }
     });
+  };
+
+  const fullData = {};
+
+  const handleDataSubmit = async () => {
+    const token = getFromLocalStorage(authKey);
+    try {
+      const result = await serviceAdd({ fullData, token });
+
+      if ("data" in result) {
+        setAddedItem([]);
+        setPartnerInfo(null);
+        removeFromLocalStorage("addedItem");
+        removeFromLocalStorage("customerInfo");
+        swal("Your data has been successfully submitted.", {
+          icon: "success",
+        });
+      } else if ("error" in result) {
+        swal("Something went wrong!", {
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error adding complaint:", error);
+    }
   };
 
   return (
@@ -328,7 +359,13 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
           </form>
           <div className="flex justify-center  pt-10">
             <div>
-              <Button primary>Submit {addedItem?.length > 0 && "All"}</Button>
+              <Button
+                onClick={handleDataSubmit}
+                disabled={addedItem?.length < 0}
+                primary
+              >
+                Submit {addedItem?.length > 0 && "All"}
+              </Button>
             </div>
           </div>
         </div>
