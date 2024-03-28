@@ -6,11 +6,12 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import { EngineerTableHeader } from "./config/constants";
+import { EngineerTableHeader, engineerSelectData } from "./config/constants";
 import EngineerTable from "./partials/EngineerTable/EngineerTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { EngineerTableBodyProps } from "./config/types";
+import { EngineerDateProps, EngineerTableBodyProps } from "./config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
+import { useCreateQCMutation } from "../../../../redux/features/api/qc";
 
 const EngineerItems = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -21,10 +22,14 @@ const EngineerItems = () => {
     EngineerTableBodyProps[] | []
   >([]);
   const [engineers, setEngineers] = useState([]);
-  const [selectEngineer, setSelectEngineer] = useState(null);
-  const assign_data = { qc_checker_id: selectEngineer, id: checkedRows };
+  const [selectEngineer, setSelectEngineer] =
+    useState<EngineerDateProps>(engineerSelectData);
+  const fullData = {
+    qc_checker_id: selectEngineer?.id,
+    user_name: selectEngineer?.user,
+    repairIds: checkedRows,
+  };
   const token = getFromLocalStorage(authKey);
-  console.log(assign_data);
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -37,6 +42,14 @@ const EngineerItems = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
+
+  const [createQC] = useCreateQCMutation();
+
+  if (selectEngineer?.id) {
+    createQC({ fullData, token });
+    setSelectEngineer(engineerSelectData);
+  }
+
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
       setEngineerData(complaintsData?.data);

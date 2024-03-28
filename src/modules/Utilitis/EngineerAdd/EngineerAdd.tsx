@@ -1,24 +1,23 @@
-import { HTML5Backend } from "react-dnd-html5-backend"; // or any other backend you prefer
 import { DndProvider } from "react-dnd";
-import Navbar from "../../../../common/widgets/Navbar/Navbar";
-import Input from "../../../../common/components/Input";
-import InputFilter from "../../../../common/components/InputFilter/InputFilter";
-import PhotoAttach from "../../../../common/components/PhotoAttach/PhotoAttach";
+import PhotoAttach from "../../../common/components/PhotoAttach/PhotoAttach";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import InputFilter from "../../../common/components/InputFilter/InputFilter";
+import Input from "../../../common/components/Input";
+import Navbar from "../../../common/widgets/Navbar/Navbar";
 
-const CustomerAddOrEdit = () => {
+const EngineerAdd = () => {
   return (
     <div className="px-5">
-      <Navbar name="Customer Info" />
+      <Navbar name="Engineer Add" />
       <div className="bg-solidWhite my-5 py-5 px-10">
         <div className="space-y-2">
-          <h1 className="text-xl font-semibold">Add/Edit Customer</h1>
+          <h1 className="text-xl font-semibold">Create an Engineer</h1>
           <hr className="border-t-4" />
         </div>
         <div className="flex  gap-5">
           <div className="w-1/2 py-5 space-y-3">
-            <Input inputPlaceholder="Customer Name" labelName="Customer Name" />
-            <Input inputPlaceholder="Company Name" labelName="Company Name" />
-            <Input inputPlaceholder="Designation" labelName="Designation" />
+            <Input labelName="Engineer Name" />
+            <Input labelName="Engineer Name" />
             <Input
               inputPlaceholder="Contact Number"
               labelName="Contact Number"
@@ -45,4 +44,4 @@ const CustomerAddOrEdit = () => {
   );
 };
 
-export default CustomerAddOrEdit;
+export default EngineerAdd;

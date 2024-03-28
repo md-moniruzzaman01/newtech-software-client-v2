@@ -15,4 +15,5 @@ export const defaultPartnerInfoStatic = {
   partner_id: "",
   contact_number: "",
   brand_name: "",
+  brand_value: "",
 };

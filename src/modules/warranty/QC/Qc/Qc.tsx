@@ -42,7 +42,6 @@ const Qc = () => {
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
   const [createQC] = useCreateQCMutation();
-  console.log(selectEngineer);
 
   if (selectEngineer?.id) {
     createQC({ fullData, token });

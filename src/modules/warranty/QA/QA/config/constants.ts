@@ -12,3 +12,5 @@ export const QATableHeader = [
   "RD",
   "Action",
 ];
+
+export const qaSelectData = { id: "", user: "" };

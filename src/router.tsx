@@ -56,6 +56,7 @@ import WarrantyCategoryAddPage from "./modules/warranty/category/WarrantyCategor
 import BrandAddPage from "./modules/warranty/brand/BrandAddPage";
 import MyProfile from "./modules/Utilitis/MyProfile/MyProfile";
 import Principle from "./modules/Utilitis/Principle/Principle list/Principle";
+import EngineerAdd from "./modules/Utilitis/EngineerAdd/EngineerAdd";
 
 export const router = createBrowserRouter([
   {
@@ -137,7 +138,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/complaints/order-details",
-        element: <ComplaintOrderDetails/>,
+        element: <ComplaintOrderDetails />,
       },
       {
         path: "/add-warranty-complaint",
@@ -162,11 +163,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/qc-my-library",
-        element: <QCMyLibrary/>,
+        element: <QCMyLibrary />,
       },
       {
         path: "/qc-my-items",
-        element: <QCMyItems/>,
+        element: <QCMyItems />,
       },
       {
         path: "/qc/order-details",
@@ -179,8 +180,12 @@ export const router = createBrowserRouter([
         element: <Engineer />,
       },
       {
+        path: "/add-engineer",
+        element: <EngineerAdd />,
+      },
+      {
         path: "/engineer-items",
-        element: <EngineerItems/>,
+        element: <EngineerItems />,
       },
       {
         path: "/engineer-my-repaired",
@@ -201,7 +206,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/create-bill",
-        element: <CreateABill/>,
+        element: <CreateABill />,
       },
       {
         path: "/bill-pending",

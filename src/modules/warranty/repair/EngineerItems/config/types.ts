@@ -36,3 +36,8 @@ export type EngineerTableBodyProps = {
   repair_status?: string;
   received_date?: string;
 };
+
+export type EngineerDateProps = {
+  id?: string;
+  user?: string;
+};

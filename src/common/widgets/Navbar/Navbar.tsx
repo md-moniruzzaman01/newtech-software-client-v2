@@ -14,7 +14,6 @@ interface NavbarProps {
 }
 
 const user = getUserInfo();
-console.log(user);
 
 const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   return (
