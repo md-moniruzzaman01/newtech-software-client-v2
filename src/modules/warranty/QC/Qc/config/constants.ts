@@ -12,3 +12,5 @@ export const QCTableHeader = [
   "RD",
   "Action",
 ];
+
+export const qcSelectData = { id: "", user: "" };

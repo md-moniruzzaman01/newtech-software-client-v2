@@ -19,6 +19,7 @@ import QARoute from "./partials/QARoute/QARoute";
 import UsersRoute from "./partials/UsersRoute/UsersRoute";
 import OthersRoute from "./partials/OthersRoute/OthersRoute";
 import BillRoute from "./partials/BillRoute/BillRoute";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 
 // routeStyle
 const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
@@ -29,7 +30,7 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const activeRouteValue = localStorage.getItem("activeRoute");
+    const activeRouteValue = getFromLocalStorage("activeRoute");
     if (activeRouteValue) {
       setActiveRoute(JSON.parse(activeRouteValue));
     }
