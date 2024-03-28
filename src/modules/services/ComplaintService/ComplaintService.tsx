@@ -349,41 +349,33 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                 addedItem.map((item, index) => (
                   <div
                     key={index}
-                    className="p-5 rounded-xl shadow-xl space-y-2 bg-paleShadeOfBlue"
+                    className="p-5 rounded-xl shadow-xl space-y-5 bg-lightGray"
                   >
-                    <div className="text-base font-semibold flex flex-col">
-                      Brand Name
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Brand Name :
                       <span className="text-sm font-normal">
-                        : {item?.branch_name}
+                        {item?.branch_name}
                       </span>
                     </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Product Name
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Product Name :
                       <span className="text-sm font-normal">
-                        : {item?.product_or_items_name}
+                        {item?.product_or_items_name}
                       </span>
                     </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Model Number
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Model Number :
                       <span className="text-sm font-normal">
-                        : {item?.model_number}
+                        {item?.model_number}
                       </span>
                     </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Serial Number
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Serial Number :
                       <span className="text-sm font-normal">
-                        <span>: {item?.serial_number}</span>
+                        <span> {item?.serial_number}</span>
                       </span>
                     </div>
-                    {/* <div className="text-base font-semibold flex flex-col">
-                      Warranty Type
-                      <span className="text-sm font-normal">
-                        : {item?.warranty_type}
-                      </span>
-                    </div> */}
-                    <div className="text-base font-semibold flex flex-col">
-                      <span className="text-sm font-normal"></span>
-                    </div>
+
                     <div className="flex justify-between ">
                       <Button
                         className="px-2 py-1 text-xs"

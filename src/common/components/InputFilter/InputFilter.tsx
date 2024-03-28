@@ -1,5 +1,5 @@
 interface inputFilterProps {
-  Filter: { label: string; value: string }[];
+  Filter: { id: string; value: string }[];
   label?: string;
   IsDisabled?: boolean;
   placeholder?: string;
@@ -7,6 +7,7 @@ interface inputFilterProps {
   defaultValue?: string;
   required?: boolean;
   inputName?: string;
+  value?: string;
 }
 
 const InputFilter: React.FC<inputFilterProps> = ({
@@ -29,12 +30,12 @@ const InputFilter: React.FC<inputFilterProps> = ({
         className={`${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
         defaultValue={defaultValue}
       >
-        <option value={""} disabled>
+        <option value={defaultValue || ""} disabled>
           {defaultValue || placeholder}
         </option>
         {Filter &&
           Filter?.map((item, i) => (
-            <option key={i} value={item?.value}>
+            <option key={i} value={item?.id}>
               {item?.value}
             </option>
           ))}

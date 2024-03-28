@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  PartnerProps,
   warrantyPartnerProps,
   warrantyUpdateAddedItemProps,
 } from "./config/types";
@@ -17,7 +18,7 @@ import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import SelectForPartner from "../../../../common/components/SelectForPartner/SelectForPartner";
 import TextArea from "../../../../common/components/TextArea/TextArea";
 
-import { defualtpartnerInfo } from "./config/constants";
+import { defaultPartnerInfoStatic } from "./config/constants";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { defaultPartner } from "./helpers/findDefaultPartner";
 import { handleDataSubmit } from "./helpers/submitData";
@@ -28,6 +29,8 @@ const ComplaintAddForWarranty = () => {
   const [warrantyAddedItem, setWarrantyAddedItem] = useState<
     warrantyUpdateAddedItemProps[]
   >([]);
+  const [selectPartner, setSelectPartner] = useState<PartnerProps | null>(null);
+
   const [selectData, setSelectData] =
     useState<warrantyUpdateAddedItemProps | null>(null);
   const [isNewPartner, setIsNewPartner] = useState(false);
@@ -36,8 +39,9 @@ const ComplaintAddForWarranty = () => {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [mainCategories, setMainCategories] = useState([]);
-  const [partnerInfo, setPartnerInfo] =
-    useState<warrantyPartnerProps>(defualtpartnerInfo);
+  const [partnerInfo, setPartnerInfo] = useState<warrantyPartnerProps>(
+    defaultPartnerInfoStatic
+  );
 
   // redux
   const [addComplaint, { isLoading }] = useComplaintAddMutation();
@@ -109,15 +113,17 @@ const ComplaintAddForWarranty = () => {
       setIsNewPartner(false);
     }
   }, []);
+
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
     const partner_id = (
       form.elements.namedItem("partner_id") as HTMLInputElement
     ).value;
+    const contactNo = selectPartner?.contactNo;
     const contact_number = (
       form.elements.namedItem("contact_number") as HTMLInputElement
-    ).value;
+    )?.value;
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
     const address = (form.elements.namedItem("address") as HTMLInputElement)
       ?.value;
@@ -142,7 +148,6 @@ const ComplaintAddForWarranty = () => {
 
     const problems = (form.elements.namedItem("problems") as HTMLInputElement)
       .value;
-
     const newCustomer = {
       partner_id,
       contact_number,
@@ -152,7 +157,7 @@ const ComplaintAddForWarranty = () => {
     };
     const partner = {
       partner_id,
-      contact_number,
+      contactNo,
       brand_name,
     };
 
@@ -161,7 +166,7 @@ const ComplaintAddForWarranty = () => {
       localStorage.setItem("newCustomer", JSON.stringify(newCustomer));
     }
 
-    if (!isNewPartner) {
+    if (!isNewPartner && warrantyAddedItem?.length <= 0) {
       setPartnerInfo(partner);
       localStorage.setItem("partnerInfo", JSON.stringify(partner));
     }
@@ -210,9 +215,13 @@ const ComplaintAddForWarranty = () => {
     brand_name,
     inputFields: warrantyAddedItem,
   };
-  const defaultPartnerInfo = defaultPartner(partnerInfo, partners);
-  const defaultPartnerName = `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
-  console.log(defaultPartnerName);
+  const defaultPartnerInfo =
+    partnerInfo && defaultPartner(partnerInfo, partners);
+
+  const defaultPartnerName =
+    defaultPartnerInfo &&
+    `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -314,12 +323,14 @@ const ComplaintAddForWarranty = () => {
                       inputName="brand_name"
                       placeholder="Brand Name"
                       label="Brand Name"
-                    ></InputFilter>
+                    />
                   </div>
 
                   {/* Partner Name  */}
                   <div>
                     <SelectForPartner
+                      selectPartner={selectPartner}
+                      setSelectPartner={setSelectPartner}
                       defaultValue={defaultPartnerName}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
@@ -333,14 +344,16 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        partnerInfo ? partnerInfo?.contact_number : ""
+                        selectPartner || partnerInfo?.contactNo
+                          ? selectPartner?.contactNo || partnerInfo?.contactNo
+                          : ""
                       }`}
-                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      IsDisabled
                       required
                       inputPlaceholder="Contact Number"
                       labelName="Contact Number"
                       inputName="contact_number"
-                    ></Input>
+                    />
                   </div>
                 </div>
               )}
@@ -349,7 +362,7 @@ const ComplaintAddForWarranty = () => {
               <div>
                 <InputFilter
                   defaultValue={`${
-                    selectData ? selectData?.main_category : ""
+                    selectData ? selectData?.category_name : ""
                   }`}
                   required
                   inputName="main_category"
@@ -370,15 +383,12 @@ const ComplaintAddForWarranty = () => {
                 />
               </div>
 
-              {/* Product / Items Name  */}
-
               {/* Model Number   */}
               <div>
                 <Input
                   defaultValue={`${selectData ? selectData?.model_number : ""}`}
                   required
                   inputName="model_number"
-                  inputPlaceholder="Model Number"
                   labelName="Model Number"
                 ></Input>
               </div>
@@ -390,7 +400,6 @@ const ComplaintAddForWarranty = () => {
                   }`}
                   required
                   inputName="serial_number"
-                  inputPlaceholder="Serial Number"
                   labelName="Serial Number"
                 ></Input>
               </div>
@@ -401,7 +410,6 @@ const ComplaintAddForWarranty = () => {
                   defaultValue={`${selectData ? selectData?.attachments : ""}`}
                   required
                   inputName="remark"
-                  inputPlaceholder="Remark"
                   labelName="Remark"
                 ></Input>
               </div>
@@ -410,9 +418,9 @@ const ComplaintAddForWarranty = () => {
                 <TextArea
                   defaultValue={`${selectData ? selectData?.problems : ""}`}
                   name="problems"
-                  label="Write Problems"
-                  placeholder="Write Problems"
-                ></TextArea>
+                  label="Problems"
+                  placeholder="Write here..."
+                />
               </div>
               <div className="col-span-3  justify-end flex items-end pb-5">
                 <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
@@ -443,7 +451,7 @@ const ComplaintAddForWarranty = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div>
           <h1 className="text-center font-semibold text-xl underline">
             Added Item
           </h1>
@@ -454,7 +462,8 @@ const ComplaintAddForWarranty = () => {
                   deleteAll(
                     setPartnerInfo,
                     setWarrantyAddedItem,
-                    setIsNewPartner
+                    setIsNewPartner,
+                    setSelectPartner
                   )
                 }
                 danger
@@ -470,30 +479,40 @@ const ComplaintAddForWarranty = () => {
                 warrantyAddedItem.map((item, index) => (
                   <div
                     key={index}
-                    className="p-5 rounded-xl shadow-xl space-y-2 bg-paleShadeOfBlue"
+                    className="p-5 rounded-xl shadow-xl space-y-5 bg-lightGray"
                   >
-                    <div className="text-base font-semibold flex flex-col">
-                      Product Name
-                      <span className="text-sm font-normal">
-                        : {item?.serial_number}
-                      </span>
-                    </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Model Number
-                      <span className="text-sm font-normal">
-                        : {item?.model_number}
-                      </span>
-                    </div>
-                    <div className="text-base font-semibold flex flex-col">
-                      Serial Number
-                      <span className="text-sm font-normal">
-                        <span>: {item?.serial_number}</span>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Main Category :
+                      <span className="text-sm font-normal ">
+                        {item?.category_name}
                       </span>
                     </div>
 
-                    <div className="text-base font-semibold flex flex-col">
-                      <span className="text-sm font-normal"></span>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Category :{" "}
+                      <span className="text-sm font-normal">
+                        {item?.category}
+                      </span>
                     </div>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Model Number :{" "}
+                      <span className="text-sm font-normal">
+                        {item?.model_number}
+                      </span>
+                    </div>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Serial Number :{" "}
+                      <span className="text-sm font-normal">
+                        {item?.serial_number}
+                      </span>
+                    </div>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Remark :{" "}
+                      <span className="text-sm font-normal">
+                        <span>{item?.attachments}</span>
+                      </span>
+                    </div>
+
                     <div className="flex justify-between ">
                       <Button
                         className="px-2 py-1 text-xs"
@@ -503,7 +522,8 @@ const ComplaintAddForWarranty = () => {
                             warrantyAddedItem,
                             setPartnerInfo,
                             setWarrantyAddedItem,
-                            setSelectedItem
+                            setSelectedItem,
+                            setSelectPartner
                           )
                         }
                         danger

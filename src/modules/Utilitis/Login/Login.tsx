@@ -4,6 +4,7 @@ import Input from "../../../common/components/Input";
 import { useState } from "react";
 import swal from "sweetalert";
 import { authKey } from "../../../shared/config/constaints";
+import { setToLocalStorage } from "../../../shared/helpers/local_storage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Login = () => {
         if (data.success) {
           localStorage.setItem(authKey, data.data.accessToken);
           localStorage.setItem("refreshToken", data.data.accessToken);
+          setToLocalStorage("activeRoute", "true");
           navigate("/");
         } else {
           swal("Error!", data.message, "error");

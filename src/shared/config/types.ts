@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
 // button props
@@ -123,12 +124,15 @@ export type TableBodyProps = {
 export type SearchBarProps = {
   link?: string;
   linkBtn?: string;
-  normalBtn?: string;
-  isNeedFilter?: boolean;
-  filterPlaceHolder?: string;
   isDropdown?: boolean;
-  isNormalBtn?: boolean;
   dropdown?: boolean;
+  dropdownPlaceHolder?: string;
+  setSelectEngineer?: any;
+  filtersOptions?: {
+    value: string;
+    _id: string;
+    name?: { firstName?: string; middleName?: string; lastName?: string };
+  }[];
 };
 
 export type ComplaintMiniCardProps = {
@@ -151,16 +155,12 @@ export type InventoryRequestInfoDetailsProps = {
   headerData: TableHeaderProps[];
 };
 
-
-export type UserEvent  ={
+export type UserEvent = {
   userId: string;
   role: string;
-  Skill: string[]
-  power:string[]
-  asp:string[];
+  Skill: string[];
+  power: string[];
+  asp: string[];
   iat: number;
   exp: number;
-
-}
-
-
+};

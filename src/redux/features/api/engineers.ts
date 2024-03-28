@@ -13,12 +13,12 @@ const ComplaintsApi = baseApi.injectEndpoints({
         body: fullData,
       }),
     }),
-    getComplaints: builder.query({
+    getEngineers: builder.query({
       query: (params) => {
-        console.log(`/complaints?${params?.query}`);
+        // console.log(`/complaints?${params?.query}`);
         // console.log(params);
         return {
-          url: `/complaints?${params?.query}`,
+          url: `/engineers`,
           headers: {
             authorization: params?.token,
           },
@@ -41,4 +41,4 @@ const ComplaintsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useComplaintAddMutation, useGetComplaintsQuery } = ComplaintsApi;
+export const { useComplaintAddMutation, useGetEngineersQuery } = ComplaintsApi;

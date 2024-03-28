@@ -18,10 +18,10 @@ const Input: React.FC<InputProps> = ({
   IsDisabled = false,
   defaultValue = "",
   required = false,
-  value,
+  // value,
   onChange,
 }) => {
-  console.log(defaultValue);
+  // console.log(defaultValue);
   return (
     <div>
       <div>
@@ -30,13 +30,13 @@ const Input: React.FC<InputProps> = ({
             <label className="text-lg font-semibold">{labelName}</label>
           </div>
           <input
-            value={value}
+            // value={value}
             required={required}
             onChange={onChange} // Added onChange event handler
             name={inputName}
             type={inputType}
             disabled={IsDisabled}
-            placeholder={defaultValue || inputPlaceholder}
+            placeholder={inputPlaceholder}
             defaultValue={defaultValue}
             className="border-2 w-full rounded-sm  py-2 pl-2"
           />

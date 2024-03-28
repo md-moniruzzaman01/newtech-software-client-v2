@@ -1,7 +1,11 @@
-export const EngineerTableBtnValue = [
-  "all",
-  "pending",
-  "accepted",
-  "rejected",
-  "cancelled",
+export const EngineerTableHeader = [
+  "Order ID",
+  "Create Date",
+  "Due Date",
+  "Customer Name",
+  "Items",
+  "Problem",
+  "Brand Name",
+  "Engineers",
+  "Status",
 ];

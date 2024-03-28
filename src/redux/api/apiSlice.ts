@@ -5,5 +5,6 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://16.16.166.48:5000/api/v2",
   }),
+  tagTypes: ["complaints", "brand_category", "category", "repair", "qc"],
   endpoints: () => ({}),
 });

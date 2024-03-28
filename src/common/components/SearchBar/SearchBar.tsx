@@ -2,22 +2,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
-import InputFilter from "../InputFilter/InputFilter";
-import {
-  FilterOptions,
-  FilterOptions2,
-} from "../../../shared/config/constaints";
 import { useState } from "react";
+import EngineersFilter from "../EngineersFilter/EngineersFilter";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link = false,
   linkBtn = "+ Add Complaint’s",
-  normalBtn = "+ Assign to QC",
-  isNeedFilter = false,
-  filterPlaceHolder,
   isDropdown = false,
-  isNormalBtn = false,
   dropdown = false,
+  dropdownPlaceHolder = "Assign to qc",
+  filtersOptions = [],
+  setSelectEngineer,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -68,11 +63,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
               </NavLink>
             ) : (
               isDropdown && (
-                <InputFilter IsDisabled={dropdown} Filter={FilterOptions2} />
+                <EngineersFilter
+                  IsDisabled={dropdown}
+                  placeholder={dropdownPlaceHolder}
+                  Filter={filtersOptions}
+                  setSelectEngineer={setSelectEngineer}
+                />
               )
             )}
           </div>
-          <div>
+          {/* <div>
             {isNeedFilter
               ? isNormalBtn && (
                   <InputFilter
@@ -81,7 +81,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   />
                 )
               : isNormalBtn && <Button primary>{normalBtn}</Button>}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
