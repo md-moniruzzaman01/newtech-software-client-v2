@@ -1,5 +1,5 @@
 export const fields = "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer";
-export const keys = ["brand", "branch", "sort", "repair-status", "search", "category"];
+export const keys = ["brand", "branch", "sort", "repair_status", "search", "category"];
 
 export const btnValue = [
   "Pending",
