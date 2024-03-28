@@ -133,6 +133,8 @@ export type SearchBarProps = {
     _id: string;
     name?: { firstName?: string; middleName?: string; lastName?: string };
   }[];
+  isTrue?: boolean;
+  checkedRows?: string[];
 };
 
 export type ComplaintMiniCardProps = {

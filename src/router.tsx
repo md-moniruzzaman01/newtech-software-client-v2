@@ -37,7 +37,6 @@ import EngineerItems from "./modules/warranty/repair/EngineerItems/EngineerItems
 import EngineerMyRepaired from "./modules/warranty/repair/EngineerMyRepaired/EngineerMyRepaired";
 import EngineerAllRepairs from "./modules/warranty/repair/EngineerAllRepairs/EngineerAllRepairs";
 import EngineerItemsOrderDetails from "./modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
-import BillList from "./modules/services/invoice/BillList/BillList";
 import CreateABill from "./modules/services/invoice/CreateABill/CreateABill";
 import BillPending from "./modules/services/invoice/BillPending/BillPending";
 import QAItems from "./modules/warranty/QA/QA/QAItems";
@@ -57,6 +56,9 @@ import BrandAddPage from "./modules/warranty/brand/BrandAddPage";
 import MyProfile from "./modules/Utilitis/MyProfile/MyProfile";
 import Principle from "./modules/Utilitis/Principle/Principle list/Principle";
 import EngineerAdd from "./modules/Utilitis/EngineerAdd/EngineerAdd";
+import BillListWarranty from "./modules/warranty/BillWarranty/BillListWarranty/BillListWarranty";
+import BillList from "./modules/services/invoice/BillList/BillList";
+import ServiceInvoicePage from "./modules/services/invoice/ServiceInvoicePage/ServiceInvoicePage";
 
 export const router = createBrowserRouter([
   {
@@ -201,15 +203,23 @@ export const router = createBrowserRouter([
       },
       // bill route start here
       {
-        path: "/bill-list",
+        path: "/service-invoice",
+        element: <ServiceInvoicePage />,
+      },
+      {
+        path: "/bill-list-warranty",
+        element: <BillListWarranty />,
+      },
+      {
+        path: "/bill-list-service",
         element: <BillList />,
       },
       {
-        path: "/create-bill",
+        path: "/create-bill-service",
         element: <CreateABill />,
       },
       {
-        path: "/bill-pending",
+        path: "/bill-pending-service",
         element: <BillPending />,
       },
 

@@ -4,11 +4,10 @@ import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
+import BillTable from "./partials/BillTable";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
-import BillServicePendingTable from "./Partials/BillServicePendingTable/BillServicePendingTable";
-import { BillServicePendingTableHeader } from "./config/constants";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { BillTableHeader } from "./config/constant";
 
 const BillListWarranty = () => {
   const [billData, setBillData] = useState([]);
@@ -27,13 +26,9 @@ const BillListWarranty = () => {
       setBillData(complaintsData?.data);
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
-
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
   return (
     <div className=" px-5">
-      <Navbar name="Bill Pending List" />
+      <Navbar name="Warranty Bill List" />
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -41,11 +36,11 @@ const BillListWarranty = () => {
         <div>
           <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
-            <BillServicePendingTable
+            <BillTable
               view
               Link="/complaints/order-details"
               itemData={billData}
-              HeaderData={BillServicePendingTableHeader}
+              HeaderData={BillTableHeader}
             />
           </div>
         </div>
