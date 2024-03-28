@@ -59,6 +59,8 @@ import EngineerAdd from "./modules/Utilitis/EngineerAdd/EngineerAdd";
 import BillListWarranty from "./modules/warranty/BillWarranty/BillListWarranty/BillListWarranty";
 import BillList from "./modules/services/invoice/BillList/BillList";
 import ServiceInvoicePage from "./modules/services/invoice/ServiceInvoicePage/ServiceInvoicePage";
+import CreateABillWarranty from "./modules/warranty/BillWarranty/CreateABillWarranty/CreateABillWarranty";
+import BillPendingWarranty from "./modules/warranty/BillWarranty/BillPendingWarranty/BillPendingWarranty";
 
 export const router = createBrowserRouter([
   {
@@ -209,6 +211,14 @@ export const router = createBrowserRouter([
       {
         path: "/bill-list-warranty",
         element: <BillListWarranty />,
+      },
+      {
+        path: "/create-bill-warranty",
+        element: <CreateABillWarranty />,
+      },
+      {
+        path: "/bill-pending-warranty",
+        element: <BillPendingWarranty />,
       },
       {
         path: "/bill-list-service",

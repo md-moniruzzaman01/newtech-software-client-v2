@@ -3,20 +3,21 @@ import StatusGroup from "../../../../common/components/Status Group";
 import Table from "../../../../common/components/Table/Table";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { DemoTableHeaderView, DemoTableValue } from "../../../../shared/config/constaints";
+import {
+  DemoTableHeaderView,
+  DemoTableValue,
+} from "../../../../shared/config/constaints";
 
-
-
-const BillPending = () => {
+const BillPendingWarranty = () => {
   return (
     <div className=" px-5">
-      <Navbar name="Bill Pending" />
+      <Navbar name="Bill Pending Warranty" />
       <div className="pt-5">
         <SearchBar />
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={[]}/>
+          <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
             <Table
               view
@@ -34,4 +35,4 @@ const BillPending = () => {
   );
 };
 
-export default BillPending;
+export default BillPendingWarranty;
