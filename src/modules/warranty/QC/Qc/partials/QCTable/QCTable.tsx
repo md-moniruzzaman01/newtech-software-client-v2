@@ -43,50 +43,48 @@ const QCTable: FC<QCTableProps> = ({
                       <input
                         type="checkbox"
                         className="checkbox form-checkbox h-5 w-5 "
-                        checked={checkedRows.includes(item?._id || "")}
-                        onChange={() => handleCheckboxChange(item?._id || "")}
+                        checked={checkedRows.includes(item?.repair && item.repair.length > 0 && item.repair[item.repair.length - 1].id || "")}
+                        onChange={() => handleCheckboxChange( item?.repair && item.repair.length > 0 && item.repair[item.repair.length - 1].id || "")}
                       />
                     </label>
                   </td>
 
                   <td className="border border-gray-800">
-                    {item?.order_number}
+                  {item?.repair && item.repair.length > 0 && item.repair[item.repair.length - 1].order_number}
                   </td>
                   <td className="border border-gray-800">
-                    {item?.products?.model_number}
+                    {item?.model_number}
                   </td>
                   <td className="border border-gray-800">
-                    {item?.products?.serial_number}
+                    {item?.serial_number}
                   </td>
                   <td className="border border-gray-800">
-                    {item?.customer?.contact_person ||
-                      item?.Nonwarrentycustomer?.name ||
-                      "N/A"}
+                    {item?.problems}
+                  </td>
+                  <td className="border border-gray-800">
+                    {item?.attachments}
                   </td>
                   <td className="border border-gray-800">
                     {item?.category_name}
                   </td>
+                  <td className="border border-gray-800">
+                    {item?.category}
+                  </td>
                   <td className="border border-gray-800">{item?.brand_name}</td>
-                  <td className="border border-gray-800">
-                    {item.Qc?.user_name}
-                  </td>
-                  <td className="border border-gray-800">
-                    {item?.RepairItem?.user_name}
-                  </td>
-                  <td className="border border-gray-800">
-                    {item?.Qa?.user_name}
-                  </td>
+                  <td className="border border-gray-800">{item?.repair_count}</td>
+                  <td className="border border-gray-800">{item?.repair && item.repair.length > 0 && item.repair[item.repair.length - 1].branch}</td>
+
                   <td className="border border-gray-800">
                     {item?.repair_status}
                   </td>
                   <td className="border border-gray-800">
-                    {item?.received_date?.toString().slice(0, 10)}
+                    {item?.turnaround_time?.toString().slice(0, 10)}
                   </td>
                   <td className="border border-gray-800">
                     {Link && (
                       <NavLink
                         className=" !text-black flex justify-center"
-                        to={`${Link}/${item?._id}`}
+                        to={`${Link}/${item?.id}`}
                       >
                         <IoMdEye />
                       </NavLink>

@@ -3,24 +3,25 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import QCTable from "./partials/QCTable/QCTable";
-import { QCTableHeader, qcSelectData } from "./config/constants";
+import { QCTableHeader, fields, keys, qcSelectData } from "./config/constants";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import StatusGroup from "../../../../common/components/Status Group";
 import { QATableBodyProps } from "../../QA/QA/config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
-import { useCreateQCMutation } from "../../../../redux/features/api/qc";
 import { EngineerDateProps } from "./config/types";
+import { useGetProductsQuery } from "../../../../redux/features/api/qc";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const Qc = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
-  // const limit = 10;
+
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qcData, setQCData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys)
   const [selectEngineer, setSelectEngineer] =
     useState<EngineerDateProps>(qcSelectData);
   const fullData = {
@@ -33,18 +34,27 @@ const Qc = () => {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
-    token,
+  } = useGetProductsQuery({
+    query,
+    token
   });
   const {
     data: engineerData,
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQC] = useCreateQCMutation();
-
+  // const [createQC] = useCreateQCMutation();
   if (selectEngineer?.id) {
-    createQC({ fullData, token });
+    fetch("http://localhost:5000/api/v2/qualtity-check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "authorization": `${token}`,	
+      },
+      body: JSON.stringify(fullData),
+    }).then(res => res.json()).then(data => console.log(data))
+
+
     setSelectEngineer(qcSelectData);
   }
 
@@ -76,15 +86,13 @@ const Qc = () => {
       // If all checkboxes are already checked, uncheck them all
       setCheckedRows([]);
     } else {
-      // If not all checkboxes are checked, set checkedRows to contain all _id values
       const allIds =
-        qcData?.map((item) => item?._id).filter((id) => id !== undefined) || []; // Filter out undefined values
+        qcData?.map((item) => item?._id).filter((id) => id !== undefined) || [];
       if (allIds.length > 0) {
         setCheckedRows(allIds as string[]);
       }
     }
   };
-
   if (complaintsLoading) {
     return <LoadingPage />;
   }

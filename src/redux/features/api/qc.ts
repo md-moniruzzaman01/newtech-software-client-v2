@@ -5,7 +5,7 @@ const QCApi = baseApi.injectEndpoints({
     // brand section
     createQC: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/qc/multiple",
+        url: "/qualtity-check",
         method: "POST",
         headers: {
           authorization: token,
@@ -13,8 +13,31 @@ const QCApi = baseApi.injectEndpoints({
         body: fullData,
       }),
     }),
+    getQcs: builder.query({
+      query: (params) => {
+        console.log(`/qualtity-check?${params?.query}`);
+        return {
+          url: `/qualtity-check?${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
     getQC: builder.query({
       query: () => "/brand",
+    }),
+    getProducts: builder.query({
+      query: (params) => {
+        console.log(`/product?${params?.query}`);
+        // console.log(params);
+        return {
+          url: `/product?${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
@@ -32,4 +55,4 @@ const QCApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateQCMutation, useGetQCQuery } = QCApi;
+export const { useCreateQCMutation,useGetQcsQuery,useGetProductsQuery, useGetQCQuery } = QCApi;
