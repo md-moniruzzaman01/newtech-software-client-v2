@@ -14,7 +14,7 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
       queryParams.delete("brand_name");
       queryParams.delete("category");
       queryParams.delete("sort");
-      queryParams.delete("repair-status");
+      queryParams.delete("repair_status");
       queryParams.delete("branch");
       queryParams.delete("search");
     } else {
@@ -24,7 +24,7 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
   };
 
   const handleFilter = (route: string) => {
-    setQuery("repair-status", route);
+    setQuery("repair_status", route);
 
     setActiveRoute(route);
   };

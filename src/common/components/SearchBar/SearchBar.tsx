@@ -14,9 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   dropdown = false,
   dropdownPlaceHolder = "Assign to qc",
   filtersOptions = [],
-  setSelectEngineer,
-  isTrue = false,
-  checkedRows = [],
+  handleSubmit,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -29,7 +27,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       queryParams.delete("brand_name");
       queryParams.delete("category");
       queryParams.delete("sort");
-      queryParams.delete("repair-status");
+      queryParams.delete("repair_status");
       queryParams.delete("branch");
     } else {
       queryParams.set(paramName, paramValue); // Set the search parameter if paramValue is not empty
@@ -81,7 +79,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   IsDisabled={dropdown}
                   placeholder={dropdownPlaceHolder}
                   Filter={filtersOptions}
-                  setSelectEngineer={setSelectEngineer}
+                  handleSubmit={handleSubmit}
                 />
               )
             )}
