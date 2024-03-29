@@ -6,8 +6,11 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { useParams } from "react-router-dom";
 
 const ComplaintOrderDetailsQC = () => {
+  const { id } = useParams();
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
@@ -61,7 +64,7 @@ const ComplaintOrderDetailsQC = () => {
               <MdModeEdit />
             </div>
           </div>
-          <ComplaintOrderStatusQC />
+          <ComplaintOrderStatusQC id={id} />
         </div>
       </div>
     </div>

@@ -2,10 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import EngineersFilter from "../EngineersFilter/EngineersFilter";
-import { setData } from "../../../redux/features/slice/InvoiceIdsSlice/InvoiceIdsSlice";
-import { useDispatch } from "react-redux";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link = false,
@@ -18,7 +16,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const setQuery = (paramName: string, paramValue: string) => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -41,11 +38,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setActiveRoute(route);
   };
 
-  // for redux
-  const handleClick = useCallback(() => {
-    dispatch(setData(checkedRows));
-  }, [dispatch, checkedRows]);
-
   return (
     <div>
       <div className="flex justify-between ">
@@ -66,13 +58,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <div className="flex items-center gap-2 ">
           <div>
             {link ? (
-              <Button onClick={handleClick} disabled={isTrue} primary>
-                {isTrue ? (
-                  <span>{linkBtn}</span>
-                ) : (
-                  <NavLink to={`${link}`}>{linkBtn}</NavLink>
-                )}
-              </Button>
+              <NavLink to={`${link}`}>
+                <Button primary>{linkBtn}</Button>
+              </NavLink>
             ) : (
               isDropdown && (
                 <EngineersFilter
@@ -84,6 +72,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
               )
             )}
           </div>
+          {/* <div>
+            {isNeedFilter
+              ? isNormalBtn && (
+                  <InputFilter
+                    placeholder={filterPlaceHolder}
+                    Filter={FilterOptions}
+                  />
+                )
+              : isNormalBtn && <Button primary>{normalBtn}</Button>}
+          </div> */}
         </div>
       </div>
     </div>

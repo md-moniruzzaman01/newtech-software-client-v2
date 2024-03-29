@@ -11,16 +11,11 @@ import { MyQCTableHeader } from "./config/constants";
 import MyQcTable from "./partials/MyQcTable";
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
 
-
 const QCMyLibrary = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459"
-  const {
-    data,
-    isError,
-    isLoading,
-  } = useGetQcsQuery({
+  const id = "65f7d1b8ff0aba99b376d459";
+  const { data, isError, isLoading } = useGetQcsQuery({
     id,
     token,
   });
@@ -46,8 +41,10 @@ const QCMyLibrary = () => {
       setCheckedRows([]);
     } else {
       const allIds =
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        data?.data?.map((item: any) => item?._id).filter((id: string) => id !== undefined) || [];
+        data?.data
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ?.map((item: any) => item?._id)
+          .filter((id: string) => id !== undefined) || [];
       if (allIds.length > 0) {
         setCheckedRows(allIds as string[]);
       }
@@ -64,14 +61,13 @@ const QCMyLibrary = () => {
           <StatusGroup />
           <div className="pt-5">
             <MyQcTable
-              Link="/complaints/order-details"
+              Link="/qc/order-details"
               itemData={data?.data}
               HeaderData={MyQCTableHeader}
               checkedRows={checkedRows}
               handleCheckboxChange={handleCheckboxChange}
               handleAllCheckboxChange={handleAllCheckboxChange}
-            >
-            </MyQcTable>
+            ></MyQcTable>
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">
