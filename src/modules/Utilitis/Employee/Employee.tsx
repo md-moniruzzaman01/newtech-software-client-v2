@@ -12,7 +12,7 @@ const Employee = () => {
       <Navbar name="Employee" />
 
       <div className="py-5">
-        <SearchBar linkBtn="+ Add Team" normalBtn="+ Add Employee" />
+        <SearchBar linkBtn="+ Add Team" />
       </div>
 
       {/* table start here  */}

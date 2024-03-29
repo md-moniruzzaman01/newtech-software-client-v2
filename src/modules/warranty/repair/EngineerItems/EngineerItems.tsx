@@ -111,7 +111,7 @@ const EngineerItems = () => {
           <EngineerTable
             HeaderData={EngineerTableHeader}
             itemData={engineerData}
-            Link="/qc/order-details"
+            Link="/engineer-items/order-details"
             checkedRows={checkedRows}
             handleCheckboxChange={handleCheckboxChange}
             handleAllCheckboxChange={handleAllCheckboxChange}

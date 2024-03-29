@@ -1,9 +1,16 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { IoMdEye } from "react-icons/io";
-import { BillTableProps, TableBodyProps } from "../config/types";
+import { CreateBillTableProps, CreateTableBodyProps } from "../config/types";
 
-const BillTable: FC<BillTableProps> = ({ HeaderData, Link, itemData = [] }) => {
+const BillCreateWarrantyTable: FC<CreateBillTableProps> = ({
+  HeaderData,
+  Link,
+  itemData = [],
+  checkedRows = [], // Add a default value for checkedRows
+  handleCheckboxChange,
+  handleAllCheckboxChange,
+}) => {
   return (
     <>
       <div className="flex justify-center w-full">
@@ -12,9 +19,14 @@ const BillTable: FC<BillTableProps> = ({ HeaderData, Link, itemData = [] }) => {
             {/* head */}
             <thead>
               <tr>
-                <td className=" border border-gray-800">
-                  <label className="flex justify-center items-center">
-                    <input type="checkbox" className="form-checkbox h-5 w-5 " />
+                <td>
+                  <label>
+                    <input
+                      type="checkbox"
+                      className="checkbox form-checkbox h-5 w-5 "
+                      checked={checkedRows.length === itemData?.length}
+                      onChange={handleAllCheckboxChange}
+                    />
                   </label>
                 </td>
                 {HeaderData &&
@@ -24,19 +36,20 @@ const BillTable: FC<BillTableProps> = ({ HeaderData, Link, itemData = [] }) => {
               </tr>
             </thead>
             <tbody>
-              {itemData?.map((item: TableBodyProps, index) => (
+              {itemData?.map((item: CreateTableBodyProps, index) => (
                 <tr key={index}>
                   <td className=" border border-gray-800">
-                    <label className="flex justify-center items-center">
+                    <label>
                       <input
                         type="checkbox"
-                        className="form-checkbox h-5 w-5 text-indigo-600"
+                        className="checkbox form-checkbox h-5 w-5 "
+                        checked={checkedRows?.includes(item?._id || "")}
+                        onChange={() => handleCheckboxChange(item?._id || "")}
                       />
                     </label>
                   </td>
 
                   <td className="border border-gray-800">
-                    {" "}
                     {item?.order_number}
                   </td>
                   <td className="border border-gray-800">
@@ -89,4 +102,4 @@ const BillTable: FC<BillTableProps> = ({ HeaderData, Link, itemData = [] }) => {
   );
 };
 
-export default BillTable;
+export default BillCreateWarrantyTable;

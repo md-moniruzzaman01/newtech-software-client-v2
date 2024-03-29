@@ -1,17 +1,39 @@
+import { useEffect, useState } from "react";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import Table from "../../../../common/components/Table/Table";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import {
-  DemoTableHeaderView,
-  DemoTableValue,
-} from "../../../../shared/config/constaints";
+import { authKey } from "../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
+import { BillTableHeader } from "./config/constant";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import BillPendingWarrantyTable from "./partials/BillPendingWarrantyTable";
 
 const BillPendingWarranty = () => {
+  const [billData, setBillData] = useState([]);
+
+  const token = getFromLocalStorage(authKey);
+  const {
+    data: complaintsData,
+    isError: complaintsError,
+    isLoading: complaintsLoading,
+  } = useGetComplaintsQuery({
+    token,
+  });
+
+  useEffect(() => {
+    if (!complaintsLoading && !complaintsError) {
+      setBillData(complaintsData?.data);
+    }
+  }, [complaintsData, complaintsLoading, complaintsError]);
+
+  if (complaintsLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className=" px-5">
-      <Navbar name="Bill Pending Warranty" />
+      <Navbar name="Warranty Bill Pending" />
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -19,12 +41,11 @@ const BillPendingWarranty = () => {
         <div>
           <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
-            <Table
-              view
+            <BillPendingWarrantyTable
               Link="/complaints/order-details"
-              itemData={DemoTableValue}
-              HeaderData={DemoTableHeaderView}
-            ></Table>
+              itemData={billData}
+              HeaderData={BillTableHeader}
+            />
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">

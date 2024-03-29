@@ -141,7 +141,7 @@ export const router = createBrowserRouter([
         element: <ComplaintService />,
       },
       {
-        path: "/complaints/order-details",
+        path: "/complaints/order-details/:id",
         element: <ComplaintOrderDetails />,
       },
       {
@@ -174,7 +174,7 @@ export const router = createBrowserRouter([
         element: <QCMyItems />,
       },
       {
-        path: "/qc/order-details",
+        path: "/qc/order-details/:id",
         element: <ComplaintOrderDetailsQC />,
       },
 
@@ -200,7 +200,7 @@ export const router = createBrowserRouter([
         element: <EngineerAllRepairs />,
       },
       {
-        path: "/engineer-items/order-details",
+        path: "/engineer-items/order-details/:id",
         element: <EngineerItemsOrderDetails />,
       },
       // bill route start here
@@ -247,7 +247,7 @@ export const router = createBrowserRouter([
         element: <QAAll />,
       },
       {
-        path: "/qa-items/order-details",
+        path: "/qa-items/order-details/:id",
         element: <QAItemOrderDetails />,
       },
       // customer route start here
@@ -269,7 +269,7 @@ export const router = createBrowserRouter([
         element: <Employee />,
       },
       {
-        path: "/employee/order-details",
+        path: "/employee/order-details/:id",
         element: <EmployeeInfoDetailsPage />,
       },
       {

@@ -1,12 +1,14 @@
-export type BillTableProps = {
-  HeaderData: TableHeaderProps[];
-  itemData?: TableBodyProps[];
-  view?: boolean;
+export type CreateBillTableProps = {
+  HeaderData: CreateTableHeaderProps[];
+  itemData?: CreateTableBodyProps[];
   Link?: string;
+  checkedRows?: string[];
+  handleCheckboxChange: (index: string) => void;
+  handleAllCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type TableHeaderProps = string;
-export type TableBodyProps = {
+export type CreateTableHeaderProps = string;
+export type CreateTableBodyProps = {
   _id?: string;
   order_number?: string;
   products?: {

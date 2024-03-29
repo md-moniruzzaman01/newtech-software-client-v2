@@ -1,7 +1,6 @@
 export type BillTableProps = {
   HeaderData: TableHeaderProps[];
   itemData?: TableBodyProps[];
-  view?: boolean;
   Link?: string;
 };
 

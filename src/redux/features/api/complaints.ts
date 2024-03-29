@@ -25,6 +25,14 @@ const ComplaintsApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getComplaintById: builder.query({
+      query: (params) => ({
+        url: `/complaints/${params?.complaintsById}`,
+        headers: {
+          authorization: params?.token,
+        },
+      }),
+    }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
     //     url: `/posts/${postId}`,
@@ -41,4 +49,8 @@ const ComplaintsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useComplaintAddMutation, useGetComplaintsQuery } = ComplaintsApi;
+export const {
+  useComplaintAddMutation,
+  useGetComplaintsQuery,
+  useGetComplaintByIdQuery,
+} = ComplaintsApi;

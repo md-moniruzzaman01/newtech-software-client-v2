@@ -3,7 +3,11 @@ import { NavLink } from "react-router-dom";
 import { IoMdEye } from "react-icons/io";
 import { BillTableProps, TableBodyProps } from "../config/types";
 
-const BillTable: FC<BillTableProps> = ({ HeaderData, Link, itemData = [] }) => {
+const BillPendingWarrantyTable: FC<BillTableProps> = ({
+  HeaderData,
+  Link,
+  itemData = [],
+}) => {
   return (
     <>
       <div className="flex justify-center w-full">
@@ -89,4 +93,4 @@ const BillTable: FC<BillTableProps> = ({ HeaderData, Link, itemData = [] }) => {
   );
 };
 
-export default BillTable;
+export default BillPendingWarrantyTable;
