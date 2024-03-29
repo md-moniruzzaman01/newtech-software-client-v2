@@ -6,16 +6,22 @@ import ComplaintMiniCard from "./partials/ComplaintMiniCard";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails } from "../../../../shared/config/constaints";
-import { useParams } from "react-router-dom";
+import {
+  ComplaintDetails,
+  authKey,
+} from "../../../../shared/config/constaints";
+import { NavLink, useParams } from "react-router-dom";
 import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
+import { ComplaintsOrderDetailsProps } from "./config/types";
 
 const ComplaintOrderDetails = () => {
   const { id } = useParams();
-  const [complaintsSingleData, setComplaintsSingleData] = useState([]);
-  const token = getFromLocalStorage("token");
+  const [complaintsSingleData, setComplaintsSingleData] =
+    useState<ComplaintsOrderDetailsProps | null>(null);
+  const [isEdit, setIsEdit] = useState(true);
+  const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -23,10 +29,10 @@ const ComplaintOrderDetails = () => {
   } = useGetComplaintByIdQuery({ id, token });
   useEffect(() => {
     if (!complaintsError && !complaintsLoading) {
-      setComplaintsSingleData(complaintsData);
+      setComplaintsSingleData(complaintsData?.data);
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
-  console.log(complaintsSingleData);
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
@@ -77,7 +83,12 @@ const ComplaintOrderDetails = () => {
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
             <div>
-              <MdModeEdit />
+              <NavLink
+                className="text-solidBlack"
+                to={`/complaints-edit-page/${id}`}
+              >
+                <MdModeEdit />
+              </NavLink>
             </div>
           </div>
           <ComplaintOrderDetailsTable />
@@ -86,11 +97,20 @@ const ComplaintOrderDetails = () => {
         <div className=" bg-solidWhite px-5 py-5">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Status Order</h2>
-            <div>
-              <MdModeEdit />
+            <div
+              className={`cursor-pointer hover:text-shadeOfRed ${
+                !isEdit && "text-shadeOfRed"
+              }`}
+            >
+              <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
             </div>
           </div>
-          <ComplaintOrderStatus />
+          <ComplaintOrderStatus
+            isEdit={isEdit}
+            branch={complaintsSingleData?.branch}
+            defaultOrderStatus="Select Status"
+            defaultRepairStatus={complaintsSingleData?.repair_status}
+          />
         </div>
       </div>
 

@@ -26,12 +26,15 @@ const ComplaintsApi = baseApi.injectEndpoints({
       },
     }),
     getComplaintById: builder.query({
-      query: (params) => ({
-        url: `/complaints/${params?.complaintsById}`,
-        headers: {
-          authorization: params?.token,
-        },
-      }),
+      query: (params) => {
+        console.log(`/complaints/${params?.id}`);
+        return {
+          url: `/complaints/${params?.id}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({

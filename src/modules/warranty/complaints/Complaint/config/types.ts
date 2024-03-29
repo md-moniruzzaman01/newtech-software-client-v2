@@ -7,7 +7,7 @@ export type ComplaintsTableProps = {
 
 export type TableHeaderProps = string;
 export type TableBodyProps = {
-  _id?: string;
+  id?: string;
   order_number?: string;
   products?: {
     id?: string;
