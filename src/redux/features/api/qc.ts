@@ -5,40 +5,52 @@ const QCApi = baseApi.injectEndpoints({
     // brand section
     createQC: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/qualtity-check",
+        url: "/qc",
         method: "POST",
         headers: {
           authorization: token,
         },
         body: fullData,
       }),
+      invalidatesTags: ["complaints","qc"],
     }),
-    getQcs: builder.query({
+    getOldQcs: builder.query({
       query: (params) => {
-        console.log(`/qualtity-check?${params?.query}`);
         return {
-          url: `/qualtity-check?${params?.query}`,
+          url: `/qc/my-library?status=QC%20Ok&${params?.id}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
+      providesTags: ['qc'],
+    }),
+    getQcs: builder.query({
+      query: (params) => {
+        return {
+          url: `/qc/my-library/${params?.id}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ['qc'],
     }),
     getQC: builder.query({
       query: () => "/brand",
     }),
     getProducts: builder.query({
       query: (params) => {
-        console.log(`/product?${params?.query}`);
-        // console.log(params);
         return {
-          url: `/product?${params?.query}`,
+          url: `/product?repair_status=Received&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
+      providesTags: ['complaints'],
     }),
+
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
     //     url: `/posts/${postId}`,
@@ -55,4 +67,4 @@ const QCApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateQCMutation,useGetQcsQuery,useGetProductsQuery, useGetQCQuery } = QCApi;
+export const { useCreateQCMutation,useGetProductsQuery,useGetQcsQuery ,useGetOldQcsQuery} = QCApi;

@@ -3,17 +3,17 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import QCTable from "./partials/QCTable/QCTable";
-import { QCTableHeader, fields, keys, qcSelectData } from "./config/constants";
+import { QCTableHeader, fields, keys } from "./config/constants";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import StatusGroup from "../../../../common/components/Status Group";
 import { QATableBodyProps } from "../../QA/QA/config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
-import { EngineerDateProps } from "./config/types";
-import { useGetProductsQuery } from "../../../../redux/features/api/qc";
+import { useCreateQCMutation, useGetProductsQuery } from "../../../../redux/features/api/qc";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import swal from "sweetalert";
 
 const Qc = () => {
 
@@ -22,13 +22,6 @@ const Qc = () => {
   const [engineers, setEngineers] = useState([]);
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys)
-  const [selectEngineer, setSelectEngineer] =
-    useState<EngineerDateProps>(qcSelectData);
-  const fullData = {
-    qc_checker_id: selectEngineer?.id,
-    user_name: selectEngineer?.user,
-    repairIds: checkedRows,
-  };
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
@@ -43,19 +36,16 @@ const Qc = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  // const [createQC] = useCreateQCMutation();
-  if (selectEngineer?.id) {
-    fetch("http://localhost:5000/api/v2/qualtity-check", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization": `${token}`,	
-      },
-      body: JSON.stringify(fullData),
-    }).then(res => res.json()).then(data => console.log(data))
+  const [createQC,{isLoading,isError,isSuccess}] = useCreateQCMutation();
 
 
-    setSelectEngineer(qcSelectData);
+  function handleSubmit(id:string,user:string) {
+    const fullData = {
+      qc_checker_id: id,
+      user_name: user,
+      repairIds: checkedRows,
+    };
+    createQC({ fullData, token })
   }
 
   useEffect(() => {
@@ -93,8 +83,16 @@ const Qc = () => {
       }
     }
   };
-  if (complaintsLoading) {
+  if (complaintsLoading || isLoading) {
     return <LoadingPage />;
+  }
+  if (isSuccess) {
+    swal("Your data has been updated successfully.", {
+      icon: "success",
+    });
+  }
+  if (isError) {
+    swal("Error!", "something is wrong", "error");
   }
   return (
     <div className="px-5">
@@ -105,7 +103,7 @@ const Qc = () => {
           isDropdown
           dropdown={checkedRows?.length <= 0}
           filtersOptions={engineers}
-          setSelectEngineer={setSelectEngineer}
+          handleSubmit={handleSubmit}
         />
       </div>
       <div className="bg-solidWhite p-3 space-y-3">

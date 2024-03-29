@@ -127,7 +127,8 @@ export type SearchBarProps = {
   isDropdown?: boolean;
   dropdown?: boolean;
   dropdownPlaceHolder?: string;
-  setSelectEngineer?: any;
+  handleSubmit?: any;
+  itemsId?: string[];
   filtersOptions?: {
     value: string;
     _id: string;

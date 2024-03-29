@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   dropdown = false,
   dropdownPlaceHolder = "Assign to qc",
   filtersOptions = [],
-  setSelectEngineer,
+  handleSubmit
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   IsDisabled={dropdown}
                   placeholder={dropdownPlaceHolder}
                   Filter={filtersOptions}
-                  setSelectEngineer={setSelectEngineer}
+                  handleSubmit={handleSubmit}
                 />
               )
             )}
