@@ -37,7 +37,6 @@ import EngineerItems from "./modules/warranty/repair/EngineerItems/EngineerItems
 import EngineerMyRepaired from "./modules/warranty/repair/EngineerMyRepaired/EngineerMyRepaired";
 import EngineerAllRepairs from "./modules/warranty/repair/EngineerAllRepairs/EngineerAllRepairs";
 import EngineerItemsOrderDetails from "./modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
-import BillList from "./modules/services/invoice/BillList/BillList";
 import CreateABill from "./modules/services/invoice/CreateABill/CreateABill";
 import BillPending from "./modules/services/invoice/BillPending/BillPending";
 import QAItems from "./modules/warranty/QA/QA/QAItems";
@@ -57,6 +56,11 @@ import BrandAddPage from "./modules/warranty/brand/BrandAddPage";
 import MyProfile from "./modules/Utilitis/MyProfile/MyProfile";
 import Principle from "./modules/Utilitis/Principle/Principle list/Principle";
 import EngineerAdd from "./modules/Utilitis/EngineerAdd/EngineerAdd";
+import BillListWarranty from "./modules/warranty/BillWarranty/BillListWarranty/BillListWarranty";
+import BillList from "./modules/services/invoice/BillList/BillList";
+import ServiceInvoicePage from "./modules/services/invoice/ServiceInvoicePage/ServiceInvoicePage";
+import CreateABillWarranty from "./modules/warranty/BillWarranty/CreateABillWarranty/CreateABillWarranty";
+import BillPendingWarranty from "./modules/warranty/BillWarranty/BillPendingWarranty/BillPendingWarranty";
 
 export const router = createBrowserRouter([
   {
@@ -137,7 +141,7 @@ export const router = createBrowserRouter([
         element: <ComplaintService />,
       },
       {
-        path: "/complaints/order-details",
+        path: "/complaints/order-details/:id",
         element: <ComplaintOrderDetails />,
       },
       {
@@ -170,7 +174,7 @@ export const router = createBrowserRouter([
         element: <QCMyItems />,
       },
       {
-        path: "/qc/order-details",
+        path: "/qc/order-details/:id",
         element: <ComplaintOrderDetailsQC />,
       },
 
@@ -196,20 +200,36 @@ export const router = createBrowserRouter([
         element: <EngineerAllRepairs />,
       },
       {
-        path: "/engineer-items/order-details",
+        path: "/engineer-items/order-details/:id",
         element: <EngineerItemsOrderDetails />,
       },
       // bill route start here
       {
-        path: "/bill-list",
+        path: "/service-invoice",
+        element: <ServiceInvoicePage />,
+      },
+      {
+        path: "/bill-list-warranty",
+        element: <BillListWarranty />,
+      },
+      {
+        path: "/create-bill-warranty",
+        element: <CreateABillWarranty />,
+      },
+      {
+        path: "/bill-pending-warranty",
+        element: <BillPendingWarranty />,
+      },
+      {
+        path: "/bill-list-service",
         element: <BillList />,
       },
       {
-        path: "/create-bill",
+        path: "/create-bill-service",
         element: <CreateABill />,
       },
       {
-        path: "/bill-pending",
+        path: "/bill-pending-service",
         element: <BillPending />,
       },
 
@@ -227,7 +247,7 @@ export const router = createBrowserRouter([
         element: <QAAll />,
       },
       {
-        path: "/qa-items/order-details",
+        path: "/qa-items/order-details/:id",
         element: <QAItemOrderDetails />,
       },
       // customer route start here
@@ -249,7 +269,7 @@ export const router = createBrowserRouter([
         element: <Employee />,
       },
       {
-        path: "/employee/order-details",
+        path: "/employee/order-details/:id",
         element: <EmployeeInfoDetailsPage />,
       },
       {

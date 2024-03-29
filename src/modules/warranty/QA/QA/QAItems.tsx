@@ -106,7 +106,7 @@ const QAItems = () => {
           <QATable
             HeaderData={QATableHeader}
             itemData={qaData}
-            Link="/qc/order-details"
+            Link="/qa-items/order-details"
             checkedRows={checkedRows}
             handleCheckboxChange={handleCheckboxChange}
             handleAllCheckboxChange={handleAllCheckboxChange}

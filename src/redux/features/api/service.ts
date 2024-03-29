@@ -5,7 +5,7 @@ const ServiceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     serviceAdd: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/complaints/create",
+        url: "/create-service",
         method: "POST",
         headers: {
           authorization: token,

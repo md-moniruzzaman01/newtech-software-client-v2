@@ -1,4 +1,3 @@
-
 import { MdModeEdit } from "react-icons/md";
 //internal
 import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
@@ -8,8 +7,26 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { useParams } from "react-router-dom";
+import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { useEffect, useState } from "react";
 
 const ComplaintOrderDetails = () => {
+  const { id } = useParams();
+  const [complaintsSingleData, setComplaintsSingleData] = useState([]);
+  const token = getFromLocalStorage("token");
+  const {
+    data: complaintsData,
+    isError: complaintsError,
+    isLoading: complaintsLoading,
+  } = useGetComplaintByIdQuery({ id, token });
+  useEffect(() => {
+    if (!complaintsError && !complaintsLoading) {
+      setComplaintsSingleData(complaintsData);
+    }
+  }, [complaintsData, complaintsError, complaintsLoading]);
+  console.log(complaintsSingleData);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />

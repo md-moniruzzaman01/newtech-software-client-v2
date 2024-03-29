@@ -20,21 +20,20 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const setQuery = (paramName: string, paramValue: string) => {
     const queryParams = new URLSearchParams(window.location.search);
     if (paramValue === "") {
-      queryParams.delete(paramName); // Remove the search parameter if paramValue is empty
+      queryParams.delete(paramName);
       queryParams.delete("brand_name");
       queryParams.delete("category");
       queryParams.delete("sort");
       queryParams.delete("repair_status");
       queryParams.delete("branch");
     } else {
-      queryParams.set(paramName, paramValue); // Set the search parameter if paramValue is not empty
+      queryParams.set(paramName, paramValue);
     }
     navigate(`?${queryParams.toString()}`);
   };
 
   const handleFilter = (route: string) => {
     setQuery("search", route);
-
     setActiveRoute(route);
   };
 

@@ -1,4 +1,3 @@
-
 import Button from "../../../../common/components/Button";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";

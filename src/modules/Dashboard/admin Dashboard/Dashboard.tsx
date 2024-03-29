@@ -1,17 +1,39 @@
-
+import { useEffect, useState } from "react";
 import DashboardCard from "../../../common/components/DashboardCard/DashboardCard";
-import Table from "../../../common/components/Table/Table";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import BufferIcon from "../../../shared/libs/custom icons/BufferIcon";
 import DeliveryIcon from "../../../shared/libs/custom icons/DeliveryIcon";
 import InProgress from "../../../shared/libs/custom icons/InProgress";
 import PendingIcon from "../../../shared/libs/custom icons/PendingIcon";
-import {
-  DemoTableHeaderForDashboard,
-  DemoTableValueForDashboard,
-} from "./config/constants";
+
+import AdminDashboardTable from "./partials/AdminDashboardTable";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { authKey } from "../../../shared/config/constaints";
+import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
+import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import { AdminDashboardTableHeader } from "./config/constants";
 
 const Dashboard = () => {
+  const [billData, setBillData] = useState([]);
+
+  const token = getFromLocalStorage(authKey);
+  const {
+    data: complaintsData,
+    isError: complaintsError,
+    isLoading: complaintsLoading,
+  } = useGetComplaintsQuery({
+    token,
+  });
+
+  useEffect(() => {
+    if (!complaintsLoading && !complaintsError) {
+      setBillData(complaintsData?.data);
+    }
+  }, [complaintsData, complaintsLoading, complaintsError]);
+
+  if (complaintsLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
       <div className="pb-5">
@@ -28,7 +50,7 @@ const Dashboard = () => {
           title="In Progress"
           money="100"
           className="bg-creamyPeach"
-          icon={<InProgress/>}
+          icon={<InProgress />}
         />
         <DashboardCard
           title="Delivery"
@@ -47,12 +69,11 @@ const Dashboard = () => {
         <h1 className="font-medium text-xl">Order History</h1>
 
         <div className="pt-5">
-          <Table
-            view
+          <AdminDashboardTable
             Link="/complaints/order-details"
-            itemData={DemoTableValueForDashboard}
-            HeaderData={DemoTableHeaderForDashboard}
-          ></Table>
+            itemData={billData}
+            HeaderData={AdminDashboardTableHeader}
+          />
         </div>
       </div>
     </div>

@@ -38,19 +38,29 @@ const BillRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-        <NavLink to="/bill-list">
+        <NavLink
+          to={`${activeRoute ? "/bill-list-warranty" : "/bill-list-service"}`}
+        >
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Bill List</span>
           </div>
         </NavLink>
-        <NavLink to="/create-bill">
+        <NavLink
+          to={`${
+            activeRoute ? "/create-bill-warranty" : "/create-bill-service"
+          }`}
+        >
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Create a Bill</span>
           </div>
         </NavLink>
-        <NavLink to={`/bill-pending`}>
+        <NavLink
+          to={`${
+            activeRoute ? "/bill-pending-warranty" : "/bill-pending-service"
+          }`}
+        >
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Bill Pending</span>

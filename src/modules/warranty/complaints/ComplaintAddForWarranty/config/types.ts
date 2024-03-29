@@ -15,14 +15,14 @@ export type warrantyUpdateAddedItemProps = {
 };
 
 export type warrantyPartnerProps = {
-  partner_id?: string;
-  contact_number?: string;
-  contactNo?: string;
+  partner_id?: string | undefined;
+  contact_number?: string | undefined;
+  contactNo?: string | undefined;
   email?: string | undefined;
   address?: string | undefined;
-  brand_name?: string;
+  brand_name?: string | undefined;
   partner_name?: string | undefined;
-  brandValue?: string;
+  brandValue?: string | undefined;
 };
 
 export type PartnerProps = {

@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import {
   PartnerProps,
   warrantyPartnerProps,
   warrantyUpdateAddedItemProps,
 } from "./config/types";
-import { useComplaintAddMutation } from "../../../../redux/features/api/complaints";
 import { useGetPartnersQuery } from "../../../../redux/features/api/Partner";
 import { useGetBrandsQuery } from "../../../../redux/features/api/Brand";
 import {
@@ -29,6 +29,7 @@ const ComplaintAddForWarranty = () => {
   const [warrantyAddedItem, setWarrantyAddedItem] = useState<
     warrantyUpdateAddedItemProps[]
   >([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectPartner, setSelectPartner] = useState<PartnerProps | null>(null);
 
   const [selectData, setSelectData] =
@@ -47,7 +48,7 @@ const ComplaintAddForWarranty = () => {
   const [categoryValue, setCategoryValue] = useState("");
 
   // redux
-  const [addComplaint, { isLoading }] = useComplaintAddMutation();
+  // const [addComplaint, { isLoading }] = useComplaintAddMutation();
   const {
     data: partnersData,
     isLoading: partnerLoading,
@@ -217,7 +218,7 @@ const ComplaintAddForWarranty = () => {
   };
 
   const { brand_name, partner_id } = partnerInfo;
-  const fullData = {
+  const fullData: any = {
     partner_id,
     brand_name,
     inputFields: warrantyAddedItem.map(
@@ -454,7 +455,7 @@ const ComplaintAddForWarranty = () => {
                 className="w-full"
                 onClick={() =>
                   handleDataSubmit(
-                    addComplaint,
+                    setIsLoading,
                     fullData,
                     setWarrantyAddedItem,
                     setPartnerInfo,

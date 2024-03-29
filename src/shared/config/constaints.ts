@@ -9,6 +9,12 @@ export const FilterOptions = [
   { label: "Oldest", value: "asc" },
   { label: "Oldest", value: "asc" },
 ];
+export const FilterOptions3 = [
+  { id: " withdrow method", value: "all" },
+  { id: "Latest", value: "desc" },
+  { id: "Oldest", value: "asc" },
+  { id: "Oldest", value: "asc" },
+];
 
 export const FilterOptions2 = [
   { label: " withdrow method", value: "all" },
