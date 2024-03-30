@@ -3,6 +3,7 @@ import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
 import { useState } from "react";
+import { useState } from "react";
 import EngineersFilter from "../EngineersFilter/EngineersFilter";
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -60,6 +61,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
               <NavLink to={`${link}`}>
                 <Button primary>{linkBtn}</Button>
               </NavLink>
+              <NavLink to={`${link}`}>
+                <Button primary>{linkBtn}</Button>
+              </NavLink>
             ) : (
               isDropdown && (
                 <EngineersFilter
@@ -71,6 +75,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
               )
             )}
           </div>
+          {/* <div>
+            {isNeedFilter
+              ? isNormalBtn && (
+                  <InputFilter
+                    placeholder={filterPlaceHolder}
+                    Filter={FilterOptions}
+                  />
+                )
+              : isNormalBtn && <Button primary>{normalBtn}</Button>}
+          </div> */}
           {/* <div>
             {isNeedFilter
               ? isNormalBtn && (

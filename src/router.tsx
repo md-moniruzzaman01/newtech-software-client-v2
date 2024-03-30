@@ -61,6 +61,7 @@ import BillList from "./modules/services/invoice/BillList/BillList";
 import ServiceInvoicePage from "./modules/services/invoice/ServiceInvoicePage/ServiceInvoicePage";
 import CreateABillWarranty from "./modules/warranty/BillWarranty/CreateABillWarranty/CreateABillWarranty";
 import BillPendingWarranty from "./modules/warranty/BillWarranty/BillPendingWarranty/BillPendingWarranty";
+import ComplaintsEditPage from "./modules/warranty/complaints/ComplaintsEditPage/ComplaintsEditPage";
 
 export const router = createBrowserRouter([
   {
@@ -143,6 +144,10 @@ export const router = createBrowserRouter([
       {
         path: "/complaints/order-details/:id",
         element: <ComplaintOrderDetails />,
+      },
+      {
+        path: "/complaints-edit-page/:id",
+        element: <ComplaintsEditPage />,
       },
       {
         path: "/add-warranty-complaint",

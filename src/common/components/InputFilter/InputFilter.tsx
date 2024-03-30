@@ -17,7 +17,7 @@ const InputFilter: React.FC<InputFilterProps> = ({
   Filter = [],
   label,
   isDisabled = false,
-  placeholder,
+  placeholder = "Write here...",
   className,
   required = false,
   inputName,
@@ -32,7 +32,7 @@ const InputFilter: React.FC<InputFilterProps> = ({
     const value = selectedOption ? selectedOption.value : "";
     setSelectedValue(value);
     if (onChange) {
-      onChange(value);
+      return onChange(value);
     }
   };
   return (
@@ -49,7 +49,7 @@ const InputFilter: React.FC<InputFilterProps> = ({
         <option value="" disabled>
           {defaultValue || placeholder}
         </option>
-        {Filter.map((item, i) => (
+        {Filter?.map((item, i) => (
           <option key={i} value={item.id}>
             {item.value}
           </option>

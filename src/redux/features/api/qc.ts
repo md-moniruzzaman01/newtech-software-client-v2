@@ -12,7 +12,18 @@ const QCApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
-      invalidatesTags: ["complaints","qc"],
+      invalidatesTags: ["complaints", "qc"],
+    }),
+    updateStatusQC: builder.mutation({
+      query: ({ fullData, token, id }) => ({
+        url: `/qc/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["complaints", "qc"],
     }),
     getOldQcs: builder.query({
       query: (params) => {
@@ -23,7 +34,7 @@ const QCApi = baseApi.injectEndpoints({
           },
         };
       },
-      providesTags: ['qc'],
+      providesTags: ["qc"],
     }),
     getQcs: builder.query({
       query: (params) => {
@@ -34,7 +45,7 @@ const QCApi = baseApi.injectEndpoints({
           },
         };
       },
-      providesTags: ['qc'],
+      providesTags: ["qc"],
     }),
     getQC: builder.query({
       query: () => "/brand",
@@ -48,7 +59,7 @@ const QCApi = baseApi.injectEndpoints({
           },
         };
       },
-      providesTags: ['complaints'],
+      providesTags: ["complaints"],
     }),
 
     // updatePost: builder.mutation({
@@ -67,4 +78,10 @@ const QCApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateQCMutation,useGetProductsQuery,useGetQcsQuery ,useGetOldQcsQuery} = QCApi;
+export const {
+  useCreateQCMutation,
+  useGetProductsQuery,
+  useGetQcsQuery,
+  useGetOldQcsQuery,
+  useUpdateStatusQCMutation,
+} = QCApi;
