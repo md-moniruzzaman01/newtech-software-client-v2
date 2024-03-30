@@ -23,30 +23,30 @@ const RepairApi = baseApi.injectEndpoints({
         };
       },
     }),
-    getOldQcs: builder.query({
+    getOldRepairs: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}`,
+          url: `/repair/my-library/${params?.id}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
-      providesTags: ["qc"],
+      providesTags: ["repair"],
     }),
 
-    getQcs: builder.query({
+    getRepairs: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}?status=QC&${params?.query}`,
+          url: `/repair/my-library/${params?.id}?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
-      providesTags: ["qc"],
+      providesTags: ["repair"],
     }),
   }),
 });
 
-export const { useGetProductsForRepairQuery,useAssignEngineerMutation} = RepairApi;
+export const { useGetProductsForRepairQuery,useAssignEngineerMutation,useGetOldRepairsQuery,useGetRepairsQuery} = RepairApi;

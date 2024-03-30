@@ -12,6 +12,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import MyOldQcTable from "./partials/MyOldQcTable";
 import { QCTableHeader } from "./config/constants";
 import { useGetOldQcsQuery } from "../../../../redux/features/api/qc";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -30,29 +31,37 @@ const QCMyItems = () => {
     return <div>Error</div>;
   }
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === data?.data?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        data?.data
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ?.map((item: any) => item?._id)
-          .filter((id: string) => id !== undefined) || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
-    }
-  };
+  // const handleCheckboxChange = (index: string) => {
+  //   if (checkedRows.includes(index)) {
+  //     setCheckedRows(checkedRows.filter((item) => item !== index));
+  //   } else {
+  //     setCheckedRows([...checkedRows, index]);
+  //   }
+  // };
+  // const handleAllCheckboxChange = () => {
+  //   if (checkedRows.length === data?.data?.length) {
+  //     // If all checkboxes are already checked, uncheck them all
+  //     setCheckedRows([]);
+  //   } else {
+  //     const allIds =
+  //       data?.data
+  //         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //         ?.map((item: any) => item?._id)
+  //         .filter((id: string) => id !== undefined) || [];
+  //     if (allIds.length > 0) {
+  //       setCheckedRows(allIds as string[]);
+  //     }
+  //   }
+  // };
   console.log(data);
+  const dataLayout = [
+    "item?.id",
+    "item?.repair && item?.repair?.order_number",
+    "item?.serial_number",
+    "item?.rma",
+    "item?.qcImage.toString()",
+    "item?.createdAt.toString().slice(0, 10)"
+  ];
   return (
     <div className=" px-5">
       <Navbar name="QC My Library"></Navbar>
@@ -63,14 +72,21 @@ const QCMyItems = () => {
         <div>
           <StatusGroup />
           <div className="pt-5">
-            <MyOldQcTable
+          <CommonTable
+            itemData={data?.data}
+            headerData={QCTableHeader}
+            dataLayout={dataLayout }
+            >
+
+            </CommonTable>
+            {/* <MyOldQcTable
               Link="/qc/order-details"
               itemData={data?.data}
               HeaderData={QCTableHeader}
               checkedRows={checkedRows}
               handleCheckboxChange={handleCheckboxChange}
               handleAllCheckboxChange={handleAllCheckboxChange}
-            ></MyOldQcTable>
+            ></MyOldQcTable> */}
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">

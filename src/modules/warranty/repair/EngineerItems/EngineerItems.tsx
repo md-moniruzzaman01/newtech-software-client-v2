@@ -14,7 +14,7 @@ import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
 import { useAssignEngineerMutation, useGetProductsForRepairQuery } from "../../../../redux/features/api/repair";
 
-const EngineerItems = () => {
+const EngineerAllRepairs = () => {
 
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [engineers, setEngineers] = useState([]);
@@ -71,7 +71,6 @@ const EngineerItems = () => {
     //   .then((data) => console.log(data));
   
   }
-
 
 
 
@@ -136,4 +135,4 @@ const EngineerItems = () => {
   );
 };
 
-export default EngineerItems;
+export default EngineerAllRepairs;

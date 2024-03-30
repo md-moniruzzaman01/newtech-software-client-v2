@@ -50,8 +50,8 @@ const MyQcTable: FC<MyQCTableProps> = ({
                         )}
                         onChange={() =>
                           handleCheckboxChange(
-                            item?.repair?.id || "", // Set qc_id to item?.repair?.id if it exists, otherwise set it to an empty string
-                            item?.id || "" // Set repair_id to item?.id if it exists, otherwise set it to an empty string
+                            item?.repair?.id || "", 
+                            item?.id || "" 
                           )
                         }
                       />
