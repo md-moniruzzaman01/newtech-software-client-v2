@@ -6,12 +6,14 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import { EngineerTableHeader, engineerSelectData } from "./config/constants";
+import { EngineerTableHeader, engineerSelectData, fields, keys } from "./config/constants";
 import EngineerTable from "./partials/EngineerTable/EngineerTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { EngineerDateProps, EngineerTableBodyProps } from "./config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
-import { useCreateQCMutation } from "../../../../redux/features/api/qc";
+import { useCreateQCMutation, useGetProductsQuery } from "../../../../redux/features/api/qc";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const EngineerItems = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -22,49 +24,30 @@ const EngineerItems = () => {
     EngineerTableBodyProps[] | []
   >([]);
   const [engineers, setEngineers] = useState([]);
-  const [selectEngineer, setSelectEngineer] =
-    useState<EngineerDateProps>(engineerSelectData);
-  const fullData = {
-    qc_checker_id: selectEngineer?.id,
-    user_name: selectEngineer?.user,
-    repairIds: checkedRows,
-  };
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys)
   const token = getFromLocalStorage(authKey);
   const {
-    data: complaintsData,
-    isError: complaintsError,
-    isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
+    data,
+    isError:dataError,
+    isLoading:dataLoading,
+  } = useGetProductsQuery({
+    query,
     token,
   });
-  const {
-    data: engineersData,
-    isError: engineerError,
-    isLoading: engineerLoading,
-  } = useGetEngineersQuery({ token });
 
-  const [createQC] = useCreateQCMutation();
 
-  if (selectEngineer?.id) {
-    createQC({ fullData, token });
-    setSelectEngineer(engineerSelectData);
+  const [createQC,{isLoading,isError,isSuccess}] = useCreateQCMutation();
+
+
+  function handleSubmit(id:string,user:string) {
+    const fullData = {
+      qc_checker_id: id,
+      user_name: user,
+      repairIds: checkedRows,
+    };
+    createQC({ fullData, token })
   }
-
-  useEffect(() => {
-    if (!complaintsLoading && !complaintsError) {
-      setEngineerData(complaintsData?.data);
-    }
-    if (!engineerError && !engineerLoading) {
-      setEngineers(engineersData?.data);
-    }
-  }, [
-    complaintsData,
-    complaintsLoading,
-    complaintsError,
-    engineerError,
-    engineerLoading,
-    engineersData,
-  ]);
 
   const handleCheckboxChange = (index: string) => {
     if (checkedRows.includes(index)) {
@@ -76,21 +59,20 @@ const EngineerItems = () => {
 
   const handleAllCheckboxChange = () => {
     if (checkedRows.length === engineerData?.length) {
-      // If all checkboxes are already checked, uncheck them all
       setCheckedRows([]);
     } else {
-      // If not all checkboxes are checked, set checkedRows to contain all _id values
       const allIds =
         engineerData
           ?.map((item) => item?._id)
-          .filter((id) => id !== undefined) || []; // Filter out undefined values
+          .filter((id) => id !== undefined) || [];
       if (allIds.length > 0) {
         setCheckedRows(allIds as string[]);
       }
     }
   };
 
-  if (complaintsLoading) {
+  console.log(data)
+  if (dataLoading || isLoading) {
     return <LoadingPage />;
   }
   return (
@@ -102,7 +84,7 @@ const EngineerItems = () => {
           isDropdown
           dropdown={checkedRows?.length <= 0}
           filtersOptions={engineers}
-          setSelectEngineer={setSelectEngineer}
+          handleSubmit={handleSubmit}
         />
       </div>
       <div className="bg-solidWhite p-3 space-y-3">
@@ -110,7 +92,7 @@ const EngineerItems = () => {
         <div className=" rounded-t-md ">
           <EngineerTable
             HeaderData={EngineerTableHeader}
-            itemData={engineerData}
+            itemData={data?.data}
             Link="/engineer-items/order-details"
             checkedRows={checkedRows}
             handleCheckboxChange={handleCheckboxChange}
