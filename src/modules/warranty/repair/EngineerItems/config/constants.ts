@@ -1,13 +1,17 @@
 export const EngineerTableHeader = [
   "Order ID",
-  "Create Date",
-  "Due Date",
-  "Customer Name",
-  "Items",
-  "Problem",
-  "Brand Name",
-  "Engineers",
+  "Model No.",
+  "S/N No.",
+  "Problems",
+  "Remarks",
+  "category",
+  "sub category",
+  "Brand",
+  "repair count",
+  "Branch",
   "Status",
+  "RD",
+  "Action",
 ];
 export const engineerSelectData = { id: "", user: "" };
 

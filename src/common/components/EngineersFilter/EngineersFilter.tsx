@@ -36,9 +36,7 @@ const EngineersFilter: React.FC<engineersFilterProps> = ({
     const selectedItem = Filter.find((item) => item._id === selectedValue);
 
     if ( selectedItem !== undefined) {
-      handleSubmit(selectedItem._id,`${selectedItem.name?.firstName || ""} ${
-        selectedItem.name?.middleName || ""
-      } ${selectedItem.name?.lastName || ""}`)
+      handleSubmit(selectedItem._id)
     }
   };
 

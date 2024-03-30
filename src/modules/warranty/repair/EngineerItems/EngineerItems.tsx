@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
@@ -8,42 +8,68 @@ import StatusGroup from "../../../../common/components/Status Group";
 import { EngineerTableHeader, fields, keys } from "./config/constants";
 import EngineerTable from "./partials/EngineerTable/EngineerTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { EngineerTableBodyProps } from "./config/types";
 
-import { useGetProductsQuery } from "../../../../redux/features/api/qc";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
+import { useAssignEngineerMutation, useGetProductsForRepairQuery } from "../../../../redux/features/api/repair";
 
 const EngineerItems = () => {
 
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const [engineerData, setEngineerData] = useState<
-    EngineerTableBodyProps[] | []
-  >([]);
   const [engineers, setEngineers] = useState([]);
   const [searchParams] = useSearchParams();
-  // const query = constructQuery(searchParams, fields, keys)
+  const query = constructQuery(searchParams, fields, keys)
   const token = getFromLocalStorage(authKey);
   const {
     data,
-    isError:dataError,
-    isLoading:dataLoading,
-  } = useGetProductsQuery({
-    // query,
-    token,
+    isError,
+    isLoading,
+  } = useGetProductsForRepairQuery({
+    query,
+    token
   });
+  const {
+    data: engineerData,
+    isError: engineerError,
+    isLoading: engineerLoading,
+  } = useGetEngineersQuery({ token });
+  const [assignEngineer,{isLoading:assignLoading,isError:assignError,isSuccess:assginSuccess}] = useAssignEngineerMutation();
 
-console.log(data)
 
 
-  function handleSubmit(id:string,user:string) {
+  useEffect(() => {
+
+    if (!engineerError && !engineerLoading) {
+      setEngineers(engineerData?.data);
+    }
+  }, [
+    engineerError,
+    engineerLoading,
+    engineerData,
+  ]);
+
+
+  function handleSubmit(id:string) {
     const fullData = {
-      qc_checker_id: id,
-      user_name: user,
+      engineerId: id,
       repairIds: checkedRows,
     };
-    console.log(fullData)
-    // createQC({ fullData, token })
+    assignEngineer({ fullData, token })
+    console.log(assginSuccess)
+    //     const url = `http://localhost:5000/api/v2/repair/multiple`;
+
+    // fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     authorization: `${token}`,
+    //   },
+    //   body: JSON.stringify(fullData),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data));
+  
   }
 
 
@@ -62,17 +88,20 @@ console.log(data)
       setCheckedRows([]);
     } else {
       const allIds =
-        engineerData
-          ?.map((item) => item?._id)
-          .filter((id) => id !== undefined) || [];
+        engineerData?.data
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ?.map((item:any) => item?._id)
+          .filter((id:string) => id !== undefined) || [];
       if (allIds.length > 0) {
         setCheckedRows(allIds as string[]);
       }
     }
   };
 
-  console.log(data)
-  if (dataLoading ) {
+  if (isError || assignError) {
+    return <div>error</div>
+  }
+  if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
   return (
@@ -93,7 +122,6 @@ console.log(data)
           <EngineerTable
             HeaderData={EngineerTableHeader}
             itemData={data?.data}
-            Link="/engineer-items/order-details"
             checkedRows={checkedRows}
             handleCheckboxChange={handleCheckboxChange}
             handleAllCheckboxChange={handleAllCheckboxChange}

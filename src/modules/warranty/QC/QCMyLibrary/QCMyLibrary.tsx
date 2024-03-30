@@ -13,7 +13,7 @@ import MyQcTable from "./partials/MyQcTable";
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
 
 const QCMyLibrary = () => {
-  const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
+  const [currentPage, setCurrentPage] = useState(1); 
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
   const [checkedRows, setCheckedRows] = useState<
@@ -32,11 +32,7 @@ const QCMyLibrary = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);
-  // if (data?.data?.length > 0) {
-  //   setCurrentPage(data?.meta?.page);
-  //   setTotalItems(data?.meta?.total);
-  //   setLimit(data?.meta?.limit);
-  // }
+
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -59,14 +55,13 @@ const QCMyLibrary = () => {
   };
   const handleAllCheckboxChange = () => {
     if (checkedRows.length === data?.data?.length) {
-      // If all checkboxes are already checked, uncheck them all
       setCheckedRows([]);
     } else {
       const allIds =
         data?.data
           ?.map((item: any) => ({
-            qc_id: item?.id || "", // Set qc_id to item?.qc_id if it exists, otherwise set it to an empty string
-            repair_id: item?.repair?.id || "", // Set repair_id to item?.repair_id if it exists, otherwise set it to an empty string
+            qc_id: item?.id || "", 
+            repair_id: item?.repair?.id || "",
           }))
           .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
       if (allIds.length > 0) {

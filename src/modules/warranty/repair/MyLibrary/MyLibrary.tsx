@@ -1,56 +1,116 @@
 
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
-import TableStatus from "../../../../common/components/TableStatus/TableStatus";
-import TableWithPhoto from "../../../../common/components/TableWithPhoto/TableWithPhoto";
+import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { DemoTableHeader } from "../../../../shared/config/constaints";
-import { LibraryTableBtnValue } from "./config/constants";
-import { useState } from "react";
+import { useGetQcsQuery } from "../../../../redux/features/api/qc";
+import { authKey } from "../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { MyQCTableHeader } from "../../QC/QCMyLibrary/config/constants";
+import MyQcTable from "../../QC/QCMyLibrary/partials/MyQcTable";
+import { useEffect, useState } from "react";
 
 const MyLibrary = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
-  // const limit = 10;
-  const [checkedRows, setCheckedRows] = useState<number[]>([]);
-  const arr = [1, 2, 2, 3, 4, 5, 6, 7, 8];
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [checkedRows, setCheckedRows] = useState<
+    { repair_id: string; qc_id: string }[]
+  >([]);
+  const token = getFromLocalStorage(authKey);
+  const id = "65f7d1b8ff0aba99b376d459";
+  const { data, isError, isLoading } = useGetQcsQuery({
+    id,
+    token,
+  });
+  useEffect(() => {
+    if (data) {
+      setTotalItems(data.meta.total);
+      setLimit(data.meta.limit);
+      setCurrentPage(data?.meta?.page);
+    }
+  }, [data]);
 
-  const handleCheckboxChange = (index: number) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+  if (isError) {
+    console.error(isError);
+
+    return <div>Error</div>;
+  }
+
+  const handleCheckboxChange = (repair_id: string, qc_id: string) => {
+    if (
+      checkedRows.some(
+        (row) => row.repair_id === repair_id && row.qc_id === qc_id
+      )
+    ) {
+      setCheckedRows(checkedRows.filter((item) => item?.qc_id !== qc_id));
     } else {
-      setCheckedRows([...checkedRows, index]);
+      setCheckedRows([...checkedRows, { qc_id, repair_id }]);
     }
   };
   const handleAllCheckboxChange = () => {
-    const allIndexes = Array.from({ length: arr.length }, (_, i) => i);
-    if (checkedRows.length === arr.length) {
+    if (checkedRows.length === data?.data?.length) {
       setCheckedRows([]);
     } else {
-      setCheckedRows(allIndexes);
+      const allIds =
+        data?.data
+          ?.map((item: any) => ({
+            qc_id: item?.id || "", 
+            repair_id: item?.repair?.id || "",
+          }))
+          .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
+      if (allIds.length > 0) {
+        setCheckedRows(allIds);
+      }
     }
   };
 
+  const handleDeleteData = () => {
+    console.log(checkedRows);
+  };
+  const handleReturnData = () => {
+    console.log(checkedRows);
+  };
   return (
-    <div className="px-5">
-      <Navbar name={"My Library"}></Navbar>
-      <div className="py-5">
-        <SearchBar isNeedFilter />
+    <div className=" px-5">
+      <Navbar name="QC My Library"></Navbar>
+      <div className="pt-5">
+        <SearchBar />
       </div>
-      <div className="bg-[#FBFBFB] p-5 space-y-3">
-        <TableStatus btnValues={LibraryTableBtnValue} />
-        <div className="  rounded-t-md ">
-          <TableWithPhoto
-            HeaderData={DemoTableHeader}
-            link="/engineer-items/order-details"
-            checkedRows={checkedRows}
-            handleCheckboxChange={handleCheckboxChange}
-            handleAllCheckboxChange={handleAllCheckboxChange}
-            data={arr} // Passing the function to handle all checkbox change
-          ></TableWithPhoto>
-          <div className="absolute bottom-2 right-[50px]">
-            <Pagination></Pagination>
+      <div className="mt-5 p-3 bg-solidWhite">
+        <div>
+          <div>
+            <StatusGroup
+              isSelected={checkedRows?.length <= 0}
+              handleReturnData={handleReturnData}
+              handleDeleteData={handleDeleteData}
+              isButton
+              dltBtnValue="Delete"
+              returnBtnValue="Return to the QC Library"
+            />
           </div>
+          <div className="pt-5">
+            <MyQcTable
+              Link="/engineer-items/order-details"
+              itemData={data?.data}
+              HeaderData={MyQCTableHeader}
+              checkedRows={checkedRows}
+              handleCheckboxChange={handleCheckboxChange}
+              handleAllCheckboxChange={handleAllCheckboxChange}
+            ></MyQcTable>
+          </div>
+        </div>
+        <div className="absolute bottom-2 right-[50px]">
+          <Pagination
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </div>
