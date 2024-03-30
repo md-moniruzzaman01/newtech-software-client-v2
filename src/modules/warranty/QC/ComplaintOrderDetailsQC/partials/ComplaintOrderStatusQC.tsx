@@ -10,8 +10,7 @@ import { useUpdateStatusQCMutation } from "../../../../../redux/features/api/qc"
 
 const ComplaintOrderStatusQC = ({ id }: { id: string | undefined }) => {
   const [qcStatusValue, setQcStatusValue] = useState("");
-  const [updateStatusQC, { isLoading, isError, isSuccess }] =
-    useUpdateStatusQCMutation();
+  const [updateStatusQC, { isLoading }] = useUpdateStatusQCMutation();
   const token = getFromLocalStorage(authKey);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

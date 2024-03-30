@@ -27,14 +27,13 @@ const InputFilter: React.FC<InputFilterProps> = ({
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedIndex = event.target.selectedIndex;
-    const selectedOption = Filter[selectedIndex - 1]; // -1 to adjust for the disabled option
-    const value = selectedOption ? selectedOption.value : "";
+    const value = event.target.value;
     setSelectedValue(value);
     if (onChange) {
-      return onChange(value);
+      onChange(value);
     }
   };
+
   return (
     <div className={`${label && "space-y-1"}`}>
       {label && <label className="text-lg font-semibold ">{label}</label>}
