@@ -8,15 +8,16 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
-import { useGetQcsQuery } from "../../../../redux/features/api/qc";
+
 import MyOldQcTable from "./partials/MyOldQcTable";
 import { QCTableHeader } from "./config/constants";
+import { useGetOldQcsQuery } from "../../../../redux/features/api/qc";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetQcsQuery({
+  const { data, isError, isLoading } = useGetOldQcsQuery({
     id,
     token,
   });

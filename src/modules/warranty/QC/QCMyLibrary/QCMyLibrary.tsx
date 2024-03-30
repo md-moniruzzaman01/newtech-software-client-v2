@@ -13,9 +13,7 @@ import MyQcTable from "./partials/MyQcTable";
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
 
 const QCMyLibrary = () => {
-  const [currentPage, setCurrentPage] = useState();
-  const [totalItems, setTotalItems] = useState();
-  const [limit, setLimit] = useState();
+
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);

@@ -28,21 +28,19 @@ const ComplaintOrderStatusQC = ({ id }: { id: string | undefined }) => {
       status: qc_status,
       qcImage: [],
     };
-    updateStatusQC({ fullData, token, id });
+    updateStatusQC({fullData,token,id})
+    // const url = `http://localhost:5000/api/v2/qc/${id}`;
 
-    const url = `http://http://localhost/:5000/api/v2/qc/${id}`;
-    console.log(url,fullData);
-    fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `${token}`,
-      },
-      // Optional: If you need to send data in the request body, include it here
-      body: JSON.stringify(fullData),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    // fetch(url, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     authorization: `${token}`,
+    //   },
+    //   body: JSON.stringify(fullData),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data));
 
     form.reset();
   };
