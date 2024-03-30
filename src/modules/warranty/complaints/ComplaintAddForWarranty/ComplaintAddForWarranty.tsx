@@ -216,6 +216,7 @@ const ComplaintAddForWarranty = () => {
     setSelectedItem(index);
     setSelectData(selectedItemData);
   };
+  console.log(selectData);
 
   const { brand_name, partner_id } = partnerInfo;
   const fullData: any = {
@@ -376,7 +377,7 @@ const ComplaintAddForWarranty = () => {
               <div>
                 <InputFilter
                   defaultValue={`${
-                    selectData ? selectData?.mainCategoryValue : ""
+                    selectData ? selectData?.category_name : ""
                   }`}
                   required
                   inputName="main_category"
@@ -502,7 +503,7 @@ const ComplaintAddForWarranty = () => {
                     <div className="text-base font-semibold overflow-x-auto">
                       Main Category :
                       <span className="text-sm font-normal ">
-                        {item?.mainCategoryValue}
+                        {item?.category_name}
                       </span>
                     </div>
 

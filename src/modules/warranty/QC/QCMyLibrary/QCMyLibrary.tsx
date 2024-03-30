@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -13,7 +13,9 @@ import MyQcTable from "./partials/MyQcTable";
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
 
 const QCMyLibrary = () => {
-
+  const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
@@ -23,6 +25,13 @@ const QCMyLibrary = () => {
     id,
     token,
   });
+  useEffect(() => {
+    if (data) {
+      setTotalItems(data.meta.total);
+      setLimit(data.meta.limit);
+      setCurrentPage(data?.meta?.page);
+    }
+  }, [data]);
   // if (data?.data?.length > 0) {
   //   setCurrentPage(data?.meta?.page);
   //   setTotalItems(data?.meta?.total);
@@ -102,7 +111,12 @@ const QCMyLibrary = () => {
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">
-          <Pagination />
+          <Pagination
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </div>
