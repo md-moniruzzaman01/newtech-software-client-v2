@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
@@ -12,7 +13,9 @@ import MyQcTable from "./partials/MyQcTable";
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
 
 const QCMyLibrary = () => {
-  const [checkedRows, setCheckedRows] = useState<string[]>([]);
+  const [checkedRows, setCheckedRows] = useState<
+    { repair_id: string; qc_id: string }[]
+  >([]);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
   const { data, isError, isLoading } = useGetQcsQuery({
@@ -28,11 +31,15 @@ const QCMyLibrary = () => {
     return <div>Error</div>;
   }
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
+  const handleCheckboxChange = (repair_id: string, qc_id: string) => {
+    if (
+      checkedRows.some(
+        (row) => row.repair_id === repair_id && row.qc_id === qc_id
+      )
+    ) {
+      setCheckedRows(checkedRows.filter((item) => item?.qc_id !== qc_id));
     } else {
-      setCheckedRows([...checkedRows, index]);
+      setCheckedRows([...checkedRows, { qc_id, repair_id }]);
     }
   };
   const handleAllCheckboxChange = () => {
@@ -42,13 +49,22 @@ const QCMyLibrary = () => {
     } else {
       const allIds =
         data?.data
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ?.map((item: any) => item?._id)
-          .filter((id: string) => id !== undefined) || [];
+          ?.map((item: any) => ({
+            qc_id: item?.id || "", // Set qc_id to item?.qc_id if it exists, otherwise set it to an empty string
+            repair_id: item?.repair?.id || "", // Set repair_id to item?.repair_id if it exists, otherwise set it to an empty string
+          }))
+          .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
       if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
+        setCheckedRows(allIds);
       }
     }
+  };
+
+  const handleDeleteData = () => {
+    console.log(checkedRows);
+  };
+  const handleReturnData = () => {
+    console.log(checkedRows);
   };
   return (
     <div className=" px-5">
@@ -58,7 +74,16 @@ const QCMyLibrary = () => {
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup />
+          <div>
+            <StatusGroup
+              isSelected={checkedRows?.length <= 0}
+              handleReturnData={handleReturnData}
+              handleDeleteData={handleDeleteData}
+              isButton
+              dltBtnValue="Delete"
+              returnBtnValue="Return to the QC Library"
+            />
+          </div>
           <div className="pt-5">
             <MyQcTable
               Link="/qc/order-details"

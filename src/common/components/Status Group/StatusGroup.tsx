@@ -15,7 +15,15 @@ import { useGetMainCategoryQuery } from "../../../redux/features/api/Category";
 import { useNavigate } from "react-router-dom";
 import InputFilterById from "../InputFilterById/InputFilterById";
 
-const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
+const StatusGroup: FC<statusGroupProps> = ({
+  btnGroupValue,
+  handleDeleteData,
+  handleReturnData,
+  isSelected = false,
+  isButton = false,
+  dltBtnValue = "Delete",
+  returnBtnValue = "Return",
+}) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [brands, setBrands] = useState([]);
@@ -82,7 +90,24 @@ const StatusGroup: FC<statusGroupProps> = ({ btnGroupValue }) => {
   };
   return (
     <div className="flex justify-between items-center  ">
-      <TableStatus btnValues={btnGroupValue || []} />
+      {isButton ? (
+        <div>
+          <Button
+            mini
+            className="mr-2"
+            disabled={isSelected}
+            primary
+            onClick={handleReturnData}
+          >
+            {returnBtnValue}
+          </Button>
+          <Button mini disabled={isSelected} danger onClick={handleDeleteData}>
+            {dltBtnValue}
+          </Button>
+        </div>
+      ) : (
+        <TableStatus btnValues={btnGroupValue || []} />
+      )}
       <div>
         <div className="w-full">
           <Menu as="div" className="relative inline-block text-left">
