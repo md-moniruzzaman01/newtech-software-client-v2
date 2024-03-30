@@ -27,9 +27,8 @@ const ComplaintOrderStatusQC = ({ id }: { id: string | undefined }) => {
       note,
       status: qc_status,
       qcImage: [],
-    }; 
-
-    // updateStatusQC({ fullData, token, id });
+    };
+    updateStatusQC({ fullData, token, id });
 
     const url = `http://http://localhost/:5000/api/v2/qc/${id}`;
     console.log(url,fullData);

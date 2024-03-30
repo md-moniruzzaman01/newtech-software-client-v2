@@ -27,10 +27,12 @@ const InputFilter: React.FC<InputFilterProps> = ({
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
+    const selectedIndex = event.target.selectedIndex;
+    const selectedOption = Filter[selectedIndex - 1]; // -1 to adjust for the disabled option
+    const value = selectedOption ? selectedOption.value : "";
     setSelectedValue(value);
     if (onChange) {
-      onChange(value);
+      return onChange(value);
     }
   };
 
@@ -42,10 +44,10 @@ const InputFilter: React.FC<InputFilterProps> = ({
         required={required}
         disabled={isDisabled}
         className={`${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        value={selectedValue}
+        defaultValue={selectedValue}
         onChange={handleSelectChange}
       >
-        <option value="" disabled>
+        <option value={""} disabled>
           {defaultValue || placeholder}
         </option>
         {Filter?.map((item, i) => (
