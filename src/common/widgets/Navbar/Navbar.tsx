@@ -3,11 +3,12 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import NotificationIcon from "../../../shared/libs/custom icons/NotificationIcon";
 import SettingIcon from "../../../shared/libs/custom icons/SettingIcon";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
 import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
 import { authKey } from "../../../shared/config/constaints";
+import swal from "sweetalert";
 
 interface NavbarProps {
   name?: string;
@@ -16,6 +17,12 @@ interface NavbarProps {
 const user = getUserInfo();
 
 const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate("/login");
+    swal("success", "Successfully logged out");
+    removeUserInfo(authKey);
+  };
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">
@@ -149,7 +156,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                             <Button link>Setting</Button>
                           </NavLink>
                         </div>
-                        <Button link onClick={() => removeUserInfo(authKey)}>
+                        <Button link onClick={handleLogout}>
                           Logout
                         </Button>
                       </div>

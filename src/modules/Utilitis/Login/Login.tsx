@@ -41,6 +41,7 @@ const Login = () => {
           localStorage.setItem(authKey, data.data.accessToken);
           localStorage.setItem("refreshToken", data.data.accessToken);
           setToLocalStorage("activeRoute", "true");
+          swal("success", "Successfully Logged in");
           navigate("/");
         } else {
           swal("Error!", data.message, "error");
@@ -49,6 +50,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.error("Fetch error:", error);
+        swal("Error!", error.message, "error");
       });
   };
 
