@@ -10,34 +10,31 @@ import EngineerTable from "./partials/EngineerTable/EngineerTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { EngineerTableBodyProps } from "./config/types";
 
-import { useCreateQCMutation, useGetProductsQuery } from "../../../../redux/features/api/qc";
+import { useGetProductsQuery } from "../../../../redux/features/api/qc";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const EngineerItems = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
-  // const limit = 10;
+
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [engineerData, setEngineerData] = useState<
     EngineerTableBodyProps[] | []
   >([]);
   const [engineers, setEngineers] = useState([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys)
+  // const query = constructQuery(searchParams, fields, keys)
   const token = getFromLocalStorage(authKey);
   const {
     data,
     isError:dataError,
     isLoading:dataLoading,
   } = useGetProductsQuery({
-    query,
+    // query,
     token,
   });
 
+console.log(data)
 
-  const [createQC,{isLoading,isError,isSuccess}] = useCreateQCMutation();
-console.log(isError,isSuccess,dataError)
 
   function handleSubmit(id:string,user:string) {
     const fullData = {
@@ -45,7 +42,8 @@ console.log(isError,isSuccess,dataError)
       user_name: user,
       repairIds: checkedRows,
     };
-    createQC({ fullData, token })
+    console.log(fullData)
+    // createQC({ fullData, token })
   }
 
 
@@ -74,7 +72,7 @@ console.log(isError,isSuccess,dataError)
   };
 
   console.log(data)
-  if (dataLoading || isLoading) {
+  if (dataLoading ) {
     return <LoadingPage />;
   }
   return (
