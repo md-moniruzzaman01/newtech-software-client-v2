@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import { EngineerTableHeader, engineerSelectData, fields, keys } from "./config/constants";
+import { EngineerTableHeader, fields, keys } from "./config/constants";
 import EngineerTable from "./partials/EngineerTable/EngineerTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { EngineerDateProps, EngineerTableBodyProps } from "./config/types";
-import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
+import { EngineerTableBodyProps } from "./config/types";
+
 import { useCreateQCMutation, useGetProductsQuery } from "../../../../redux/features/api/qc";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
@@ -38,7 +37,7 @@ const EngineerItems = () => {
 
 
   const [createQC,{isLoading,isError,isSuccess}] = useCreateQCMutation();
-
+console.log(isError,isSuccess,dataError)
 
   function handleSubmit(id:string,user:string) {
     const fullData = {
@@ -48,6 +47,9 @@ const EngineerItems = () => {
     };
     createQC({ fullData, token })
   }
+
+
+
 
   const handleCheckboxChange = (index: string) => {
     if (checkedRows.includes(index)) {
