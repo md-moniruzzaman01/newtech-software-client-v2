@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -9,6 +10,8 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader } from "../../QC/QCMyLibrary/config/constants";
 import MyQcTable from "../../QC/QCMyLibrary/partials/MyQcTable";
 import { useEffect, useState } from "react";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { fields, keys } from "./config/constants";
 
 const MyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,10 +20,13 @@ const MyLibrary = () => {
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys)
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
   const { data, isError, isLoading } = useGetRepairsQuery({
     id,
+    query,
     token,
   });
   useEffect(() => {
@@ -76,7 +82,7 @@ const MyLibrary = () => {
   const handleReturnData = () => {
     console.log(checkedRows);
   };
-  console.log(data);
+  console.log("data",data);
   return (
     <div className=" px-5">
       <Navbar name="QC My Library"></Navbar>

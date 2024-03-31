@@ -10,8 +10,7 @@ import {
 } from "./config/types";
 import swal from "sweetalert";
 import {
-  getFromLocalStorage,
-  removeFromLocalStorage,
+  getFromLocalStorage
 } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { useServiceAddMutation } from "../../../redux/features/api/service";
@@ -25,7 +24,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [partnerInfo, setPartnerInfo] = useState<partnerProps | null>(null);
   // const [loading, setLoading] = useState(false);
 
-  const [serviceAdd] = useServiceAddMutation();
+  // const [serviceAdd] = useServiceAddMutation();
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
@@ -185,29 +184,31 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     });
   };
 
-  const fullData = {};
+  const fullData = {
+
+  };
 
   const handleDataSubmit = async () => {
     const token = getFromLocalStorage(authKey);
-    try {
-      const result = await serviceAdd({ fullData, token });
-
-      if ("data" in result) {
-        setAddedItem([]);
-        setPartnerInfo(null);
-        removeFromLocalStorage("addedItem");
-        removeFromLocalStorage("customerInfo");
-        swal("Your data has been successfully submitted.", {
-          icon: "success",
-        });
-      } else if ("error" in result) {
-        swal("Something went wrong!", {
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      console.error("Error adding complaint:", error);
-    }
+    console.log(fullData)
+    // try {
+    //   const result = await serviceAdd({ fullData, token });
+    //   if ("data" in result) {
+    //     setAddedItem([]);
+    //     setPartnerInfo(null);
+    //     removeFromLocalStorage("addedItem");
+    //     removeFromLocalStorage("customerInfo");
+    //     swal("Your data has been successfully submitted.", {
+    //       icon: "success",
+    //     });
+    //   } else if ("error" in result) {
+    //     swal("Something went wrong!", {
+    //       icon: "error",
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.error("Error adding complaint:", error);
+    // }
   };
 
   return (
@@ -216,7 +217,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       <div className="grid grid-cols-[auto,320px] gap-1  mt-10 ">
         <div className="py-5  rounded-md bg-[#FBFBFB] px-5">
           <form onSubmit={handleAddItem}>
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-4 gap-8">
               {/* Customers Name  */}
               <div>
                 <Input
@@ -265,19 +266,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   labelName="Address"
                 ></Input>
               </div>
-              {/* Product / Items Name  */}
-              <div>
-                <Input
-                  defaultValue={`${
-                    selectData ? selectData?.product_or_items_name : ""
-                  }`}
-                  required
-                  inputName="product_or_items_name"
-                  inputPlaceholder="Product / Items Name"
-                  labelName="Product / Items Name"
-                ></Input>
-              </div>
-              {/* Brand Name  */}
               <div>
                 <Input
                   defaultValue={`${selectData ? selectData?.brand_name : ""}`}
@@ -309,18 +297,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   labelName="Serial Number"
                 ></Input>
               </div>
-              {/* Warranty Type
-              <div>
-                <Input
-                  defaultValue={`${
-                    selectData ? selectData?.warranty_type : ""
-                  }`}
-                  required
-                  inputName="warranty_type"
-                  inputPlaceholder="Warranty Type"
-                  labelName="Warranty Type"
-                ></Input>
-              </div> */}
+
               {/* Remark  */}
               <div className="col-span-2">
                 <Input

@@ -4,7 +4,7 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { useGetRepairsQuery } from "../../../../redux/features/api/repair";
+import { useGetOldRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader } from "../../QC/QCMyLibrary/config/constants";
@@ -20,7 +20,7 @@ const MyRepairs = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetRepairsQuery({
+  const { data, isError, isLoading } = useGetOldRepairsQuery({
     id,
     token,
   });

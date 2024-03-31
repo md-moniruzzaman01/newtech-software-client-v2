@@ -5,3 +5,12 @@ export const LibraryTableBtnValue = [
   "rejected",
   "cancelled",
 ];
+
+export const keys = [
+  "brand_name",
+  "sort",
+  "repair-status",
+  "search",
+  "category_name",
+];
+export const fields =""

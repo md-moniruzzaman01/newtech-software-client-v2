@@ -4,7 +4,7 @@ export const keys = [
   "brand",
   "branch",
   "sort",
-  "repair-status",
+  "repair_status",
   "search",
   "category",
 ];

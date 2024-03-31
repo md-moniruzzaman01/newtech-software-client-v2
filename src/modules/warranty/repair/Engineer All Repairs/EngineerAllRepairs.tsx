@@ -4,14 +4,14 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { useGetRepairsQuery } from "../../../../redux/features/api/repair";
+import { useGetAllRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader } from "../../QC/QCMyLibrary/config/constants";
 import MyQcTable from "../../QC/QCMyLibrary/partials/MyQcTable";
 import { useEffect, useState } from "react";
 
-const MyLibrary = () => {
+const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1); 
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
@@ -20,7 +20,7 @@ const MyLibrary = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetRepairsQuery({
+  const { data, isError, isLoading } = useGetAllRepairsQuery({
     id,
     token,
   });
@@ -77,7 +77,7 @@ const MyLibrary = () => {
   const handleReturnData = () => {
     console.log(checkedRows);
   };
-  console.log(data)
+  console.log("all repaired",data)
   return (
     <div className=" px-5">
       <Navbar name="QC My Library"></Navbar>
@@ -120,4 +120,4 @@ const MyLibrary = () => {
   );
 };
 
-export default MyLibrary;
+export default EngineerAllRepairs;

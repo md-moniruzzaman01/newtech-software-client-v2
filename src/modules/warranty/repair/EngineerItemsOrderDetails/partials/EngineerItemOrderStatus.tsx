@@ -1,16 +1,37 @@
+import { useParams } from "react-router-dom";
 import Button from "../../../../../common/components/Button";
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
 import { engineerStatus } from "../config/constants";
+import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../../shared/config/constaints";
 
 const EngineerItemOrderStatus = () => {
+  const {id}=useParams();
+  const token = getFromLocalStorage(authKey)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget; // Use currentTarget for the form element
+    const form = event.currentTarget;
     const status = (form.elements.namedItem("status") as HTMLInputElement)
       .value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
     console.log(note, status);
+    const fullData={
+      status,
+      note,
+    }
+       const url = `http://localhost:5000/api/v2/repair/${id}`;
+
+    fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+      body: JSON.stringify(fullData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
     form.reset();
   };
 

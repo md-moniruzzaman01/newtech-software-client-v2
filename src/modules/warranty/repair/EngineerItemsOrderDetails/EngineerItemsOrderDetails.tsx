@@ -5,8 +5,24 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { useState } from "react";
+import EngineerPartsReplace from "./partials/EngineerPartsReplace";
 
 const EngineerItemsOrderDetails = () => {
+  const [select_parts_replece, setSelect_parts_replace] = useState(1);
+
+  function showContainer(containerNumber: number) {
+    switch (containerNumber) {
+      case 1:
+        return (
+          <EngineerItemOrderStatus />
+        );
+
+      case 2:
+        return <EngineerPartsReplace />;
+
+    }
+  }
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (Engineer)"} />
@@ -60,7 +76,14 @@ const EngineerItemsOrderDetails = () => {
               <MdModeEdit />
             </div>
           </div>
-          <EngineerItemOrderStatus />
+
+          <select name="" id="" onChange={(e) => setSelect_parts_replace(parseInt(e.target.value, 10))}>
+            <option value={1}>No Need To change parts</option>
+            <option value={2}>Need parts to Repair</option>
+          </select>
+
+          {showContainer(select_parts_replece)}
+
         </div>
       </div>
     </div>
