@@ -20,6 +20,7 @@ import UsersRoute from "./partials/UsersRoute/UsersRoute";
 import OthersRoute from "./partials/OthersRoute/OthersRoute";
 import BillRoute from "./partials/BillRoute/BillRoute";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { getUserInfo } from "../../../services/auth.service";
 
 // routeStyle
 const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
@@ -28,6 +29,19 @@ const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
 const SideBar = () => {
   const [activeRoute, setActiveRoute] = useState(true);
   const navigate = useNavigate();
+  const user = getUserInfo();
+  console.log(user);
+
+  // [
+  //   { id: "01", value: "Branch incharge" },
+  //   { id: "02", value: "withdrow" },
+  //   { id: "03", value: "account" },
+  //   { id: "04", value: "RECEIVE/DELIVERY" },
+  //   { id: "05", value: "QC" },
+  //   { id: "06", value: "QA" },
+  //   { id: "07", value: "level 4 Engineer" },
+  //   { id: "08", value: "assistant Engineer"},
+  // ]
 
   useEffect(() => {
     const activeRouteValue = getFromLocalStorage("activeRoute");
@@ -80,12 +94,14 @@ const SideBar = () => {
       </div>
       <div className="  font-semibold ">
         <div className="flex flex-col gap-3 pb-20">
-          <NavLink to="/">
-            <div className={routeStyle}>
-              <MdOutlineDashboardCustomize className="text-xl" />
-              <span>Dashboard</span>
-            </div>
-          </NavLink>
+          {user?.power?.includes("01") && (
+            <NavLink to="/">
+              <div className={routeStyle}>
+                <MdOutlineDashboardCustomize className="text-xl" />
+                <span>Dashboard</span>
+              </div>
+            </NavLink>
+          )}
           <NavLink to="/engineer-dashboard">
             <div className={routeStyle}>
               <FiMonitor className="text-xl" />
@@ -107,7 +123,7 @@ const SideBar = () => {
               <span>Inventory</span>
             </div>
           </NavLink>
-          {activeRoute && (
+          {activeRoute && user?.power?.includes("05") && (
             <div>
               <QCRoute />
             </div>
@@ -115,7 +131,7 @@ const SideBar = () => {
           <div>
             <EngineerRoute />
           </div>
-          {activeRoute && (
+          {activeRoute && user?.power?.includes("06") && (
             <div>
               <QARoute />
             </div>
