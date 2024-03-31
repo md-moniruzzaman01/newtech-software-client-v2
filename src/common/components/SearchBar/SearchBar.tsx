@@ -17,6 +17,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   handleDelete,
   handleReturn,
   isMiddleBtn = false,
+  disabled = false,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -62,13 +63,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <div className="flex items-center gap-2 ">
           {isMiddleBtn && (
             <div className="flex gap-2">
-              <Button mini primary onClick={handleDelivery}>
+              <Button disabled={disabled} mini primary onClick={handleDelivery}>
                 Delivery
               </Button>
-              <Button onClick={handleReturn} mini primary>
+              <Button disabled={disabled} onClick={handleReturn} mini primary>
                 Return
               </Button>
-              <Button onClick={handleDelete} mini danger>
+              <Button disabled={disabled} onClick={handleDelete} mini danger>
                 Delete
               </Button>
             </div>

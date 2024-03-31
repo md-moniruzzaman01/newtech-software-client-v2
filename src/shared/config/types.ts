@@ -140,6 +140,7 @@ export type SearchBarProps = {
   handleDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleReturn?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isMiddleBtn?: boolean;
+  disabled?: boolean;
 };
 
 export type ComplaintMiniCardProps = {

@@ -88,6 +88,7 @@ const ComplaintListService = () => {
       <Navbar name="Complaint Service" />
       <div className="pt-5">
         <SearchBar
+          disabled={checkedRows?.length <= 0}
           handleDelivery={handleDelivery}
           handleReturn={handleReturn}
           handleDelete={handleDelete}
