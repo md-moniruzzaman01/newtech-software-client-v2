@@ -25,10 +25,11 @@ const QCApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["complaints", "qc"],
     }),
+
     getOldQcs: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library?status=QC%20Ok&${params?.id}`,
+          url: `/qc/my-library/${params?.id}`,
           headers: {
             authorization: params?.token,
           },
@@ -36,10 +37,11 @@ const QCApi = baseApi.injectEndpoints({
       },
       providesTags: ["qc"],
     }),
+
     getQcs: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}`,
+          url: `/qc/my-library/${params?.id}?status=QC&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

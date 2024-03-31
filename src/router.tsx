@@ -34,8 +34,6 @@ import QCMyItems from "./modules/warranty/QC/QCMyItems/QCMyItems";
 import ComplaintOrderDetailsQC from "./modules/warranty/QC/ComplaintOrderDetailsQC/ComplaintOrderDetailsQC";
 import Engineer from "./modules/Utilitis/Engineer/Engineer";
 import EngineerItems from "./modules/warranty/repair/EngineerItems/EngineerItems";
-import EngineerMyRepaired from "./modules/warranty/repair/EngineerMyRepaired/EngineerMyRepaired";
-import EngineerAllRepairs from "./modules/warranty/repair/EngineerAllRepairs/EngineerAllRepairs";
 import EngineerItemsOrderDetails from "./modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 import CreateABill from "./modules/services/invoice/CreateABill/CreateABill";
 import BillPending from "./modules/services/invoice/BillPending/BillPending";
@@ -62,6 +60,8 @@ import ServiceInvoicePage from "./modules/services/invoice/ServiceInvoicePage/Se
 import CreateABillWarranty from "./modules/warranty/BillWarranty/CreateABillWarranty/CreateABillWarranty";
 import BillPendingWarranty from "./modules/warranty/BillWarranty/BillPendingWarranty/BillPendingWarranty";
 import ComplaintsEditPage from "./modules/warranty/complaints/ComplaintsEditPage/ComplaintsEditPage";
+import EngineerAllRepairs from "./modules/warranty/repair/EngineerItems/EngineerItems";
+import MyRepairs from "./modules/warranty/repair/My repairs/MyRepairs";
 
 export const router = createBrowserRouter([
   {
@@ -195,11 +195,12 @@ export const router = createBrowserRouter([
       {
         path: "/engineer-items",
         element: <EngineerItems />,
-      },
+      }, 
       {
         path: "/engineer-my-repaired",
-        element: <EngineerMyRepaired />,
-      },
+        element: <MyRepairs />,
+      }, 
+
       {
         path: "/engineer-all-repairs",
         element: <EngineerAllRepairs />,
