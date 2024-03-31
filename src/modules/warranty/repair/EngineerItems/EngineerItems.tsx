@@ -41,14 +41,6 @@ const EngineerAllRepairs = () => {
     },
   ] = useAssignEngineerMutation();
 
-  const handleSubmit = (id: string, name) => {
-    console.log(id, name);
-    // if (selectEngineer?.id) {
-    //   createQC({ fullData, token });
-    //   setSelectEngineer(engineerSelectData);
-    // }
-  };
-
   useEffect(() => {
     if (!engineerError && !engineerLoading) {
       setEngineers(engineerData?.data);
@@ -114,7 +106,6 @@ const EngineerAllRepairs = () => {
           isDropdown
           dropdown={checkedRows?.length <= 0}
           filtersOptions={engineers}
-          handleSubmit={handleSubmit}
           handleSubmit={handleSubmit}
         />
       </div>

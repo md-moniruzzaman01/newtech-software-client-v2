@@ -96,7 +96,7 @@ const QCMyLibrary = () => {
           </div>
           <div className="pt-5">
             <MyQATable
-              Link="/qc/order-details"
+              Link="/qa-items/order-details"
               itemData={data?.data}
               HeaderData={MyQCTableHeader}
               checkedRows={checkedRows}

@@ -47,7 +47,7 @@ const EngineerItemOrderDetailsTable = () => {
           <hr className="border-b border-shadeOfGray my-2" />
         </div>
       </div>
-      <div className="absolute bottom-5">QC by: Johnson Doe</div>
+      <div className="absolute bottom-3">QC by: Johnson Doe</div>
     </div>
   );
 };

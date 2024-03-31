@@ -1,48 +1,37 @@
 import Button from "../../../../../common/components/Button";
-import Input from "../../../../../common/components/Input";
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
-import { FilterOptions } from "../../../../../shared/config/constaints";
-
+import { engineerStatus } from "../config/constants";
 
 const EngineerItemOrderStatus = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget; // Use currentTarget for the form element
+    const status = (form.elements.namedItem("status") as HTMLInputElement)
+      .value;
+    const note = (form.elements.namedItem("note") as HTMLInputElement).value;
+    console.log(note, status);
+    form.reset();
+  };
+
   return (
     <div className="space-y-2">
-      <Input
-        IsDisabled
-        inputPlaceholder="121156464684"
-        labelName="Order Number :"
-      />
-
-      <InputFilter
-        IsDisabled
-        placeholder="Working"
-        label="Order status :"
-        Filter={FilterOptions}
-      />
-
-      <InputFilter
-        IsDisabled
-        placeholder="Working"
-        label="Engineer status :"
-        Filter={FilterOptions}
-      />
-      <InputFilter
-        IsDisabled
+      <form onSubmit={handleSubmit}>
+        <InputFilter
+          placeholder="Select Status"
+          label="Engineer status :"
+          Filter={engineerStatus}
+          inputName="status"
+        />
+        {/* <InputFilter
         placeholder="No Replacement"
         label="Material status :"
-        Filter={FilterOptions}
-      />
+        Filter={replacement}
+      /> */}
 
-      <InputFilter
-        IsDisabled
-        placeholder="Delivered/ Complete / Buffer / Good Product"
-        label="Order Transaction :"
-        Filter={FilterOptions}
-      />
-
-      <TextArea IsDisabled label="Note" placeholder="write your note" />
-      <Button primary>Submit</Button>
+        <TextArea label="Note" name="note" placeholder="write your note" />
+        <Button primary>Submit</Button>
+      </form>
     </div>
   );
 };

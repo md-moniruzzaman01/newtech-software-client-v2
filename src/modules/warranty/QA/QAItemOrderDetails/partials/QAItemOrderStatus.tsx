@@ -1,51 +1,32 @@
-
-import { HTML5Backend } from "react-dnd-html5-backend"; // or any other backend you prefer
-import { DndProvider } from "react-dnd";
-import { useState } from "react";
-//internal 
-import Input from "../../../../../common/components/Input";
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
-import { FilterOptions } from "../../../../../shared/config/constaints";
-import PhotoAttach from "../../../../../common/components/PhotoAttach/PhotoAttach";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
 import Button from "../../../../../common/components/Button";
+import { orderStatus } from "../config/constants";
 
 const QAItemOrderStatus = () => {
-  const [droppedImage, setDroppedImage] = useState<string>();
+  // const [droppedImage, setDroppedImage] = useState<string>();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget; // Use currentTarget for the form element
+    const status = (form.elements.namedItem("status") as HTMLInputElement)
+      .value;
+    const note = (form.elements.namedItem("note") as HTMLInputElement).value;
+    console.log(note, status);
+    form.reset();
+  };
+
   return (
     <div className="space-y-2">
-      <Input
-        IsDisabled
-        inputPlaceholder="121156464684"
-        labelName="Order Number :"
-      />
+      <form onSubmit={handleSubmit}>
+        <InputFilter
+          placeholder="Select Status"
+          label="QA Status :"
+          Filter={orderStatus}
+          inputName="status"
+        />
 
-      <Input
-        IsDisabled
-        inputPlaceholder="121156464684"
-        labelName="RMA Number :"
-      />
-
-      <InputFilter
-        IsDisabled
-        placeholder="Working"
-        label="Order status :"
-        Filter={FilterOptions}
-      />
-      <InputFilter
-        IsDisabled
-        placeholder="Testing"
-        label="QA Status :"
-        Filter={FilterOptions}
-      />
-
-      <Input
-        IsDisabled
-        inputPlaceholder="Delivered/ Complete / Buffer / Good Product"
-        labelName="Order Transaction :"
-      />
-
-      <div>
+        {/* <div>
         <h1 className="font-medium">Upload Item Image :</h1>
         <DndProvider backend={HTML5Backend}>
           <PhotoAttach
@@ -53,12 +34,10 @@ const QAItemOrderStatus = () => {
             setDroppedImage={setDroppedImage}
           />
         </DndProvider>
-        <div className="text-center text-shadeOfBlueLight">
-          Browse your computer
-        </div>
-      </div>
-      <TextArea IsDisabled label="Note" placeholder="write your note" />
-      <Button primary>Submit</Button>
+      </div> */}
+        <TextArea name="note" label="Note" placeholder="write your note" />
+        <Button primary>Submit</Button>
+      </form>
     </div>
   );
 };
