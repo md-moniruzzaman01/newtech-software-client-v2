@@ -189,9 +189,11 @@ const SideBar = () => {
             </div>
           </NavLink> */}
 
-          <div>
-            <UsersRoute />
-          </div>
+          {user?.power?.includes("01") && (
+            <div>
+              <UsersRoute />
+            </div>
+          )}
           <div>
             <OthersRoute />
           </div>

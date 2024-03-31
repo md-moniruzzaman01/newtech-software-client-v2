@@ -38,7 +38,7 @@ const Button: FC<ButtonProps> = ({
   const SECONDARY_CLASS = `bg-transparent outline outline-[1.7px] text-primary outline-primary hover:!text-white hover:bg-primary`;
   const STATUS_CLASS = `bg-transparent border-shadeOfGrayishWhite !text-solidBlack border rounded-full text-sm  !py-1`;
   const btn_primary =
-    "px-5 hover:!bg-primary  bg-shadeOfBlueLight !text-[#fff] border-0 text-lg rounded-md font-normal rounded-[4px]";
+    "px-5   bg-shadeOfBlueLight !text-[#fff] border-0 text-lg rounded-md font-normal rounded-[4px]";
   const btn_ghost =
     " px-5 hover:!bg-primary  !bg-[#D9D9D9] !text-solidBlack border-0 text-lg rounded-md font-normal";
 

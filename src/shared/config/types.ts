@@ -136,6 +136,10 @@ export type SearchBarProps = {
   }[];
   isTrue?: boolean;
   checkedRows?: string[];
+  handleDelivery?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleReturn?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  isMiddleBtn?: boolean;
 };
 
 export type ComplaintMiniCardProps = {
