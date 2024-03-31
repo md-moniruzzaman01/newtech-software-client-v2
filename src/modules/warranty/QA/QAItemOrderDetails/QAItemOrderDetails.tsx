@@ -10,14 +10,11 @@ import {
   authKey,
 } from "../../../../shared/config/constaints";
 import { useParams } from "react-router-dom";
-import { useGetQAQuery } from "../../../../redux/features/api/qa";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 const QAItemOrderDetails = () => {
   const { id } = useParams();
   const token = getFromLocalStorage(authKey);
-  const { data } = useGetQAQuery({ id, token });
-  console.log(data);
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (QA)"} />

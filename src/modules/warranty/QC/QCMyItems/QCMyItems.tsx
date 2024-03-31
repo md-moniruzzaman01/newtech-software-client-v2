@@ -8,7 +8,6 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
-
 import MyOldQcTable from "./partials/MyOldQcTable";
 import { QCTableHeader } from "./config/constants";
 import { useGetOldQcsQuery } from "../../../../redux/features/api/qc";
@@ -63,15 +62,14 @@ const QCMyItems = () => {
         <div>
           <StatusGroup />
           <div className="pt-5">
-
-             <MyOldQcTable
+            <MyOldQcTable
               Link="/qc/order-details"
               itemData={data?.data}
               HeaderData={QCTableHeader}
               checkedRows={checkedRows}
               handleCheckboxChange={handleCheckboxChange}
               handleAllCheckboxChange={handleAllCheckboxChange}
-            ></MyOldQcTable> 
+            ></MyOldQcTable>
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">
