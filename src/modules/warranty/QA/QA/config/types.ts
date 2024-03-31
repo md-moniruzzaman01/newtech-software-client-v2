@@ -11,31 +11,23 @@ export type QATableHeaderProps = string;
 export type QATableBodyProps = {
   _id?: string;
   id?: string;
-  order_number?: string;
-  products?: {
-    id?: string;
-    model_number?: string;
-    serial_number?: string;
-  };
-  Qc?: {
-    id?: string;
-    user_name?: string;
-  };
-  RepairItem?: {
-    id?: string;
-    user_name?: string;
-  };
-  Qa?: {
-    id?: string;
-    user_name?: string;
-  };
+  serial_number?: string;
+  model_number?: string;
+  category?: string;
+  problems?: string[];
+  attachments?: string[];
   category_name?: string;
-  customer?: { contact_person?: string };
-  Nonwarrentycustomer?: { name?: string };
   brand_name?: string;
-  partrequest?: string;
   repair_status?: string;
+  repair_count?: number;
+  warranty?: boolean;
+  turnaround_time?: Date;
   received_date?: string;
+  repair?: {
+    id?: string;
+    order_number?: string;
+    branch?: string;
+  }[];
 };
 
 export type qaDateProps = {

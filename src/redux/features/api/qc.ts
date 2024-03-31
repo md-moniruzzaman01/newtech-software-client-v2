@@ -49,13 +49,11 @@ const QCApi = baseApi.injectEndpoints({
       },
       providesTags: ["qc"],
     }),
-    getQC: builder.query({
-      query: () => "/brand",
-    }),
+
     getProducts: builder.query({
       query: (params) => {
         return {
-          url: `/product?repair_status=Received&${params?.query}`,
+          url: `/product?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -64,19 +62,6 @@ const QCApi = baseApi.injectEndpoints({
       providesTags: ["complaints"],
     }),
 
-    // updatePost: builder.mutation({
-    //   query: ({ postId, updatedPost }) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "PUT",
-    //     body: updatedPost,
-    //   }),
-    // }),
-    // deletePost: builder.mutation({
-    //   query: (postId) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "DELETE",
-    //   }),
-    // }),
   }),
 });
 

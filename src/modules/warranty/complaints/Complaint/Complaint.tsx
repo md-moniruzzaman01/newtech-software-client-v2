@@ -36,7 +36,6 @@ const Complaint = () => {
     query,
     token,
   });
-
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
     if (storedActiveRoute) {

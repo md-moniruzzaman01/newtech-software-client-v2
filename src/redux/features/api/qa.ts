@@ -2,17 +2,16 @@ import { baseApi } from "../../api/apiSlice";
 
 const QAApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // brand section
     createQA: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/qa",
+        url: "/qa/multiple",
         method: "POST",
         headers: {
           authorization: token,
         },
         body: fullData,
       }),
-      invalidatesTags: ["complaints", "qc"],
+      invalidatesTags: ["complaints", "qa"],
     }),
     updateStatusQA: builder.mutation({
       query: ({ fullData, token, id }) => ({
@@ -23,10 +22,10 @@ const QAApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
-      invalidatesTags: ["complaints", "qc"],
+      invalidatesTags: ["complaints", "qa"],
     }),
 
-    getOldQcs: builder.query({
+    getOldQas: builder.query({
       query: (params) => {
         return {
           url: `/qa/my-library/${params?.id}`,
@@ -35,34 +34,24 @@ const QAApi = baseApi.injectEndpoints({
           },
         };
       },
-      providesTags: ["qc"],
+      providesTags: ["qa"],
     }),
 
-    getQcs: builder.query({
+    getQas: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}?status=QC&${params?.query}`,
+          url: `/qa/my-library/${params?.id}?status=QA&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
-      providesTags: ["qc"],
+      providesTags: ["qa"],
     }),
-    getQA: builder.query({
+    getQAProducts: builder.query({
       query: (params) => {
         return {
-          url: `/qa?${params?.id}`,
-          headers: {
-            authorization: params?.token,
-          },
-        };
-      },
-    }),
-    getProducts: builder.query({
-      query: (params) => {
-        return {
-          url: `/product?repair_status=Received&${params?.query}`,
+          url: `/product?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -70,28 +59,12 @@ const QAApi = baseApi.injectEndpoints({
       },
       providesTags: ["complaints"],
     }),
-
-    // updatePost: builder.mutation({
-    //   query: ({ postId, updatedPost }) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "PUT",
-    //     body: updatedPost,
-    //   }),
-    // }),
-    // deletePost: builder.mutation({
-    //   query: (postId) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "DELETE",
-    //   }),
-    // }),
   }),
 });
 
 export const {
   useCreateQAMutation,
-  useGetProductsQuery,
-  useGetQcsQuery,
-  useGetOldQcsQuery,
-  useUpdateStatusQAMutation,
-  useGetQAQuery,
+  useGetOldQasQuery,
+  useGetQAProductsQuery,
+  useGetQasQuery,
 } = QAApi;

@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import QATable from "./partials/QATable/QATable";
-import { QATableHeader, qaSelectData } from "./config/constants";
+import { QATableHeader, fields, keys } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { QATableBodyProps, qaDateProps } from "./config/types";
+import { QATableBodyProps } from "./config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
-import { useCreateQCMutation } from "../../../../redux/features/api/qc";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { useSearchParams } from "react-router-dom";
+import { useCreateQAMutation, useGetQAProductsQuery,  } from "../../../../redux/features/api/qa";
+import swal from "sweetalert";
 
 const QAItems = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -20,32 +22,34 @@ const QAItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qaData, setQAData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
-  const [selectEngineer, setSelectEngineer] =
-    useState<qaDateProps>(qaSelectData);
-  const fullData = {
-    qc_checker_id: selectEngineer?.id,
-    user_name: selectEngineer?.user,
-    repairIds: checkedRows,
-  };
-  const token = getFromLocalStorage(authKey);
+  // const [selectEngineer, setSelectEngineer] =
+  //   useState<qaDateProps>(qaSelectData);
+
+    const [searchParams] = useSearchParams();
+    const query = constructQuery(searchParams, fields, keys)
+    const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
-    token,
+  } = useGetQAProductsQuery({
+    query,
+    token
   });
   const {
-    data: engineersData,
+    data: engineerData,
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
+  const [createQA,{isLoading,isError,isSuccess}] = useCreateQAMutation();
 
-  const [createQC] = useCreateQCMutation();
 
-  if (selectEngineer?.id) {
-    createQC({ fullData, token });
-    setSelectEngineer(qaSelectData);
+  function handleSubmit(id:string) {
+    const fullData = {
+      qa_checker_id: id,
+      repairIds: checkedRows,
+    };
+    createQA({ fullData, token })
   }
 
   useEffect(() => {
@@ -53,7 +57,7 @@ const QAItems = () => {
       setQAData(complaintsData?.data);
     }
     if (!engineerError && !engineerLoading) {
-      setEngineers(engineersData?.data);
+      setEngineers(engineerData?.data);
     }
   }, [
     complaintsData,
@@ -61,7 +65,7 @@ const QAItems = () => {
     complaintsError,
     engineerError,
     engineerLoading,
-    engineersData,
+    engineerData,
   ]);
 
   const handleCheckboxChange = (index: string) => {
@@ -76,18 +80,25 @@ const QAItems = () => {
       // If all checkboxes are already checked, uncheck them all
       setCheckedRows([]);
     } else {
-      // If not all checkboxes are checked, set checkedRows to contain all _id values
       const allIds =
-        qaData?.map((item) => item?._id).filter((id) => id !== undefined) || []; // Filter out undefined values
+      qaData?.map((item) => item?._id).filter((id) => id !== undefined) || [];
       if (allIds.length > 0) {
         setCheckedRows(allIds as string[]);
       }
     }
   };
-
-  if (complaintsLoading) {
+  if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
+  if (isSuccess) {
+    swal("Your data has been updated successfully.", {
+      icon: "success",
+    });
+  }
+  if (isError) {
+    swal("Error!", "something is wrong", "error");
+  }
+  console.log(complaintsData)
   return (
     <div className="px-5">
       <Navbar name={"QA Items"} />
@@ -97,7 +108,7 @@ const QAItems = () => {
           isDropdown
           dropdown={checkedRows?.length <= 0}
           filtersOptions={engineers}
-          setSelectEngineer={setSelectEngineer}
+          handleSubmit={handleSubmit}
         />
       </div>
       <div className="bg-solidWhite p-3 space-y-3">

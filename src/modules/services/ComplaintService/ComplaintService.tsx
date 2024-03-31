@@ -10,8 +10,7 @@ import {
 } from "./config/types";
 import swal from "sweetalert";
 import {
-  getFromLocalStorage,
-  removeFromLocalStorage,
+  getFromLocalStorage
 } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { useServiceAddMutation } from "../../../redux/features/api/service";
@@ -27,7 +26,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     useState<partnerProps>(defaultPartnerValue);
   // const [loading, setLoading] = useState(false);
 
-  const [serviceAdd] = useServiceAddMutation();
+  // const [serviceAdd] = useServiceAddMutation();
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
@@ -218,7 +217,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       <div className="grid grid-cols-[auto,320px] gap-1  mt-10 ">
         <div className="py-5  rounded-md bg-[#FBFBFB] px-5">
           <form onSubmit={handleAddItem}>
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-4 gap-8">
               {/* Customers Name  */}
               <div>
                 <Input
