@@ -16,7 +16,7 @@ interface engineersFilterProps {
   inputName?: string;
   value?: string;
   itemsId?: string[];
-  handleSubmit?:any;
+  handleSubmit?: any;
   //   selectEngineer?: { id?: string[]; qc_checker_id?: string } | null;
 }
 
@@ -29,16 +29,19 @@ const EngineersFilter: React.FC<engineersFilterProps> = ({
   required = false,
   inputName,
   defaultValue = "",
-  handleSubmit
+  handleSubmit,
 }) => {
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     const selectedItem = Filter.find((item) => item._id === selectedValue);
 
-    if ( selectedItem !== undefined) {
-      handleSubmit(selectedItem._id,`${selectedItem.name?.firstName || ""} ${
-        selectedItem.name?.middleName || ""
-      } ${selectedItem.name?.lastName || ""}`)
+    if (selectedItem !== undefined) {
+      handleSubmit(
+        selectedItem._id,
+        `${selectedItem.name?.firstName || ""} ${
+          selectedItem.name?.middleName || ""
+        } ${selectedItem.name?.lastName || ""}`
+      );
     }
   };
 

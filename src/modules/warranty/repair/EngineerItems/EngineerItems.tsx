@@ -45,10 +45,13 @@ const EngineerItems = () => {
 
   const [createQC] = useCreateQCMutation();
 
-  if (selectEngineer?.id) {
-    createQC({ fullData, token });
-    setSelectEngineer(engineerSelectData);
-  }
+  const handleSubmit = (id: string, name) => {
+    console.log(id, name);
+    // if (selectEngineer?.id) {
+    //   createQC({ fullData, token });
+    //   setSelectEngineer(engineerSelectData);
+    // }
+  };
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
@@ -102,7 +105,7 @@ const EngineerItems = () => {
           isDropdown
           dropdown={checkedRows?.length <= 0}
           filtersOptions={engineers}
-          setSelectEngineer={setSelectEngineer}
+          handleSubmit={handleSubmit}
         />
       </div>
       <div className="bg-solidWhite p-3 space-y-3">

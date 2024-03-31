@@ -1,4 +1,3 @@
-
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import TableStatus from "../../../../common/components/TableStatus/TableStatus";
 import TableWithPhoto from "../../../../common/components/TableWithPhoto/TableWithPhoto";
@@ -35,7 +34,7 @@ const MyLibrary = () => {
     <div className="px-5">
       <Navbar name={"My Library"}></Navbar>
       <div className="py-5">
-        <SearchBar isNeedFilter />
+        <SearchBar />
       </div>
       <div className="bg-[#FBFBFB] p-5 space-y-3">
         <TableStatus btnValues={LibraryTableBtnValue} />
