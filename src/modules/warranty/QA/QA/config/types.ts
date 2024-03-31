@@ -10,6 +10,7 @@ export type QATableProps = {
 export type QATableHeaderProps = string;
 export type QATableBodyProps = {
   _id?: string;
+  id?: string;
   order_number?: string;
   products?: {
     id?: string;

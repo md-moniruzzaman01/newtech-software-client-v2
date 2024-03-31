@@ -5,9 +5,19 @@ import QAItemOrderStatus from "./partials/QAItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails } from "../../../../shared/config/constaints";
+import {
+  ComplaintDetails,
+  authKey,
+} from "../../../../shared/config/constaints";
+import { useParams } from "react-router-dom";
+import { useGetQAQuery } from "../../../../redux/features/api/qa";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 const QAItemOrderDetails = () => {
+  const { id } = useParams();
+  const token = getFromLocalStorage(authKey);
+  const { data } = useGetQAQuery({ id, token });
+  console.log(data);
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (QA)"} />

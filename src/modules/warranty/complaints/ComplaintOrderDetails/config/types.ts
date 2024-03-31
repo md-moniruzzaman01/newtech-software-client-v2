@@ -58,3 +58,7 @@ export type ComplaintsOrderDetailsProps = {
   statusCode: number;
   success: boolean;
 };
+
+export type ComplaintOrderDetailsTableProps = {
+  data?: ComplaintsOrderDetailsProps | null;
+};

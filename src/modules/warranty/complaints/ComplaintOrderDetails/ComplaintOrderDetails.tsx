@@ -33,18 +33,24 @@ const ComplaintOrderDetails = () => {
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
 
+  console.log(complaintsSingleData);
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
 
       <div className="grid grid-cols-5 gap-2 pt-8">
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={complaintsSingleData?.createdAt
+            .toString()
+            .slice(0, 10)}
           bgColor="primary"
           headerTitle="Created Date"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={complaintsSingleData?.turnaround_time
+            .toString()
+            .slice(0, 10)}
           bgColor="primary"
           headerTitle="Due Date"
         />
@@ -59,7 +65,7 @@ const ComplaintOrderDetails = () => {
           headerTitle="Email"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={complaintsSingleData?.customer_contact_number}
           bgColor="primary"
           headerTitle="Contact No"
         />
@@ -91,7 +97,7 @@ const ComplaintOrderDetails = () => {
               </NavLink>
             </div>
           </div>
-          <ComplaintOrderDetailsTable />
+          <ComplaintOrderDetailsTable id={id} />
         </div>
 
         <div className=" bg-solidWhite px-5 py-5">

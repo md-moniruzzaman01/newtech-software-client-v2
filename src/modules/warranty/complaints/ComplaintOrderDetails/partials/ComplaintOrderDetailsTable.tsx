@@ -1,4 +1,24 @@
-const ComplaintOrderDetailsTable = () => {
+import { useEffect, useState } from "react";
+import { ComplaintsOrderDetailsProps } from "../config/types";
+import { useGetComplaintByIdQuery } from "../../../../../redux/features/api/complaints";
+import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../../shared/config/constaints";
+
+const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
+  const [complaintsSingleData, setComplaintsSingleData] =
+    useState<ComplaintsOrderDetailsProps | null>(null);
+  const token = getFromLocalStorage(authKey);
+  const {
+    data: complaintsData,
+    isError: complaintsError,
+    isLoading: complaintsLoading,
+  } = useGetComplaintByIdQuery({ id, token });
+  useEffect(() => {
+    if (!complaintsError && !complaintsLoading) {
+      setComplaintsSingleData(complaintsData?.data);
+    }
+  }, [complaintsData, complaintsError, complaintsLoading]);
+
   return (
     <div className="w-full ">
       {/* header row start here  */}
@@ -14,19 +34,33 @@ const ComplaintOrderDetailsTable = () => {
       <div className="text-center">
         {/* second row start here  */}
         <div className="grid grid-cols-5  text-center">
-          <div className="border py-2 border-gray-400">342323232</div>
-          <div className="border py-2 border-gray-400">Monitor</div>
-          <div className="border py-2 border-gray-400">No Display</div>
-          <div className="border py-2 border-gray-400">Bag</div>
-          <div className="border py-2 border-gray-400">1000000</div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData?.products?.serial_number}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData?.products?.category_name}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData &&
+            complaintsSingleData?.products?.problems?.length > 0
+              ? complaintsSingleData?.products?.problems
+                  ?.map((item) => item)
+                  .toString()
+                  .split(",")
+              : "No Data"}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData?.products?.attachments}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData?.total_charge}
+          </div>
         </div>
 
         <hr className="border-b border-shadeOfGray my-2" />
         {/* third row start here  */}
         <div className="grid grid-cols-5  text-center">
-          <div className="border-l py-2 border-y border-gray-400">
-            Consulting
-          </div>
+          <div className="border-l py-2 border-y border-gray-400"></div>
           <div className="border-t py-2 border-b border-gray-400"></div>
           <div className="border-t py-2 border-b border-gray-400"></div>
           <div className="border-t py-2 border-b border-gray-400"></div>

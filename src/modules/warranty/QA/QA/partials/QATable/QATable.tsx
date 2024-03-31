@@ -86,7 +86,7 @@ const QATable: FC<QATableProps> = ({
                     {Link && (
                       <NavLink
                         className=" !text-black flex justify-center"
-                        to={`${Link}/${item?._id}`}
+                        to={`${Link}/${item?.id}`}
                       >
                         <IoMdEye />
                       </NavLink>
