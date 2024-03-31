@@ -1,27 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useEffect, useState } from "react";
+import { TableBodyProps } from "./config/types";
 import { useSearchParams } from "react-router-dom";
-import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
-import Navbar from "../../../../common/widgets/Navbar/Navbar";
-import SearchBar from "../../../../common/components/SearchBar/SearchBar";
-import StatusGroup from "../../../../common/components/Status Group";
+import { constructQuery } from "../../../shared/helpers/constructQuery";
 import {
   btnValue,
   complaintsTableHeader,
   fields,
   keys,
 } from "./config/constants";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { authKey } from "../../../shared/config/constaints";
+import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
+import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import Navbar from "../../../common/widgets/Navbar/Navbar";
+import SearchBar from "../../../common/components/SearchBar/SearchBar";
+import StatusGroup from "../../../common/components/Status Group";
 import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
-import { authKey } from "../../../../shared/config/constaints";
-import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
-import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { constructQuery } from "../../../../shared/helpers/constructQuery";
-import { TableBodyProps } from "./config/types";
+import Pagination from "../../../common/widgets/Pagination/Pagination";
 
 //internal
 
-const Complaint = () => {
+const ComplaintListService = () => {
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
   const [searchParams] = useSearchParams();
@@ -36,6 +37,7 @@ const Complaint = () => {
     query,
     token,
   });
+
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
     if (storedActiveRoute) {
@@ -83,7 +85,7 @@ const Complaint = () => {
 
   return (
     <div className=" px-5">
-      <Navbar name="Complaint"></Navbar>
+      <Navbar name="Complaint Service" />
       <div className="pt-5">
         <SearchBar
           disabled={checkedRows?.length <= 0}
@@ -109,11 +111,11 @@ const Complaint = () => {
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">
-          <Pagination></Pagination>
+          <Pagination />
         </div>
       </div>
     </div>
   );
 };
 
-export default Complaint;
+export default ComplaintListService;

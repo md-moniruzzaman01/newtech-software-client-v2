@@ -12,7 +12,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
   dropdown = false,
   dropdownPlaceHolder = "Assign to qc",
   filtersOptions = [],
-  handleSubmit
+  handleSubmit,
+  handleDelivery,
+  handleDelete,
+  handleReturn,
+  isMiddleBtn = false,
+  disabled = false,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -39,7 +44,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <div>
-      <div className="flex justify-between ">
+      <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Input
             value={activeRoute}
@@ -54,7 +59,21 @@ const SearchBar: React.FC<SearchBarProps> = ({
             </Button>
           </div>
         </div>
+
         <div className="flex items-center gap-2 ">
+          {isMiddleBtn && (
+            <div className="flex gap-2">
+              <Button disabled={disabled} mini primary onClick={handleDelivery}>
+                Delivery
+              </Button>
+              <Button disabled={disabled} onClick={handleReturn} mini primary>
+                Return
+              </Button>
+              <Button disabled={disabled} onClick={handleDelete} mini danger>
+                Delete
+              </Button>
+            </div>
+          )}
           <div>
             {link ? (
               <NavLink to={`${link}`}>
@@ -71,26 +90,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
               )
             )}
           </div>
-          {/* <div>
-            {isNeedFilter
-              ? isNormalBtn && (
-                  <InputFilter
-                    placeholder={filterPlaceHolder}
-                    Filter={FilterOptions}
-                  />
-                )
-              : isNormalBtn && <Button primary>{normalBtn}</Button>}
-          </div> */}
-          {/* <div>
-            {isNeedFilter
-              ? isNormalBtn && (
-                  <InputFilter
-                    placeholder={filterPlaceHolder}
-                    Filter={FilterOptions}
-                  />
-                )
-              : isNormalBtn && <Button primary>{normalBtn}</Button>}
-          </div> */}
         </div>
       </div>
     </div>

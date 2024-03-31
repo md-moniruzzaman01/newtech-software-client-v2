@@ -14,6 +14,7 @@ import {
 } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { useServiceAddMutation } from "../../../redux/features/api/service";
+import { defaultPartnerValue } from "./config/constants";
 
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [addedItem, setAddedItem] = useState<updateAddedItemProps[]>([]);
@@ -21,7 +22,8 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     null
   );
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [partnerInfo, setPartnerInfo] = useState<partnerProps | null>(null);
+  const [partnerInfo, setPartnerInfo] =
+    useState<partnerProps>(defaultPartnerValue);
   // const [loading, setLoading] = useState(false);
 
   // const [serviceAdd] = useServiceAddMutation();
@@ -50,9 +52,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const address = (form.elements.namedItem("address") as HTMLInputElement)
       .value;
-    const product_or_items_name = (
-      form.elements.namedItem("product_or_items_name") as HTMLInputElement
-    ).value;
+
     const brand_name = (
       form.elements.namedItem("brand_name") as HTMLInputElement
     ).value;
@@ -62,14 +62,10 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     const serial_number = (
       form.elements.namedItem("serial_number") as HTMLInputElement
     ).value;
-    // const warranty_type = (
-    //   form.elements.namedItem("warranty_type") as HTMLInputElement
-    // ).value;
+
     const remark = (form.elements.namedItem("remark") as HTMLInputElement)
       .value;
-    const branch_name = (
-      form.elements.namedItem("branch_name") as HTMLInputElement
-    ).value;
+
     const problem = (form.elements.namedItem("problem") as HTMLInputElement)
       .value;
 
@@ -83,13 +79,11 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     setPartnerInfo(partner);
 
     const data = {
-      product_or_items_name,
       brand_name,
       model_number,
       serial_number,
       // warranty_type,
       remark,
-      branch_name,
       problem,
     };
 
@@ -140,7 +134,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
         const updatedAddedItem = addedItem.filter((_, i) => i !== index);
 
         if (updatedAddedItem?.length === 0) {
-          setPartnerInfo(null);
+          setPartnerInfo(defaultPartnerValue);
           localStorage.removeItem("partnerInfo");
           localStorage.removeItem("customerInfo");
         }
@@ -171,7 +165,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }).then((willDelete) => {
       if (willDelete) {
         setAddedItem([]);
-        setPartnerInfo(null);
+        setPartnerInfo(defaultPartnerValue);
         localStorage.removeItem("addedItem");
         localStorage.removeItem("partnerInfo");
         localStorage.removeItem("customerInfo");
@@ -184,31 +178,37 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     });
   };
 
+  const { customer_name, contact_number, email, address } = partnerInfo;
   const fullData = {
-
+    customer_name,
+    contact_number,
+    email,
+    address,
+    addedItem,
   };
+  console.log(fullData);
 
   const handleDataSubmit = async () => {
     const token = getFromLocalStorage(authKey);
-    console.log(fullData)
-    // try {
-    //   const result = await serviceAdd({ fullData, token });
-    //   if ("data" in result) {
-    //     setAddedItem([]);
-    //     setPartnerInfo(null);
-    //     removeFromLocalStorage("addedItem");
-    //     removeFromLocalStorage("customerInfo");
-    //     swal("Your data has been successfully submitted.", {
-    //       icon: "success",
-    //     });
-    //   } else if ("error" in result) {
-    //     swal("Something went wrong!", {
-    //       icon: "error",
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.error("Error adding complaint:", error);
-    // }
+    try {
+      const result = await serviceAdd({ fullData, token });
+
+      if ("data" in result) {
+        setAddedItem([]);
+        setPartnerInfo(defaultPartnerValue);
+        removeFromLocalStorage("addedItem");
+        removeFromLocalStorage("customerInfo");
+        swal("Your data has been successfully submitted.", {
+          icon: "success",
+        });
+      } else if ("error" in result) {
+        swal("Something went wrong!", {
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error adding complaint:", error);
+    }
   };
 
   return (
@@ -266,6 +266,8 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   labelName="Address"
                 ></Input>
               </div>
+
+              {/* Brand Name  */}
               <div>
                 <Input
                   defaultValue={`${selectData ? selectData?.brand_name : ""}`}
@@ -308,16 +310,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   labelName="Remark"
                 ></Input>
               </div>
-              {/* Branch Name  */}
-              <div>
-                <Input
-                  defaultValue={`${selectData ? selectData?.branch_name : ""}`}
-                  required
-                  inputName="branch_name"
-                  inputPlaceholder="Branch Name"
-                  labelName="Branch Name"
-                ></Input>
-              </div>
+
               {/* Problem  */}
               <div className="col-span-3">
                 <TextArea
@@ -338,7 +331,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
             <div>
               <Button
                 onClick={handleDataSubmit}
-                disabled={addedItem?.length < 0}
+                disabled={addedItem?.length <= 0}
                 primary
               >
                 Submit {addedItem?.length > 0 && "All"}
@@ -368,13 +361,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                     <div className="text-base font-semibold overflow-x-auto">
                       Brand Name :
                       <span className="text-sm font-normal">
-                        {item?.branch_name}
-                      </span>
-                    </div>
-                    <div className="text-base font-semibold overflow-x-auto">
-                      Product Name :
-                      <span className="text-sm font-normal">
-                        {item?.product_or_items_name}
+                        {item?.brand_name}
                       </span>
                     </div>
                     <div className="text-base font-semibold overflow-x-auto">
@@ -387,6 +374,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                       Serial Number :
                       <span className="text-sm font-normal">
                         <span> {item?.serial_number}</span>
+                      </span>
+                    </div>
+                    <div className="text-base font-semibold overflow-x-auto">
+                      Remark :
+                      <span className="text-sm font-normal">
+                        {item?.remark}
                       </span>
                     </div>
 
@@ -410,7 +403,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                 ))
               ) : (
                 <div className="font-semibold  text-center mt-20">
-                  Emty Data
+                  Empty Data
                 </div>
               )}
             </div>

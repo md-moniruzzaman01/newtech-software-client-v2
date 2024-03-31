@@ -1,4 +1,4 @@
-import { decodedToken } from "../shared/helpers/jwt";
+// import { decodedToken } from "../shared/helpers/jwt";
 import {
   getFromLocalStorage,
   setToLocalStorage,
@@ -13,8 +13,16 @@ export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
 export const getUserInfo = (): any => {
   const authToken = getFromLocalStorage(authKey);
   if (authToken) {
-    const decodedData = decodedToken(authToken);
-    return decodedData;
+    // const decodedData = decodedToken(authToken);
+    return {
+      Skill: [],
+      asp: ["1"],
+      exp: 1712657653,
+      iat: 1711793653,
+      power: ["05", "01", "04", "06"],
+      role: "engineer",
+      userId: "NT00001",
+    };
   } else {
     return "";
   }

@@ -43,7 +43,7 @@ const ComplaintsRoute = () => {
             <span>My Complaints</span>
           </div>
         </NavLink>
-        <NavLink to="/complaints">
+        <NavLink to={`/${activeRoute ? "complaints" : "complaints-service"}`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Complaints List</span>
