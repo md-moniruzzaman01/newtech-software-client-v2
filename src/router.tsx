@@ -62,6 +62,7 @@ import BillPendingWarranty from "./modules/warranty/BillWarranty/BillPendingWarr
 import ComplaintsEditPage from "./modules/warranty/complaints/ComplaintsEditPage/ComplaintsEditPage";
 import MyRepairs from "./modules/warranty/repair/My repairs/MyRepairs";
 import ComplaintListService from "./modules/services/ComplaintListService/ComplaintListService";
+import EngineerAllRepairs from "./modules/warranty/repair/Engineer All Repairs/EngineerAllRepairs";
 
 export const router = createBrowserRouter([
   {

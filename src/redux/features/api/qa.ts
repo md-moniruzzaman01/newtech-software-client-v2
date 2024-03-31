@@ -1,56 +1,54 @@
 import { baseApi } from "../../api/apiSlice";
 
-const QCApi = baseApi.injectEndpoints({
+const QAApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // brand section
-    createQC: builder.mutation({
+    createQA: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/qc",
+        url: "/qa/multiple",
         method: "POST",
         headers: {
           authorization: token,
         },
         body: fullData,
       }),
-      invalidatesTags: ["complaints", "qc"],
+      invalidatesTags: ["complaints", "qa"],
     }),
-    updateStatusQC: builder.mutation({
+    updateStatusQA: builder.mutation({
       query: ({ fullData, token, id }) => ({
-        url: `/qc/${id}`,
+        url: `/qa/${id}`,
         method: "PATCH",
         headers: {
           authorization: token,
         },
         body: fullData,
       }),
-      invalidatesTags: ["complaints", "qc"],
+      invalidatesTags: ["complaints", "qa"],
     }),
 
-    getOldQcs: builder.query({
+    getOldQas: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}`,
+          url: `/qa/my-library/${params?.id}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
-      providesTags: ["qc"],
+      providesTags: ["qa"],
     }),
 
-    getQcs: builder.query({
+    getQas: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}?status=QC&${params?.query}`,
+          url: `/qa/my-library/${params?.id}?status=QA&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
-      providesTags: ["qc"],
+      providesTags: ["qa"],
     }),
-
-    getProducts: builder.query({
+    getQAProducts: builder.query({
       query: (params) => {
         return {
           url: `/product?${params?.query}`,
@@ -66,9 +64,5 @@ const QCApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useCreateQCMutation,
-  useGetProductsQuery,
-  useGetQcsQuery,
-  useGetOldQcsQuery,
-  useUpdateStatusQCMutation,
-} = QCApi;
+useCreateQAMutation,useGetOldQasQuery,useGetQAProductsQuery,useGetQasQuery
+} = QAApi;

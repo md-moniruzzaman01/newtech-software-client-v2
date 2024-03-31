@@ -9,8 +9,9 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader } from "./config/constants";
-import { useGetQcsQuery } from "../../../../redux/features/api/qc";
+
 import MyQATable from "./partials/MyQATable";
+import { useGetQasQuery } from "../../../../redux/features/api/qa";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -21,7 +22,7 @@ const QCMyLibrary = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetQcsQuery({
+  const { data, isError, isLoading } = useGetQasQuery({
     id,
     token,
   });
