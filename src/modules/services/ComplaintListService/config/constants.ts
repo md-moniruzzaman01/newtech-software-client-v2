@@ -12,12 +12,10 @@ export const keys = [
 export const btnValue = [
   "Pending",
   "In Progress",
-  "Buffer",
   "Cancel",
   "Reject",
-  "CN",
-  "NTF",
   "Required Parts",
+  "repair failed",
   "Completed",
   "Delivered",
   "Unpaid",

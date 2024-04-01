@@ -12,13 +12,13 @@ import {
 } from "./config/constants";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
-import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
 import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
+import { useGetServicesQuery } from "../../../redux/features/api/service";
 
 //internal
 
@@ -33,7 +33,7 @@ const ComplaintListService = () => {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
+  } = useGetServicesQuery({
     query,
     token,
   });
@@ -82,6 +82,7 @@ const ComplaintListService = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
+  console.log(complaintsData)
 
   return (
     <div className=" px-5">

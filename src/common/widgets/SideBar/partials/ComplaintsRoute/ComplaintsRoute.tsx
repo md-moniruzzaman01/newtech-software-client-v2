@@ -17,11 +17,9 @@ const ComplaintsRoute = () => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <div
-      className={`pl-[30px] py-2 ${
-        isExpanded && activeRoute && "bg-sideBarService"
-      } ${
-        !activeRoute && isExpanded && "bg-shadeOfBlueDark"
-      } font-semibold text-solidWhite`}
+      className={`pl-[30px] py-2 ${isExpanded && activeRoute && "bg-sideBarService"
+        } ${!activeRoute && isExpanded && "bg-shadeOfBlueDark"
+        } font-semibold text-solidWhite`}
     >
       <button className="flex gap-3 items-center" {...getToggleProps()}>
         <MdOutlineEventNote className="text-xl" />
@@ -37,18 +35,6 @@ const ComplaintsRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-        <NavLink to="/my-complaints">
-          <div className={routeStyle}>
-            <span>&#8618;</span>
-            <span>My Complaints</span>
-          </div>
-        </NavLink>
-        <NavLink to={`/${activeRoute ? "complaints" : "complaints-service"}`}>
-          <div className={routeStyle}>
-            <span>&#8618;</span>
-            <span>Complaints List</span>
-          </div>
-        </NavLink>
         <NavLink
           to={`${activeRoute ? "/add-warranty-complaint" : "/add-complaint"}`}
         >
@@ -57,10 +43,16 @@ const ComplaintsRoute = () => {
             <span>Add Complaints</span>
           </div>
         </NavLink>
-        <NavLink to="/buffers">
+        <NavLink to={`/${activeRoute ? "complaints" : "complaints-service"}`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
-            <span>Buffers</span>
+            <span>Complaints List</span>
+          </div>
+        </NavLink>
+        <NavLink to="/my-complaints">
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>My Complaints</span>
           </div>
         </NavLink>
         <NavLink to="/complaints-delivered">
@@ -69,6 +61,17 @@ const ComplaintsRoute = () => {
             <span>Complaints Delivered</span>
           </div>
         </NavLink>
+
+        {
+          activeRoute && <NavLink to="/buffers">
+            <div className={routeStyle}>
+              <span>&#8618;</span>
+              <span>Buffers</span>
+            </div>
+          </NavLink>
+        }
+
+
       </section>
     </div>
   );

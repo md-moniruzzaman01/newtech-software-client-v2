@@ -6,12 +6,15 @@ export type updateAddedItemProps = {
   brand_name: string;
   model_number: string;
   serial_number: string;
-  remark: string;
-  problem: string;
+  attachments: string;
+  problems: string;
+  category_name?: string;
+  category: string;
+  categoryValue?: string;
 };
 
 export type partnerProps = {
-  customer_name?: string;
+  partner_name?: string;
   contact_number?: string;
   email?: string;
   address?: string;

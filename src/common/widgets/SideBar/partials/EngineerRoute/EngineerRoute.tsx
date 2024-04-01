@@ -36,10 +36,10 @@ const EngineerRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-        <NavLink to="/engineer-items">
+      <NavLink to={`/engineer-all-repairs`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
-            <span>Engineer Library</span>
+            <span>All Repairs</span>
           </div>
         </NavLink>
         <NavLink to="/engineer-my-repaired">
@@ -48,12 +48,14 @@ const EngineerRoute = () => {
             <span>My Repaired</span>
           </div>
         </NavLink>
-        <NavLink to={`/engineer-all-repairs`}>
+        <NavLink to="/engineer-items">
           <div className={routeStyle}>
             <span>&#8618;</span>
-            <span>All Repairs</span>
+            <span>Engineer Library</span>
           </div>
         </NavLink>
+
+
         <NavLink to="/my-library">
           <div className={routeStyle}>
             <span>&#8618;</span>

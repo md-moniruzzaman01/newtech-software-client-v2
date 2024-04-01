@@ -216,7 +216,7 @@ const ComplaintAddForWarranty = () => {
     setSelectedItem(index);
     setSelectData(selectedItemData);
   };
-  console.log(selectData);
+
 
   const { brand_name, partner_id } = partnerInfo;
   const fullData: any = {

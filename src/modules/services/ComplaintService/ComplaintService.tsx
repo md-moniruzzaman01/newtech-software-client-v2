@@ -10,24 +10,38 @@ import {
 } from "./config/types";
 import swal from "sweetalert";
 import {
-  getFromLocalStorage
+  getFromLocalStorage, removeFromLocalStorage
 } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
-import { useServiceAddMutation } from "../../../redux/features/api/service";
 import { defaultPartnerValue } from "./config/constants";
+
+import { useGetMainCategoryQuery, useGetServiceCategoryQuery,  } from "../../../redux/features/api/Category";
+import InputFilter from "../../../common/components/InputFilter/InputFilter";
+import { useServiceAddMutation } from "../../../redux/features/api/service";
 
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [addedItem, setAddedItem] = useState<updateAddedItemProps[]>([]);
+  const [categories, setCategories] = useState([]);
+  const [mainCategories, setMainCategories] = useState([]);
+  const [mainCategoryValue, setMainCategoryValue] = useState("");
   const [selectData, setSelectData] = useState<updateAddedItemProps | null>(
     null
   );
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [partnerInfo, setPartnerInfo] =
     useState<partnerProps>(defaultPartnerValue);
-  // const [loading, setLoading] = useState(false);
+    const {
+      data: mainCategoryData,
+      isError: mainCategoryError,
+      isLoading: mainCategoryLoading,
+    } = useGetMainCategoryQuery({});
 
-  // const [serviceAdd] = useServiceAddMutation();
-
+ const{   data: categoryData,
+    isError: categoryError,
+    isLoading: categoryLoading,
+  } = useGetServiceCategoryQuery({});
+  
+  const [serviceAdd,{isLoading,isError}] = useServiceAddMutation();
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
     const storedPartnerInfo = localStorage.getItem("customerInfo");
@@ -40,11 +54,29 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }
   }, []);
 
+  useEffect(() => {
+
+    if (!categoryLoading && !categoryError) {
+      setCategories(categoryData?.data);
+    }
+    if (!mainCategoryLoading && !mainCategoryError) {
+      setMainCategories(mainCategoryData?.data);
+    }
+  }, [
+    categoryData,
+    categoryError,
+    categoryLoading,
+    mainCategoryData,
+    mainCategoryError,
+    mainCategoryLoading,
+  ]);
+
+
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
-    const customer_name = (
-      form.elements.namedItem("customer_name") as HTMLInputElement
+    const partner_name = (
+      form.elements.namedItem("partner_name") as HTMLInputElement
     ).value;
     const contact_number = (
       form.elements.namedItem("contact_number") as HTMLInputElement
@@ -56,6 +88,8 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     const brand_name = (
       form.elements.namedItem("brand_name") as HTMLInputElement
     ).value;
+    const category = (form.elements.namedItem("category") as HTMLInputElement)
+      .value;
     const model_number = (
       form.elements.namedItem("model_number") as HTMLInputElement
     ).value;
@@ -63,14 +97,14 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       form.elements.namedItem("serial_number") as HTMLInputElement
     ).value;
 
-    const remark = (form.elements.namedItem("remark") as HTMLInputElement)
+    const attachments = (form.elements.namedItem("attachments") as HTMLInputElement)
       .value;
 
-    const problem = (form.elements.namedItem("problem") as HTMLInputElement)
+    const problems = (form.elements.namedItem("problem") as HTMLInputElement)
       .value;
 
     const partner = {
-      customer_name,
+      partner_name,
       contact_number,
       email,
       address,
@@ -82,9 +116,10 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       brand_name,
       model_number,
       serial_number,
-      // warranty_type,
-      remark,
-      problem,
+      attachments,
+      problems,
+      category,
+      category_name: mainCategoryValue,
     };
 
     let updatedAddedItem: updateAddedItemProps[];
@@ -178,15 +213,15 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     });
   };
 
-  const { customer_name, contact_number, email, address } = partnerInfo;
+  const { partner_name, contact_number, email, address } = partnerInfo;
+
   const fullData = {
-    customer_name,
+    partner_name,
     contact_number,
     email,
     address,
-    addedItem,
+    addedItem
   };
-  console.log(fullData);
 
   const handleDataSubmit = async () => {
     const token = getFromLocalStorage(authKey);
@@ -211,6 +246,10 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }
   };
 
+
+  if (isError) {
+    return <div className=" min-h-screen flex justify-center items-center text-xl"><h1>Error</h1></div>
+  }
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -222,13 +261,13 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               <div>
                 <Input
                   defaultValue={`${
-                    partnerInfo ? partnerInfo?.customer_name : ""
+                    partnerInfo ? partnerInfo?.partner_name : ""
                   }`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
-                  inputName="customer_name"
-                  inputPlaceholder="Customer Name"
-                  labelName="Customer Name"
+                  inputName="partner_name"
+                  inputPlaceholder="Partner name"
+                  labelName="Partner name"
                 />
               </div>
               {/* Contact Number  */}
@@ -277,6 +316,33 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   labelName="Brand Name"
                 ></Input>
               </div>
+              <div>
+                <InputFilter
+                  defaultValue={`${
+                    selectData ? selectData?.category_name : ""
+                  }`}
+                  required
+                  inputName="main_category"
+                  placeholder="Main Category"
+                  label="Main Category"
+                  Filter={mainCategories}
+                  onChange={(value) => setMainCategoryValue(value)}
+                />
+              </div>
+              {/* category  */}
+              <div>
+                <InputFilter
+                  defaultValue={`${
+                    selectData ? selectData?.categoryValue : ""
+                  }`}
+                  required
+                  inputName="category"
+                  placeholder="Category"
+                  label="Category"
+                  Filter={categories}
+                  // onChange={(value) => setCategoryValue(value)}
+                />
+              </div>
               {/* Model Number   */}
               <div>
                 <Input
@@ -300,12 +366,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                 ></Input>
               </div>
 
-              {/* Remark  */}
+              {/* attachments  */}
               <div className="col-span-2">
                 <Input
-                  defaultValue={`${selectData ? selectData?.remark : ""}`}
+                  defaultValue={`${selectData ? selectData?.attachments : ""}`}
                   required
-                  inputName="remark"
+                  inputName="attachments"
                   inputPlaceholder="Remark"
                   labelName="Remark"
                 ></Input>
@@ -314,7 +380,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               {/* Problem  */}
               <div className="col-span-3">
                 <TextArea
-                  defaultValue={`${selectData ? selectData?.problem : ""}`}
+                  defaultValue={`${selectData ? selectData?.problems : ""}`}
                   name="problem"
                   label="Write Problem"
                   placeholder="Write Problem"
@@ -330,6 +396,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
           <div className="flex justify-center  pt-10">
             <div>
               <Button
+              loading={isLoading}
                 onClick={handleDataSubmit}
                 disabled={addedItem?.length <= 0}
                 primary
@@ -379,7 +446,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                     <div className="text-base font-semibold overflow-x-auto">
                       Remark :
                       <span className="text-sm font-normal">
-                        {item?.remark}
+                        {item?.attachments}
                       </span>
                     </div>
 
