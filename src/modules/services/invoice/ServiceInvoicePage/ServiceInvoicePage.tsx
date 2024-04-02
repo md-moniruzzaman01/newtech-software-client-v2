@@ -134,7 +134,13 @@ const ServiceInvoicePage = () => {
           <div>
             <p>Tel: +880255742588, E-mail: info@necgroupbd.com,</p>
             <p>
-              Web: <a href="http://www.necgroupbd.com">www.necgroupbd.com</a>
+              Web:{" "}
+              <a
+                className="text-solidBlack hover:underline"
+                href="http://www.necgroupbd.com"
+              >
+                www.necgroupbd.com
+              </a>
             </p>
           </div>
         </div>

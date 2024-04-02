@@ -148,9 +148,11 @@ const SideBar = () => {
               <span>Engineer</span>
             </div>
           </NavLink> */}
-          <div>
-            <BillRoute />
-          </div>
+          {!activeRoute && (
+            <div>
+              <BillRoute />
+            </div>
+          )}
           {/* <NavLink to="/partner">
             <div className={routeStyle}>
               <IoPeople className="text-xl" />
