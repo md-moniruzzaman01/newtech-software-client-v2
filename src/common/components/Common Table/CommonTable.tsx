@@ -3,23 +3,15 @@ import{ FC } from "react";
 
 interface CommonTableProps {
     headerData : string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   itemData: Record<string, any>[]; 
   dataLayout: string[];
 }
 
 
-type TableData = Record<string, any>; 
+// type TableData = Record<string, any>; 
 
 const CommonTable: FC<CommonTableProps> = ({ headerData, itemData = [], dataLayout }) => {
-    const renderTableCell = (item: TableData, layout: string) => {
-        const keys = layout.split(".");
-        let value: any = item;
-        for (const key of keys) { 
-            console.log(key)
-          value = value[key];
-        }
-        return value;
-      };
 
   return (
     <div className="flex justify-center w-full">
@@ -42,7 +34,6 @@ const CommonTable: FC<CommonTableProps> = ({ headerData, itemData = [], dataLayo
               <tr key={index}>
                 {dataLayout.map((layout, idx) => (
                      <td key={idx}>{eval(layout)}</td>
-                //   <td key={idx} className="border border-gray-800">{renderTableCell(item, layout)}</td>
                 ))}
               </tr>
             ))}

@@ -25,7 +25,6 @@ const ComplaintsApi = baseApi.injectEndpoints({
     }),
     getComplaintById: builder.query({
       query: (params) => {
-        console.log(`/complaints/${params?.id}`);
         return {
           url: `/complaints/${params?.id}`,
           headers: {
@@ -34,13 +33,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
         };
       },
     }),
-    // updatePost: builder.mutation({
-    //   query: ({ postId, updatedPost }) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "PUT",
-    //     body: updatedPost,
-    //   }),
-    // }),
+
     // deletePost: builder.mutation({
     //   query: (postId) => ({a
     //     url: `/posts/${postId}`,
@@ -53,5 +46,5 @@ const ComplaintsApi = baseApi.injectEndpoints({
 export const {
   useComplaintAddMutation,
   useGetComplaintsQuery,
-  useGetComplaintByIdQuery,
+  useGetComplaintByIdQuery
 } = ComplaintsApi;

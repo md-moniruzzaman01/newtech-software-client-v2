@@ -1,5 +1,5 @@
 export const defaultPartnerValue = {
-  customer_name: "",
+  partner_name: "",
   contact_number: "",
   email: "",
   address: "",

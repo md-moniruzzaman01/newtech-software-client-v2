@@ -5,13 +5,33 @@ const ServiceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     serviceAdd: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/create-service",
+        url: "/complaints/create-service",
         method: "POST",
         headers: {
           authorization: token,
         },
         body: fullData,
       }),
+    }),
+    getServices: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints/services?${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
+    getServicesById: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints/${params?.id}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
     }),
 
     // updatePost: builder.mutation({
@@ -30,4 +50,4 @@ const ServiceApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useServiceAddMutation } = ServiceApi;
+export const { useServiceAddMutation,useGetServicesByIdQuery,useGetServicesQuery } = ServiceApi;
