@@ -4,10 +4,10 @@ export const cx = classNames;
 export const authKey = "accessToken";
 
 export const FilterOptions = [
-  { label: " withdrow method", value: "all" },
-  { label: "Latest", value: "desc" },
-  { label: "Oldest", value: "asc" },
-  { label: "Oldest", value: "asc" },
+  { id: " withdrow method", value: "all" },
+  { id: "Latest", value: "desc" },
+  { id: "Oldest", value: "asc" },
+  { id: "Oldest", value: "asc" },
 ];
 export const FilterOptions3 = [
   { id: " method", value: "all" },
@@ -17,13 +17,13 @@ export const FilterOptions3 = [
 ];
 
 export const FilterOptions2 = [
-  { label: " withdrow method", value: "all" },
-  { label: "Latest", value: "desc" },
-  { label: "Oldest", value: "asc" },
+  { id: " withdrow method", value: "all" },
+  { id: "Latest", value: "desc" },
+  { id: "Oldest", value: "asc" },
 ];
 export const ComplaintDetails = [
-  { label: "Email", value: "fahimkhandakar01@gmail.com" },
-  { label: "Address", value: "dhaka, bangladesh" },
+  { id: "Email", value: "fahimkhandakar01@gmail.com" },
+  { id: "Address", value: "dhaka, bangladesh" },
 ];
 export const DemoTableHeader = [
   "Order ID",

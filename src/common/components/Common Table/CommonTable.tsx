@@ -9,6 +9,7 @@ interface CommonTableProps {
 }
 
 
+
 // type TableData = Record<string, any>; 
 
 const CommonTable: FC<CommonTableProps> = ({ headerData, itemData = [], dataLayout }) => {

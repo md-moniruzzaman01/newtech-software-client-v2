@@ -2,7 +2,7 @@ import InputFilter from "../InputFilter/InputFilter";
 
 interface BranchCommonHeaderProps {
   title?: string;
-  selectItems: { label: string; value: string }[];
+  selectItems: { id: string; value: string }[];
 }
 
 const BranchCommonHeader: React.FC<BranchCommonHeaderProps> = ({

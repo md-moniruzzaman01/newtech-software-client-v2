@@ -1,6 +1,7 @@
-import { CustomerDetailsTableProps } from "../../../../shared/config/types";
+
 import { NavLink } from "react-router-dom";
 import { IoMdEye } from "react-icons/io";
+import { CustomerDetailsTableProps } from "../../../../../shared/config/types";
 
 const CustomerDetailsTable: React.FC<CustomerDetailsTableProps> = ({
   HeaderData,

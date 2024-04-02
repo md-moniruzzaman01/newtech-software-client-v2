@@ -41,7 +41,7 @@ export type complaintDetailsCardProps = {
   CardInformation: complaintSingleDetailsProps[];
 };
 export type complaintSingleDetailsProps = {
-  label: string;
+  id: string;
   value: string;
 };
 export type TableProps = {
