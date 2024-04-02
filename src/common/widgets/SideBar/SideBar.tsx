@@ -30,7 +30,6 @@ const SideBar = () => {
   const [activeRoute, setActiveRoute] = useState(true);
   const navigate = useNavigate();
   const user = getUserInfo();
-  console.log(user);
 
   // [
   //   { id: "01", value: "Branch incharge" },
@@ -149,9 +148,11 @@ const SideBar = () => {
               <span>Engineer</span>
             </div>
           </NavLink> */}
-          <div>
-            <BillRoute />
-          </div>
+          {!activeRoute && (
+            <div>
+              <BillRoute />
+            </div>
+          )}
           {/* <NavLink to="/partner">
             <div className={routeStyle}>
               <IoPeople className="text-xl" />

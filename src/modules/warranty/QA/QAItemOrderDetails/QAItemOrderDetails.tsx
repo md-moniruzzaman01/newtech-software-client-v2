@@ -5,9 +5,16 @@ import QAItemOrderStatus from "./partials/QAItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails } from "../../../../shared/config/constaints";
+import {
+  ComplaintDetails,
+  authKey,
+} from "../../../../shared/config/constaints";
+import { useParams } from "react-router-dom";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 const QAItemOrderDetails = () => {
+  const { id } = useParams();
+  const token = getFromLocalStorage(authKey);
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (QA)"} />

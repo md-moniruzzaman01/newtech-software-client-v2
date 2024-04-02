@@ -10,6 +10,7 @@ export type CreateBillServiceTableProps = {
 export type CreateTableHeaderProps = string;
 export type CreateTableBodyProps = {
   _id?: string;
+  id?: string;
   order_number?: string;
   products?: {
     id?: string;

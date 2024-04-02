@@ -46,8 +46,8 @@ const BillServiceTable: FC<CreateBillServiceTableProps> = ({
                       <input
                         type="checkbox"
                         className="checkbox form-checkbox h-5 w-5 "
-                        checked={checkedRows?.includes(item?._id || "")}
-                        onChange={() => handleCheckboxChange(item?._id || "")}
+                        checked={checkedRows?.includes(item?.id || "")}
+                        onChange={() => handleCheckboxChange(item?.id || "")}
                       />
                     </label>
                   </td>

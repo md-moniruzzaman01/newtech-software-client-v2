@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps } from "../config/types";
-import { useGetComplaintByIdQuery } from "../../../../../redux/features/api/complaints";
-import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
-import { authKey } from "../../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
+import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
+import Input from "../../../../common/components/Input";
 
 const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
   const [complaintsSingleData, setComplaintsSingleData] =
@@ -22,25 +23,26 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
   return (
     <div className="w-full ">
       {/* header row start here  */}
-      <div className="grid grid-cols-5 gap-5 text-center">
-        <div className="">SL Number</div>
-        <div className="">Items</div>
-        <div className="">Problem</div>
-        <div className="">Remark</div>
-        <div className="">Price</div>
+      <div className="grid grid-cols-6 gap-5 text-center">
+        <div>Order No</div>
+        <div>SL No</div>
+        <div>Problem</div>
+        <div>Discount</div>
+        <div>Hidden Discount</div>
+        <div>Service Charge</div>
       </div>
       <hr className="border-b border-shadeOfGray my-2" />
 
       <div className="text-center">
         {/* second row start here  */}
-        <div className="grid grid-cols-5  text-center">
-          <div className="border py-2 border-gray-400">
+        <div className="grid grid-cols-6  text-center">
+          <div className="border py-2 border-grayForBorder">
             {complaintsSingleData?.products?.serial_number}
           </div>
-          <div className="border py-2 border-gray-400">
+          <div className="border py-2 border-grayForBorder">
             {complaintsSingleData?.products?.category_name}
           </div>
-          <div className="border py-2 border-gray-400">
+          <div className="border py-2 border-grayForBorder">
             {complaintsSingleData &&
             complaintsSingleData?.products?.problems?.length > 0
               ? complaintsSingleData?.products?.problems
@@ -49,34 +51,12 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
                   .split(",")
               : "No Data"}
           </div>
-          <div className="border py-2 border-gray-400">
-            {complaintsSingleData?.products?.attachments}
-          </div>
-          <div className="border py-2 border-gray-400">
-            {complaintsSingleData?.total_charge}
-          </div>
+          <Input />
+          <Input />
+          <Input />
         </div>
 
         <hr className="border-b border-shadeOfGray my-2" />
-        {/* third row start here  */}
-        <div className="grid grid-cols-5  text-center">
-          <div className="border-l py-2 border-y border-gray-400"></div>
-          <div className="border-t py-2 border-b border-gray-400"></div>
-          <div className="border-t py-2 border-b border-gray-400"></div>
-          <div className="border-t py-2 border-b border-gray-400"></div>
-          <div className="border py-2 border-gray-400">1000000</div>
-        </div>
-
-        <hr className="border-b border-shadeOfGray my-2" />
-        {/* fourth row start here  */}
-        <div className="grid grid-cols-5  text-start">
-          <div className="border-l  py-2 border-y border-gray-400 col-span-2 pl-9">
-            Materials Replacement: Yes / No
-          </div>
-          <div className="border-t border-b border-gray-400"></div>
-          <div className="border-t border-b border-gray-400"></div>
-          <div className="border py-2 border-gray-400 text-center">1000000</div>
-        </div>
 
         <div className="flex justify-end">
           <hr className="border-b border-shadeOfGray my-2 w-1/2" />

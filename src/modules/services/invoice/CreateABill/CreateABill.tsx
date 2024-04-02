@@ -9,10 +9,13 @@ import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints
 import BillServicePendingTable from "./Partials/BillServicePendingTable/CreateBillServiceTable";
 import { CreateBillServiceTableHeader } from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { useDispatch } from "react-redux";
+import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 
 const BillListWarranty = () => {
   const [billData, setBillData] = useState([]);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
+  const dispatch = useDispatch();
 
   // const [engineers, setEngineers] = useState([]);
   // const [selectEngineer, setSelectEngineer] =
@@ -31,7 +34,14 @@ const BillListWarranty = () => {
     if (!complaintsLoading && !complaintsError) {
       setBillData(complaintsData?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+    dispatch(setIds(checkedRows));
+  }, [
+    complaintsData,
+    complaintsLoading,
+    complaintsError,
+    checkedRows,
+    dispatch,
+  ]);
 
   const handleCheckboxChange = (index: string) => {
     if (checkedRows.includes(index)) {
@@ -66,14 +76,14 @@ const BillListWarranty = () => {
       <div className="pt-5">
         <SearchBar
           linkBtn="Generate Invoice"
-          link="/service-invoice"
+          link="/complaints-service-payments"
           isTrue={checkedRows?.length <= 0}
           checkedRows={checkedRows}
         />
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={[]} />
+          <StatusGroup />
           <div className="pt-5">
             <BillServicePendingTable
               HeaderData={CreateBillServiceTableHeader}

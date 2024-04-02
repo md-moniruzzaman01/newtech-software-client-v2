@@ -59,10 +59,12 @@ const QAApi = baseApi.injectEndpoints({
       },
       providesTags: ["complaints"],
     }),
-
   }),
 });
 
 export const {
-useCreateQAMutation,useGetOldQasQuery,useGetQAProductsQuery,useGetQasQuery
+  useCreateQAMutation,
+  useGetOldQasQuery,
+  useGetQAProductsQuery,
+  useGetQasQuery,
 } = QAApi;

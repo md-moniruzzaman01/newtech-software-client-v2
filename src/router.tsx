@@ -63,6 +63,7 @@ import ComplaintsEditPage from "./modules/warranty/complaints/ComplaintsEditPage
 import MyRepairs from "./modules/warranty/repair/My repairs/MyRepairs";
 import ComplaintListService from "./modules/services/ComplaintListService/ComplaintListService";
 import EngineerAllRepairs from "./modules/warranty/repair/Engineer All Repairs/EngineerAllRepairs";
+import ComplaintsServicePayment from "./modules/services/Complaints Service Payment Page/ComplaintsServicePayment";
 
 export const router = createBrowserRouter([
   {
@@ -139,11 +140,15 @@ export const router = createBrowserRouter([
         element: <Complaint />,
       },
       {
-        path: "complaints-service",
+        path: "/complaints-service",
         element: <ComplaintListService />,
       },
       {
-        path: "add-complaint",
+        path: "/complaints-service-payments",
+        element: <ComplaintsServicePayment />,
+      },
+      {
+        path: "/add-complaint",
         element: <ComplaintService />,
       },
 

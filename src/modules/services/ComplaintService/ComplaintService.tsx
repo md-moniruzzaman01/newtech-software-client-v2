@@ -10,14 +10,21 @@ import {
 } from "./config/types";
 import swal from "sweetalert";
 import {
-  getFromLocalStorage, removeFromLocalStorage
+  getFromLocalStorage,
+  removeFromLocalStorage,
 } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { defaultPartnerValue } from "./config/constants";
 
-import { useGetMainCategoryQuery, useGetServiceCategoryQuery,  } from "../../../redux/features/api/Category";
+import {
+  useGetMainCategoryQuery,
+  useGetServiceCategoryQuery,
+} from "../../../redux/features/api/Category";
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
 import { useServiceAddMutation } from "../../../redux/features/api/service";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setIds } from "../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [addedItem, setAddedItem] = useState<updateAddedItemProps[]>([]);
@@ -27,21 +34,25 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [selectData, setSelectData] = useState<updateAddedItemProps | null>(
     null
   );
+  const dispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [partnerInfo, setPartnerInfo] =
     useState<partnerProps>(defaultPartnerValue);
-    const {
-      data: mainCategoryData,
-      isError: mainCategoryError,
-      isLoading: mainCategoryLoading,
-    } = useGetMainCategoryQuery({});
+  const [redirectToPayment, setRedirectToPayment] = useState(false);
+  const navigate = useNavigate();
+  const {
+    data: mainCategoryData,
+    isError: mainCategoryError,
+    isLoading: mainCategoryLoading,
+  } = useGetMainCategoryQuery({});
 
- const{   data: categoryData,
+  const {
+    data: categoryData,
     isError: categoryError,
     isLoading: categoryLoading,
   } = useGetServiceCategoryQuery({});
-  
-  const [serviceAdd,{isLoading,isError}] = useServiceAddMutation();
+
+  const [serviceAdd, { isLoading, isError }] = useServiceAddMutation();
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
     const storedPartnerInfo = localStorage.getItem("customerInfo");
@@ -55,7 +66,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   }, []);
 
   useEffect(() => {
-
     if (!categoryLoading && !categoryError) {
       setCategories(categoryData?.data);
     }
@@ -70,7 +80,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     mainCategoryError,
     mainCategoryLoading,
   ]);
-
 
   const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -97,8 +106,9 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
       form.elements.namedItem("serial_number") as HTMLInputElement
     ).value;
 
-    const attachments = (form.elements.namedItem("attachments") as HTMLInputElement)
-      .value;
+    const attachments = (
+      form.elements.namedItem("attachments") as HTMLInputElement
+    ).value;
 
     const problems = (form.elements.namedItem("problem") as HTMLInputElement)
       .value;
@@ -220,22 +230,35 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     contact_number,
     email,
     address,
-    addedItem
+    addedItem,
   };
 
-  const handleDataSubmit = async () => {
+  const handleDataSubmit = async (isPaymentButton: boolean) => {
+    if (isPaymentButton) {
+      setRedirectToPayment(true);
+    } else {
+      setRedirectToPayment(false);
+    }
     const token = getFromLocalStorage(authKey);
     try {
       const result = await serviceAdd({ fullData, token });
 
       if ("data" in result) {
         setAddedItem([]);
+        const dataIds = result?.data?.data?.map(
+          (item: { id: string }) => item?.id
+        );
+        dispatch(setIds(dataIds));
+        console.log(result);
         setPartnerInfo(defaultPartnerValue);
         removeFromLocalStorage("addedItem");
         removeFromLocalStorage("customerInfo");
         swal("Your data has been successfully submitted.", {
           icon: "success",
         });
+        if (isPaymentButton) {
+          navigate("/complaints-service-payments");
+        }
       } else if ("error" in result) {
         swal("Something went wrong!", {
           icon: "error",
@@ -244,11 +267,15 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     } catch (error) {
       console.error("Error adding complaint:", error);
     }
+    setRedirectToPayment(false);
   };
 
-
   if (isError) {
-    return <div className=" min-h-screen flex justify-center items-center text-xl"><h1>Error</h1></div>
+    return (
+      <div className=" min-h-screen flex justify-center items-center text-xl">
+        <h1>Error</h1>
+      </div>
+    );
   }
   return (
     <div className="px-5">
@@ -393,15 +420,24 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               </div>
             </div>
           </form>
-          <div className="flex justify-center  pt-10">
-            <div>
+          <div className="flex justify-center  py-7">
+            <div className="flex gap-20">
               <Button
-              loading={isLoading}
-                onClick={handleDataSubmit}
+                loading={!redirectToPayment && isLoading}
+                onClick={() => handleDataSubmit(false)}
                 disabled={addedItem?.length <= 0}
                 primary
               >
-                Submit {addedItem?.length > 0 && "All"}
+                Skip & Submit
+              </Button>
+
+              <Button
+                loading={isLoading && redirectToPayment}
+                onClick={() => handleDataSubmit(true)}
+                disabled={addedItem?.length <= 0}
+                primary
+              >
+                Payment & Submit
               </Button>
             </div>
           </div>

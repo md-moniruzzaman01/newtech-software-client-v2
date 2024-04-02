@@ -9,7 +9,6 @@ export type QATableProps = {
 
 export type QATableHeaderProps = string;
 export type QATableBodyProps = {
-
   _id?: string;
   id?: string;
   serial_number?: string;
