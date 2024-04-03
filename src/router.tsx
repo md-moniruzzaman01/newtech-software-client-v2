@@ -144,7 +144,7 @@ export const router = createBrowserRouter([
         element: <ComplaintListService />,
       },
       {
-        path: "/complaints-service-payments",
+        path: "/complaints-service-payments/:id?",
         element: <ComplaintsServicePayment />,
       },
       {

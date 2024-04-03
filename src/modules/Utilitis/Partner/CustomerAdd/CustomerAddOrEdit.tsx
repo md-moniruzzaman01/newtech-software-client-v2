@@ -1,44 +1,97 @@
-import { HTML5Backend } from "react-dnd-html5-backend"; // or any other backend you prefer
-import { DndProvider } from "react-dnd";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
-import PhotoAttach from "../../../../common/components/PhotoAttach/PhotoAttach";
+import { useGetBrandsQuery } from "../../../../redux/features/api/Brand";
+import Button from "../../../../common/components/Button";
+import { useCreatePartnerMutation } from "../../../../redux/features/api/Partner";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
+import swal from "sweetalert";
 
 const CustomerAddOrEdit = () => {
+  const token = getFromLocalStorage(authKey);
+  const [createPartner, { isError, error }] = useCreatePartnerMutation();
+  const { data: brands } = useGetBrandsQuery({});
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget; // Use currentTarget for the form element
+    const contact_person = (
+      form.elements.namedItem("partner_name") as HTMLInputElement
+    ).value;
+    const contactNo = (
+      form.elements.namedItem("partner_no") as HTMLInputElement
+    ).value;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
+    const address = (form.elements.namedItem("address") as HTMLInputElement)
+      .value;
+    const company = (
+      form.elements.namedItem("company_name") as HTMLInputElement
+    ).value;
+    const asp = (form.elements.namedItem("brand") as HTMLInputElement).value;
+    const password = (form.elements.namedItem("password") as HTMLInputElement)
+      .value;
+
+    const fullData = {
+      password,
+      partner: {
+        company,
+        email,
+        contactNo,
+        contact_person,
+        address,
+        asp,
+      },
+    };
+    console.log("data", fullData);
+    try {
+      const result = await createPartner({ fullData, token });
+      console.log("result:", result); // Log the result
+    } catch (err) {
+      console.log("error", err); // Log the error
+      if (isError && error) {
+        swal("error", `${error}`, "error"); // Show the error with swal
+        console.error(error); // Log the error to the console
+      }
+    }
+
+    form.reset();
+  };
   return (
     <div className="px-5">
-      <Navbar name="Customer Info" />
+      <Navbar name="Partner Info" />
       <div className="bg-solidWhite my-5 py-5 px-10">
         <div className="space-y-2">
           <h1 className="text-xl font-semibold">Add/Edit Customer</h1>
           <hr className="border-t-4" />
         </div>
-        <div className="flex  gap-5">
-          <div className="w-1/2 py-5 space-y-3">
-            <Input inputPlaceholder="Customer Name" labelName="Customer Name" />
-            <Input inputPlaceholder="Company Name" labelName="Company Name" />
-            <Input inputPlaceholder="Designation" labelName="Designation" />
-            <Input
-              inputPlaceholder="Contact Number"
-              labelName="Contact Number"
-            />
-            <Input inputPlaceholder="Email" labelName="Email" />
-            <Input inputPlaceholder="Address" labelName="Address" />
-          </div>
-          <div className="w-1/2 py-5 space-y-3">
-            <InputFilter
-              placeholder="Active / Deactivate"
-              // Filter={FilterOptions}
-              label="Status"
-            />
+        <div>
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-3  py-5 gap-5">
+              <Input inputName="partner_name" labelName="Partner Name" />
+              <Input inputName="partner_no" labelName="Partner Number" />
+              <Input inputName="email" labelName="Email" />
+              <Input inputName="address" labelName="Address" />
+              <Input inputName="company_name" labelName="Company" />
+              <InputFilter
+                Filter={brands?.data}
+                label="Brand"
+                inputName="brand"
+              />
+              <Input inputName="password" labelName="Password" />
+            </div>
+            <div>
+              <Button primary>Create a Partner</Button>
+            </div>
+          </form>
+
+          {/* <div className=" py-5 space-y-3">
             <div className="space-y-2">
               <h2 className="font-semibold">Upload Profile Image:</h2>
               <DndProvider backend={HTML5Backend}>
                 <PhotoAttach />
               </DndProvider>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

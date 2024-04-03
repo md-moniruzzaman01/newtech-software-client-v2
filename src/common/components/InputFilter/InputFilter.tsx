@@ -17,7 +17,7 @@ const InputFilter: React.FC<InputFilterProps> = ({
   Filter = [],
   label,
   isDisabled = false,
-  placeholder = "Write here...",
+  placeholder = "Select",
   className,
   required = false,
   inputName,

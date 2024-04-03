@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "../../api/apiSlice";
 
-const ComplaintsApi = baseApi.injectEndpoints({
+const EngineerApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    complaintAdd: builder.mutation({
+    addEngineer: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/complaints/create",
+        url: "/user/create-engineer",
         method: "POST",
         headers: {
           authorization: token,
@@ -41,4 +41,4 @@ const ComplaintsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useComplaintAddMutation, useGetEngineersQuery } = ComplaintsApi;
+export const { useAddEngineerMutation, useGetEngineersQuery } = EngineerApi;

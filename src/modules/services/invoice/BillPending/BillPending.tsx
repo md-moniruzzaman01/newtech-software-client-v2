@@ -43,7 +43,7 @@ const BillListWarranty = () => {
           <div className="pt-5">
             <BillServicePendingTable
               view
-              Link="/complaints/order-details"
+              Link="/complaints-service-payments"
               itemData={billData}
               HeaderData={BillServicePendingTableHeader}
             />
