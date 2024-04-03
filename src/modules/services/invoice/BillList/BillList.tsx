@@ -73,7 +73,7 @@ const BillList = () => {
             <BillServiceTable
               HeaderData={BillServiceTableHeader}
               itemData={billData}
-              Link="/qc/order-details"
+              Link="/complaints-service-payments"
               checkedRows={checkedRows}
               handleCheckboxChange={handleCheckboxChange}
               handleAllCheckboxChange={handleAllCheckboxChange}

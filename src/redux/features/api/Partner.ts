@@ -4,9 +4,13 @@ const ComplaintsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // partner section
     createPartner: builder.mutation({
-      query: () => ({
+      query: ({ fullData, token }) => ({
         url: "/user/create-partner",
         method: "POST",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
       }),
     }),
     getPartners: builder.query({

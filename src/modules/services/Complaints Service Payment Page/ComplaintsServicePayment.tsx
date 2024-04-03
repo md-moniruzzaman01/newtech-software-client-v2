@@ -11,6 +11,7 @@ import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import Button from "../../../common/components/Button";
+import { MdModeEdit } from "react-icons/md";
 
 const ComplaintsServicePayment = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const ComplaintsServicePayment = () => {
   const serviceAllIds = useSelector(
     (state: RootState) => state.complaintsServiceIds.serviceAllIds
   );
+  const [isEdit, setIsEdit] = useState(true);
   console.log(serviceAllIds);
   const [complaintsSingleData, setComplaintsSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
@@ -87,10 +89,17 @@ const ComplaintsServicePayment = () => {
           CardInformation={ComplaintDetails}
         />
         <div className="col-span-3 bg-solidWhite px-5 py-5">
-          <div className="  py-2 ">
+          <div className="flex justify-between  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
+            <div
+              className={`cursor-pointer hover:text-shadeOfRed ${
+                !isEdit && "text-shadeOfRed"
+              }`}
+            >
+              <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
+            </div>
           </div>
-          <ComplaintOrderDetailsTable id={id} />
+          <ComplaintOrderDetailsTable isEdit={isEdit} id={id} />
           <div className=" w-1/3 mx-auto py-10">
             <Button onClick={handleSubmitPayment} className="w-full" primary>
               Save

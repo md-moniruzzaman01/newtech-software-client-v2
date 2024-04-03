@@ -42,7 +42,6 @@ const BillListWarranty = () => {
     checkedRows,
     dispatch,
   ]);
-
   const handleCheckboxChange = (index: string) => {
     if (checkedRows.includes(index)) {
       setCheckedRows(checkedRows.filter((item) => item !== index));
@@ -76,7 +75,7 @@ const BillListWarranty = () => {
       <div className="pt-5">
         <SearchBar
           linkBtn="Generate Invoice"
-          link="/complaints-service-payments"
+          link={`/complaints-service-payments`}
           isTrue={checkedRows?.length <= 0}
           checkedRows={checkedRows}
         />
@@ -88,7 +87,7 @@ const BillListWarranty = () => {
             <BillServicePendingTable
               HeaderData={CreateBillServiceTableHeader}
               itemData={billData}
-              Link="/qc/order-details"
+              Link={`/complaints-service-payments`}
               checkedRows={checkedRows}
               handleCheckboxChange={handleCheckboxChange}
               handleAllCheckboxChange={handleAllCheckboxChange}

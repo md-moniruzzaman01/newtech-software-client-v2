@@ -3,6 +3,27 @@ import classNames from "classnames";
 export const cx = classNames;
 export const authKey = "accessToken";
 
+export const branches = [
+  { id: "01", value: "Multilane Branch" },
+  { id: "02", value: "Sylhet Branch" },
+  { id: "03", value: "Banani Branch" },
+  { id: "04", value: "Chattagram Branch" },
+  { id: "05", value: "HQ Branch" },
+];
+
+export const engineerPower = [
+  { id: "01", value: "Branch incharge" },
+  { id: "02", value: "withdrow" },
+  { id: "03", value: "account" },
+  { id: "04", value: "RECEIVE/DELIVERY" },
+  { id: "05", value: "QC" },
+  { id: "06", value: "QA" },
+  { id: "07", value: "level 4 Engineer" },
+  { id: "08", value: "assistant Engineer" },
+];
+
+// others;
+
 export const FilterOptions = [
   { id: " withdrow method", value: "all" },
   { id: "Latest", value: "desc" },

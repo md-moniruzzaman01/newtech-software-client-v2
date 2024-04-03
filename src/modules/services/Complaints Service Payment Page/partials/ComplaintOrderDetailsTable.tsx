@@ -5,7 +5,13 @@ import { authKey } from "../../../../shared/config/constaints";
 import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
 import Input from "../../../../common/components/Input";
 
-const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
+const ComplaintOrderDetailsTable = ({
+  id,
+  isEdit,
+}: {
+  id?: string;
+  isEdit?: boolean;
+}) => {
   const [complaintsSingleData, setComplaintsSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
   const token = getFromLocalStorage(authKey);
@@ -51,9 +57,9 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
                   .split(",")
               : "No Data"}
           </div>
-          <Input />
-          <Input />
-          <Input />
+          <Input IsDisabled={isEdit} />
+          <Input IsDisabled={isEdit} />
+          <Input IsDisabled={isEdit} />
         </div>
 
         <hr className="border-b border-shadeOfGray my-2" />

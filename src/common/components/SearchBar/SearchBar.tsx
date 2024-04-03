@@ -18,6 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   handleReturn,
   isMiddleBtn = false,
   disabled = false,
+  checkedRows,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -78,7 +79,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <div>
             {link ? (
               <NavLink to={`${link}`}>
-                <Button primary>{linkBtn}</Button>
+                <Button
+                  disabled={(checkedRows && checkedRows?.length <= 0) || false}
+                  primary
+                >
+                  {linkBtn}
+                </Button>
               </NavLink>
             ) : (
               isDropdown && (

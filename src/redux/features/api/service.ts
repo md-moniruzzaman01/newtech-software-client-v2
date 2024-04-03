@@ -16,7 +16,7 @@ const ServiceApi = baseApi.injectEndpoints({
     getServices: builder.query({
       query: (params) => {
         return {
-          url: `/complaints/services?${params?.query}`,
+          url: `/complaints/service?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -50,4 +50,8 @@ const ServiceApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useServiceAddMutation,useGetServicesByIdQuery,useGetServicesQuery } = ServiceApi;
+export const {
+  useServiceAddMutation,
+  useGetServicesByIdQuery,
+  useGetServicesQuery,
+} = ServiceApi;
