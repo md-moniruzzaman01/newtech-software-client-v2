@@ -42,12 +42,12 @@ const UsersRoute = () => {
             <span>Partner</span>
           </div>
         </NavLink>
-        <NavLink to="/principle">
+        {/* <NavLink to="/principle">
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Principle</span>
           </div>
-        </NavLink>
+        </NavLink> */}
         <NavLink to={`/add-engineer`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
