@@ -54,7 +54,6 @@ const ComplaintsDelivered = () => {
             link="/complaints/order-details"
             dataLayout={tableLayout}
             >
-
             </CommonTable>
           </div>
         </div>
