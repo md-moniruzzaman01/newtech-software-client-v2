@@ -82,7 +82,7 @@ const ComplaintListService = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-  console.log(complaintsData)
+
 
   return (
     <div className=" px-5">

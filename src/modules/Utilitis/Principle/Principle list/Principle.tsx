@@ -4,15 +4,29 @@ import { NavLink } from "react-router-dom";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Button from "../../../../common/components/Button";
 import TableStatus from "../../../../common/components/TableStatus/TableStatus";
-import { btnValues } from "./config/constants";
-import CustomerInfoTable from "../../Partner/CustomerAdd/partials/CustomerInfoTable";
-import { DemoTableHeaderForCustomer } from "../../../../shared/config/constaints";
+import { HeaderForPrincipleTable, PrincipleData, btnValues } from "./config/constants";
+
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { useState } from "react";
+import { useGetPrinciplesQuery } from "../../../../redux/features/api/principle";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 
 const Principle = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
-  // const limit = 10;
+  const [checkedRows, setCheckedRows] = useState<string[]>([]);
+
+  const {data,isLoading,isError}=useGetPrinciplesQuery({})
+  if (isLoading) {
+    return <LoadingPage />
+  }
+  if (isError) {
+    return <div>
+      <div>
+        <h1>Somethings Wrong</h1>
+        <p>Please contact to Developer.</p>
+      </div>
+    </div>
+  }
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Principle Info" />
@@ -29,10 +43,16 @@ const Principle = () => {
           <TableStatus btnValues={btnValues} />
         </div>
         <div>
-          <CustomerInfoTable
-            HeaderData={DemoTableHeaderForCustomer}
+        <CommonTable
+            headerData={HeaderForPrincipleTable}
+            itemData={data?.data}
+            dataLayout={PrincipleData}
             link="/partner/order-details"
+            setCheckedRows={setCheckedRows}
+            checkedRows={checkedRows}
+            checkbox
           />
+
         </div>
       </div>
 

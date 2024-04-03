@@ -17,9 +17,9 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const numberOfPages = Math.ceil(totalItems / limit);
 
-  const handleItemsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleItemsPerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedPage = parseInt(e.target.value);
-    if (setCurrentPage) {
+    if (setCurrentPage && selectedPage <= numberOfPages) {
       setCurrentPage(selectedPage);
     }
   };
@@ -50,6 +50,7 @@ const Pagination: React.FC<PaginationProps> = ({
           (currentPage <= numberOfPages - 4 && page === numberOfPages - 1) // Show the second-to-last page if currentPage is 5 or more from the end
         ) {
           return (
+            
             <button
               className={currentPage === page ? "selected" : undefined}
               onClick={() => setCurrentPage && setCurrentPage(page)}
@@ -74,13 +75,8 @@ const Pagination: React.FC<PaginationProps> = ({
       })}
       <button onClick={handleNextPage}>Next</button>
       {/* Select dropdown for page selection */}
-      <select value={currentPage} onChange={handleItemsPerPage}>
-        {Array.from({ length: numberOfPages }).map((_, index) => (
-          <option key={index + 1} value={index + 1}>
-            {index + 1}
-          </option>
-        ))}
-      </select>
+      <input type="number" defaultValue={currentPage} onChange={handleItemsPerPage} name="changePage" className=" w-14 text-center ml-4 text-gray-500"  />
+
     </div>
   );
 };

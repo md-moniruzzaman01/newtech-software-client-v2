@@ -1,4 +1,5 @@
-import { ComplaintMiniCardProps } from "../../../../shared/config/types";
+import { ComplaintMiniCardProps } from "../../../../../shared/config/types";
+
 
 const ComplaintMiniCard: React.FC<ComplaintMiniCardProps> = ({
   header,
