@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
@@ -19,6 +19,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
   isMiddleBtn = false,
   disabled = false,
   checkedRows,
+  handleBillGenerate,
+  generateBtnLoading,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -78,14 +80,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
           )}
           <div>
             {link ? (
-              <NavLink to={`${link}`}>
-                <Button
-                  disabled={(checkedRows && checkedRows?.length <= 0) || false}
-                  primary
-                >
-                  {linkBtn}
-                </Button>
-              </NavLink>
+              <Button
+                loading={generateBtnLoading}
+                onClick={handleBillGenerate}
+                disabled={(checkedRows && checkedRows?.length <= 0) || false}
+                primary
+              >
+                {linkBtn}
+              </Button>
             ) : (
               isDropdown && (
                 <EngineersFilter

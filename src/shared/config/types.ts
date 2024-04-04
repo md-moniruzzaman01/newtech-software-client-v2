@@ -41,7 +41,7 @@ export type complaintDetailsCardProps = {
   CardInformation: complaintSingleDetailsProps[];
 };
 export type complaintSingleDetailsProps = {
-  id: string;
+  title: string;
   value: string;
 };
 export type TableProps = {
@@ -141,6 +141,8 @@ export type SearchBarProps = {
   handleReturn?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isMiddleBtn?: boolean;
   disabled?: boolean;
+  handleBillGenerate?: () => void;
+  generateBtnLoading?: boolean;
 };
 
 export type ComplaintMiniCardProps = {

@@ -1,16 +1,17 @@
-export type BillServiceTableProps = {
-  HeaderData: BillServiceTableHeaderProps[];
-  itemData?: BillServiceTableBodyProps[];
+export type ComplaintsTableProps = {
+  HeaderData: TableHeaderProps[];
+  itemData?: TableBodyProps[];
+  view?: boolean;
   Link?: string;
   checkedRows?: string[];
-  handleCheckboxChange: (index: string) => void;
+  handleCheckboxChange: (_id: string) => void;
   handleAllCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type BillServiceTableHeaderProps = string;
-export type BillServiceTableBodyProps = {
-  _id?: string;
+export type TableHeaderProps = string;
+export type TableBodyProps = {
   id?: string;
+  _id?: string;
   order_number?: string;
   products?: {
     id?: string;
@@ -36,9 +37,4 @@ export type BillServiceTableBodyProps = {
   partrequest?: string;
   repair_status?: string;
   received_date?: string;
-};
-
-export type EngineerDateProps = {
-  id?: string;
-  user?: string;
 };

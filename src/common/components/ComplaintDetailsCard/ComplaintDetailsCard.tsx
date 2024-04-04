@@ -14,7 +14,7 @@ const ComplaintDetailsCard: FC<complaintDetailsCardProps> = ({
         CardInformation?.map((item, index) => (
           <div key={index} className="flex justify-between ">
             <div className="font-medium space-y-2">
-              <h4>{item.id}:</h4>
+              <h4>{item.title}:</h4>
             </div>
             <div className="space-y-2">
               <p> {item.value}</p>

@@ -17,9 +17,11 @@ const ComplaintsRoute = () => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   return (
     <div
-      className={`pl-[30px] py-2 ${isExpanded && activeRoute && "bg-sideBarService"
-        } ${!activeRoute && isExpanded && "bg-shadeOfBlueDark"
-        } font-semibold text-solidWhite`}
+      className={`pl-[30px] py-2 ${
+        isExpanded && activeRoute && "bg-sideBarService"
+      } ${
+        !activeRoute && isExpanded && "bg-shadeOfBlueDark"
+      } font-semibold text-solidWhite`}
     >
       <button className="flex gap-3 items-center" {...getToggleProps()}>
         <MdOutlineEventNote className="text-xl" />
@@ -49,29 +51,35 @@ const ComplaintsRoute = () => {
             <span>Complaints List</span>
           </div>
         </NavLink>
-        <NavLink to="/my-complaints">
+        <NavLink
+          to={`${activeRoute ? "/my-complaints" : "/my-complaints-service"}`}
+        >
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>My Complaints</span>
           </div>
         </NavLink>
-        <NavLink to="/complaints-delivered">
+        <NavLink
+          to={`${
+            activeRoute
+              ? "/complaints-delivered"
+              : "/complaints-delivery-service"
+          }`}
+        >
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Complaints Delivered</span>
           </div>
         </NavLink>
 
-        {
-          activeRoute && <NavLink to="/buffers">
+        {activeRoute && (
+          <NavLink to="/buffers">
             <div className={routeStyle}>
               <span>&#8618;</span>
               <span>Buffers</span>
             </div>
           </NavLink>
-        }
-
-
+        )}
       </section>
     </div>
   );

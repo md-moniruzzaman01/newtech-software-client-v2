@@ -8,4 +8,5 @@ export const baseApi = createApi({
   tagTypes: ["complaints", "brand_category", "category", "repair", "qc", "qa"],
   endpoints: () => ({}),
 });
-// http://16.16.166.48:5000/api/v2/
+
+// http://16.16.166.48:5000/api/v2

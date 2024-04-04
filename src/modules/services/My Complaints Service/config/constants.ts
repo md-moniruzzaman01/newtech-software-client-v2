@@ -4,7 +4,7 @@ export const keys = [
   "brand",
   "branch",
   "sort",
-  "repair-status",
+  "repair_status",
   "search",
   "category",
 ];
@@ -31,7 +31,7 @@ export type SearchParams = {
   status: string | null;
 };
 
-export const CreateBillServiceTableHeader = [
+export const complaintsTableHeader = [
   "Order ID",
   "Model No.",
   "S/N No.",

@@ -4,7 +4,7 @@ interface InputProps {
   inputType?: string;
   inputName?: string;
   IsDisabled?: boolean;
-  defaultValue?: string;
+  defaultValue?: string | number;
   required?: boolean;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
