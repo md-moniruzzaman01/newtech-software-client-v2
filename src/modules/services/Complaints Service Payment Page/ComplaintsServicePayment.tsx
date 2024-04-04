@@ -18,6 +18,8 @@ const ComplaintsServicePayment = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(true);
+  const [totalDiscount, setTotalDiscount] = useState<number>(0);
+  const [totalHiddenDiscount, setTotalHiddenDiscount] = useState<number>(0);
   // const serviceAllIds = useSelector(
   //   (state: RootState) => state.complaintsServiceIds.serviceAllIds
   // );
@@ -39,7 +41,8 @@ const ComplaintsServicePayment = () => {
   const handleSubmitPayment = () => {
     navigate("/service-invoice");
   };
-
+  console.log("discount", totalDiscount);
+  console.log("hidden", totalHiddenDiscount);
   if (BillLoading) {
     return <LoadingPage />;
   }
@@ -115,7 +118,10 @@ const ComplaintsServicePayment = () => {
             </div>
           </div>
           <ComplaintOrderDetailsTable
-            data={billSingleData?.repair}
+            totalDiscount={totalDiscount}
+            totalHiddenDiscount={totalHiddenDiscount}
+            setTotalDiscount={setTotalDiscount}
+            setTotalHiddenDiscount={setTotalHiddenDiscount}
             isEdit={isEdit}
             id={id}
           />

@@ -7,11 +7,16 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { useGetRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { MyQCTableHeader } from "../../QC/QCMyLibrary/config/constants";
-import MyQcTable from "../../QC/QCMyLibrary/partials/MyQcTable";
+
 import { useEffect, useState } from "react";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
-import { fields, keys } from "./config/constants";
+import {
+  MyEngineerLibraryHeader,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constants";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const MyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +26,7 @@ const MyLibrary = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys)
+  const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
   const { data, isError, isLoading } = useGetRepairsQuery({
@@ -46,43 +51,13 @@ const MyLibrary = () => {
     return <div>Error</div>;
   }
 
-  const handleCheckboxChange = (repair_id: string, qc_id: string) => {
-    if (
-      checkedRows.some(
-        (row) => row.repair_id === repair_id && row.qc_id === qc_id
-      )
-    ) {
-      setCheckedRows(checkedRows.filter((item) => item?.qc_id !== qc_id));
-    } else {
-      setCheckedRows([...checkedRows, { qc_id, repair_id }]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === data?.data?.length) {
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        data?.data
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ?.map((item: any) => ({
-            qc_id: item?.id || "",
-            repair_id: item?.repair?.id || "",
-          }))
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds);
-      }
-    }
-  };
-
   const handleDeleteData = () => {
     console.log(checkedRows);
   };
   const handleReturnData = () => {
     console.log(checkedRows);
   };
-  console.log("data",data);
+  console.log("data", data);
   return (
     <div className=" px-5">
       <Navbar name="QC My Library"></Navbar>
@@ -102,14 +77,15 @@ const MyLibrary = () => {
             />
           </div>
           <div className="pt-5">
-            <MyQcTable
-              Link="/engineer-items/order-details"
+            <CommonTable
+              link="/engineer-items/order-details"
               itemData={data?.data}
-              HeaderData={MyQCTableHeader}
+              headerData={MyEngineerLibraryHeader}
+              dataLayout={tableLayout}
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
-            ></MyQcTable>
+              setCheckedRows={setCheckedRows}
+              checkbox
+            />
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">

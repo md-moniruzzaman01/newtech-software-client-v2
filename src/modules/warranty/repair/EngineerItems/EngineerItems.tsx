@@ -5,8 +5,12 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import { EngineerTableHeader, fields, keys } from "./config/constants";
-import EngineerTable from "./partials/EngineerTable/EngineerTable";
+import {
+  EngineerTableHeader,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 
 import { useSearchParams } from "react-router-dom";
@@ -16,6 +20,7 @@ import {
   useAssignEngineerMutation,
   useGetProductsForRepairQuery,
 } from "../../../../redux/features/api/repair";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const EngineerAllRepairs = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -68,29 +73,6 @@ const EngineerAllRepairs = () => {
     //   .then((data) => console.log(data));
   }
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === engineerData?.length) {
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        engineerData?.data
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ?.map((item: any) => item?._id)
-          .filter((id: string) => id !== undefined) || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
-    }
-  };
-
   if (isError || assignError) {
     return <div>error</div>;
   }
@@ -112,12 +94,13 @@ const EngineerAllRepairs = () => {
       <div className="bg-solidWhite p-3 space-y-3">
         <StatusGroup />
         <div className=" rounded-t-md ">
-          <EngineerTable
-            HeaderData={EngineerTableHeader}
+          <CommonTable
             itemData={data?.data}
+            headerData={EngineerTableHeader}
+            dataLayout={tableLayout}
             checkedRows={checkedRows}
-            handleCheckboxChange={handleCheckboxChange}
-            handleAllCheckboxChange={handleAllCheckboxChange}
+            setCheckedRows={setCheckedRows}
+            checkbox
           />
 
           <div className="absolute bottom-2 right-[50px]">

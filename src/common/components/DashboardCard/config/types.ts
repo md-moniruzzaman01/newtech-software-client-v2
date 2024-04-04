@@ -3,4 +3,5 @@ export type DashboardCardProps = {
   title?: string;
   money?: string;
   icon?: JSX.Element;
+  link?: string;
 };

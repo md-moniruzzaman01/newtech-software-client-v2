@@ -36,7 +36,7 @@ const EngineerRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-      <NavLink to={`/engineer-all-repairs`}>
+        <NavLink to={`/engineer-all-repairs`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>All Repairs</span>
@@ -55,8 +55,7 @@ const EngineerRoute = () => {
           </div>
         </NavLink>
 
-
-        <NavLink to="/my-library">
+        <NavLink to="/engineer-my-library">
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>My Library</span>
