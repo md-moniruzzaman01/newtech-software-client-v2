@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { ComplaintsOrderDetailsProps } from "../config/types";
+import { ComplaintsOrderDetailsProps, RepairItem } from "../config/types";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
 import Input from "../../../../common/components/Input";
+import { useGetBillByIdQuery } from "../../../../redux/features/api/service";
 
 const ComplaintOrderDetailsTable = ({
   id,
@@ -11,21 +11,22 @@ const ComplaintOrderDetailsTable = ({
 }: {
   id?: string;
   isEdit?: boolean;
+  data?: RepairItem[];
 }) => {
-  const [complaintsSingleData, setComplaintsSingleData] =
+  const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
   const token = getFromLocalStorage(authKey);
   const {
-    data: complaintsData,
-    isError: complaintsError,
-    isLoading: complaintsLoading,
-  } = useGetComplaintByIdQuery({ id, token });
+    data: billData,
+    isError: billError,
+    isLoading: billLoading,
+  } = useGetBillByIdQuery({ id, token });
   useEffect(() => {
-    if (!complaintsError && !complaintsLoading) {
-      setComplaintsSingleData(complaintsData?.data);
+    if (!billError && !billLoading) {
+      setBillSingleData(billData?.data);
     }
-  }, [complaintsData, complaintsError, complaintsLoading]);
-
+  }, [billData, billError, billLoading]);
+  console.log(billSingleData);
   return (
     <div className="w-full ">
       {/* header row start here  */}
@@ -41,26 +42,23 @@ const ComplaintOrderDetailsTable = ({
 
       <div className="text-center">
         {/* second row start here  */}
-        <div className="grid grid-cols-6  text-center">
-          <div className="border py-2 border-grayForBorder">
-            {complaintsSingleData?.products?.serial_number}
-          </div>
-          <div className="border py-2 border-grayForBorder">
-            {complaintsSingleData?.products?.category_name}
-          </div>
-          <div className="border py-2 border-grayForBorder">
-            {complaintsSingleData &&
-            complaintsSingleData?.products?.problems?.length > 0
-              ? complaintsSingleData?.products?.problems
-                  ?.map((item) => item)
-                  .toString()
-                  .split(",")
-              : "No Data"}
-          </div>
-          <Input IsDisabled={isEdit} />
-          <Input IsDisabled={isEdit} />
-          <Input IsDisabled={isEdit} />
-        </div>
+        {billSingleData &&
+          billSingleData?.repair?.map((item, index) => (
+            <div key={index} className="grid grid-cols-6  text-center">
+              <div className="border py-2 border-grayForBorder">
+                {item?.order_number}
+              </div>
+              <div className="border py-2 border-grayForBorder">
+                {item?.products?.serial_number}
+              </div>
+              <div className="border py-2 border-grayForBorder">
+                {item?.products?.problems?.join(",")}
+              </div>
+              <Input IsDisabled={isEdit} />
+              <Input IsDisabled={isEdit} />
+              <Input IsDisabled={isEdit} defaultValue={item?.total_charge} />
+            </div>
+          ))}
 
         <hr className="border-b border-shadeOfGray my-2" />
 
@@ -75,7 +73,9 @@ const ComplaintOrderDetailsTable = ({
           <div className="text-end pr-2 my-1 py-2">
             <h3 className="font-semibold">Subtotal:</h3>
           </div>
-          <div className="border py-2 border-gray-400 my-1">1,00,000.00</div>
+          <div className="border py-2 border-gray-400 my-1">
+            {billSingleData?.total_amount}
+          </div>
         </div>
         <div className="grid grid-cols-5  text-center">
           <div></div>

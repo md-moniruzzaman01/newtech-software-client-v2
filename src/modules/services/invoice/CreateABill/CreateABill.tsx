@@ -5,28 +5,34 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
-import BillServicePendingTable from "./Partials/BillServicePendingTable/CreateBillServiceTable";
-import { CreateBillServiceTableHeader } from "./config/constants";
+import { CreateBillServiceTableHeader, tableLayout } from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useDispatch } from "react-redux";
 import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import {
+  useCreateBillMutation,
+  useGetServicesQuery,
+} from "../../../../redux/features/api/service";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const BillListWarranty = () => {
   const [billData, setBillData] = useState([]);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // const [engineers, setEngineers] = useState([]);
   // const [selectEngineer, setSelectEngineer] =
   //   useState<EngineerDateProps>(qcSelectData);
-
+  const [createBill, { isLoading }] = useCreateBillMutation();
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
+  } = useGetServicesQuery({
     token,
   });
 
@@ -42,26 +48,19 @@ const BillListWarranty = () => {
     checkedRows,
     dispatch,
   ]);
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
+
+  const handleBillGenerate = async () => {
+    const fullData = {
+      complaintIds: checkedRows,
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result: any = await createBill({ fullData, token });
+
+    if (result?.data?.success) {
+      navigate(`/complaints-service-payments/${result?.data?.data[0]?.id}`);
     } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === billData?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      // If not all checkboxes are checked, set checkedRows to contain all _id values
-      const allIds =
-        billData
-          ?.map((item: { _id: string }) => item?._id)
-          .filter((id) => id !== undefined) || []; // Filter out undefined values
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
+      swal("Error", `${result?.error?.data?.message}`, "error");
     }
   };
 
@@ -78,19 +77,21 @@ const BillListWarranty = () => {
           link={`/complaints-service-payments`}
           isTrue={checkedRows?.length <= 0}
           checkedRows={checkedRows}
+          handleBillGenerate={handleBillGenerate}
+          generateBtnLoading={isLoading}
         />
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <StatusGroup />
           <div className="pt-5">
-            <BillServicePendingTable
-              HeaderData={CreateBillServiceTableHeader}
+            <CommonTable
               itemData={billData}
-              Link={`/complaints-service-payments`}
+              headerData={CreateBillServiceTableHeader}
+              dataLayout={tableLayout}
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
+              setCheckedRows={setCheckedRows}
+              checkbox
             />
           </div>
         </div>

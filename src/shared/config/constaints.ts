@@ -43,8 +43,8 @@ export const FilterOptions2 = [
   { id: "Oldest", value: "asc" },
 ];
 export const ComplaintDetails = [
-  { id: "Email", value: "fahimkhandakar01@gmail.com" },
-  { id: "Address", value: "dhaka, bangladesh" },
+  { title: "Email", value: "fahimkhandakar01@gmail.com" },
+  { title: "Address", value: "dhaka, bangladesh" },
 ];
 export const DemoTableHeader = [
   "Order ID",
