@@ -1,14 +1,40 @@
+import { useState } from "react";
 import Button from "../../../../common/components/Button";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { DemoTableHeaderForCustomer } from "../../../../shared/config/constaints";
-import CustomerInfoTable from "./partials/CustomerInfoTable";
-import { NavLink } from "react-router-dom";
+import { authKey } from "../../../../shared/config/constaints";
+import { HeaderForCustomerTable, PartnerData, fields, keys } from "./config/constants";
+import { NavLink, useSearchParams } from "react-router-dom";
+import { useGetPartnersQuery } from "../../../../redux/features/api/Partner";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const Partner = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
-  // const limit = 10;
+  const [searchParams] = useSearchParams();
+  const [checkedRows, setCheckedRows] = useState<string[]>([]);
+  const query = constructQuery(searchParams, fields, keys);
+  const token = getFromLocalStorage(authKey);
+  const {
+    data,
+    isError,
+    isLoading,
+  } = useGetPartnersQuery({
+    token, query
+  });
+
+  if (isLoading) {
+    return <LoadingPage />
+  }
+  if (isError) {
+    return <div>
+      <div>
+        <h1>Somethings Wrong</h1>
+        <p>Please contact to Developer.</p>
+      </div>
+    </div>
+  }
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Partner Info" />
@@ -33,10 +59,17 @@ const Partner = () => {
           </Button>
         </div>
         <div>
-          <CustomerInfoTable
-            HeaderData={DemoTableHeaderForCustomer}
+          <CommonTable
+            headerData={HeaderForCustomerTable}
+            itemData={data?.data}
+            dataLayout={PartnerData}
             link="/partner/order-details"
-          />
+            setCheckedRows={setCheckedRows}
+            checkedRows={checkedRows}
+            checkbox
+          >
+
+          </CommonTable>
         </div>
       </div>
 

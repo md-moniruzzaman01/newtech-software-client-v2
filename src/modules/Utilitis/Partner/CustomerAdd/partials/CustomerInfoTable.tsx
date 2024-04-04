@@ -1,7 +1,7 @@
 import { IoMdEye } from "react-icons/io";
 import { NavLink } from "react-router-dom";
-import { CustomerInfoTableProps } from "../../../../shared/config/types";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { CustomerInfoTableProps } from "../../../../../shared/config/types";
 
 const CustomerInfoTable: React.FC<CustomerInfoTableProps> = ({
   HeaderData,

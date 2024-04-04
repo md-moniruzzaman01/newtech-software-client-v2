@@ -7,9 +7,10 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { useGetOldRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { MyQCTableHeader } from "../../QC/QCMyLibrary/config/constants";
-import MyQcTable from "../../QC/QCMyLibrary/partials/MyQcTable";
+
 import { useEffect, useState } from "react";
+import MyQcTable from "../../../warranty/QC/QCMyLibrary/partials/MyQcTable";
+import { MyQCTableHeader } from "../../../warranty/QC/QCMyLibrary/config/constants";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1); 

@@ -33,7 +33,36 @@ const ComplaintsApi = baseApi.injectEndpoints({
         };
       },
     }),
-
+    getMyComplaint: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints/my-library/${params?.id}?warranty=true&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
+    getReadyForDelivaryComplaints: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints?repair_status=Cancel&repair_status=Reject&repair_status=repair+failed&repair_status=Completed&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
+    getReadyForDelivaryServices: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints?repair_status=Cancel&repair_status=Reject&repair_status=repair+failed&repair_status=Completed&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
     // deletePost: builder.mutation({
     //   query: (postId) => ({a
     //     url: `/posts/${postId}`,
@@ -46,5 +75,8 @@ const ComplaintsApi = baseApi.injectEndpoints({
 export const {
   useComplaintAddMutation,
   useGetComplaintsQuery,
-  useGetComplaintByIdQuery
+  useGetComplaintByIdQuery,
+  useGetMyComplaintQuery,
+  useGetReadyForDelivaryComplaintsQuery,
+  useGetReadyForDelivaryServicesQuery
 } = ComplaintsApi;

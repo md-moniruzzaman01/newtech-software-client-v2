@@ -27,6 +27,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     const queryParams = new URLSearchParams(window.location.search);
     if (paramValue === "") {
       queryParams.delete(paramName);
+      queryParams.delete("searchTerm");
       queryParams.delete("brand_name");
       queryParams.delete("category");
       queryParams.delete("sort");
@@ -39,7 +40,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleFilter = (route: string) => {
-    setQuery("search", route);
+    setQuery("searchTerm", route);
     setActiveRoute(route);
   };
 
@@ -50,8 +51,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <Input
             value={activeRoute}
             onChange={(e) => setActiveRoute(e.target.value)}
-            inputName="search"
-            inputPlaceholder="Search"
+            inputName="searchTerm"
+            inputPlaceholder="searchTerm"
           />
 
           <div>
