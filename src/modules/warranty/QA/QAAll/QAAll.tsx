@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useEffect, useState } from "react";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -14,6 +14,10 @@ import { QATableHeader } from "./config/constants";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
+
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
   const { data, isError, isLoading } = useGetQcsQuery({
@@ -28,6 +32,7 @@ const QCMyItems = () => {
 
     return <div>Error</div>;
   }
+
 
   const handleCheckboxChange = (index: string) => {
     if (checkedRows.includes(index)) {
@@ -51,7 +56,7 @@ const QCMyItems = () => {
       }
     }
   };
-  console.log(data);
+
   return (
     <div className=" px-5">
       <Navbar name="QA All"></Navbar>
@@ -72,9 +77,14 @@ const QCMyItems = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
-          <Pagination />
-        </div>
+          <div className="absolute bottom-2 right-[50px]">
+          <Pagination
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
+          />
+          </div>
       </div>
     </div>
   );

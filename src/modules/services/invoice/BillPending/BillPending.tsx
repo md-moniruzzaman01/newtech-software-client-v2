@@ -12,6 +12,9 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 
 const BillListWarranty = () => {
   const [billData, setBillData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
 
   const token = getFromLocalStorage(authKey);
   const {
@@ -22,6 +25,14 @@ const BillListWarranty = () => {
     token,
   });
 
+  useEffect(() => {
+    if (complaintsData) {
+      setTotalItems(complaintsData.meta.total);
+      setLimit(complaintsData.meta.limit);
+      setCurrentPage(complaintsData?.meta?.page);
+    }
+  }, [complaintsData]);
+  
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
       setBillData(complaintsData?.data);
@@ -48,9 +59,14 @@ const BillListWarranty = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
-          <Pagination />
-        </div>
+          <div className="absolute bottom-2 right-[50px]">
+          <Pagination
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
+          />
+          </div>
       </div>
     </div>
   );

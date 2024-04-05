@@ -26,6 +26,9 @@ import CommonTable from "../../../common/components/Common Table/CommonTable";
 const ComplaintListService = () => {
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   const [searchParams] = useSearchParams();
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const query = constructQuery(searchParams, fields, keys);
@@ -39,6 +42,15 @@ const ComplaintListService = () => {
     token,
   });
 
+  useEffect(() => {
+    if (complaintsData) {
+      setTotalItems(complaintsData.meta.total);
+      setLimit(complaintsData.meta.limit);
+      setCurrentPage(complaintsData?.meta?.page);
+    }
+  }, [complaintsData]);
+
+  
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
     if (storedActiveRoute) {
@@ -90,9 +102,14 @@ const ComplaintListService = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
-          <Pagination />
-        </div>
+          <div className="absolute bottom-2 right-[50px]">
+          <Pagination
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
+          />
+          </div>
       </div>
     </div>
   );

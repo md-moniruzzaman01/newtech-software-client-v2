@@ -34,16 +34,6 @@ const ServiceApi = baseApi.injectEndpoints({
       },
     }),
 
-    createBill: builder.mutation({
-      query: ({ fullData, token }) => ({
-        url: "/bill/create",
-        method: "POST",
-        headers: {
-          authorization: token,
-        },
-        body: fullData,
-      }),
-    }),
 
     getBillById: builder.query({
       query: (params) => {
@@ -87,7 +77,6 @@ export const {
   useServiceAddMutation,
   useGetServicesByIdQuery,
   useGetServicesQuery,
-  useCreateBillMutation,
   useGetBillByIdQuery,
   useGetPartnersQuery
 } = ServiceApi;

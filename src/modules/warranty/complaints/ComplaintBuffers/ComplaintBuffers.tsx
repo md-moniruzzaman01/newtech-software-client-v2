@@ -7,6 +7,9 @@ import { DemoTableHeaderView, DemoTableValue } from "../../../../shared/config/c
 
 
 const ComplaintBuffers = () => {
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   return (
     <div className=" px-5">
       <Navbar name="Buffers"></Navbar>
@@ -25,9 +28,14 @@ const ComplaintBuffers = () => {
             ></Table>
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
-          <Pagination />
-        </div>
+          <div className="absolute bottom-2 right-[50px]">
+          <Pagination
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
+          />
+          </div>
       </div>
     </div>
   );

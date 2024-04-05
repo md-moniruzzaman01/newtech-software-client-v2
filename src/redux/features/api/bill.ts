@@ -5,7 +5,7 @@ const BillApi = baseApi.injectEndpoints({
     // brand section
     createBill: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: "/qc/multiple",
+        url: "/bill/create",
         method: "POST",
         headers: {
           authorization: token,
@@ -13,23 +13,49 @@ const BillApi = baseApi.injectEndpoints({
         body: fullData,
       }),
     }),
-    getBill: builder.query({
-      query: () => "/brand",
+
+    getBills: builder.query({
+      query: (params) => {
+        return {
+          url: `/bill?${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
     }),
-    // updatePost: builder.mutation({
-    //   query: ({ postId, updatedPost }) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "PUT",
-    //     body: updatedPost,
-    //   }),
-    // }),
-    // deletePost: builder.mutation({
-    //   query: (postId) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "DELETE",
-    //   }),
-    // }),
+    getPaindingBills: builder.query({
+      query: (params) => {
+        return {
+          url: `/bill?status=pending${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
+    getBillById: builder.query({
+      query: (params) => {
+        return {
+          url: `/bill/${params?.id}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
+    deleteBill: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/bill/${id}`,
+        method: "DELETE",
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
+    
+
   }),
 });
 
-export const { useCreateBillMutation, useGetBillQuery } = BillApi;
+export const {useCreateBillMutation,useGetBillsQuery,useGetBillByIdQuery,useDeleteBillMutation,useGetPaindingBillsQuery } = BillApi;

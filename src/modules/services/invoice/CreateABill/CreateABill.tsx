@@ -10,12 +10,10 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useDispatch } from "react-redux";
 import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import {
-  useCreateBillMutation,
-  useGetServicesQuery,
-} from "../../../../redux/features/api/service";
+import {useGetServicesQuery} from "../../../../redux/features/api/service";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import { useCreateBillMutation } from "../../../../redux/features/api/bill";
 
 const BillListWarranty = () => {
   const [billData, setBillData] = useState([]);
@@ -23,9 +21,10 @@ const BillListWarranty = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const [engineers, setEngineers] = useState([]);
-  // const [selectEngineer, setSelectEngineer] =
-  //   useState<EngineerDateProps>(qcSelectData);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
+
   const [createBill, { isLoading }] = useCreateBillMutation();
   const token = getFromLocalStorage(authKey);
   const {
@@ -35,6 +34,15 @@ const BillListWarranty = () => {
   } = useGetServicesQuery({
     token,
   });
+
+
+  useEffect(() => {
+    if (complaintsData) {
+      setTotalItems(complaintsData.meta.total);
+      setLimit(complaintsData.meta.limit);
+      setCurrentPage(complaintsData?.meta?.page);
+    }
+  }, [complaintsData]);
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
@@ -95,9 +103,14 @@ const BillListWarranty = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
-          <Pagination />
-        </div>
+          <div className="absolute bottom-2 right-[50px]">
+          <Pagination
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
+          />
+          </div>
       </div>
     </div>
   );
