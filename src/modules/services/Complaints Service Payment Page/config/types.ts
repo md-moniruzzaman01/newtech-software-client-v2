@@ -98,7 +98,7 @@ export type ComplaintsOrderDetailsProps = {
   };
   id: string;
   repair: RepairItem[];
-  total_amount?: number | string;
+  total_amount?: number;
   updatedAt: string;
   __v: number;
   _id: string;

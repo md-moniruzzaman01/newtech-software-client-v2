@@ -5,7 +5,7 @@ import BranchHeader from "./partials/BranchHeader";
 const Branch = () => {
   return (
     <div className="px-5">
-      <BranchHeader></BranchHeader>
+      <BranchHeader />
       <div className="grid grid-cols-3 gap-2  pt-3 ">
         <BranchCard
           bgColor="primary"

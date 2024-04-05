@@ -39,10 +39,7 @@ export const complaintsTableHeader = [
   "category",
   "Brand",
   "QC",
-  "Engineer",
-  "QA",
-  "Status",
-  "RD",
+
   "Action",
 ];
 

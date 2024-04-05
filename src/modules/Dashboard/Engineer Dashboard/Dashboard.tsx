@@ -9,8 +9,8 @@ import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
-import DashboardTable from "./partials/EngineerDashboardTable";
-import { EngineerDashboardTableHeader } from "./config/constants";
+import { EngineerDashboardTableHeader, tableLayout } from "./config/constants";
+import CommonTable from "../../../common/components/Common Table/CommonTable";
 
 const EngineerDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -68,10 +68,11 @@ const EngineerDashboard = () => {
         <h1 className="font-medium text-xl">Order History</h1>
 
         <div className="pt-5">
-          <DashboardTable
-            Link="/complaints/order-details"
+          <CommonTable
             itemData={billData}
-            HeaderData={EngineerDashboardTableHeader}
+            headerData={EngineerDashboardTableHeader}
+            dataLayout={tableLayout}
+            link="/complaints/order-details"
           />
         </div>
       </div>

@@ -6,9 +6,9 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
-import BillServicePendingTable from "./Partials/BillServicePendingTable/BillServicePendingTable";
-import { BillServicePendingTableHeader } from "./config/constants";
+import { BillServicePendingTableHeader, tableLayout } from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const BillListWarranty = () => {
   const [billData, setBillData] = useState([]);
@@ -41,11 +41,10 @@ const BillListWarranty = () => {
         <div>
           <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
-            <BillServicePendingTable
-              view
-              Link="/complaints-service-payments"
+            <CommonTable
               itemData={billData}
-              HeaderData={BillServicePendingTableHeader}
+              headerData={BillServicePendingTableHeader}
+              dataLayout={tableLayout}
             />
           </div>
         </div>

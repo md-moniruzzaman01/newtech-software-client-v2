@@ -9,4 +9,4 @@ export const baseApi = createApi({
   endpoints: () => ({}),
 });
 
-// http://16.16.166.48:5000/api/v2
+// http://localhost:5000/api/v2/

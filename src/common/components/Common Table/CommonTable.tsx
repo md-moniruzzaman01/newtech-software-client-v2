@@ -89,7 +89,7 @@ const CommonTable: FC<CommonTableProps> = ({
                     </td>
                   ))}
                   {link && (
-                    <td>
+                    <td className="border">
                       <NavLink
                         className=" !text-black flex justify-center"
                         to={`${link}/${item?.id}`}

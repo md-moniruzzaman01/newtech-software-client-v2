@@ -39,10 +39,7 @@ export const CreateBillServiceTableHeader = [
   "category",
   "Brand",
   "QC",
-  "Engineer",
-  "QA",
-  "Status",
-  "RD",
+
   "Action",
 ];
 
