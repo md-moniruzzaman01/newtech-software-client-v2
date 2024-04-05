@@ -56,6 +56,17 @@ const ServiceApi = baseApi.injectEndpoints({
       },
     }),
 
+    getPartners: builder.query({
+      query: (params) => {
+        console.log(`/partners?searchTerm=${params?.searchInput}`)
+        return {
+          url: `/partners?searchTerm=${params?.searchInput}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
     //     url: `/posts/${postId}`,
@@ -78,4 +89,5 @@ export const {
   useGetServicesQuery,
   useCreateBillMutation,
   useGetBillByIdQuery,
+  useGetPartnersQuery
 } = ServiceApi;

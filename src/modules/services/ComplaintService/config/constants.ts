@@ -1,6 +1,6 @@
 export const defaultPartnerValue = {
-  partner_name: "",
-  contact_number: "",
+  contact_person: "",
+  contactNo: "",
   email: "",
   address: "",
 };
@@ -14,4 +14,11 @@ export const ComplaintsTableHeader = [
   "Qc CreatedAt",
   "RD",
   "Action",
+];
+
+
+export const fields =
+  "";
+export const keys = [
+  "searchTerm",
 ];
