@@ -14,13 +14,10 @@ const EngineerItemsOrderDetails = () => {
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
-        return (
-          <EngineerItemOrderStatus />
-        );
+        return <EngineerItemOrderStatus />;
 
       case 2:
         return <EngineerPartsReplace />;
-
     }
   }
   return (
@@ -77,13 +74,18 @@ const EngineerItemsOrderDetails = () => {
             </div>
           </div>
 
-          <select name="" id="" onChange={(e) => setSelect_parts_replace(parseInt(e.target.value, 10))}>
+          <select
+            name=""
+            id=""
+            onChange={(e) =>
+              setSelect_parts_replace(parseInt(e.target.value, 10))
+            }
+          >
             <option value={1}>No Need To change parts</option>
             <option value={2}>Need parts to Repair</option>
           </select>
 
           {showContainer(select_parts_replece)}
-
         </div>
       </div>
     </div>

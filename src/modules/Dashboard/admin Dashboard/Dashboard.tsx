@@ -57,7 +57,7 @@ const Dashboard = () => {
           icon={<InProgress />}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=Delivery"
+          link="/complaints-service?repair_status=Delivered"
           title="Delivery"
           money="100"
           className="bg-mintFrost"

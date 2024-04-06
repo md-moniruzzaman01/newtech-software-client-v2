@@ -8,9 +8,9 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
-import MyOldQcTable from "./partials/MyOldQcTable";
-import { QCTableHeader } from "./config/constants";
+import { QCTableHeader, tableLayout } from "./config/constants";
 import { useGetOldQcsQuery } from "../../../../redux/features/api/qc";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -29,29 +29,6 @@ const QCMyItems = () => {
     return <div>Error</div>;
   }
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === data?.data?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        data?.data
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ?.map((item: any) => item?._id)
-          .filter((id: string) => id !== undefined) || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
-    }
-  };
-
   return (
     <div className=" px-5">
       <Navbar name="QC My Library"></Navbar>
@@ -62,14 +39,15 @@ const QCMyItems = () => {
         <div>
           <StatusGroup />
           <div className="pt-5">
-            <MyOldQcTable
-              Link="/qc/order-details"
+            <CommonTable
               itemData={data?.data}
-              HeaderData={QCTableHeader}
+              headerData={QCTableHeader}
+              dataLayout={tableLayout}
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
-            ></MyOldQcTable>
+              setCheckedRows={setCheckedRows}
+              checkbox
+              link="/qc/order-details"
+            />
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">

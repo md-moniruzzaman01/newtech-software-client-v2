@@ -23,3 +23,18 @@ export const keys = [
   "search",
   "category_name",
 ];
+
+export const tableLayout = [
+  "item?.repair?.order_number",
+  "item?.model_number",
+  "item?.serial_number",
+  "item?.problems",
+  "item?.attachments",
+  "item?.category_name",
+  "item?.category",
+  "item?.brand_name",
+  "item?.repair_count",
+  "item?.repair?.branch",
+  "item?.repair_status",
+  "item?.turnaround_time?.toString()?.slice(0, 10)",
+];

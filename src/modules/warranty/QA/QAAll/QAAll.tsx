@@ -9,8 +9,8 @@ import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
-import QAAllTable from "./partials/QAAllTable";
-import { QATableHeader } from "./config/constants";
+import { QATableHeader, tableLayout } from "./config/constants";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -29,28 +29,6 @@ const QCMyItems = () => {
     return <div>Error</div>;
   }
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === data?.data?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        data?.data
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ?.map((item: any) => item?._id)
-          .filter((id: string) => id !== undefined) || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
-    }
-  };
   console.log(data);
   return (
     <div className=" px-5">
@@ -62,13 +40,14 @@ const QCMyItems = () => {
         <div>
           <StatusGroup />
           <div className="pt-5">
-            <QAAllTable
-              Link="/qc/order-details"
+            <CommonTable
               itemData={data?.data}
-              HeaderData={QATableHeader}
+              headerData={QATableHeader}
+              dataLayout={tableLayout}
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
+              setCheckedRows={setCheckedRows}
+              checkbox
+              link="/qc/order-details"
             />
           </div>
         </div>

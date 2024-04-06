@@ -2,26 +2,28 @@ import { useEffect, useState } from "react";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import QCTable from "./partials/QCTable/QCTable";
-import { QCTableHeader, fields, keys } from "./config/constants";
+import { QCTableHeader, fields, keys, tableLayout } from "./config/constants";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import StatusGroup from "../../../../common/components/Status Group";
 import { QATableBodyProps } from "../../QA/QA/config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
-import { useCreateQCMutation, useGetProductsQuery } from "../../../../redux/features/api/qc";
+import {
+  useCreateQCMutation,
+  useGetProductsQuery,
+} from "../../../../redux/features/api/qc";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import swal from "sweetalert";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const Qc = () => {
-
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qcData, setQCData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys)
+  const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
@@ -29,23 +31,22 @@ const Qc = () => {
     isLoading: complaintsLoading,
   } = useGetProductsQuery({
     query,
-    token
+    token,
   });
   const {
     data: engineerData,
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQC,{isLoading,isError,isSuccess}] = useCreateQCMutation();
+  const [createQC, { isLoading, isError, isSuccess }] = useCreateQCMutation();
 
-
-  function handleSubmit(id:string,user:string) {
+  function handleSubmit(id: string, user: string) {
     const fullData = {
       qc_checker_id: id,
       user_name: user,
       repairIds: checkedRows,
     };
-    createQC({ fullData, token })
+    createQC({ fullData, token });
   }
 
   useEffect(() => {
@@ -64,25 +65,6 @@ const Qc = () => {
     engineerData,
   ]);
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === qcData?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        qcData?.map((item) => item?._id).filter((id) => id !== undefined) || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
-    }
-  };
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
@@ -109,13 +91,14 @@ const Qc = () => {
       <div className="bg-solidWhite p-3 space-y-3">
         <StatusGroup />
         <div className="rounded-t-md ">
-          <QCTable
-            HeaderData={QCTableHeader}
+          <CommonTable
             itemData={qcData}
-            Link="/qc/order-details"
+            headerData={QCTableHeader}
+            dataLayout={tableLayout}
             checkedRows={checkedRows}
-            handleCheckboxChange={handleCheckboxChange}
-            handleAllCheckboxChange={handleAllCheckboxChange}
+            setCheckedRows={setCheckedRows}
+            checkbox
+            link="/qc/order-details"
           />
 
           <div className="absolute bottom-2 right-[50px]">

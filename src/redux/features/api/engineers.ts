@@ -25,13 +25,16 @@ const EngineerApi = baseApi.injectEndpoints({
         };
       },
     }),
-    // updatePost: builder.mutation({
-    //   query: ({ postId, updatedPost }) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "PUT",
-    //     body: updatedPost,
-    //   }),
-    // }),
+    createPartsRequest: builder.mutation({
+      query: ({ id, fullData, token }) => ({
+        url: `/repair/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+    }),
     // deletePost: builder.mutation({
     //   query: (postId) => ({a
     //     url: `/posts/${postId}`,
@@ -41,4 +44,8 @@ const EngineerApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddEngineerMutation, useGetEngineersQuery } = EngineerApi;
+export const {
+  useAddEngineerMutation,
+  useGetEngineersQuery,
+  useCreatePartsRequestMutation,
+} = EngineerApi;

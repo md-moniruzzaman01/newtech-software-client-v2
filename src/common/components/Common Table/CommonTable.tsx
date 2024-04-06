@@ -70,10 +70,12 @@ const CommonTable: FC<CommonTableProps> = ({
                         <input
                           type="checkbox"
                           className="checkbox form-checkbox h-5 w-5 "
-                          checked={checkedRows.includes(item?.id || "")}
+                          checked={checkedRows.includes(
+                            item?.id || item?._id || ""
+                          )}
                           onChange={() =>
                             handleCheckboxChange(
-                              item?.id || "",
+                              item?.id || item?._id || "",
                               checkedRows,
                               setCheckedRows
                             )

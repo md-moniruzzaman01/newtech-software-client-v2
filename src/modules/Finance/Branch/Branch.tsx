@@ -56,7 +56,7 @@ const Branch = () => {
           link="/branch/withdraw"
         ></BranchCard>
       </div>
-      <div className="w-full ">
+      <div className="w-full mt-5">
         <BranchChart
           link="/branch/order-count"
           status={[{ label: "Recieved", value: 50 }]}
