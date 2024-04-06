@@ -33,7 +33,6 @@ const ComplaintOrderDetails = () => {
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
 
-  console.log(complaintsSingleData);
 
   return (
     <div className="px-5">

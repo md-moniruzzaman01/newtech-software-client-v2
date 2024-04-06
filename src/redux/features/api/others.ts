@@ -1,7 +1,30 @@
-// import { baseApi } from "../../api/apiSlice";
+import { baseApi } from "../../api/apiSlice";
 
-// const OtherApi = baseApi.injectEndpoints({
-//   endpoints: (builder) => ({}),
-// });
+const OthersApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+   
+    getChartData: builder.query({
+        query: (params) => {
+          return {
+            url: `/complaints/chart`,
+            headers: {
+              authorization: params?.token,
+            },
+          };
+        },
+      }),
+    getCardData: builder.query({
+        query: (params) => {
+          return {
+            url: `/complaints/card`,
+            headers: {
+              authorization: params?.token,
+            },
+          };
+        },
+      }),
 
-// export const {} = OtherApi;
+  }),
+});
+
+export const {useGetChartDataQuery,useGetCardDataQuery  } = OthersApi;

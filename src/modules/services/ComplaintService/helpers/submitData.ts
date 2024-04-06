@@ -26,7 +26,7 @@ export const handleDataSubmit = async (
 
   try {
     setloading(true)
-    const url = "http://localhost:5000/api/v2/complaints/create-service"
+    const url = "https://nt.necgroupbd.net/api/v2/complaints/create-service"
     fetch(url, {
       method: "POST",
       headers: {

@@ -19,3 +19,19 @@ export const tableLayout = [
   "item?.repair_status",
   "item?.received_date?.toString()?.slice(0,10)",
 ];
+
+
+export const labels = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];

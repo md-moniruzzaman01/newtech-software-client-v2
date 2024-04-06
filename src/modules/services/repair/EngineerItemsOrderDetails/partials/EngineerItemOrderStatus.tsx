@@ -15,12 +15,11 @@ const EngineerItemOrderStatus = () => {
     const status = (form.elements.namedItem("status") as HTMLInputElement)
       .value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
-    console.log(note, status);
     const fullData={
       status,
       note,
     }
-       const url = `http://localhost:5000/api/v2/repair/${id}`;
+       const url = `https://nt.necgroupbd.net/api/v2/repair/${id}`;
 
     fetch(url, {
       method: "PATCH",

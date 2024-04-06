@@ -4,7 +4,7 @@ export const fetchData = async (searchValue: string,setIsLoadingSuggestion: Reac
     try {
       setIsLoadingSuggestion(true)
       const response = await fetch(
-        `http://localhost:5000/api/v2/partners?searchTerm=${searchValue}`, {
+        `https://nt.necgroupbd.net/api/v2/partners?searchTerm=${searchValue}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

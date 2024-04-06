@@ -20,7 +20,7 @@ const EngineerItemOrderStatus = () => {
       status,
       note,
     }
-       const url = `http://localhost:5000/api/v2/repair/${id}`;
+       const url = `https://nt.necgroupbd.net/api/v2/repair/${id}`;
 
     fetch(url, {
       method: "PATCH",
