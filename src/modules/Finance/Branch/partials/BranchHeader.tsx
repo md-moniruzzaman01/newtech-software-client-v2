@@ -10,14 +10,11 @@ const BranchHeader = () => {
       <h1 className="text-2xl font-semibold">Branch</h1>
       <div className="w-1/4 flex items-center justify-center gap-5">
         <NavLink to={"/Add-brand"}>
-          <Button
-            icon="+"
-            className="rounded-full bg-btn_secondary hover:bg-[#6e83ed]"
-          >
+          <Button icon="+" className="rounded-full bg-btn_secondary ">
             + Add Branch
           </Button>
         </NavLink>
-        <div className="w-1/2">
+        <div className="w-1/3">
           <InputFilter
             placeholder="Select a Brand"
             Filter={brands?.data}

@@ -92,14 +92,6 @@ const MyComplaintsService = () => {
         <div>
           <StatusGroup btnGroupValue={btnValue} />
           <div className="pt-5">
-            {/* <ComplaintTable
-              Link="/complaints/order-details"
-              itemData={complaints}
-              HeaderData={complaintsTableHeader}
-              checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
-            /> */}
             <CommonTable
               itemData={complaints}
               headerData={complaintsTableHeader}
@@ -107,6 +99,7 @@ const MyComplaintsService = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
+              link="/complaints-service-details"
             />
           </div>
         </div>

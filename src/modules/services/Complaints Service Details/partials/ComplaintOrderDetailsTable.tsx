@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps } from "../config/types";
-import { useGetComplaintByIdQuery } from "../../../../../redux/features/api/complaints";
-import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
-import { authKey } from "../../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
+import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
 
 const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
   const [complaintsSingleData, setComplaintsSingleData] =
@@ -19,12 +19,10 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
 
-  console.log(complaintsSingleData);
-
   return (
     <div className="w-full ">
       {/* header row start here  */}
-      <div className="grid grid-cols-7 gap-5 text-center text-sm font-medium">
+      <div className="grid grid-cols-8 gap-5 text-center text-sm font-medium">
         <div className="">Order No</div>
         <div className="">SL No</div>
         <div className="">Model No</div>
@@ -32,12 +30,13 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
         <div className="">Problem</div>
         <div className="">Remarks</div>
         <div className="">Repair Count</div>
+        <div className="">Total Charge</div>
       </div>
       <hr className="border-b border-shadeOfGray my-2" />
 
       <div className="text-center text-xs">
         {/* second row start here  */}
-        <div className="grid grid-cols-7  text-center">
+        <div className="grid grid-cols-8  text-center">
           <div className="border py-2 border-gray-400">
             {complaintsSingleData?.order_number}
           </div>
@@ -55,13 +54,17 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
           <div className="border py-2 border-gray-400">
             {complaintsSingleData?.products?.repair_count}
           </div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData?.total_charge}
+          </div>
         </div>
 
         <hr className="border-b border-shadeOfGray my-2" />
         {/* third row start here  */}
       </div>
       <div className="pt-5">
-        Create invoice by : {complaintsSingleData?.customer || "Customer"}
+        Create invoice by :{" "}
+        {complaintsSingleData?.Nonwarrentycustomer?.name || "Customer"}
       </div>
     </div>
   );

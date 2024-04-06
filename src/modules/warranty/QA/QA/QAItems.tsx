@@ -5,15 +5,18 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import QATable from "./partials/QATable/QATable";
-import { QATableHeader, fields, keys } from "./config/constants";
+import { QATableHeader, fields, keys, tableLayout } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { QATableBodyProps } from "./config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
-import { useCreateQAMutation, useGetQAProductsQuery,  } from "../../../../redux/features/api/qa";
+import {
+  useCreateQAMutation,
+  useGetQAProductsQuery,
+} from "../../../../redux/features/api/qa";
 import swal from "sweetalert";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const QAItems = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -25,31 +28,30 @@ const QAItems = () => {
   // const [selectEngineer, setSelectEngineer] =
   //   useState<qaDateProps>(qaSelectData);
 
-    const [searchParams] = useSearchParams();
-    const query = constructQuery(searchParams, fields, keys)
-    const token = getFromLocalStorage(authKey);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys);
+  const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
   } = useGetQAProductsQuery({
     query,
-    token
+    token,
   });
   const {
     data: engineerData,
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQA,{isLoading,isError,isSuccess}] = useCreateQAMutation();
+  const [createQA, { isLoading, isError, isSuccess }] = useCreateQAMutation();
 
-
-  function handleSubmit(id:string) {
+  function handleSubmit(id: string) {
     const fullData = {
       qa_checker_id: id,
       repairIds: checkedRows,
     };
-    createQA({ fullData, token })
+    createQA({ fullData, token });
   }
 
   useEffect(() => {
@@ -68,25 +70,6 @@ const QAItems = () => {
     engineerData,
   ]);
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === qaData?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      const allIds =
-      qaData?.map((item) => item?._id).filter((id) => id !== undefined) || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
-    }
-  };
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
@@ -98,7 +81,8 @@ const QAItems = () => {
   if (isError) {
     swal("Error!", "something is wrong", "error");
   }
-  console.log(complaintsData)
+  console.log("QA", qaData);
+  console.log("checkedRows", checkedRows);
   return (
     <div className="px-5">
       <Navbar name={"QA Items"} />
@@ -114,15 +98,15 @@ const QAItems = () => {
       <div className="bg-solidWhite p-3 space-y-3">
         <StatusGroup />
         <div className=" rounded-t-md ">
-          <QATable
-            HeaderData={QATableHeader}
+          <CommonTable
             itemData={qaData}
-            Link="/qa-items/order-details"
+            headerData={QATableHeader}
+            dataLayout={tableLayout}
             checkedRows={checkedRows}
-            handleCheckboxChange={handleCheckboxChange}
-            handleAllCheckboxChange={handleAllCheckboxChange}
+            setCheckedRows={setCheckedRows}
+            checkbox
+            link="/qa-items/order-details"
           />
-
           <div className="absolute bottom-2 right-[50px]">
             <Pagination />
           </div>

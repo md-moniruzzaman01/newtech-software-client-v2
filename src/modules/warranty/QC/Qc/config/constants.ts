@@ -7,10 +7,6 @@ export const QCTableHeader = [
   "category",
   "sub category",
   "Brand",
-  "repair count",
-  "Branch",
-  "Status",
-  "RD",
   "Action",
 ];
 
@@ -26,3 +22,13 @@ export const keys = [
   "category_name",
 ];
 
+export const tableLayout = [
+  "item?.repair && item.repair.length > 0 && item.repair[item.repair.length - 1].order_number",
+  "item?.model_number",
+  "item?.serial_number",
+  "item?.Nonwarrentycustomer?.name || item?.customer?.contact_person",
+  "item?.category_name",
+  "item?.brand_name",
+  "item?.repair_status",
+  "item?.turnaround_time?.toString()?.slice(0,10)",
+];

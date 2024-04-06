@@ -10,14 +10,15 @@ import {
   complaintsTableHeader,
   fields,
   keys,
+  tableLayout,
 } from "./config/constants";
-import ComplaintTable from "./Partials/ComplaintsTable/ComplaintsTable";
 import { authKey } from "../../../../shared/config/constaints";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { TableBodyProps } from "./config/types";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 //internal
 
@@ -46,27 +47,6 @@ const Complaint = () => {
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
 
-  const handleCheckboxChange = (index: string) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === complaints?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      // If not all checkboxes are checked, set checkedRows to contain all _id values
-      const allIds =
-        complaints?.map((item) => item?.id).filter((id) => id !== undefined) ||
-        []; // Filter out undefined values
-      if (allIds.length > 0) {
-        setCheckedRows(allIds as string[]);
-      }
-    }
-  };
   const handleDelivery = () => {
     console.log(checkedRows);
   };
@@ -98,13 +78,14 @@ const Complaint = () => {
         <div>
           <StatusGroup btnGroupValue={btnValue} />
           <div className="pt-5">
-            <ComplaintTable
-              Link="/complaints/order-details"
+            <CommonTable
               itemData={complaints}
-              HeaderData={complaintsTableHeader}
+              headerData={complaintsTableHeader}
+              dataLayout={tableLayout}
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
+              setCheckedRows={setCheckedRows}
+              checkbox
+              link="/complaints/order-details"
             />
           </div>
         </div>

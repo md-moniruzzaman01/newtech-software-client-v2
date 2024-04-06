@@ -101,6 +101,7 @@ const ComplaintsDeliveryService = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
+              link="/complaints-service-details"
             />
           </div>
         </div>

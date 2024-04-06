@@ -3,20 +3,18 @@ import { MdModeEdit } from "react-icons/md";
 import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
 import ComplaintOrderStatus from "./partials/ComplaintOrderStatus";
 import ComplaintMiniCard from "./partials/ComplaintMiniCard";
-import Navbar from "../../../../common/widgets/Navbar/Navbar";
-import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
-import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import {
-  ComplaintDetails,
-  authKey,
-} from "../../../../shared/config/constaints";
-import { NavLink, useParams } from "react-router-dom";
-import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
-import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+
 import { useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps } from "./config/types";
+import { NavLink, useParams } from "react-router-dom";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { ComplaintDetails, authKey } from "../../../shared/config/constaints";
+import { useGetComplaintByIdQuery } from "../../../redux/features/api/complaints";
+import Navbar from "../../../common/widgets/Navbar/Navbar";
+import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
+import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 
-const ComplaintOrderDetails = () => {
+const ComplaintsServiceDetails = () => {
   const { id } = useParams();
   const [complaintsSingleData, setComplaintsSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
@@ -32,6 +30,8 @@ const ComplaintOrderDetails = () => {
       setComplaintsSingleData(complaintsData?.data);
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
+
+  console.log(complaintsSingleData);
 
   return (
     <div className="px-5">
@@ -53,19 +53,21 @@ const ComplaintOrderDetails = () => {
           headerTitle="Due Date"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={complaintsSingleData?.Nonwarrentycustomer?.name}
           bgColor="primary"
           headerTitle="Name"
         />
         <ComplaintHeaderCard
-          headerDetails="fahimkhandakar1@gmail.com"
+          headerDetails={
+            complaintsSingleData?.Nonwarrentycustomer_contact_number
+          }
           bgColor="primary"
-          headerTitle="Email"
+          headerTitle="Number"
         />
         <ComplaintHeaderCard
-          headerDetails={complaintsSingleData?.customer_contact_number}
+          headerDetails={complaintsSingleData?.repair_status}
           bgColor="primary"
-          headerTitle="Contact No"
+          headerTitle="Repair Status"
         />
       </div>
 
@@ -118,7 +120,7 @@ const ComplaintOrderDetails = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-5 mb-5 gap-5 overflow-x-auto">
+      <div className="grid grid-cols-5 mb-5 gap-5">
         {complaintsSingleData?.Qa?.length > 0 &&
           complaintsSingleData?.Qa?.map((item, index) => (
             <ComplaintMiniCard
@@ -151,4 +153,4 @@ const ComplaintOrderDetails = () => {
   );
 };
 
-export default ComplaintOrderDetails;
+export default ComplaintsServiceDetails;

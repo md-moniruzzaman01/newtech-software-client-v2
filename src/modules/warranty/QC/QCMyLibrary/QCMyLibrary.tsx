@@ -8,12 +8,12 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { MyQCTableHeader } from "./config/constants";
-import MyQcTable from "./partials/MyQcTable";
+import { MyQCTableHeader, tableLayout } from "./config/constants";
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const QCMyLibrary = () => {
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
   const [checkedRows, setCheckedRows] = useState<
@@ -42,34 +42,6 @@ const QCMyLibrary = () => {
     return <div>Error</div>;
   }
 
-  const handleCheckboxChange = (repair_id: string, qc_id: string) => {
-    if (
-      checkedRows.some(
-        (row) => row.repair_id === repair_id && row.qc_id === qc_id
-      )
-    ) {
-      setCheckedRows(checkedRows.filter((item) => item?.qc_id !== qc_id));
-    } else {
-      setCheckedRows([...checkedRows, { qc_id, repair_id }]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === data?.data?.length) {
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        data?.data
-          ?.map((item: any) => ({
-            qc_id: item?.id || "", 
-            repair_id: item?.repair?.id || "",
-          }))
-          .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds);
-      }
-    }
-  };
-
   const handleDeleteData = () => {
     console.log(checkedRows);
   };
@@ -96,14 +68,15 @@ const QCMyLibrary = () => {
             />
           </div>
           <div className="pt-5">
-            <MyQcTable
-              Link="/qc/order-details"
+            <CommonTable
               itemData={data?.data}
-              HeaderData={MyQCTableHeader}
+              headerData={MyQCTableHeader}
+              dataLayout={tableLayout}
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
-            ></MyQcTable>
+              setCheckedRows={setCheckedRows}
+              checkbox
+              link="/qc/order-details"
+            />
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">

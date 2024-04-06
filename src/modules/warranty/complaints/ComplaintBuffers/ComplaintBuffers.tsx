@@ -1,11 +1,13 @@
-import { useState } from "react";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import Table from "../../../../common/components/Table/Table";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { DemoTableHeaderView, DemoTableValue } from "../../../../shared/config/constaints";
-
+import {
+  DemoTableHeaderView,
+  DemoTableValue,
+} from "../../../../shared/config/constaints";
+import { tableLayout } from "./config/constant";
 
 const ComplaintBuffers = () => {
   const [currentPage, setCurrentPage] = useState(1); 
@@ -21,12 +23,12 @@ const ComplaintBuffers = () => {
         <div>
           <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
-            <Table
-              view
-              Link="/complaints/order-details"
+            <CommonTable
               itemData={DemoTableValue}
-              HeaderData={DemoTableHeaderView}
-            ></Table>
+              headerData={DemoTableHeaderView}
+              dataLayout={tableLayout}
+              link="/complaints/order-details"
+            />
           </div>
         </div>
           <div className="absolute bottom-2 right-[50px]">
