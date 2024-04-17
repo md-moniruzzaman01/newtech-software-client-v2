@@ -17,6 +17,7 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 import { useGetBillsQuery } from "../../../../redux/features/api/bill";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
+import ConditionalBtnInSearch from "./partials/conditionalBtnInSearch/conditionalBtnInSearch";
 
 const InvoiceList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -25,6 +26,7 @@ const InvoiceList = () => {
   const [limit, setLimit] = useState(10);
 
   const [searchParams] = useSearchParams();
+
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const {
@@ -57,8 +59,13 @@ const InvoiceList = () => {
   return (
     <div className=" px-5">
       <Navbar name="Service Bill List" />
-      <div className="pt-5">
-        <SearchBar />
+      <div className="pt-5 flex justify-between">
+        <div className="w-1/2">
+          <SearchBar />
+        </div>
+        <div>
+          <ConditionalBtnInSearch />
+        </div>
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
