@@ -5,12 +5,13 @@ import { useState } from "react";
 import swal from "sweetalert";
 import { authKey } from "../../../shared/config/constaints";
 import { setToLocalStorage } from "../../../shared/helpers/local_storage";
+import { SERVER_URL } from "../../../shared/config/secret";
 
 const Login = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const url = "http://16.16.166.48:5000/api/v2/";
+  
 
   const data = {
     id,
@@ -19,7 +20,7 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const apiUrl = url + "auth/login";
+    const apiUrl = SERVER_URL + "auth/login";
 
     await fetch(apiUrl, {
       method: "POST",
@@ -36,7 +37,6 @@ const Login = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.success) {
           localStorage.setItem(authKey, data.data.accessToken);
           localStorage.setItem("refreshToken", data.data.accessToken);

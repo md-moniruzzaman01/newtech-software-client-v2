@@ -243,7 +243,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               <div className="col-span-2">
                 <Input
                   defaultValue={`${selectData ? selectData?.attachments : ""}`}
-                  required
+                  
                   inputName="attachments"
                   inputPlaceholder="Remark"
                   labelName="Remark"

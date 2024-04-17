@@ -12,6 +12,7 @@ const ServiceApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
+      invalidatesTags: ["complaints"],
     }),
     getServices: builder.query({
       query: (params) => {
@@ -22,6 +23,7 @@ const ServiceApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags:['complaints']
     }),
     getServicesById: builder.query({
       query: (params) => {
@@ -33,7 +35,20 @@ const ServiceApi = baseApi.injectEndpoints({
         };
       },
     }),
-
+    deleteComplaints: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: "/complaints",
+        method: "DELETE",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: 'complaints', id: 'LIST' },
+        { type: 'complaints', id: arg.id }
+      ],
+    }),
 
     getBillById: builder.query({
       query: (params) => {
@@ -78,5 +93,6 @@ export const {
   useGetServicesByIdQuery,
   useGetServicesQuery,
   useGetBillByIdQuery,
-  useGetPartnersQuery
+  useGetPartnersQuery,
+  useDeleteComplaintsMutation
 } = ServiceApi;

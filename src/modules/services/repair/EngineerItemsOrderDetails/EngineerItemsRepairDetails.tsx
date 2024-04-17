@@ -4,13 +4,20 @@ import EngineerItemOrderStatus from "./partials/EngineerItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { ComplaintDetails, authKey } from "../../../../shared/config/constaints";
 import { useState } from "react";
 import EngineerPartsReplace from "./partials/EngineerPartsReplace";
+import { useParams } from "react-router-dom";
+import { useGetRepairByIdQuery } from "../../../../redux/features/api/repair";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
-const EngineerItemsOrderDetails = () => {
+const EngineerItemsRepairDetails = () => {
   const [select_parts_replece, setSelect_parts_replace] = useState(1);
-
+  const {id}=useParams()
+  const token = getFromLocalStorage(authKey);
+const {data,isError, isLoading,error}=useGetRepairByIdQuery({id,token})
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
@@ -23,40 +30,47 @@ const EngineerItemsOrderDetails = () => {
 
     }
   }
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+  if (isError) {
+    return <ErrorShow error={error}/>;
+  }
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (Engineer)"} />
 
       <div className="grid grid-cols-3 gap-2 pt-8">
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={data?.data?.updatedAt.toString().slice(0,10) || ''}
           bgColor="primary"
-          headerTitle="Created Date"
+          headerTitle="Repair assign Date"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={data?.data?.repair?.received_date?.toString().slice(0,10) || ''}
           bgColor="primary"
-          headerTitle="Due Date"
+          headerTitle="Complaint Received"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={data?.data?.repair?. turnaround_time?.toString().slice(0,10) || ''}
           bgColor="primary"
-          headerTitle="Name"
+          headerTitle="TAT Time"
         />
       </div>
 
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
-          headerTitle="Branch Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Branch"
+          CardInformation={[{title:"Branch", value:data?.data.repair?.branch},{title:"Received By", value:data?.data.repair?.receiver}]}
         />
         <ComplaintDetailsCard
           headerTitle="Billing Address"
           CardInformation={ComplaintDetails}
         />
         <ComplaintDetailsCard
-          headerTitle="Invoice Details"
-          CardInformation={ComplaintDetails}
+          headerTitle="Complaint Details"
+          CardInformation={[{title:"order number", value:data?.data.repair?.order_number}]}
         />
 
         <div className="col-span-2 bg-solidWhite px-5 py-5  relative h-full">
@@ -66,7 +80,7 @@ const EngineerItemsOrderDetails = () => {
               <MdModeEdit />
             </div>
           </div>
-          <EngineerItemOrderDetailsTable />
+          <EngineerItemOrderDetailsTable product={data?.data?.repair?.products || {}}/>
         </div>
 
         <div className=" bg-solidWhite px-5 py-5">
@@ -90,4 +104,4 @@ const EngineerItemsOrderDetails = () => {
   );
 };
 
-export default EngineerItemsOrderDetails;
+export default EngineerItemsRepairDetails;

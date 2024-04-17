@@ -31,17 +31,7 @@ const SideBar = () => {
   const navigate = useNavigate();
   const user = getUserInfo();
 
-  // [
-  //   { id: "01", value: "Branch incharge" },
-  //   { id: "02", value: "withdrow" },
-  //   { id: "03", value: "account" },
-  //   { id: "04", value: "RECEIVE/DELIVERY" },
-  //   { id: "05", value: "QC" },
-  //   { id: "06", value: "QA" },
-  //   { id: "07", value: "level 4 Engineer" },
-  //   { id: "08", value: "assistant Engineer"},
-  // ]
-
+ 
   useEffect(() => {
     const activeRouteValue = getFromLocalStorage("activeRoute");
     if (activeRouteValue) {
@@ -93,8 +83,16 @@ const SideBar = () => {
       </div>
       <div className="  font-semibold ">
         <div className="flex flex-col gap-3 pb-20">
-          {user?.power?.includes("01") && (
+          {activeRoute && user?.power?.includes("01") && (
             <NavLink to="/">
+              <div className={routeStyle}>
+                <MdOutlineDashboardCustomize className="text-xl" />
+                <span>Dashboard</span>
+              </div>
+            </NavLink>
+          )}
+          {!activeRoute && user?.power?.includes("01") && (
+            <NavLink to="/services">
               <div className={routeStyle}>
                 <MdOutlineDashboardCustomize className="text-xl" />
                 <span>Dashboard</span>

@@ -25,7 +25,7 @@ export const MyEngineerLibraryHeader = [
 ];
 
 export const tableLayout = [
-  "item.id",
+  "item?.id",
   "item?.repairId",
   "item?.serial_number",
   "item?.status",

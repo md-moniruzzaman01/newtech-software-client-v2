@@ -36,26 +36,26 @@ const EngineerRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-        <NavLink to={`/engineer-all-repairs`}>
+        <NavLink to={ activeRoute ? "/engineer-all-repairs" :"/service/engineer-all-repairs" }>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>All Repairs</span>
           </div>
         </NavLink>
-        <NavLink to="/engineer-my-repaired">
+        <NavLink to={ activeRoute? "/engineer-my-repaired" : "/service/engineer-my-repaired"}>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>My Repaired</span>
           </div>
         </NavLink>
-        <NavLink to="/engineer-items">
+        <NavLink to={ activeRoute ?"/engineer-items" : "/service/engineer-items"}>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Engineer Library</span>
           </div>
         </NavLink>
 
-        <NavLink to="/engineer-my-library">
+        <NavLink to={ activeRoute? "/engineer-my-library" : "/service/engineer-my-library"}>
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>My Library</span>

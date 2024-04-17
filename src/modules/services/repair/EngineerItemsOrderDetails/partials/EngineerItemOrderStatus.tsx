@@ -5,6 +5,7 @@ import TextArea from "../../../../../common/components/TextArea/TextArea";
 import { engineerStatus } from "../config/constants";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
+import { SERVER_URL } from "../../../../../shared/config/secret";
 
 const EngineerItemOrderStatus = () => {
   const {id}=useParams();
@@ -19,7 +20,7 @@ const EngineerItemOrderStatus = () => {
       status,
       note,
     }
-       const url = `https://nt.necgroupbd.net/api/v2/repair/${id}`;
+       const url = `${SERVER_URL}repair/${id}`;
 
     fetch(url, {
       method: "PATCH",

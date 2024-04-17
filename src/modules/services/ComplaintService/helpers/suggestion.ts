@@ -1,10 +1,11 @@
+import { SERVER_URL } from "../../../../shared/config/secret";
 import { partnerProps } from "../config/types";
 
 export const fetchData = async (searchValue: string,setIsLoadingSuggestion: React.Dispatch<React.SetStateAction<boolean>>,setSuggestions:React.Dispatch<React.SetStateAction<partnerProps[]>>) => {
     try {
       setIsLoadingSuggestion(true)
       const response = await fetch(
-        `https://nt.necgroupbd.net/api/v2/partners?searchTerm=${searchValue}`, {
+        `${SERVER_URL}partners?searchTerm=${searchValue}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -42,6 +43,7 @@ export const fetchData = async (searchValue: string,setIsLoadingSuggestion: Reac
   //customerinfo state change function
   export const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>,setPartnerInfo:React.Dispatch<React.SetStateAction<partnerProps>>) => {
     const { name, value } = event.target;
+
     setPartnerInfo((prevCustomerInfo: partnerProps) => ({
       ...prevCustomerInfo,
       [name]: value,

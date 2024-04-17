@@ -5,6 +5,7 @@ export const handleCheckboxChange = (
   checkedRows: string[],
   setCheckedRows: any
 ) => {
+  console.log("checked",index)
   if (checkedRows && checkedRows?.includes(index)) {
     setCheckedRows(checkedRows.filter((item) => item !== index));
   } else {

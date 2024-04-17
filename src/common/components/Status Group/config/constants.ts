@@ -7,6 +7,6 @@ export const StatusGroupBtnValue = [
 ];
 
 export const filterOptionsForFiler = [
-  { id: "Latest", value: "desc" },
-  { id: "Oldest", value: "asc" },
+  { id: "desc", value: "desc" },
+  { id: "asc", value: "asc" },
 ];

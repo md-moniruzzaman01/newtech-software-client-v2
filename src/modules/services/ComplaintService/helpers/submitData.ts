@@ -4,6 +4,7 @@ import { defaultPartnerValue } from "../config/constants";
 import { getFromLocalStorage, removeFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import { partnerProps, updateAddedItemProps } from "../config/types";
+import { SERVER_URL } from "../../../../shared/config/secret";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const handleDataSubmit = async (
@@ -26,7 +27,7 @@ export const handleDataSubmit = async (
 
   try {
     setloading(true)
-    const url = "https://nt.necgroupbd.net/api/v2/complaints/create-service"
+    const url = SERVER_URL + "complaints/create-service"
     fetch(url, {
       method: "POST",
       headers: {
@@ -49,6 +50,9 @@ export const handleDataSubmit = async (
           swal("Your data has been successfully submitted.", {
             icon: "success",
           });
+          if (!isPaymentButton) {
+            navigate("/complaints-service");
+          }
           if (isPaymentButton) {
             navigate("/complaints-service-payments");
           }

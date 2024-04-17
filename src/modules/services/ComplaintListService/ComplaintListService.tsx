@@ -18,7 +18,7 @@ import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
-import { useGetServicesQuery } from "../../../redux/features/api/service";
+import { useDeleteComplaintsMutation, useGetServicesQuery } from "../../../redux/features/api/service";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 
 //internal
@@ -26,12 +26,12 @@ import CommonTable from "../../../common/components/Common Table/CommonTable";
 const ComplaintListService = () => {
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
   const [searchParams] = useSearchParams();
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
@@ -39,8 +39,9 @@ const ComplaintListService = () => {
     isLoading: complaintsLoading,
   } = useGetServicesQuery({
     query,
-    token,
+    token
   });
+  const [deleteComplaints, { isLoading }] = useDeleteComplaintsMutation()
 
   useEffect(() => {
     if (complaintsData) {
@@ -50,7 +51,7 @@ const ComplaintListService = () => {
     }
   }, [complaintsData]);
 
-  
+
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
     if (storedActiveRoute) {
@@ -65,16 +66,20 @@ const ComplaintListService = () => {
     console.log(checkedRows);
   };
   const handleDelete = () => {
-    console.log(checkedRows);
+    console.log(checkedRows)
+    const fullData = {
+      repairIds: checkedRows
+    }
+    deleteComplaints({ token, fullData }) 
+    
   };
   const handleReturn = () => {
     console.log(checkedRows);
   };
 
-  if (complaintsLoading) {
+  if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
-
   return (
     <div className=" px-5">
       <Navbar name="Complaint Service" />
@@ -103,14 +108,14 @@ const ComplaintListService = () => {
             />
           </div>
         </div>
-          <div className="absolute bottom-2 right-[50px]">
+        <div className="absolute bottom-2 right-[50px]">
           <Pagination
             limit={limit}
             currentPage={currentPage}
             totalItems={totalItems}
             setCurrentPage={setCurrentPage}
           />
-          </div>
+        </div>
       </div>
     </div>
   );

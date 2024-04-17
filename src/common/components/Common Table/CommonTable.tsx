@@ -13,6 +13,7 @@ interface CommonTableProps {
   dataLayout: string[];
   link?: string;
   checkbox?: boolean;
+  productData?: boolean;
   checkedRows?: any;
   setCheckedRows?: any;
 }
@@ -25,6 +26,7 @@ const CommonTable: FC<CommonTableProps> = ({
   setCheckedRows,
   link,
   checkbox,
+  productData,
   itemData = [],
   dataLayout,
 }) => {
@@ -71,11 +73,11 @@ const CommonTable: FC<CommonTableProps> = ({
                           type="checkbox"
                           className="checkbox form-checkbox h-5 w-5 "
                           checked={checkedRows.includes(
-                            item?.id || item?._id || ""
+                            !productData ? item?.id || item?._id :  item?.repair[item.repair.length - 1]?.id
                           )}
                           onChange={() =>
                             handleCheckboxChange(
-                              item?.id || item?._id || "",
+                              !productData ? item?.id || item?._id :  item?.repair[item.repair.length - 1]?.id,
                               checkedRows,
                               setCheckedRows
                             )

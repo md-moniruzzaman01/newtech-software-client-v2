@@ -9,7 +9,9 @@ import { useState } from "react";
 import EngineerPartsReplace from "./partials/EngineerPartsReplace";
 
 const EngineerItemsOrderDetails = () => {
+ 
   const [select_parts_replece, setSelect_parts_replace] = useState(1);
+
 
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
@@ -20,6 +22,7 @@ const EngineerItemsOrderDetails = () => {
         return <EngineerPartsReplace />;
     }
   }
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (Engineer)"} />
@@ -58,7 +61,7 @@ const EngineerItemsOrderDetails = () => {
 
         <div className="col-span-2 bg-solidWhite px-5 py-5  relative h-full">
           <div className="flex justify-between items-center  py-2 ">
-            <h2 className="text-2xl font-semibold">Order Summery</h2>
+            <h2 className="text-2xl font-semibold">Order Summary</h2>
             <div>
               <MdModeEdit />
             </div>

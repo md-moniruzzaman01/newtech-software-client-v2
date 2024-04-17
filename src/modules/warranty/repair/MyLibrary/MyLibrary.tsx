@@ -57,10 +57,10 @@ const MyLibrary = () => {
   const handleReturnData = () => {
     console.log(checkedRows);
   };
-  console.log("data", data);
+
   return (
     <div className=" px-5">
-      <Navbar name="QC My Library"></Navbar>
+      <Navbar name="My Library  (Engineer)"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -73,7 +73,7 @@ const MyLibrary = () => {
               handleDeleteData={handleDeleteData}
               isButton
               dltBtnValue="Delete"
-              returnBtnValue="Return to the QC Library"
+              returnBtnValue="Return to the Engineer Library"
             />
           </div>
           <div className="pt-5">

@@ -14,7 +14,6 @@ import Admin from "./modules/Finance/Admin/Admin";
 import OtherReport from "./modules/Finance/OtherReport/OtherReport";
 import MainCategoryPage from "./modules/Utilitis/Main Category/MainCategory";
 import Login from "./modules/Utilitis/Login/Login";
-import Dashboard from "./modules/Dashboard/admin Dashboard/Dashboard";
 import EngineerDashboard from "./modules/Dashboard/Engineer Dashboard";
 import RepairComplete from "./modules/warranty/repair/RepaireComplete/RepairComplete";
 import Inventory from "./modules/inventory/Inventory/Inventory";
@@ -34,7 +33,6 @@ import QCMyItems from "./modules/warranty/QC/QCMyItems/QCMyItems";
 import ComplaintOrderDetailsQC from "./modules/warranty/QC/ComplaintOrderDetailsQC/ComplaintOrderDetailsQC";
 import Engineer from "./modules/Utilitis/Engineer/Engineer";
 import EngineerItems from "./modules/warranty/repair/EngineerItems/EngineerItems";
-import EngineerItemsOrderDetails from "./modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 import CreateABill from "./modules/services/invoice/CreateABill/CreateABill";
 import BillPending from "./modules/services/invoice/BillPending/BillPending";
 import QAItems from "./modules/warranty/QA/QA/QAItems";
@@ -47,7 +45,6 @@ import CustomerAddOrEdit from "./modules/Utilitis/Partner/CustomerAdd/CustomerAd
 import Employee from "./modules/Utilitis/Employee/Employee";
 import EmployeeInfoDetailsPage from "./modules/Utilitis/EmployeeInfoDetails/EmployeeInfoDetailsPage";
 import SettingPage from "./modules/Utilitis/SettingPage";
-import MyLibrary from "./modules/warranty/repair/MyLibrary/MyLibrary";
 import CategoryList from "./modules/warranty/category/CategoryList";
 import WarrantyCategoryAddPage from "./modules/warranty/category/WarrantyCategoryAddPage";
 import BrandAddPage from "./modules/warranty/brand/BrandAddPage";
@@ -67,6 +64,13 @@ import ComplaintsServicePayment from "./modules/services/Complaints Service Paym
 import MyComplaintsService from "./modules/services/My Complaints Service/MyComplaintsService";
 import ComplaintsDeliveryService from "./modules/services/Complaints Delivery Service/ComplaintsDeliveryService";
 import ComplaintsServiceDetails from "./modules/services/Complaints Service Details/ComplaintsServiceDetails";
+import ServiceDashboard from "./modules/Dashboard/service/ServiceDashboard";
+import WarrantyDashboard from "./modules/Dashboard/warranty/WarrantyDashboard";
+import MyLibrary from "./modules/services/repair/MyLibrary/ServiceMyLibrary";
+import EngineerLibraryForService from "./modules/services/repair/EngineerItems/EngineerLibraryForService";
+import ServiceMyLibrary from "./modules/services/repair/MyLibrary/ServiceMyLibrary";
+import EngineerItemsRepairDetails from "./modules/services/repair/EngineerItemsOrderDetails/EngineerItemsRepairDetails";
+import EngineerItemsOrderDetails from "./modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 
 export const router = createBrowserRouter([
   {
@@ -80,10 +84,18 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Dashboard />,
+        element: <WarrantyDashboard />,
+      },
+      {
+        path: "/services",
+        element: <ServiceDashboard />,
       },
       {
         path: "/engineer-dashboard",
+        element: <EngineerDashboard />,
+      },
+      {
+        path: "services/engineer-dashboard",
         element: <EngineerDashboard />,
       },
       // branch start here
@@ -223,6 +235,10 @@ export const router = createBrowserRouter([
         element: <EngineerItems />,
       },
       {
+        path: "service/engineer-items",
+        element: <EngineerLibraryForService />,
+      },
+      {
         path: "/engineer-my-repaired",
         element: <MyRepairs />,
       },
@@ -234,6 +250,19 @@ export const router = createBrowserRouter([
       {
         path: "/engineer-items/order-details/:id",
         element: <EngineerItemsOrderDetails />,
+      },
+      {
+        path: "/service/engineer-items/order-details/:id",
+        element: <EngineerItemsRepairDetails />,
+      },
+      // my library
+      {
+        path: "/engineer-my-library",
+        element: <MyLibrary />,
+      },
+      {
+        path: "/service/engineer-my-library",
+        element: <ServiceMyLibrary />,
       },
       // bill route start here
       {
@@ -313,11 +342,7 @@ export const router = createBrowserRouter([
         path: "/setting",
         element: <SettingPage />,
       },
-      // my library
-      {
-        path: "/engineer-my-library",
-        element: <MyLibrary />,
-      },
+
 
       // add category page
       {
