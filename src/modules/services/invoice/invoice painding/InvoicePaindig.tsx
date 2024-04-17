@@ -5,45 +5,46 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { BillServiceTableHeader, tableLayout } from "./config/constants";
+import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
+import { BillServicePendingTableHeader, tableLayout } from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { useGetBillsQuery } from "../../../../redux/features/api/bill";
 
-const BillList = () => {
-  const [checkedRows, setCheckedRows] = useState<string[]>([]);
+const InvoicePaindig = () => {
+  const [billData, setBillData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); 
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
 
   const token = getFromLocalStorage(authKey);
   const {
-    data: billData,
-    isError: billsError,
-    isLoading: billsLoading,
-  } = useGetBillsQuery({
+    data: complaintsData,
+    isError: complaintsError,
+    isLoading: complaintsLoading,
+  } = useGetComplaintsQuery({
     token,
   });
 
   useEffect(() => {
-    if (billData) {
-      setTotalItems(billData.meta.total);
-      setLimit(billData.meta.limit);
-      setCurrentPage(billData?.meta?.page);
+    if (complaintsData) {
+      setTotalItems(complaintsData.meta.total);
+      setLimit(complaintsData.meta.limit);
+      setCurrentPage(complaintsData?.meta?.page);
     }
-  }, [billData]);
+  }, [complaintsData]);
+  
+  useEffect(() => {
+    if (!complaintsLoading && !complaintsError) {
+      setBillData(complaintsData?.data);
+    }
+  }, [complaintsData, complaintsLoading, complaintsError]);
 
-
-
-  if (billsLoading) {
+  if (complaintsLoading) {
     return <LoadingPage />;
-  }
-  if (billsError) {
-    return <div className="min-h-screen flex justify-items-center items-center"> <p>Error found</p></div>;
   }
   return (
     <div className=" px-5">
-      <Navbar name="Service Bill List" />
+      <Navbar name="Bill Pending List" />
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -52,28 +53,23 @@ const BillList = () => {
           <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
             <CommonTable
-              itemData={billData?.data}
-              headerData={BillServiceTableHeader}
+              itemData={billData}
+              headerData={BillServicePendingTableHeader}
               dataLayout={tableLayout}
-              checkedRows={checkedRows}
-              setCheckedRows={setCheckedRows}
-              link="/complaints-service-payments"
-              checkbox
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+          <div className="absolute bottom-2 right-[50px]">
           <Pagination
             limit={limit}
             currentPage={currentPage}
             totalItems={totalItems}
             setCurrentPage={setCurrentPage}
           />
-        </div>
-
+          </div>
       </div>
     </div>
   );
 };
 
-export default BillList;
+export default InvoicePaindig;

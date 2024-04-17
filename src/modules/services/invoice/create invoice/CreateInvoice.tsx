@@ -15,7 +15,7 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useCreateBillMutation } from "../../../../redux/features/api/bill";
 
-const BillListWarranty = () => {
+const CreateInvoice = () => {
   const [billData, setBillData] = useState([]);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const dispatch = useDispatch();
@@ -116,4 +116,4 @@ const BillListWarranty = () => {
   );
 };
 
-export default BillListWarranty;
+export default CreateInvoice;

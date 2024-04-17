@@ -10,6 +10,8 @@ import EngineerPartsReplace from "./partials/EngineerPartsReplace";
 import { useParams } from "react-router-dom";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useGetRepairByIdQuery } from "../../../../redux/features/api/repair";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const EngineerItemsOrderDetails = () => {
   const [select_parts_replece, setSelect_parts_replace] = useState(1);
@@ -25,6 +27,12 @@ const {data,isError, isLoading,error}=useGetRepairByIdQuery({id,token})
       case 2:
         return <EngineerPartsReplace id={data?.data?.repairId} />;
     }
+  }
+  if (isLoading) {
+    return <LoadingPage/>;
+  }
+  if (isError) {
+    return <ErrorShow error={error}/>;
   }
 
   return (
