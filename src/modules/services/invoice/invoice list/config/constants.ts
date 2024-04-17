@@ -1,27 +1,18 @@
 export const fields =
-  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer";
+  "";
 export const keys = [
-  "brand",
   "branch",
   "sort",
-  "repair-status",
-  "search",
-  "category",
+  "status",
+  "searchTerm",
+
 ];
 
 export const btnValue = [
-  "Pending",
-  "In Progress",
-  "Buffer",
-  "Cancel",
-  "Reject",
-  "CN",
-  "NTF",
-  "Required Parts",
-  "Completed",
-  "Delivered",
-  "Unpaid",
-  "Paid",
+  "pending",
+  "approved",
+  "completed",
+  "canceled",
 ];
 
 export type SearchParams = {

@@ -5,10 +5,12 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { BillServiceTableHeader, tableLayout } from "./config/constants";
+import { BillServiceTableHeader, btnValue, fields, keys, tableLayout } from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useGetBillsQuery } from "../../../../redux/features/api/bill";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { useSearchParams } from "react-router-dom";
 
 const InvoiceList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -16,6 +18,8 @@ const InvoiceList = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
 
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const {
     data: billData,
@@ -23,6 +27,7 @@ const InvoiceList = () => {
     isLoading: billsLoading,
   } = useGetBillsQuery({
     token,
+    query
   });
 
   useEffect(() => {
@@ -49,7 +54,7 @@ const InvoiceList = () => {
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={[]} />
+          <StatusGroup btnGroupValue={btnValue} status/>
           <div className="pt-5">
             <CommonTable
               itemData={billData?.data}

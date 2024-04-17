@@ -2,7 +2,7 @@ import { baseApi } from "../../api/apiSlice";
 
 const BillApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // brand section
+
     createBill: builder.mutation({
       query: ({ fullData, token }) => ({
         url: "/bill/create",
@@ -16,6 +16,7 @@ const BillApi = baseApi.injectEndpoints({
 
     getBills: builder.query({
       query: (params) => {
+        console.log(`/bill?${params?.query}`)
         return {
           url: `/bill?${params?.query}`,
           headers: {
@@ -27,7 +28,7 @@ const BillApi = baseApi.injectEndpoints({
     getPaindingBills: builder.query({
       query: (params) => {
         return {
-          url: `/bill?status=pending${params?.query}`,
+          url: `/bill?status=pending&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
