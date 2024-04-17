@@ -2,22 +2,35 @@
 import React from "react";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
 import Button from "../../../../../common/components/Button";
+import { authKey } from "../../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
+import { useCreatePartsRequestMutation } from "../../../../../redux/features/api/parts";
+import { shedAndSplit } from "../../../../../shared/helpers/removeShedAndSplit";
+import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
+import LoadingPage from "../../../../../common/components/LoadingPage/LoadingPage";
 
-const EngineerPartsReplace = () => {
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+const EngineerPartsReplace = ({id}:{id:string}) => {
+  const token = getFromLocalStorage(authKey);
+  const [createPartsRequest,{isLoading,isSuccess,isError,error}]=useCreatePartsRequestMutation()
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const status = (form.elements.namedItem("parts") as HTMLInputElement).value;
+    const partname = (form.elements.namedItem("parts") as HTMLInputElement).value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
-    const fullData = {
-      status,
-      note,
-    };
+    const parts = shedAndSplit(partname)
 
-
-    form.reset();
+    const fullData = {parts,note}
+    createPartsRequest({fullData,token,id})
+    if (isSuccess) {
+      form.reset();
+    }
   };
+  if (isError) {
+    return <ErrorShow error={error}/>
+  }
+  if (isLoading) {
+    return <LoadingPage/>
+  }
 
   return (
     <div className="space-y-2">

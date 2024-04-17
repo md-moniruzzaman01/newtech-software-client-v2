@@ -4,14 +4,18 @@ import EngineerItemOrderStatus from "./partials/EngineerItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { ComplaintDetails, authKey } from "../../../../shared/config/constaints";
 import { useState } from "react";
 import EngineerPartsReplace from "./partials/EngineerPartsReplace";
+import { useParams } from "react-router-dom";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { useGetRepairByIdQuery } from "../../../../redux/features/api/repair";
 
 const EngineerItemsOrderDetails = () => {
- 
   const [select_parts_replece, setSelect_parts_replace] = useState(1);
-
+  const {id}=useParams()
+  const token = getFromLocalStorage(authKey);
+const {data,isError, isLoading,error}=useGetRepairByIdQuery({id,token})
 
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
@@ -19,7 +23,7 @@ const EngineerItemsOrderDetails = () => {
         return <EngineerItemOrderStatus />;
 
       case 2:
-        return <EngineerPartsReplace />;
+        return <EngineerPartsReplace id={data?.data?.repairId} />;
     }
   }
 
