@@ -26,7 +26,7 @@ const {data,isError, isLoading,error}=useGetRepairByIdQuery({id,token})
         );
 
       case 2:
-        return <EngineerPartsReplace />;
+        return <EngineerPartsReplace id={data?.data?.repairId} />;
 
     }
   }

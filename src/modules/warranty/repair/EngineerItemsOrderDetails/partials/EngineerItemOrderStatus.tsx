@@ -6,12 +6,13 @@ import TextArea from "../../../../../common/components/TextArea/TextArea";
 import { engineerStatus } from "../config/constants";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
-import { useCreatePartsRequestMutation } from "../../../../../redux/features/api/engineers";
+
 import swal from "sweetalert";
+import { useUpdateRepairStatusMutation } from "../../../../../redux/features/api/engineers";
 
 const EngineerItemOrderStatus = () => {
   const { id } = useParams();
-  const [createPartsRequest] = useCreatePartsRequestMutation();
+  const [updateRepairStatus] = useUpdateRepairStatusMutation();
   const token = getFromLocalStorage(authKey);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +25,7 @@ const EngineerItemOrderStatus = () => {
       note,
     };
 
-    const result: any = await createPartsRequest({ id, fullData, token });
+    const result: any = await updateRepairStatus({ id, fullData, token });
     if (result?.data?.success) {
       swal("Success", `${result?.data?.message}`, "success");
     } else {

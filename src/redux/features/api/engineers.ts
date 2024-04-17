@@ -25,7 +25,7 @@ const EngineerApi = baseApi.injectEndpoints({
         };
       },
     }),
-    createPartsRequest: builder.mutation({
+   updateRepairStatus: builder.mutation({
       query: ({ id, fullData, token }) => ({
         url: `/repair/${id}`,
         method: "PATCH",
@@ -47,5 +47,5 @@ const EngineerApi = baseApi.injectEndpoints({
 export const {
   useAddEngineerMutation,
   useGetEngineersQuery,
-  useCreatePartsRequestMutation,
+  useUpdateRepairStatusMutation
 } = EngineerApi;

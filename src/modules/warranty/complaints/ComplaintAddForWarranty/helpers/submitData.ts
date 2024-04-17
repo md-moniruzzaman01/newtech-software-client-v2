@@ -4,6 +4,7 @@ import {
   removeFromLocalStorage,
 } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
+import { SERVER_URL } from "../../../../../shared/config/secret";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const handleDataSubmit = async (
@@ -23,11 +24,11 @@ export const handleDataSubmit = async (
     },
     body: JSON.stringify(fullData),
   };
-
+const url = SERVER_URL + "complaints/create"
   try {
     setIsLoading(true);
     const response = await fetch(
-      "http://16.16.166.48:5000/api/v2/complaints/create",
+      url,
       options
     );
 
