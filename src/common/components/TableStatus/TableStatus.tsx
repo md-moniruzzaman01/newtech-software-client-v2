@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TableStatusProps } from "./config/types";
 import { useNavigate } from "react-router-dom";
 
-const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
+const TableStatus: React.FC<TableStatusProps> = ({ btnValues,status }) => {
   const [activeRoute, setActiveRoute] = useState("");
 
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
       queryParams.delete("category");
       queryParams.delete("sort");
       queryParams.delete("repair_status");
+      queryParams.delete("status");
       queryParams.delete("branch");
       queryParams.delete("search");
     } else {
@@ -24,8 +25,11 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues }) => {
   };
 
   const handleFilter = (route: string) => {
-    setQuery("repair_status", route);
-
+    if (!status) {
+      setQuery("repair_status", route);
+    }else{
+      setQuery("status", route)
+    }
     setActiveRoute(route);
   };
 

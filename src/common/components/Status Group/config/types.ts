@@ -9,6 +9,7 @@ export type statusGroupProps = {
   handleReturnData?: any;
   isSelected?: boolean;
   isButton?: boolean;
+  status?: boolean;
   dltBtnValue?: string;
   returnBtnValue?: string;
 };

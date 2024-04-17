@@ -21,6 +21,7 @@ const StatusGroup: FC<statusGroupProps> = ({
   handleReturnData,
   isSelected = false,
   isButton = false,
+  status=false,
   dltBtnValue = "Delete",
   returnBtnValue = "Return",
 }) => {
@@ -106,7 +107,7 @@ const StatusGroup: FC<statusGroupProps> = ({
           </Button>
         </div>
       ) : (
-        <TableStatus btnValues={btnGroupValue || []} />
+        <TableStatus btnValues={btnGroupValue || []} status={status} />
       )}
       <div>
         <div className="w-full">

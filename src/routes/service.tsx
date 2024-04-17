@@ -9,7 +9,6 @@ import MyComplaintsService from "../modules/services/My Complaints Service/MyCom
 import ServiceInvoicePage from "../modules/services/invoice/ServiceInvoicePage/ServiceInvoicePage";
 import CreateInvoice from "../modules/services/invoice/create invoice/CreateInvoice";
 import InvoiceList from "../modules/services/invoice/invoice list/InvoiceList";
-import InvoicePaindig from "../modules/services/invoice/invoice painding/invoicePaindig";
 import EngineerLibraryForService from "../modules/services/repair/EngineerItems/EngineerLibraryForService";
 import EngineerItemsRepairDetails from "../modules/services/repair/EngineerItemsOrderDetails/EngineerItemsRepairDetails";
 import ServiceMyLibrary from "../modules/services/repair/MyLibrary/ServiceMyLibrary";
@@ -40,5 +39,4 @@ export const serviceRepairsRoutes = [
 export const serviceInvoicesRoutes = [
     { path: "/create-bill-service", element: <CreateInvoice /> },
     { path: "/bill-list-service", element: <InvoiceList/> },
-    { path: "/bill-pending-service", element: <InvoicePaindig /> },
 ];
