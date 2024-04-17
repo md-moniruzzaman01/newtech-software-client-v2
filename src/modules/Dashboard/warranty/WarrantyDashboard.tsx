@@ -15,6 +15,7 @@ import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { useGetCardDataQuery } from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
+import { icons } from "../../../shared/libs/Icons";
 
 const WarrantyDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -94,31 +95,31 @@ const WarrantyDashboard = () => {
 
         <DashboardCard
           link="/complaints-service?repair_status=Delivered"
-          title="Completed"
+          title="Delivered"
           money={`${CardData?.DeliveredCount}`}
-          className="bg-mintFrost"
-          icon={<DeliveryIcon />}
+          className="bg-lightTurquoise"
+          icon={icons?.delivered}
         />
         <DashboardCard
           link="/complaints-service?repair_status=buffer"
           title="Buffer"
           money={`${CardData?.BufferCounts}`}
-          className="bg-coralBlush"
+          className="bg-LightLavender"
           icon={<BufferIcon />}
         />
         <DashboardCard
           link="/complaints-service?repair_status=Unpaid"
           title="UnPaid"
           money={`${CardData?.UnpaidCount}`}
-          className="bg-coralBlush"
-          icon={<BufferIcon />}
+          className="bg-VeryLightYellow"
+          icon={icons?.unPaid}
         />
         <DashboardCard
           link="/complaints-service?repair_status=repair failed"
           title="Repair Failed"
           money={`${CardData?.repairfailedCount}`}
           className="bg-coralBlush"
-          icon={<BufferIcon />}
+          icon={icons?.failed}
         />
       </div>
       <div className="grid grid-cols-3 py-5 gap-5">

@@ -9,6 +9,9 @@ import {
 import { IoMdClose, IoMdList } from "react-icons/io";
 import { MdDashboard, MdMenu } from "react-icons/md";
 import CrossIcon from "./custom icons/CrossIcon";
+import { MdMoneyOffCsred } from "react-icons/md";
+import { FcCancel } from "react-icons/fc";
+import { IoIosCloudDone } from "react-icons/io";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const icons: any = {
@@ -23,6 +26,10 @@ export const icons: any = {
   Question: <FaQuestion />,
   Bell: <FaBell />,
   cross: <CrossIcon />,
+  unPaid: <MdMoneyOffCsred />,
+  failed: <FcCancel />,
+  delivered: <IoIosCloudDone />,
+
   // other icon
   // full_box: <FullBox />,
   // dashboard: <LuLayoutDashboard className="text-2xl" />,

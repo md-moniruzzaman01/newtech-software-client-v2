@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import DashboardCard from "../../../common/components/DashboardCard/DashboardCard";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-import BufferIcon from "../../../shared/libs/custom icons/BufferIcon";
 import DeliveryIcon from "../../../shared/libs/custom icons/DeliveryIcon";
 import InProgress from "../../../shared/libs/custom icons/InProgress";
 import PendingIcon from "../../../shared/libs/custom icons/PendingIcon";
@@ -15,6 +14,7 @@ import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { useGetCardDataQuery } from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
+import { icons } from "../../../shared/libs/Icons";
 
 const ServiceDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -51,7 +51,14 @@ const ServiceDashboard = () => {
     if (!isError && !isLoading) {
       setCardData(data?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [
+    complaintsData,
+    complaintsLoading,
+    complaintsError,
+    data,
+    isLoading,
+    isError,
+  ]);
 
   if (complaintsLoading) {
     return <LoadingPage />;
@@ -87,25 +94,25 @@ const ServiceDashboard = () => {
 
         <DashboardCard
           link="/complaints-service?repair_status=Delivered"
-          title="Completed"
+          title="Delivered"
           money={`${CardData?.DeliveredCount}`}
-          className="bg-mintFrost"
-          icon={<DeliveryIcon />}
+          className="bg-coralBlush"
+          icon={icons?.delivered}
         />
 
         <DashboardCard
           link="/complaints-service?repair_status=Unpaid"
           title="UnPaid"
           money={`${CardData?.UnpaidCount}`}
-          className="bg-coralBlush"
-          icon={<BufferIcon />}
+          className="bg-VeryLightYellow"
+          icon={icons?.unPaid}
         />
         <DashboardCard
           link="/complaints-service?repair_status=repair failed"
           title="Repair Failed"
           money={`${CardData?.repairfailedCount}`}
-          className="bg-coralBlush"
-          icon={<BufferIcon />}
+          className="bg-LightLavender"
+          icon={icons?.failed}
         />
       </div>
       <div className="grid grid-cols-3 py-5 gap-5">
