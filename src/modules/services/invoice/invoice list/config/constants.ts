@@ -10,7 +10,7 @@ export const keys = [
 
 export const btnValue = [
   "pending",
-  "approved",
+  "completed & waiting for bill",
   "completed",
   "canceled",
 ];

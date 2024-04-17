@@ -7,9 +7,7 @@ import Navbar from "../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../../redux/store";
-import Button from "../../../common/components/Button";
+
 import { MdModeEdit } from "react-icons/md";
 import { useGetBillByIdQuery } from "../../../redux/features/api/service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
@@ -18,11 +16,7 @@ const ComplaintsServicePayment = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(true);
-  const [totalDiscount, setTotalDiscount] = useState<number>(0);
-  const [totalHiddenDiscount, setTotalHiddenDiscount] = useState<number>(0);
-  // const serviceAllIds = useSelector(
-  //   (state: RootState) => state.complaintsServiceIds.serviceAllIds
-  // );
+
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
   const token = getFromLocalStorage(authKey);
@@ -38,11 +32,8 @@ const ComplaintsServicePayment = () => {
     }
   }, [billData, billError, BillLoading]);
 
-  const handleSubmitPayment = () => {
-    navigate("/service-invoice");
-  };
-  console.log("discount", totalDiscount);
-  console.log("hidden", totalHiddenDiscount);
+
+
   if (BillLoading) {
     return <LoadingPage />;
   }
@@ -118,18 +109,10 @@ const ComplaintsServicePayment = () => {
             </div>
           </div>
           <ComplaintOrderDetailsTable
-            totalDiscount={totalDiscount}
-            totalHiddenDiscount={totalHiddenDiscount}
-            setTotalDiscount={setTotalDiscount}
-            setTotalHiddenDiscount={setTotalHiddenDiscount}
             isEdit={isEdit}
             id={id}
           />
-          <div className=" w-1/3 mx-auto py-10">
-            <Button onClick={handleSubmitPayment} className="w-full" primary>
-              Save
-            </Button>
-          </div>
+         
         </div>
       </div>
     </div>

@@ -1,19 +1,26 @@
-export const handleDiscountChange = (
-  index: number,
-  value: number,
-  discount: number[],
-  setDiscount?: (value: number[]) => void,
-  setTotalDiscount?: (value: number) => void
-) => {
-  const newDiscounts = [...discount];
-  newDiscounts[index] = value;
-  setDiscount(newDiscounts);
+import { IDiscount } from "../config/types";
 
-  // Calculate and store total discount
-  const totalDiscount = newDiscounts.reduce((acc, curr) => acc + curr, 0);
-  // Assuming totalDiscount is a state variable
+export const handleDiscountChange = (
+  id: string,
+  value: number,
+  discount: IDiscount[],
+  setDiscount: React.Dispatch<React.SetStateAction<IDiscount[]>>,
+  setTotalDiscount: (value: number) => void
+) => {
+  const existingIndex = discount.findIndex((d) => d.id === id);
+  if (existingIndex !== -1) {
+    const newDiscounts = [...discount];
+    newDiscounts[existingIndex].amount = value;
+    setDiscount(newDiscounts);
+  } else {
+    const newDiscount = { id, amount: value };
+    setDiscount(prevDiscounts => [...prevDiscounts, newDiscount]);
+  }
+  const updatedDiscount = discount.map(d => d.amount);
+  const totalDiscount = updatedDiscount.reduce((acc, curr) => acc + curr, 0);
   setTotalDiscount(totalDiscount);
 };
+
 
 export const handleHiddenDiscountChange = (
   index: number,
