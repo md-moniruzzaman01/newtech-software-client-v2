@@ -19,8 +19,11 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const handleItemsPerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedPage = parseInt(e.target.value);
-    if (setCurrentPage && selectedPage <= numberOfPages) {
+
+    if (setCurrentPage && selectedPage <= numberOfPages && selectedPage >= 0) {
       setCurrentPage(selectedPage);
+    } else {
+      setCurrentPage(numberOfPages);
     }
   };
 
@@ -38,7 +41,9 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="flex justify-between w-[35rem] ">
-      <p className="mt-2">Total : <span>{totalItems}</span></p>
+      <p className="mt-2">
+        Total : <span>{totalItems}</span>
+      </p>
 
       <div className="pagination">
         <button onClick={handlePrevPage}>Prev</button>
@@ -53,7 +58,6 @@ const Pagination: React.FC<PaginationProps> = ({
             (currentPage <= numberOfPages - 4 && page === numberOfPages - 1) // Show the second-to-last page if currentPage is 5 or more from the end
           ) {
             return (
-
               <button
                 className={currentPage === page ? "selected" : undefined}
                 onClick={() => setCurrentPage && setCurrentPage(page)}
@@ -78,12 +82,17 @@ const Pagination: React.FC<PaginationProps> = ({
         })}
         <button onClick={handleNextPage}>Next</button>
         {/* Select dropdown for page selection */}
-        <input type="number" defaultValue={currentPage} onChange={handleItemsPerPage} name="changePage" className=" w-14 text-center ml-4 text-gray-500" />
-
-
+        <input
+          type="number"
+          defaultValue={currentPage}
+          onChange={handleItemsPerPage}
+          name="changePage"
+          className=" w-14 py-1 border rounded-md text-center ml-4 border-grayForBorder"
+          min="1"
+          max={numberOfPages}
+        />
       </div>
     </div>
-
   );
 };
 

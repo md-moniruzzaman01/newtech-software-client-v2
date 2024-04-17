@@ -63,7 +63,6 @@ const ServiceDashboard = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-  console.log(CardData);
   return (
     <div className="px-5">
       <div className="pb-5">

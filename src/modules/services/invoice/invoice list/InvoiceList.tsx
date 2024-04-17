@@ -5,7 +5,13 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { BillServiceTableHeader, btnValue, fields, keys, tableLayout } from "./config/constants";
+import {
+  BillServiceTableHeader,
+  btnValue,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useGetBillsQuery } from "../../../../redux/features/api/bill";
@@ -14,7 +20,7 @@ import { useSearchParams } from "react-router-dom";
 
 const InvoiceList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
 
@@ -27,7 +33,7 @@ const InvoiceList = () => {
     isLoading: billsLoading,
   } = useGetBillsQuery({
     token,
-    query
+    query,
   });
 
   useEffect(() => {
@@ -38,13 +44,15 @@ const InvoiceList = () => {
     }
   }, [billData]);
 
-
-
   if (billsLoading) {
     return <LoadingPage />;
   }
   if (billsError) {
-    return <div className="min-h-screen flex justify-items-center items-center"> <p>Error found</p></div>;
+    return (
+      <div className="min-h-screen flex justify-items-center items-center">
+        <p>Error found</p>
+      </div>
+    );
   }
   return (
     <div className=" px-5">
@@ -54,7 +62,7 @@ const InvoiceList = () => {
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={btnValue} status/>
+          <StatusGroup btnGroupValue={btnValue} status />
           <div className="pt-5">
             <CommonTable
               itemData={billData?.data}
@@ -75,7 +83,6 @@ const InvoiceList = () => {
             setCurrentPage={setCurrentPage}
           />
         </div>
-
       </div>
     </div>
   );
