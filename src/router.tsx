@@ -141,7 +141,7 @@ export const router = createBrowserRouter([
         element: <InventoryRequest />,
       },
       {
-        path: "/inventory/request-details",
+        path: "/inventory/request-details/:id?",
         element: <InventoryRequestDetailsPage />,
       },
       {
@@ -342,7 +342,6 @@ export const router = createBrowserRouter([
         path: "/setting",
         element: <SettingPage />,
       },
-
 
       // add category page
       {

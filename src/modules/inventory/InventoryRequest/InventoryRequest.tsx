@@ -1,11 +1,11 @@
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-import { DemoTableHeaderForInventory } from "../../../shared/config/constaints";
 
 import InventoryStatusGroup from "../../../common/components/InventoryStatusGroup/InventoryStatusGroup";
 import InventoryRequestInfoTable from "./partials/InventoryRequestInfoTable";
 import InventoryRequestStatusGroup from "../InventoryApprove/partials/InventoryApproveStatusGroup";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import InventoryTableFilter from "../../../common/components/InventoryTableFilter/InventoryTableFilter";
+import { TableHeaderForInventory } from "../Inventory/config/constants";
 
 const InventoryRequest = () => {
   return (
@@ -21,7 +21,7 @@ const InventoryRequest = () => {
           <InventoryRequestStatusGroup />
         </div>
         <InventoryRequestInfoTable
-          HeaderData={DemoTableHeaderForInventory}
+          HeaderData={TableHeaderForInventory}
           link="/inventory/request-details"
         />
         <div className="absolute bottom-0 right-5">

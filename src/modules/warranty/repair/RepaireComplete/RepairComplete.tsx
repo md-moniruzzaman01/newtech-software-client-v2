@@ -1,10 +1,42 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import BranchCommonHeader from "../../../../common/components/BranchCommonHeader/BranchCommonHeader";
 import RepairCompleteCard from "../../../../common/components/RepairCompleteCard/RepairCompleteCard";
 import RepairCompleteDetails from "../../../../common/components/RepairCompleteDetails/RepairCompleteDetails";
+import { useGetServicesQuery } from "../../../../redux/features/api/service";
 import { FilterOptions } from "../../../../shared/config/constaints";
 
-
 const RepairComplete = () => {
+  const [complaintsData, setComplaintsData] = useState([]);
+  const [complaintsDataDelivered, setComplaintsDataDelivered] = useState([]);
+  const { data: complaints, isError, isLoading } = useGetServicesQuery({});
+
+  useEffect(() => {
+    if (!isError && !isLoading) {
+      const completedComplaints = complaints?.data.filter(
+        (complaint: any) => complaint.repair_status === "Reject"
+      );
+      const deliveredComplaints = complaints?.data.filter(
+        (complaint: any) => complaint.repair_status === "Delivered"
+      );
+      setComplaintsData(completedComplaints);
+      setComplaintsDataDelivered(deliveredComplaints);
+    }
+  }, [isError, isLoading, complaints]);
+
+  const totalRepairComplete =
+    complaintsData?.reduce(
+      (pre, curr) => pre + (curr?.RepairItem?.length ?? 0),
+      0
+    ) || 0;
+  const totalRepairDelivered =
+    complaintsDataDelivered?.reduce(
+      (pre, curr) => pre + (curr?.RepairItem?.length ?? 0),
+      0
+    ) || 0;
+
+  console.log(complaintsData);
+
   return (
     <div className=" px-5">
       <BranchCommonHeader
@@ -15,12 +47,12 @@ const RepairComplete = () => {
         <RepairCompleteCard
           bgColor="primary"
           headerTitle="Total Repair Complete"
-          branchTitle="25"
+          branchTitle={totalRepairComplete}
         ></RepairCompleteCard>
         <RepairCompleteCard
           bgColor="lightBlue"
           headerTitle="Total Repair Delivered"
-          branchTitle="25"
+          branchTitle={totalRepairDelivered}
         ></RepairCompleteCard>
         <RepairCompleteCard
           bgColor="lightYellow"

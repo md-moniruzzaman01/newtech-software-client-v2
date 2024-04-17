@@ -1,11 +1,12 @@
 import { IoMdEye } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { InventoryInfoTableProps } from "../../../../shared/config/types";
+import { InventoryInfoTableProps } from "../config/types";
 
 const InventoryInfoTable: React.FC<InventoryInfoTableProps> = ({
   HeaderData,
   link,
+  itemData,
 }) => {
   return (
     <div className="overflow-x-auto">
@@ -25,34 +26,27 @@ const InventoryInfoTable: React.FC<InventoryInfoTableProps> = ({
         </thead>
         <tbody className="text-center">
           {/* row 1 */}
-          <tr>
-            <td className="border-y py-2">1554541</td>
-            <td className="border-y py-2">12/12/2023</td>
+          {itemData?.map((item, index) => (
+            <tr key={index}>
+              <td className="border-y py-2">{item?.id}</td>
+              <td className="border-y py-2">{item?.user?.id}</td>
 
-            <td className="border-y py-2">
-              <div className="flex justify-center items-center relative">
-                <div className="avatar">
-                  <div className="w-6">
-                    <img
-                      className="rounded-full"
-                      src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    />
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td className="border-y py-2">John doe</td>
-            <td className="border-y py-2">fahimkhandakar01@gamil.com</td>
-            <td className="border-y py-2">210561456464</td>
-            <td className="border-y py-2">Manager</td>
-            <td className="border-y py-2">Acer</td>
+              <td className="border-y py-2">{item?.user?.branch}</td>
+              <td className="border-y py-2">{item?.parts?.toString()}</td>
+              <td className="border-y py-2">{item?.serial_number}</td>
+              <td className="border-y py-2">{item?.status}</td>
+              <td className="border-y py-2">
+                {item?.createdAt?.toString().slice(0, 10)}
+              </td>
+              <td className="border-y py-2">{item?.note}</td>
 
-            <td>
-              <NavLink to={`${link}`}>
-                <IoMdEye className="!text-shadeOfRed" />
-              </NavLink>
-            </td>
-          </tr>
+              <td>
+                <NavLink to={`${link}/${item?.id}`}>
+                  <IoMdEye className="!text-shadeOfRed" />
+                </NavLink>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

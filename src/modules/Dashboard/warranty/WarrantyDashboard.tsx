@@ -13,24 +13,23 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { AdminDashboardTableHeader, tableLayout } from "./config/constants";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
-import Chart from "./partials/chart";
 import { useGetCardDataQuery } from "../../../redux/features/api/others";
-
+import Chart from "./partials/chart";
 
 const WarrantyDashboard = () => {
   const [billData, setBillData] = useState([]);
   const [CardData, setCardData] = useState({
-    "pendingCount": 0,
-    "InProgressCount": 0,
-    "DeliveredCount": 0,
-    "BufferCounts": 0,
-    "BufferCount": 0,
-    "UnpaidCount": 0,
-    "RequiredPartsCount": 0,
-    "RejectCount": 0,
-    "CompletedCount":0 ,
-    "CancelCount": 0,
-    "repairfailedCount": 0
+    pendingCount: 0,
+    InProgressCount: 0,
+    DeliveredCount: 0,
+    BufferCounts: 0,
+    BufferCount: 0,
+    UnpaidCount: 0,
+    RequiredPartsCount: 0,
+    RejectCount: 0,
+    CompletedCount: 0,
+    CancelCount: 0,
+    repairfailedCount: 0,
   });
 
   const token = getFromLocalStorage(authKey);
@@ -39,15 +38,12 @@ const WarrantyDashboard = () => {
     isError: complaintsError,
     isLoading: complaintsLoading,
   } = useGetComplaintsQuery({
-    token
+    token,
   });
-  const {
-    data,
-    isError,
-    isLoading,
-  } = useGetCardDataQuery({
-    token
+  const { data, isError, isLoading } = useGetCardDataQuery({
+    token,
   });
+  console.log(data);
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
@@ -56,7 +52,14 @@ const WarrantyDashboard = () => {
     if (!isError && !isLoading) {
       setCardData(data?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [
+    complaintsData,
+    complaintsLoading,
+    complaintsError,
+    isError,
+    isLoading,
+    data,
+  ]);
 
   if (complaintsLoading) {
     return <LoadingPage />;
@@ -74,7 +77,7 @@ const WarrantyDashboard = () => {
           className="bg-lightSkyBlue"
           icon={<PendingIcon />}
         />
-           <DashboardCard
+        <DashboardCard
           link="/complaints-service?repair_status=Completed"
           title="Completed"
           money={`${CardData?.CompletedCount}`}
@@ -88,7 +91,7 @@ const WarrantyDashboard = () => {
           className="bg-creamyPeach"
           icon={<InProgress />}
         />
-     
+
         <DashboardCard
           link="/complaints-service?repair_status=Delivered"
           title="Completed"

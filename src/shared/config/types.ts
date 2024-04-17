@@ -161,10 +161,6 @@ export type InventoryRequestDetailsCardProps = {
   contact?: string;
 };
 
-export type InventoryRequestInfoDetailsProps = {
-  headerData: TableHeaderProps[];
-};
-
 export type UserEvent = {
   userId: string;
   role: string;
