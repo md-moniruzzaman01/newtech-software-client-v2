@@ -26,7 +26,9 @@ const RepairApi = baseApi.injectEndpoints({
     }),
     getServiceProductsForRepair: builder.query({
       query: (params) => {
-        console.log(`/product?warranty=false&repair_status=Received&repair_status=Return%20to%20library&${params?.query}`)
+        console.log(
+          `/product?warranty=false&repair_status=Received&repair_status=Return%20to%20library&${params?.query}`
+        );
         return {
           url: `/product?warranty=false&repair_status=Received&repair_status=Return%20to%20library&${params?.query}`,
           headers: {
@@ -39,7 +41,7 @@ const RepairApi = baseApi.injectEndpoints({
     getOldRepairs: builder.query({
       query: (params) => {
         return {
-          url: `/repair/my-library/${params?.id}`,
+          url: `/repair/my-library/${params?.id}?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -72,7 +74,7 @@ const RepairApi = baseApi.injectEndpoints({
     }),
     getRepairById: builder.query({
       query: (params) => {
-        console.log(`/repair/${params.id}`)
+        console.log(`/repair/${params.id}`);
         return {
           url: `/repair/${params.id}`,
           headers: {
@@ -81,15 +83,15 @@ const RepairApi = baseApi.injectEndpoints({
         };
       },
     }),
-
   }),
 });
 
-export const { useGetProductsForRepairQuery,
+export const {
+  useGetProductsForRepairQuery,
   useAssignEngineerMutation,
   useGetOldRepairsQuery,
   useGetRepairsQuery,
   useGetAllRepairsQuery,
   useGetRepairByIdQuery,
-  useGetServiceProductsForRepairQuery
+  useGetServiceProductsForRepairQuery,
 } = RepairApi;

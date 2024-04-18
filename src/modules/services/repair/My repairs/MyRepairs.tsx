@@ -1,4 +1,3 @@
-
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -13,7 +12,7 @@ import MyQcTable from "../../../warranty/QC/QCMyLibrary/partials/MyQcTable";
 import { MyQCTableHeader } from "../../../warranty/QC/QCMyLibrary/config/constants";
 
 const MyRepairs = () => {
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
   const [checkedRows, setCheckedRows] = useState<
@@ -61,10 +60,10 @@ const MyRepairs = () => {
         data?.data
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ?.map((item: any) => ({
-            qc_id: item?.id || "", 
+            qc_id: item?.id || "",
             repair_id: item?.repair?.id || "",
           }))
-           // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
       if (allIds.length > 0) {
         setCheckedRows(allIds);
@@ -81,7 +80,7 @@ const MyRepairs = () => {
 
   return (
     <div className=" px-5">
-      <Navbar name="QC My Library"></Navbar>
+      <Navbar name="My Repaired" />
       <div className="pt-5">
         <SearchBar />
       </div>

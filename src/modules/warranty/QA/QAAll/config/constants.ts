@@ -19,3 +19,12 @@ export const tableLayout = [
   "item?.createdAt?.toString().slice(0, 10)",
   "item?.repair?.received_date?.toString().slice(0, 10)",
 ];
+
+export const fields = "";
+export const keys = [
+  "brand_name",
+  "sort",
+  "repair_status",
+  "searchTerm",
+  "category_name",
+];

@@ -19,6 +19,9 @@ import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const Qc = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qcData, setQCData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
@@ -52,6 +55,9 @@ const Qc = () => {
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
       setQCData(complaintsData?.data);
+      setTotalItems(complaintsData.meta.total);
+      setLimit(complaintsData.meta.limit);
+      setCurrentPage(complaintsData?.meta?.page);
     }
     if (!engineerError && !engineerLoading) {
       setEngineers(engineerData?.data);
@@ -102,7 +108,12 @@ const Qc = () => {
           />
 
           <div className="absolute bottom-2 right-[50px]">
-            <Pagination></Pagination>
+            <Pagination
+              limit={limit}
+              currentPage={currentPage}
+              totalItems={totalItems}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </div>
       </div>

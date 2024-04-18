@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
@@ -10,7 +11,7 @@ import swal from "sweetalert";
 
 const CustomerAddOrEdit = () => {
   const token = getFromLocalStorage(authKey);
-  const [createPartner, { isError, error }] = useCreatePartnerMutation();
+  const [createPartner, { isLoading }] = useCreatePartnerMutation();
   const { data: brands } = useGetBrandsQuery({});
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,19 +43,13 @@ const CustomerAddOrEdit = () => {
         asp,
       },
     };
-    console.log("data", fullData);
-    try {
-      const result = await createPartner({ fullData, token });
-      console.log("result:", result); // Log the result
-    } catch (err) {
-      console.log("error", err); // Log the error
-      if (isError && error) {
-        swal("error", `${error}`, "error"); // Show the error with swal
-        console.error(error); // Log the error to the console
-      }
+    const result: any = await createPartner({ fullData, token });
+    if (result?.data?.success) {
+      swal("success", `${result?.data?.message}`, "success");
+      form.reset();
+    } else {
+      swal("error", `Something went wrong`, "error"); // Show the error with swal
     }
-
-    form.reset();
   };
   return (
     <div className="px-5">
@@ -80,7 +75,9 @@ const CustomerAddOrEdit = () => {
               <Input inputName="password" labelName="Password" />
             </div>
             <div>
-              <Button primary>Create a Partner</Button>
+              <Button loading={isLoading} primary>
+                Create a Partner
+              </Button>
             </div>
           </form>
 

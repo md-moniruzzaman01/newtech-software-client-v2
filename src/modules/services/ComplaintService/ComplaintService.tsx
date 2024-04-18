@@ -48,17 +48,23 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const mainCategoryId =
+    mainCategories?.length &&
+    mainCategories?.find((item) => item?.value === mainCategoryValue);
+
   const {
     data: mainCategoryData,
     isError: mainCategoryError,
     isLoading: mainCategoryLoading,
   } = useGetMainCategoryQuery({});
+  console.log();
 
   const {
     data: categoryData,
     isError: categoryError,
     isLoading: categoryLoading,
-  } = useGetServiceCategoryQuery({});
+  } = useGetServiceCategoryQuery({ mainCategoryId });
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
@@ -147,7 +153,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   }}
                 />
                 {isLoadingSuggestion && (
-                  <p className="bg-slate-300 mx-2 p-2 w-full h-11" p-2>
+                  <p className="bg-slate-300 mx-2 p-2 w-full h-11">
                     Loading...
                   </p>
                 )}

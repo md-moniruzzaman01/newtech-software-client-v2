@@ -8,7 +8,9 @@ import { useGetOldRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
-import { MyRepairHeader, tableLayout } from "./config/constants";
+import { MyRepairHeader, fields, keys, tableLayout } from "./config/constants";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,11 +19,14 @@ const MyRepairs = () => {
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
   const { data, isError, isLoading } = useGetOldRepairsQuery({
     id,
     token,
+    query,
   });
   useEffect(() => {
     if (data) {

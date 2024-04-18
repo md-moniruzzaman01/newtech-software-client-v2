@@ -19,9 +19,9 @@ import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const QAItems = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
-  // const limit = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qaData, setQAData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
@@ -57,6 +57,9 @@ const QAItems = () => {
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
       setQAData(complaintsData?.data);
+      setTotalItems(complaintsData.meta.total);
+      setLimit(complaintsData.meta.limit);
+      setCurrentPage(complaintsData?.meta?.page);
     }
     if (!engineerError && !engineerLoading) {
       setEngineers(engineerData?.data);
@@ -69,7 +72,6 @@ const QAItems = () => {
     engineerLoading,
     engineerData,
   ]);
-
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
@@ -81,8 +83,7 @@ const QAItems = () => {
   if (isError) {
     swal("Error!", "something is wrong", "error");
   }
-  console.log("QA", qaData);
-  console.log("checkedRows", checkedRows);
+
   return (
     <div className="px-5">
       <Navbar name={"QA Items"} />
@@ -108,7 +109,12 @@ const QAItems = () => {
             link="/qa-items/order-details"
           />
           <div className="absolute bottom-2 right-[50px]">
-            <Pagination />
+            <Pagination
+              limit={limit}
+              currentPage={currentPage}
+              totalItems={totalItems}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </div>
       </div>

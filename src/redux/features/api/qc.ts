@@ -29,7 +29,7 @@ const QCApi = baseApi.injectEndpoints({
     getOldQcs: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}`,
+          url: `/qc/my-library/${params?.id}?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -61,7 +61,6 @@ const QCApi = baseApi.injectEndpoints({
       },
       providesTags: ["complaints"],
     }),
-
   }),
 });
 

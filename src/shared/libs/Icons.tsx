@@ -11,7 +11,7 @@ import { MdDashboard, MdMenu } from "react-icons/md";
 import CrossIcon from "./custom icons/CrossIcon";
 import { MdMoneyOffCsred } from "react-icons/md";
 import { FcCancel } from "react-icons/fc";
-import { IoIosCloudDone } from "react-icons/io";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const icons: any = {
@@ -28,7 +28,7 @@ export const icons: any = {
   cross: <CrossIcon />,
   unPaid: <MdMoneyOffCsred />,
   failed: <FcCancel />,
-  delivered: <IoIosCloudDone />,
+  delivered: <CiDeliveryTruck />,
 
   // other icon
   // full_box: <FullBox />,

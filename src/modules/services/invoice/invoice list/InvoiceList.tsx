@@ -17,7 +17,7 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 import { useGetBillsQuery } from "../../../../redux/features/api/bill";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
-import ConditionalBtnInSearch from "./partials/conditionalBtnInSearch/conditionalBtnInSearch";
+import ConditionalBtnInSearch from "./partials/conditionalBtnInSearch/ConditionalBtnInSearch";
 
 const InvoiceList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);

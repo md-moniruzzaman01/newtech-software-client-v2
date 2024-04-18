@@ -9,9 +9,13 @@ import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
-import { RepairLibraryTableHeader, fields, keys, tableLayout } from "./config/constants";
+import {
+  RepairLibraryTableHeader,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constants";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-
 
 const ServiceMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +25,7 @@ const ServiceMyLibrary = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys)
+  const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
   const { data, isError, isLoading } = useGetRepairsQuery({
@@ -46,15 +50,12 @@ const ServiceMyLibrary = () => {
     return <div>Error</div>;
   }
 
-
-
   const handleDeleteData = () => {
     console.log(checkedRows);
   };
   const handleReturnData = () => {
     console.log(checkedRows);
   };
-
   return (
     <div className=" px-5">
       <Navbar name="QC My Library"></Navbar>
@@ -74,19 +75,15 @@ const ServiceMyLibrary = () => {
             />
           </div>
           <div className="pt-5">
-
             <CommonTable
-               itemData={data?.data}
-               headerData={RepairLibraryTableHeader}
-               dataLayout={tableLayout}
-               checkedRows={checkedRows}
-               setCheckedRows={setCheckedRows}
-               checkbox
-               link="/service/engineer-items/order-details"
-            
-            >
-
-            </CommonTable>
+              itemData={data?.data}
+              headerData={RepairLibraryTableHeader}
+              dataLayout={tableLayout}
+              checkedRows={checkedRows}
+              setCheckedRows={setCheckedRows}
+              checkbox
+              link="/service/engineer-items/order-details"
+            ></CommonTable>
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">

@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 //internal
-import { addCategoryProps } from "./config/types";
-import { useCreateCategoryMutation, useGetMainCategoryQuery } from "../../../../redux/features/api/Category";
+import {
+  useCreateCategoryForServiceMutation,
+  useCreateCategoryMutation,
+  useGetMainCategoryQuery,
+} from "../../../../redux/features/api/Category";
 import { useGetBrandsQuery } from "../../../../redux/features/api/Brand";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import HeaderWithCrossBtn from "../../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
@@ -9,14 +13,14 @@ import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import { handleFormReset } from "../../../../common/widgets/FormResetFunction/FormResetFunction";
 import Button from "../../../../common/components/Button";
-
+import swal from "sweetalert";
 
 const WarrantyCategoryAddPage = () => {
   const [activeRoute, setActiveRoute] = useState(false);
-  const [fullData, setFullData] = useState<addCategoryProps>();
   const { data: mainCategory } = useGetMainCategoryQuery({});
   const { data: brands } = useGetBrandsQuery({});
   const [createCategory] = useCreateCategoryMutation();
+  const [createCategoryForService] = useCreateCategoryForServiceMutation();
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
@@ -71,30 +75,22 @@ const WarrantyCategoryAddPage = () => {
       basic_service_charge,
     };
 
-    if (activeRoute) {
-      setFullData(warrantyData);
-    }
-    if (!activeRoute) {
-      setFullData(serviceData);
-    }
+    const dataToUse = activeRoute ? warrantyData : serviceData;
 
-    try {
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-     const result:any= await createCategory(fullData);
+    const result: any = activeRoute
+      ? await createCategory(dataToUse)
+      : await createCategoryForService(dataToUse);
 
-     if (result?.data?.success) {
+    if (result?.data?.success) {
+      console.log(result);
       form.reset();
-      console.log("Category added successfully");
-     }else{
-      console.log("something went wrong");
-     }
-      
-    } catch (error) {
-      console.error("Error adding brand:", error);
+      swal("Success", "Category added successfully", "success");
+    } else {
+      console.log(result);
+      swal("Error", "Something went wrong", "error");
     }
   };
 
-  console.log(fullData);
   return (
     <div>
       <div className="py-5 px-5">

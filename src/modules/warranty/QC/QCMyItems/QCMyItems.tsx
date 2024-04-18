@@ -8,22 +8,35 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
-import { QCTableHeader, tableLayout } from "./config/constants";
+import { QCTableHeader, fields, keys, tableLayout } from "./config/constants";
 import { useGetOldQcsQuery } from "../../../../redux/features/api/qc";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
+
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
   const { data, isError, isLoading } = useGetOldQcsQuery({
     id,
     token,
+    query,
   });
+  useEffect(() => {
+    if (data) {
+      setTotalItems(data.meta.total);
+      setLimit(data.meta.limit);
+      setCurrentPage(data?.meta?.page);
+    }
+  }, [data]);
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -54,14 +67,14 @@ const QCMyItems = () => {
             />
           </div>
         </div>
-          <div className="absolute bottom-2 right-[50px]">
+        <div className="absolute bottom-2 right-[50px]">
           <Pagination
             limit={limit}
             currentPage={currentPage}
             totalItems={totalItems}
             setCurrentPage={setCurrentPage}
           />
-          </div>
+        </div>
       </div>
     </div>
   );

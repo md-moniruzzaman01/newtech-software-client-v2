@@ -9,6 +9,7 @@ const CategoryApi = baseApi.injectEndpoints({
         method: "POST",
         body: mainCategory,
       }),
+      invalidatesTags: ["brand_category"],
     }),
     createCategory: builder.mutation({
       query: (category) => ({
@@ -16,16 +17,42 @@ const CategoryApi = baseApi.injectEndpoints({
         method: "POST",
         body: category,
       }),
+      invalidatesTags: ["category"],
+    }),
+    createCategoryForService: builder.mutation({
+      query: (category) => ({
+        url: "/category",
+        method: "POST",
+        body: category,
+      }),
     }),
     getMainCategory: builder.query({
       query: () => "/main/category",
-      providesTags: ['brand_category'],
+      providesTags: ["brand_category"],
     }),
+
     getCategory: builder.query({
-      query: () => "/brand/category",
+      query: ({ mainCategoryId, brandId }) => {
+        return {
+          url: `/brand/category?category=${mainCategoryId?.id}&brand=${brandId?.id}`,
+        };
+      },
     }),
+    getCategoryAll: builder.query({
+      query: () => {
+        return {
+          url: `/brand/category`,
+        };
+      },
+    }),
+
     getServiceCategory: builder.query({
-      query: () => "/category",
+      query: ({ mainCategoryId }) => `/category?category=${mainCategoryId?.id}`,
+      providesTags: ["brand_category"],
+    }),
+    getServiceCategoryAll: builder.query({
+      query: () => `/category`,
+      providesTags: ["brand_category"],
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
@@ -48,5 +75,8 @@ export const {
   useGetMainCategoryQuery,
   useCreateCategoryMutation,
   useGetCategoryQuery,
-  useGetServiceCategoryQuery
+  useGetServiceCategoryQuery,
+  useCreateCategoryForServiceMutation,
+  useGetServiceCategoryAllQuery,
+  useGetCategoryAllQuery,
 } = CategoryApi;

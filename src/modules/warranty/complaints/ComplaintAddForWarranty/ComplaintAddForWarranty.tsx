@@ -23,8 +23,11 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { defaultPartner } from "./helpers/findDefaultPartner";
 import { handleDataSubmit } from "./helpers/submitData";
 import { deleteAll, deleteData } from "./helpers/deleteProducts";
+import { useComplaintAddMutation } from "../../../../redux/features/api/complaints";
 
 const ComplaintAddForWarranty = () => {
+  const [createComplaints] = useComplaintAddMutation();
+
   // other state
   const [warrantyAddedItem, setWarrantyAddedItem] = useState<
     warrantyUpdateAddedItemProps[]
@@ -47,6 +50,13 @@ const ComplaintAddForWarranty = () => {
   const [mainCategoryValue, setMainCategoryValue] = useState("");
   const [categoryValue, setCategoryValue] = useState("");
 
+  const mainCategoryId =
+    mainCategories?.length &&
+    mainCategories?.find((item) => item?.value === mainCategoryValue);
+
+  const brandId =
+    brands?.length && brands?.find((item) => item?.value === brandValue);
+
   // redux
   // const [addComplaint, { isLoading }] = useComplaintAddMutation();
   const {
@@ -63,7 +73,7 @@ const ComplaintAddForWarranty = () => {
     data: categoryData,
     isError: categoryError,
     isLoading: categoryLoading,
-  } = useGetCategoryQuery({});
+  } = useGetCategoryQuery({ mainCategoryId, brandId });
 
   const {
     data: mainCategoryData,
@@ -134,7 +144,10 @@ const ComplaintAddForWarranty = () => {
 
     const brand_name = (
       form.elements.namedItem("brand_name") as HTMLInputElement
-    ).value;
+    )?.value;
+    const brand_name_for_new = (
+      form.elements.namedItem("brand_name_for_new") as HTMLInputElement
+    )?.value;
     // const category_name = (
     //   form.elements.namedItem("main_category") as HTMLInputElement
     // ).value;
@@ -158,7 +171,7 @@ const ComplaintAddForWarranty = () => {
       contact_number,
       email: email,
       address: address,
-      brand_name,
+      brand_name: brand_name_for_new,
     };
     const partner = {
       brandValue,
@@ -217,14 +230,13 @@ const ComplaintAddForWarranty = () => {
     setSelectData(selectedItemData);
   };
 
-
   const { brand_name, partner_id } = partnerInfo;
   const fullData: any = {
     partner_id,
     brand_name,
     inputFields: warrantyAddedItem.map(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ mainCategoryValue, categoryValue, ...rest }) => ({
+      ({ mainCategoryValue, ...rest }) => ({
         ...rest,
       })
     ),
@@ -254,16 +266,22 @@ const ComplaintAddForWarranty = () => {
               {isNewPartner ? (
                 <div className="col-span-3 grid grid-cols-3 gap-8">
                   {/* Brand Name  */}
+
                   <div>
-                    <Input
-                      defaultValue={`${
-                        partnerInfo ? partnerInfo?.brand_name : ""
-                      }`}
-                      IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
-                      inputName="brand_name"
-                      inputPlaceholder="Brand Name"
-                      labelName="Brand Name"
-                    ></Input>
+                    <InputFilter
+                      isDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      Filter={brands}
+                      defaultValue={
+                        partnerInfo && partnerInfo.brand_name
+                          ? partnerInfo.brand_name
+                          : ""
+                      }
+                      required
+                      inputName="brand_name_for_new"
+                      placeholder="Brand Name"
+                      label="Brand Name"
+                      onChange={(value) => setBrandValue(value)}
+                    />
                   </div>
 
                   {/* Partner Name  */}
@@ -460,7 +478,8 @@ const ComplaintAddForWarranty = () => {
                     fullData,
                     setWarrantyAddedItem,
                     setPartnerInfo,
-                    setIsNewPartner
+                    setIsNewPartner,
+                    createComplaints
                   )
                 }
                 primary
