@@ -27,7 +27,7 @@ export const handleDataSubmit = async (
 
   try {
     setloading(true)
-    const url = SERVER_URL + "complaints/create-service"
+    const url = SERVER_URL + "/complaints/create-service"
     fetch(url, {
       method: "POST",
       headers: {

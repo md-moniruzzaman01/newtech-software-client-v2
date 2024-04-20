@@ -1,3 +1,4 @@
+import { SERVER_URL } from './../../../../../shared/config/secret';
 import swal from "sweetalert";
 import {
   getFromLocalStorage,
@@ -23,11 +24,11 @@ export const handleUpdateComplaintsData = async (
     },
     body: JSON.stringify(fullData),
   };
-
+const url= SERVER_URL + "/complaints/create"
   try {
     setIsLoading(true);
     const response = await fetch(
-      "http://16.16.166.48:5000/api/v2/complaints/create",
+      url,
       options
     );
 

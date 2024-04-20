@@ -20,7 +20,7 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const apiUrl = SERVER_URL + "auth/login";
+    const apiUrl = SERVER_URL + "/auth/login";
 
     await fetch(apiUrl, {
       method: "POST",

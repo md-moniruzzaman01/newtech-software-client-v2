@@ -19,15 +19,19 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { TableBodyProps } from "./config/types";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { SERVER_URL } from "../../../../shared/config/secret";
 
 //internal
 
 const Complaint = () => {
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [totalItems, setTotalItems] = useState(0);
   const [searchParams] = useSearchParams();
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys,currentPage,limit);
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
@@ -44,11 +48,27 @@ const Complaint = () => {
     }
     if (!complaintsLoading && !complaintsError) {
       setComplaints(complaintsData?.data);
+      setTotalItems(complaintsData.meta.total);
+      setLimit(complaintsData.meta.limit);
+      setCurrentPage(complaintsData?.meta?.page);
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
 
   const handleDelivery = () => {
-    console.log(checkedRows);
+    const url = `${SERVER_URL}/complaints/delivered`;
+    const fullData = { repairIds:checkedRows }
+    fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+      body: JSON.stringify(fullData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+
+
   };
   const handleDelete = () => {
     console.log(checkedRows);
@@ -90,7 +110,12 @@ const Complaint = () => {
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">
-          <Pagination></Pagination>
+          <Pagination
+          currentPage={currentPage}
+          totalItems={totalItems}
+          limit={limit}
+          
+          ></Pagination>
         </div>
       </div>
     </div>
