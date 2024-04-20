@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaCodeBranch } from "react-icons/fa";
 import { FiMonitor } from "react-icons/fi";
@@ -31,12 +31,22 @@ const SideBar = () => {
   const navigate = useNavigate();
   const user = getUserInfo();
 
+  const location = useLocation();
+
   useEffect(() => {
     const activeRouteValue = getFromLocalStorage("activeRoute");
     if (activeRouteValue) {
       setActiveRoute(JSON.parse(activeRouteValue));
     }
-  }, []);
+  }, [activeRoute]);
+
+  useEffect(() => {
+    if (activeRoute === true && location.pathname === "/") {
+      navigate("/");
+    } else if (activeRoute === false && location.pathname === "/services") {
+      navigate("/services");
+    }
+  }, [navigate, activeRoute]);
 
   const handleFilter = (route: string) => {
     const updatedActiveRoute = !activeRoute;

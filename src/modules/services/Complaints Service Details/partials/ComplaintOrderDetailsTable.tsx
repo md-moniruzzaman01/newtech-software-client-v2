@@ -3,6 +3,8 @@ import { ComplaintsOrderDetailsProps } from "../config/types";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
+import Button from "../../../../common/components/Button";
+import { NavLink } from "react-router-dom";
 
 const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
   const [complaintsSingleData, setComplaintsSingleData] =
@@ -37,9 +39,14 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
       <div className="text-center text-xs">
         {/* second row start here  */}
         <div className="grid grid-cols-8  text-center">
-          <div className="border py-2 border-gray-400">
-            {complaintsSingleData?.order_number}
-          </div>
+          <NavLink
+            to={`/complaints-service-full-details/${complaintsSingleData?.id}`}
+            className="border py-2 border-gray-400 !bg-transparent"
+          >
+            <Button link className="text-sm">
+              {complaintsSingleData?.order_number}
+            </Button>
+          </NavLink>
           <div className="border py-2 border-gray-400">
             {complaintsSingleData?.products?.serial_number}
           </div>

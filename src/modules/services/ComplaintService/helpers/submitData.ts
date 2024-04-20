@@ -1,7 +1,10 @@
 import swal from "sweetalert";
 
 import { defaultPartnerValue } from "../config/constants";
-import { getFromLocalStorage, removeFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+} from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import { partnerProps, updateAddedItemProps } from "../config/types";
 import { SERVER_URL } from "../../../../shared/config/secret";
@@ -26,8 +29,8 @@ export const handleDataSubmit = async (
   const token = getFromLocalStorage(authKey);
 
   try {
-    setloading(true)
-    const url = SERVER_URL + "/complaints/create-service"
+    setloading(true);
+    const url = SERVER_URL + "/complaints/create-service";
     fetch(url, {
       method: "POST",
       headers: {
@@ -38,6 +41,7 @@ export const handleDataSubmit = async (
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         if ("data" in result) {
           setAddedItem([]);
           const dataIds = result?.data?.data?.map(
@@ -61,14 +65,8 @@ export const handleDataSubmit = async (
             icon: "error",
           });
         }
-        setloading(false)
+        setloading(false);
       });
-
-
-
-
-
-
   } catch (error) {
     console.error("Error adding complaint:", error);
   }

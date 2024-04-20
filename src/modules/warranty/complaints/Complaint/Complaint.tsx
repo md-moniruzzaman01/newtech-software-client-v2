@@ -24,6 +24,8 @@ import { SERVER_URL } from "../../../../shared/config/secret";
 //internal
 
 const Complaint = () => {
+  const [isActiveBtn, setIsActiveBtn] = useState("");
+
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,7 +33,7 @@ const Complaint = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [searchParams] = useSearchParams();
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const query = constructQuery(searchParams, fields, keys,currentPage,limit);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
@@ -53,10 +55,17 @@ const Complaint = () => {
       setCurrentPage(complaintsData?.meta?.page);
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
+  useEffect(() => {
+    if (searchParams?.get("repair_status")) {
+      setIsActiveBtn(searchParams?.get("repair_status"));
+    } else {
+      setIsActiveBtn("");
+    }
+  }, [searchParams]);
 
   const handleDelivery = () => {
     const url = `${SERVER_URL}/complaints/delivered`;
-    const fullData = { repairIds:checkedRows }
+    const fullData = { repairIds: checkedRows };
     fetch(url, {
       method: "PATCH",
       headers: {
@@ -67,8 +76,6 @@ const Complaint = () => {
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
-
-
   };
   const handleDelete = () => {
     console.log(checkedRows);
@@ -86,6 +93,7 @@ const Complaint = () => {
       <Navbar name="Complaint"></Navbar>
       <div className="pt-5">
         <SearchBar
+          isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}
           handleDelivery={handleDelivery}
           handleReturn={handleReturn}
@@ -111,10 +119,9 @@ const Complaint = () => {
         </div>
         <div className="absolute bottom-2 right-[50px]">
           <Pagination
-          currentPage={currentPage}
-          totalItems={totalItems}
-          limit={limit}
-          
+            currentPage={currentPage}
+            totalItems={totalItems}
+            limit={limit}
           ></Pagination>
         </div>
       </div>

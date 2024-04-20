@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../Button";
 import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
@@ -6,7 +6,7 @@ import { useState } from "react";
 import EngineersFilter from "../EngineersFilter/EngineersFilter";
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  link = false,
+  link = "",
   linkBtn = "+ Add Complaint’s",
   isDropdown = false,
   dropdown = false,
@@ -21,6 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   checkedRows,
   handleBillGenerate,
   generateBtnLoading,
+  isMiddleBtnActive = "",
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -46,6 +47,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setActiveRoute(route);
   };
 
+  console.log(isMiddleBtnActive !== "Completed", disabled);
+  console.log(isMiddleBtnActive);
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -67,27 +71,48 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <div className="flex items-center gap-2 ">
           {isMiddleBtn && (
             <div className="flex gap-2">
-              <Button disabled={disabled} mini primary onClick={handleDelivery}>
+              <Button
+                disabled={isMiddleBtnActive !== "Completed" || disabled}
+                mini
+                primary
+                onClick={handleDelivery}
+              >
                 Delivery
               </Button>
-              <Button disabled={disabled} onClick={handleReturn} mini primary>
+              <Button
+                disabled={isMiddleBtnActive !== "Pending" || disabled}
+                onClick={handleReturn}
+                mini
+                primary
+              >
                 Return
               </Button>
-              <Button disabled={disabled} onClick={handleDelete} mini danger>
+              <Button
+                disabled={
+                  (isMiddleBtnActive !== "Cancel" &&
+                    isMiddleBtnActive !== "Reject") ||
+                  disabled
+                }
+                onClick={handleDelete}
+                mini
+                danger
+              >
                 Delete
               </Button>
             </div>
           )}
           <div>
             {link ? (
-              <Button
-                loading={generateBtnLoading}
-                onClick={handleBillGenerate}
-                disabled={(checkedRows && checkedRows?.length <= 0) || false}
-                primary
-              >
-                {linkBtn}
-              </Button>
+              <NavLink to={link}>
+                <Button
+                  loading={generateBtnLoading}
+                  onClick={handleBillGenerate}
+                  disabled={(checkedRows && checkedRows?.length <= 0) || false}
+                  primary
+                >
+                  {linkBtn}
+                </Button>
+              </NavLink>
             ) : (
               isDropdown && (
                 <EngineersFilter

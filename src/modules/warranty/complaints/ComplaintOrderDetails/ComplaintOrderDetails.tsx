@@ -40,15 +40,15 @@ const ComplaintOrderDetails = () => {
       <div className="grid grid-cols-5 gap-2 pt-8">
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.createdAt
-            .toString()
+            ?.toString()
             .slice(0, 10)}
           bgColor="primary"
           headerTitle="Created Date"
         />
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.turnaround_time
-            .toString()
-            .slice(0, 10)}
+            ?.toString()
+            ?.slice(0, 10)}
           bgColor="primary"
           headerTitle="Due Date"
         />

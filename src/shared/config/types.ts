@@ -123,6 +123,7 @@ export type TableBodyProps = {
 
 export type SearchBarProps = {
   link?: string;
+  linkValue?: string;
   linkBtn?: string;
   isDropdown?: boolean;
   dropdown?: boolean;
@@ -143,6 +144,7 @@ export type SearchBarProps = {
   disabled?: boolean;
   handleBillGenerate?: () => void;
   generateBtnLoading?: boolean;
+  isMiddleBtnActive?: string;
 };
 
 export type ComplaintMiniCardProps = {

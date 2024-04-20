@@ -3,6 +3,8 @@ import { ComplaintsOrderDetailsProps } from "../config/types";
 import { useGetComplaintByIdQuery } from "../../../../../redux/features/api/complaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
+import { NavLink } from "react-router-dom";
+import Button from "../../../../../common/components/Button";
 
 const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
   const [complaintsSingleData, setComplaintsSingleData] =
@@ -38,9 +40,14 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
       <div className="text-center text-xs">
         {/* second row start here  */}
         <div className="grid grid-cols-7  text-center">
-          <div className="border py-2 border-gray-400">
-            {complaintsSingleData?.order_number}
-          </div>
+          <NavLink
+            to={`/complaints-service-full-details/${complaintsSingleData?.id}`}
+            className="border py-2 border-gray-400 !bg-transparent"
+          >
+            <Button link className="text-sm">
+              {complaintsSingleData?.order_number}
+            </Button>
+          </NavLink>
           <div className="border py-2 border-gray-400">
             {complaintsSingleData?.products?.serial_number}
           </div>
@@ -58,10 +65,11 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
         </div>
 
         <hr className="border-b border-shadeOfGray my-2" />
-        {/* third row start here  */}
       </div>
+      {/* third row start here  */}
       <div className="pt-5">
-        Create invoice by : {complaintsSingleData?.customer || "Customer"}
+        Create invoice by :{" "}
+        {complaintsSingleData?.customer?.contact_person || "Customer"}
       </div>
     </div>
   );

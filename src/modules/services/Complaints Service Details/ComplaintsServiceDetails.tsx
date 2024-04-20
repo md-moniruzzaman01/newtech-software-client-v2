@@ -9,10 +9,10 @@ import { ComplaintsOrderDetailsProps } from "./config/types";
 import { NavLink, useParams } from "react-router-dom";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { ComplaintDetails, authKey } from "../../../shared/config/constaints";
-import { useGetComplaintByIdQuery } from "../../../redux/features/api/complaints";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
+import { useGetServicesByIdQuery } from "../../../redux/features/api/service";
 
 const ComplaintsServiceDetails = () => {
   const { id } = useParams();
@@ -24,14 +24,12 @@ const ComplaintsServiceDetails = () => {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintByIdQuery({ id, token });
+  } = useGetServicesByIdQuery({ id, token });
   useEffect(() => {
     if (!complaintsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
-
-  console.log(complaintsSingleData);
 
   return (
     <div className="px-5">
@@ -40,15 +38,15 @@ const ComplaintsServiceDetails = () => {
       <div className="grid grid-cols-5 gap-2 pt-8">
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.createdAt
-            .toString()
-            .slice(0, 10)}
+            ?.toString()
+            ?.slice(0, 10)}
           bgColor="primary"
           headerTitle="Created Date"
         />
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.turnaround_time
-            .toString()
-            .slice(0, 10)}
+            ?.toString()
+            ?.slice(0, 10)}
           bgColor="primary"
           headerTitle="Due Date"
         />

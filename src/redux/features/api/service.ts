@@ -23,7 +23,7 @@ const ServiceApi = baseApi.injectEndpoints({
           },
         };
       },
-      providesTags:['complaints']
+      providesTags: ["complaints"],
     }),
     getServicesById: builder.query({
       query: (params) => {
@@ -45,8 +45,8 @@ const ServiceApi = baseApi.injectEndpoints({
         body: fullData,
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: 'complaints', id: 'LIST' },
-        { type: 'complaints', id: arg.id }
+        { type: "complaints", id: "LIST" },
+        { type: "complaints", id: arg.id },
       ],
     }),
 
@@ -63,7 +63,7 @@ const ServiceApi = baseApi.injectEndpoints({
 
     getPartners: builder.query({
       query: (params) => {
-        console.log(`/partners?searchTerm=${params?.searchInput}`)
+        console.log(`/partners?searchTerm=${params?.searchInput}`);
         return {
           url: `/partners?searchTerm=${params?.searchInput}`,
           headers: {
@@ -94,5 +94,5 @@ export const {
   useGetServicesQuery,
   useGetBillByIdQuery,
   useGetPartnersQuery,
-  useDeleteComplaintsMutation
+  useDeleteComplaintsMutation,
 } = ServiceApi;

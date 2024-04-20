@@ -24,46 +24,46 @@ import ComplaintsEditPage from "../modules/warranty/complaints/ComplaintsEditPag
 import BillListWarranty from "../modules/warranty/BillWarranty/BillListWarranty/BillListWarranty";
 import BillPendingWarranty from "../modules/warranty/BillWarranty/BillPendingWarranty/BillPendingWarranty";
 import CreateABillWarranty from "../modules/warranty/BillWarranty/CreateABillWarranty/CreateABillWarranty";
-
+import ComplaintsInDetails from "../modules/warranty/complaints/Complains In Details/ComplaintsInDetails";
 
 export const warrantyComplaintsRoutes = [
-    { path: "/", element: <WarrantyDashboard /> },
-    { path: "/engineer-dashboard", element: <EngineerDashboard /> },
-    { path: "/add-warranty-complaint", element: <ComplaintAddForWarranty /> },
-    { path: "/complaints", element: <Complaint /> },
-    { path: "/my-complaints", element: <MyComplaints /> },
-    { path: "/buffers", element: <ComplaintBuffers /> },
-    { path: "/complaints-delivered", element: <ComplaintsDelivered /> },
-    { path: "/complaints/order-details/:id", element: <ComplaintOrderDetails /> },
-    { path: "/complaints-edit-page/:id", element: <ComplaintsEditPage /> },
-
+  { path: "/", element: <WarrantyDashboard /> },
+  { path: "/engineer-dashboard", element: <EngineerDashboard /> },
+  { path: "/add-warranty-complaint", element: <ComplaintAddForWarranty /> },
+  { path: "/complaints", element: <Complaint /> },
+  { path: "/my-complaints", element: <MyComplaints /> },
+  { path: "/buffers", element: <ComplaintBuffers /> },
+  { path: "/complaints-delivered", element: <ComplaintsDelivered /> },
+  { path: "/complaints/order-details/:id", element: <ComplaintOrderDetails /> },
+  {
+    path: "/complaints/order-in-details/:id",
+    element: <ComplaintsInDetails />,
+  },
+  { path: "/complaints-edit-page/:id", element: <ComplaintsEditPage /> },
 ];
 
-
 export const warrantyQcsRoutes = [
-    { path: "/qc", element: <Qc /> },
-    { path: "/qc-my-library", element: <QCMyLibrary /> },
-    { path: "/qc-my-items", element: <QCMyItems /> },
-    { path: "/qc/order-details/:id", element: <ComplaintOrderDetailsQC /> },
+  { path: "/qc", element: <Qc /> },
+  { path: "/qc-my-library", element: <QCMyLibrary /> },
+  { path: "/qc-my-items", element: <QCMyItems /> },
+  { path: "/qc/order-details/:id", element: <ComplaintOrderDetailsQC /> },
 ];
 
 export const warrantyQasRoutes = [
-    { path: "/qa-items", element: <QAItems /> },
-    { path: "/qa-my-library", element: <QAMyLibray /> },
-    { path: "/qa-all", element: <QAAll /> },
-    { path: "/qa-items/order-details/:id", element: <QAItemOrderDetails /> },
-
+  { path: "/qa-items", element: <QAItems /> },
+  { path: "/qa-my-library", element: <QAMyLibray /> },
+  { path: "/qa-all", element: <QAAll /> },
+  { path: "/qa-items/order-details/:id", element: <QAItemOrderDetails /> },
 ];
 export const warrantyRepairsRoutes = [
-    { path: "/engineer-items", element: <EngineerItems /> },
-    { path: "/engineer-my-repaired", element: <MyRepairs /> },
-    { path: "/engineer-all-repairs", element: <EngineerAllRepairs /> },
-    { path: "/engineer-my-library", element: <MyLibrary /> },
+  { path: "/engineer-items", element: <EngineerItems /> },
+  { path: "/engineer-my-repaired", element: <MyRepairs /> },
+  { path: "/engineer-all-repairs", element: <EngineerAllRepairs /> },
+  { path: "/engineer-my-library", element: <MyLibrary /> },
 ];
 
 export const warrantybillsRoutes = [
-    { path: "/create-bill-warranty", element: <CreateABillWarranty /> },
-    { path: "/bill-list-warranty", element: <BillListWarranty /> },
-    { path: "/bill-pending-warranty", element: <BillPendingWarranty /> },
+  { path: "/create-bill-warranty", element: <CreateABillWarranty /> },
+  { path: "/bill-list-warranty", element: <BillListWarranty /> },
+  { path: "/bill-pending-warranty", element: <BillPendingWarranty /> },
 ];
-

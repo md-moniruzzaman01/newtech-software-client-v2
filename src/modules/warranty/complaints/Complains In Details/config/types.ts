@@ -28,6 +28,7 @@ export type ProductsProps = {
 
 export type ComplaintsOrderDetailsProps = {
   Nonwarrentycustomer_contact_number: string;
+  Nonwarrentycustomer?: { name?: string; contact_number?: string };
   Qa: any[]; // Assuming any type for now
   Qc: any[]; // Assuming any type for now
   RepairItem: any[]; // Assuming any type for now

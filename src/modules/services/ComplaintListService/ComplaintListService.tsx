@@ -18,12 +18,16 @@ import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
-import { useDeleteComplaintsMutation, useGetServicesQuery } from "../../../redux/features/api/service";
+import {
+  useDeleteComplaintsMutation,
+  useGetServicesQuery,
+} from "../../../redux/features/api/service";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 
 //internal
 
 const ComplaintListService = () => {
+  const [isActiveBtn, setIsActiveBtn] = useState("");
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,10 +43,9 @@ const ComplaintListService = () => {
     isLoading: complaintsLoading,
   } = useGetServicesQuery({
     query,
-    token
+    token,
   });
-  const [deleteComplaints, { isLoading }] = useDeleteComplaintsMutation()
-
+  const [deleteComplaints, { isLoading }] = useDeleteComplaintsMutation();
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);
@@ -50,7 +53,13 @@ const ComplaintListService = () => {
       setCurrentPage(complaintsData?.meta?.page);
     }
   }, [complaintsData]);
-
+  useEffect(() => {
+    if (searchParams?.get("repair_status")) {
+      setIsActiveBtn(searchParams?.get("repair_status"));
+    } else {
+      setIsActiveBtn("");
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
@@ -66,12 +75,11 @@ const ComplaintListService = () => {
     console.log(checkedRows);
   };
   const handleDelete = () => {
-    console.log(checkedRows)
+    console.log(checkedRows);
     const fullData = {
-      repairIds: checkedRows
-    }
-    deleteComplaints({ token, fullData }) 
-    
+      repairIds: checkedRows,
+    };
+    deleteComplaints({ token, fullData });
   };
   const handleReturn = () => {
     console.log(checkedRows);
@@ -85,6 +93,7 @@ const ComplaintListService = () => {
       <Navbar name="Complaint Service" />
       <div className="pt-5">
         <SearchBar
+          isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}
           handleDelivery={handleDelivery}
           handleReturn={handleReturn}
