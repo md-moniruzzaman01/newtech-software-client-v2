@@ -30,7 +30,6 @@ const Input: React.FC<InputProps> = ({
             <label className="text-lg font-semibold">{labelName}</label>
           </div>
           <input
-            // value={value}
             required={required}
             onChange={onChange} // Added onChange event handler
             name={inputName}

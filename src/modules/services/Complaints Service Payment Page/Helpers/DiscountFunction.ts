@@ -5,7 +5,7 @@ export const handleDiscountChange = (
   value: number,
   discount: IDiscount[],
   setDiscount: React.Dispatch<React.SetStateAction<IDiscount[]>>,
-  setTotalDiscount: (value: number) => void
+  setTotalDiscount: (value: number) => void,
 ) => {
   const existingIndex = discount.findIndex((d) => d.id === id);
   if (existingIndex !== -1) {
@@ -19,26 +19,52 @@ export const handleDiscountChange = (
   const updatedDiscount = discount.map(d => d.amount);
   const totalDiscount = updatedDiscount.reduce((acc, curr) => acc + curr, 0);
   setTotalDiscount(totalDiscount);
+
+
 };
 
 
 export const handleHiddenDiscountChange = (
-  index: number,
+  id: string,
   value: number,
-  hiddenDiscount?: number[],
-
-  setHiddenDiscount?: (value: number[]) => void,
-  setTotalHiddenDiscount?: (value: number) => void
+  hiddenDiscount: IDiscount[],
+  setHiddenDiscount?: React.Dispatch<React.SetStateAction<IDiscount[]>>,
+  setTotalHiddenDiscount?: (value: number) => void,
 ) => {
-  const newHiddenDiscounts = [...hiddenDiscount];
-  newHiddenDiscounts[index] = value;
-  setHiddenDiscount(newHiddenDiscounts);
 
-  // Calculate and store total hidden discount
-  const totalHiddenDiscount = newHiddenDiscounts.reduce(
-    (acc, curr) => acc + curr,
-    0
-  );
-  // Assuming totalHiddenDiscount is a state variable
-  setTotalHiddenDiscount(totalHiddenDiscount);
+  const existingIndex = hiddenDiscount.findIndex((d) => d.id === id);
+  if (existingIndex !== -1) {
+    const newDiscounts = [...hiddenDiscount];
+    newDiscounts[existingIndex].amount = value;
+    setHiddenDiscount(newDiscounts);
+  } else {
+    const newDiscount = { id, amount: value };
+    setHiddenDiscount(prevDiscounts => [...prevDiscounts, newDiscount]);
+  }
+  const totalDiscount = hiddenDiscount.reduce((acc, curr) => acc + curr.amount, 0);
+  setTotalHiddenDiscount(totalDiscount);
+
+};
+export const handleServiceChange = (
+  id: string,
+  value: number,
+  repairServiceCharge?: IDiscount[],
+  setRepairServiceCharge?: React.Dispatch<React.SetStateAction<IDiscount[]>>,
+  setTotalBillAmount?: (value: number) => void
+) => {
+  
+  const existingIndex = repairServiceCharge.findIndex((d) => d.id === id);
+  if (existingIndex !== -1) {
+    const newDiscounts = [...repairServiceCharge];
+    newDiscounts[existingIndex].amount = value;
+    setRepairServiceCharge(newDiscounts);
+  } else {
+    const newDiscount = { id, amount: value };
+    setRepairServiceCharge(prevDiscounts => [...prevDiscounts, newDiscount]);
+  }
+
+  const totalDiscount = repairServiceCharge.reduce((acc, curr) => acc + curr.amount, 0);
+  setTotalBillAmount(totalDiscount);
+
+
 };

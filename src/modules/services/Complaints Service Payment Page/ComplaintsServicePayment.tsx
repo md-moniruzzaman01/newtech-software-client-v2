@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import {    useParams } from "react-router-dom";
 import { ComplaintsOrderDetailsProps } from "./config/types";
 import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
@@ -14,9 +14,9 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 
 const ComplaintsServicePayment = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(true);
 
+  
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
   const token = getFromLocalStorage(authKey);
