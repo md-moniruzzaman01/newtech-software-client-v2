@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 //internal
 
 import Input from "../../../common/components/Input";
@@ -23,7 +24,7 @@ const EngineerAdd = () => {
   const [powerArr, setPowerArr] = useState([]);
   const [aspArr, setAspArr] = useState([]);
   const [skillArr, setSkillArr] = useState([]);
-  const [addEngineer, { isLoading, error, isError }] = useAddEngineerMutation();
+  const [addEngineer, { isLoading }] = useAddEngineerMutation();
   const { data: mainCategories, isLoading: mainCategoryLoading } =
     useGetMainCategoryQuery({});
   const token = getFromLocalStorage(authKey);
@@ -68,19 +69,13 @@ const EngineerAdd = () => {
         profileImage: "img",
       },
     };
-    console.log("data", fullData);
-    try {
-      const result = await addEngineer({ fullData, token });
-      console.log("result:", result); // Log the result
-    } catch (err) {
-      console.log("error", err); // Log the error
-      if (isError && error) {
-        swal("error", `${error}`, "error"); // Show the error with swal
-        console.error(error); // Log the error to the console
-      }
+    const result: any = await addEngineer({ fullData, token });
+    if (result?.data?.success) {
+      swal("success", `${result?.data?.message}`, "success");
+      form.reset();
+    } else {
+      swal("error", `Something went wrong`, "error"); // Show the error with swal
     }
-
-    form.reset();
   };
 
   if (brandIsLoading && mainCategoryLoading) {

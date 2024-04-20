@@ -5,20 +5,28 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { BillServiceTableHeader, btnValue, fields, keys, tableLayout } from "./config/constants";
+import {
+  BillServiceTableHeader,
+  btnValue,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useGetBillsQuery } from "../../../../redux/features/api/bill";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
+import ConditionalBtnInSearch from "./partials/conditionalBtnInSearch/ConditionalBtnInSearch";
 
 const InvoiceList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
 
   const [searchParams] = useSearchParams();
+
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const {
@@ -27,7 +35,7 @@ const InvoiceList = () => {
     isLoading: billsLoading,
   } = useGetBillsQuery({
     token,
-    query
+    query,
   });
 
   useEffect(() => {
@@ -38,23 +46,30 @@ const InvoiceList = () => {
     }
   }, [billData]);
 
-
-
   if (billsLoading) {
     return <LoadingPage />;
   }
   if (billsError) {
-    return <div className="min-h-screen flex justify-items-center items-center"> <p>Error found</p></div>;
+    return (
+      <div className="min-h-screen flex justify-items-center items-center">
+        <p>Error found</p>
+      </div>
+    );
   }
   return (
     <div className=" px-5">
       <Navbar name="Service Bill List" />
-      <div className="pt-5">
-        <SearchBar />
+      <div className="pt-5 flex justify-between">
+        <div className="w-1/2">
+          <SearchBar />
+        </div>
+        <div>
+          <ConditionalBtnInSearch />
+        </div>
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={btnValue} status/>
+          <StatusGroup btnGroupValue={btnValue} status />
           <div className="pt-5">
             <CommonTable
               itemData={billData?.data}
@@ -75,7 +90,6 @@ const InvoiceList = () => {
             setCurrentPage={setCurrentPage}
           />
         </div>
-
       </div>
     </div>
   );

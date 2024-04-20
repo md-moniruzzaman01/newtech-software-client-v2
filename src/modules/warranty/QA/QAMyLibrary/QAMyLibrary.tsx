@@ -8,15 +8,19 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { MyQCTableHeader } from "./config/constants";
+import { MyQCTableHeader, fields, keys } from "./config/constants";
 
 import MyQATable from "./partials/MyQATable";
 import { useGetQasQuery } from "../../../../redux/features/api/qa";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
@@ -25,6 +29,7 @@ const QCMyLibrary = () => {
   const { data, isError, isLoading } = useGetQasQuery({
     id,
     token,
+    query,
   });
   useEffect(() => {
     if (data) {

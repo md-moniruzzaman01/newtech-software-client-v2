@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import DashboardCard from "../../../common/components/DashboardCard/DashboardCard";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-import BufferIcon from "../../../shared/libs/custom icons/BufferIcon";
 import DeliveryIcon from "../../../shared/libs/custom icons/DeliveryIcon";
 import InProgress from "../../../shared/libs/custom icons/InProgress";
 import PendingIcon from "../../../shared/libs/custom icons/PendingIcon";
@@ -13,24 +12,24 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { AdminDashboardTableHeader, tableLayout } from "./config/constants";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
-import Chart from "./partials/chart";
 import { useGetCardDataQuery } from "../../../redux/features/api/others";
-
+import Chart from "./partials/chart";
+import { icons } from "../../../shared/libs/Icons";
 
 const ServiceDashboard = () => {
   const [billData, setBillData] = useState([]);
   const [CardData, setCardData] = useState({
-    "pendingCount": 0,
-    "InProgressCount": 0,
-    "DeliveredCount": 0,
-    "BufferCounts": 0,
-    "BufferCount": 0,
-    "UnpaidCount": 0,
-    "RequiredPartsCount": 0,
-    "RejectCount": 0,
-    "CompletedCount":0 ,
-    "CancelCount": 0,
-    "repairfailedCount": 0
+    pendingCount: 0,
+    InProgressCount: 0,
+    DeliveredCount: 0,
+    BufferCounts: 0,
+    BufferCount: 0,
+    UnpaidCount: 0,
+    RequiredPartsCount: 0,
+    RejectCount: 0,
+    CompletedCount: 0,
+    CancelCount: 0,
+    repairfailedCount: 0,
   });
 
   const token = getFromLocalStorage(authKey);
@@ -39,14 +38,10 @@ const ServiceDashboard = () => {
     isError: complaintsError,
     isLoading: complaintsLoading,
   } = useGetComplaintsQuery({
-    token
+    token,
   });
-  const {
-    data,
-    isError,
-    isLoading,
-  } = useGetCardDataQuery({
-    token
+  const { data, isError, isLoading } = useGetCardDataQuery({
+    token,
   });
 
   useEffect(() => {
@@ -56,12 +51,18 @@ const ServiceDashboard = () => {
     if (!isError && !isLoading) {
       setCardData(data?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [
+    complaintsData,
+    complaintsLoading,
+    complaintsError,
+    data,
+    isLoading,
+    isError,
+  ]);
 
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-  console.log(CardData)
   return (
     <div className="px-5">
       <div className="pb-5">
@@ -75,7 +76,7 @@ const ServiceDashboard = () => {
           className="bg-lightSkyBlue"
           icon={<PendingIcon />}
         />
-           <DashboardCard
+        <DashboardCard
           link="/complaints-service?repair_status=Completed"
           title="Completed"
           money={`${CardData?.CompletedCount}`}
@@ -89,28 +90,28 @@ const ServiceDashboard = () => {
           className="bg-creamyPeach"
           icon={<InProgress />}
         />
-     
+
         <DashboardCard
           link="/complaints-service?repair_status=Delivered"
-          title="Completed"
+          title="Delivered"
           money={`${CardData?.DeliveredCount}`}
-          className="bg-mintFrost"
-          icon={<DeliveryIcon />}
+          className="bg-coralBlush"
+          icon={icons?.delivered}
         />
 
         <DashboardCard
           link="/complaints-service?repair_status=Unpaid"
           title="UnPaid"
           money={`${CardData?.UnpaidCount}`}
-          className="bg-coralBlush"
-          icon={<BufferIcon />}
+          className="bg-VeryLightYellow"
+          icon={icons?.unPaid}
         />
         <DashboardCard
           link="/complaints-service?repair_status=repair failed"
           title="Repair Failed"
           money={`${CardData?.repairfailedCount}`}
-          className="bg-coralBlush"
-          icon={<BufferIcon />}
+          className="bg-LightLavender"
+          icon={icons?.failed}
         />
       </div>
       <div className="grid grid-cols-3 py-5 gap-5">

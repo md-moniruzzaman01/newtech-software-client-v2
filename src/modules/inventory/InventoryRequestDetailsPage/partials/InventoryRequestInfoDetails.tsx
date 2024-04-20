@@ -1,8 +1,8 @@
-import { InventoryRequestInfoDetailsProps } from "../../../../shared/config/types";
+import { InventoryRequestInfoDetailsProps } from "../config/types";
 
 const InventoryRequestInfoDetails: React.FC<
   InventoryRequestInfoDetailsProps
-> = ({ headerData }) => {
+> = ({ headerData, itemData }) => {
   return (
     <div className="border border-shadeOfLightBlue w-full p-5 bg-grayWhite">
       <h2 className="pb-3 font-semibold text-lg">Requisitions Info</h2>
@@ -20,12 +20,14 @@ const InventoryRequestInfoDetails: React.FC<
 
         <tbody className="text-center">
           <tr>
-            <td className="py-3">12/02/24</td>
-            <td className="py-3">Monitor</td>
-            <td className="py-3">120224</td>
-            <td className="py-3">MSI</td>
-            <td className="py-3">2</td>
-            <td className="py-3">25</td>
+            <td className="py-3">
+              {itemData?.createdAt?.toString()?.slice(0, 10)}
+            </td>
+            <td className="py-3">{itemData?.parts?.toString()}</td>
+            <td className="py-3">{itemData?.id}</td>
+            <td className="py-3">{itemData?.product?.brand_name}</td>
+            <td className="py-3">{itemData?.product?.repair_count}</td>
+            <td className="py-3">{itemData?.status}</td>
           </tr>
         </tbody>
       </table>

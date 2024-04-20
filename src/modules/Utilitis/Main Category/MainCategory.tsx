@@ -1,3 +1,4 @@
+import swal from "sweetalert";
 import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
@@ -21,10 +22,10 @@ const MainCategoryPage = () => {
 
     try {
       await createMainCategory(mainCategory);
-      console.log("Main Category added successfully");
+      swal("Success", "Main Category added successfully", "success");
       form.reset();
     } catch (error) {
-      console.error("Error adding brand:", error);
+      swal("Error", "Error adding brand:", error);
     }
   };
 

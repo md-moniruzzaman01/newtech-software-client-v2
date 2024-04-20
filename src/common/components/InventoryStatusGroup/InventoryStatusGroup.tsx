@@ -56,6 +56,15 @@ const InventoryStatusGroup = () => {
         </Button>
         <Button
           status
+          className={
+            activeRoute === "/inventory/rejected" ? "!bg-lightGray  " : ""
+          }
+          onClick={() => handleFilter("/inventory/rejected")}
+        >
+          Rejected
+        </Button>
+        <Button
+          status
           className={activeRoute === "/buffer" ? "!bg-lightGray  " : ""}
           onClick={() => handleFilter("/buffer")}
         >

@@ -20,7 +20,11 @@ import { useDispatch } from "react-redux";
 import { setIds } from "../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import { deleteAll, deleteData } from "./helpers/deleteProducts";
 import { handleDataSubmit } from "./helpers/submitData";
-import { fetchData, handleChangeInput, handleSuggestionClick } from "./helpers/suggestion";
+import {
+  fetchData,
+  handleChangeInput,
+  handleSuggestionClick,
+} from "./helpers/suggestion";
 import { handleAddItem, updateData } from "./helpers/addItem";
 
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
@@ -28,32 +32,39 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [categories, setCategories] = useState([]);
   const [mainCategories, setMainCategories] = useState([]);
   const [mainCategoryValue, setMainCategoryValue] = useState("");
-  const [selectData, setSelectData] = useState<updateAddedItemProps | null>(null);
+  const [selectData, setSelectData] = useState<updateAddedItemProps | null>(
+    null
+  );
 
   const [isLoadingSuggestion, setIsLoadingSuggestion] = useState(false);
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<partnerProps[]>([]);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [partnerInfo, setPartnerInfo] = useState<partnerProps>(defaultPartnerValue);
+  const [partnerInfo, setPartnerInfo] =
+    useState<partnerProps>(defaultPartnerValue);
   const [redirectToPayment, setRedirectToPayment] = useState(false);
   const [loading, setloading] = useState(false);
 
   const dispatch = useDispatch();
 
-
   const navigate = useNavigate();
+
+  const mainCategoryId =
+    mainCategories?.length &&
+    mainCategories?.find((item) => item?.value === mainCategoryValue);
+
   const {
     data: mainCategoryData,
     isError: mainCategoryError,
     isLoading: mainCategoryLoading,
   } = useGetMainCategoryQuery({});
+  console.log();
 
   const {
     data: categoryData,
     isError: categoryError,
     isLoading: categoryLoading,
-  } = useGetServiceCategoryQuery({});
-
+  } = useGetServiceCategoryQuery({ mainCategoryId });
 
   useEffect(() => {
     const storedAddedItem = localStorage.getItem("addedItem");
@@ -67,8 +78,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }
   }, []);
 
-
-  const { contact_person: partner_name, contactNo: contact_number, email, address } = partnerInfo;
+  const {
+    contact_person: partner_name,
+    contactNo: contact_number,
+    email,
+    address,
+  } = partnerInfo;
 
   const fullData = {
     partner_name,
@@ -78,14 +93,11 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     addedItem,
   };
 
-
-
   useEffect(() => {
     if (searchInput) {
       fetchData(searchInput, setIsLoadingSuggestion, setSuggestions);
     }
   }, [searchInput]);
-
 
   useEffect(() => {
     if (!categoryLoading && !categoryError) {
@@ -104,22 +116,32 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     mainCategoryLoading,
   ]);
 
-
-
-
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
       <div className="grid grid-cols-[auto,320px] gap-1  mt-10 ">
         <div className="py-5  rounded-md bg-[#FBFBFB] px-5">
-          <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => handleAddItem(event, addedItem, mainCategoryValue, selectedItem, setPartnerInfo, setSelectedItem, setSelectData, setAddedItem)}>
+          <form
+            onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
+              handleAddItem(
+                event,
+                addedItem,
+                mainCategoryValue,
+                selectedItem,
+                setPartnerInfo,
+                setSelectedItem,
+                setSelectData,
+                setAddedItem
+              )
+            }
+          >
             <div className="grid grid-cols-4 gap-8">
               {/* Customers Name  */}
               <div>
                 <Input
-                  defaultValue={`${partnerInfo ? partnerInfo?.contact_person : ""
-                    }`}
+                  defaultValue={`${
+                    partnerInfo ? partnerInfo?.contact_person : ""
+                  }`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
                   inputName="contact_person"
@@ -130,28 +152,38 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                     handleChangeInput(event, setPartnerInfo);
                   }}
                 />
-                {isLoadingSuggestion && <p className="bg-slate-300 mx-2 p-2 w-full h-11" p-2>Loading...</p>}
+                {isLoadingSuggestion && (
+                  <p className="bg-slate-300 mx-2 p-2 w-full h-11">
+                    Loading...
+                  </p>
+                )}
                 {suggestions.length > 0 && (
                   <ul className=" bg-slate-300  rounded   suggestions-list ">
-                    {suggestions && suggestions?.map((suggestion, index) => (
-                      <li
-                        key={index}
-                        onClick={() => handleSuggestionClick(suggestion, setPartnerInfo, setSearchInput, setSuggestions)}
-                        className="suggestion-item"
-                      >
-                        {`${suggestion?.contact_person}-${suggestion?.contactNo}`}
-                      </li>
-                    ))}
+                    {suggestions &&
+                      suggestions?.map((suggestion, index) => (
+                        <li
+                          key={index}
+                          onClick={() =>
+                            handleSuggestionClick(
+                              suggestion,
+                              setPartnerInfo,
+                              setSearchInput,
+                              setSuggestions
+                            )
+                          }
+                          className="suggestion-item"
+                        >
+                          {`${suggestion?.contact_person}-${suggestion?.contactNo}`}
+                        </li>
+                      ))}
                   </ul>
                 )}
               </div>
               {/* Contact Number  */}
-   
+
               <div>
                 <Input
-                  defaultValue={`${partnerInfo ? partnerInfo?.contactNo
-                    : ""
-                    }`}
+                  defaultValue={`${partnerInfo ? partnerInfo?.contactNo : ""}`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
                   inputPlaceholder="Contact Number"
@@ -194,8 +226,9 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               </div>
               <div>
                 <InputFilter
-                  defaultValue={`${selectData ? selectData?.category_name : ""
-                    }`}
+                  defaultValue={`${
+                    selectData ? selectData?.category_name : ""
+                  }`}
                   required
                   inputName="main_category"
                   placeholder="Main Category"
@@ -207,14 +240,15 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               {/* category  */}
               <div>
                 <InputFilter
-                  defaultValue={`${selectData ? selectData?.categoryValue : ""
-                    }`}
+                  defaultValue={`${
+                    selectData ? selectData?.categoryValue : ""
+                  }`}
                   required
                   inputName="category"
                   placeholder="Category"
                   label="Category"
                   Filter={categories}
-                // onChange={(value) => setCategoryValue(value)}
+                  // onChange={(value) => setCategoryValue(value)}
                 />
               </div>
               {/* Model Number   */}
@@ -230,8 +264,9 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               {/* Serial Number  */}
               <div>
                 <Input
-                  defaultValue={`${selectData ? selectData?.serial_number : ""
-                    }`}
+                  defaultValue={`${
+                    selectData ? selectData?.serial_number : ""
+                  }`}
                   required
                   inputName="serial_number"
                   inputPlaceholder="Serial Number"
@@ -243,7 +278,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               <div className="col-span-2">
                 <Input
                   defaultValue={`${selectData ? selectData?.attachments : ""}`}
-                  
                   inputName="attachments"
                   inputPlaceholder="Remark"
                   labelName="Remark"
@@ -270,7 +304,19 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
             <div className="flex gap-20">
               <Button
                 loading={!redirectToPayment && loading}
-                onClick={() => handleDataSubmit(setAddedItem, fullData, dispatch, setPartnerInfo, navigate, setRedirectToPayment, false, setIds, setloading)}
+                onClick={() =>
+                  handleDataSubmit(
+                    setAddedItem,
+                    fullData,
+                    dispatch,
+                    setPartnerInfo,
+                    navigate,
+                    setRedirectToPayment,
+                    false,
+                    setIds,
+                    setloading
+                  )
+                }
                 disabled={addedItem?.length <= 0}
                 primary
               >
@@ -278,8 +324,20 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               </Button>
 
               <Button
-               loading={loading && redirectToPayment}
-                onClick={() => handleDataSubmit(setAddedItem, fullData, dispatch, setPartnerInfo, navigate, setRedirectToPayment, true, setIds, setloading)}
+                loading={loading && redirectToPayment}
+                onClick={() =>
+                  handleDataSubmit(
+                    setAddedItem,
+                    fullData,
+                    dispatch,
+                    setPartnerInfo,
+                    navigate,
+                    setRedirectToPayment,
+                    true,
+                    setIds,
+                    setloading
+                  )
+                }
                 disabled={addedItem?.length <= 0}
                 primary
               >
@@ -294,7 +352,11 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
           </h1>
           {addedItem?.length > 0 && (
             <div className="py-5 text-center">
-              <Button onClick={() => deleteAll(setPartnerInfo, setAddedItem)} danger className="px-2 py-1 text-xs">
+              <Button
+                onClick={() => deleteAll(setPartnerInfo, setAddedItem)}
+                danger
+                className="px-2 py-1 text-xs"
+              >
                 Delete All
               </Button>
             </div>
@@ -335,14 +397,28 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                     <div className="flex justify-between ">
                       <Button
                         className="px-2 py-1 text-xs"
-                        onClick={() => deleteData(index, addedItem, setAddedItem, setSelectedItem)}
+                        onClick={() =>
+                          deleteData(
+                            index,
+                            addedItem,
+                            setAddedItem,
+                            setSelectedItem
+                          )
+                        }
                         danger
                       >
                         Delete
                       </Button>
                       <Button
                         className="px-2 py-1 text-xs"
-                        onClick={() => updateData(index, addedItem, setSelectedItem, setSelectData)}
+                        onClick={() =>
+                          updateData(
+                            index,
+                            addedItem,
+                            setSelectedItem,
+                            setSelectData
+                          )
+                        }
                         primary
                       >
                         Update

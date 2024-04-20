@@ -1,10 +1,7 @@
-
 import classNames from "classnames";
 
 export const cx = classNames;
 export const authKey = "accessToken";
-
-
 
 export const branches = [
   { id: "01", value: "Multilane Branch" },
@@ -71,15 +68,7 @@ export const DemoTableHeaderForCustomer = [
   "Brand Name",
   "Status",
 ];
-export const DemoTableHeaderForInventory = [
-  "Name",
-  "Designation",
-  "Team",
-  "Email",
-  "Contact No",
-  "Branch",
-  "Items Name",
-];
+
 export const DemoTableHeaderForInventoryChartTable = [
   "SL",
   "Item Name",
@@ -119,13 +108,4 @@ export const DemoTableValue = [
     engineer: "Jhon doe",
     status: "Jhon doe",
   },
-];
-
-export const demoHeaderValueForInventoryRequestDetails = [
-  "Date",
-  "Item Name",
-  "Item No",
-  "Brand",
-  "Quantity",
-  "Stock",
 ];

@@ -1,33 +1,42 @@
-import { useState } from "react";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import { NavLink } from "react-router-dom";
 import Button from "../../../../common/components/Button";
 import TableStatus from "../../../../common/components/TableStatus/TableStatus";
-import { btnValues, headerDataForCategory } from "./config/constants";
-import TableWithPhoto from "../../../../common/components/TableWithPhoto/TableWithPhoto";
+import {
+  btnValues,
+  headerDataForCategory,
+  headerDataForCategoryWarranty,
+  tableLayout,
+  tableLayoutForWarranty,
+} from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import {
+  useGetCategoryAllQuery,
+  useGetServiceCategoryAllQuery,
+} from "../../../../redux/features/api/Category";
+import { useEffect, useState } from "react";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 const CategoryList = () => {
-  const [checkedRows, setCheckedRows] = useState<number[]>([]);
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-  const handleCheckboxChange = (index: number) => {
-    if (checkedRows.includes(index)) {
-      setCheckedRows(checkedRows.filter((item) => item !== index));
-    } else {
-      setCheckedRows([...checkedRows, index]);
+  const [activeRoute, setActiveRoute] = useState(true);
+  const { data: categories, isLoading: categoriesLoading } =
+    useGetServiceCategoryAllQuery({});
+  const {
+    data: categoriesForWarranty,
+    isLoading: categoriesForWarrantyLoading,
+  } = useGetCategoryAllQuery({});
+  useEffect(() => {
+    const activeRouteValue = getFromLocalStorage("activeRoute");
+    if (activeRouteValue) {
+      setActiveRoute(JSON.parse(activeRouteValue));
     }
-  };
-
-  const handleAllCheckboxChange = () => {
-    const allIndexes = Array.from({ length: arr.length }, (_, i) => i);
-    if (checkedRows.length === arr.length) {
-      setCheckedRows([]);
-    } else {
-      setCheckedRows(allIndexes);
-    }
-  };
+  }, []);
+  console.log(categoriesForWarranty);
+  if (categoriesLoading || categoriesForWarrantyLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Category List" />
@@ -51,13 +60,16 @@ const CategoryList = () => {
           <TableStatus btnValues={btnValues} />
         </div>
         <div>
-          <TableWithPhoto
-            data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 1]}
-            link="/category/add-category"
-            HeaderData={headerDataForCategory}
-            checkedRows={checkedRows}
-            handleCheckboxChange={handleCheckboxChange}
-            handleAllCheckboxChange={handleAllCheckboxChange}
+          <CommonTable
+            itemData={
+              activeRoute ? categoriesForWarranty?.data : categories?.data
+            }
+            dataLayout={activeRoute ? tableLayoutForWarranty : tableLayout}
+            headerData={
+              activeRoute
+                ? headerDataForCategoryWarranty
+                : headerDataForCategory
+            }
           />
         </div>
       </div>

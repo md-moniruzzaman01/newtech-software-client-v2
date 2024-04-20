@@ -22,3 +22,12 @@ export const tableLayout = [
   "item?.status",
   " item?.createdAt?.toString()?.substring(0, 10)",
 ];
+
+export const fields = "";
+export const keys = [
+  "brand_name",
+  "sort",
+  "repair_status",
+  "searchTerm",
+  "category_name",
+];

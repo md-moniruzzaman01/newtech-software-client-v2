@@ -31,7 +31,6 @@ const SideBar = () => {
   const navigate = useNavigate();
   const user = getUserInfo();
 
- 
   useEffect(() => {
     const activeRouteValue = getFromLocalStorage("activeRoute");
     if (activeRouteValue) {
@@ -39,10 +38,14 @@ const SideBar = () => {
     }
   }, []);
 
-  const handleFilter = () => {
+  const handleFilter = (route: string) => {
     const updatedActiveRoute = !activeRoute;
     setActiveRoute(updatedActiveRoute);
-    navigate("/");
+    if (route === "service") {
+      navigate("/services");
+    } else {
+      navigate("/");
+    }
     localStorage.setItem("activeRoute", updatedActiveRoute.toString());
   };
 
@@ -62,7 +65,7 @@ const SideBar = () => {
                 ? "!bg-sideBarBtnColor !text-solidWhite  !text-base"
                 : "!text-solidBlack"
             }
-            onClick={handleFilter}
+            onClick={() => handleFilter("warranty")}
             small
           >
             Warranty
@@ -74,7 +77,7 @@ const SideBar = () => {
                 ? "!bg-sideBarBtnColor !text-solidWhite  !text-base"
                 : "!text-solidBlack"
             }
-            onClick={handleFilter}
+            onClick={() => handleFilter("service")}
             small
           >
             Service

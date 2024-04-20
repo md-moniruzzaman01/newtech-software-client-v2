@@ -1,30 +1,41 @@
 export const headerDataForCategory = [
   "#",
-  "Date",
-  "S/N",
-  "Part Number",
-  "Location",
-  "Brand",
-  "Category",
-  "Sub Category",
-  "Action ",
+  "Name",
+  "Category Id",
+  "Charge",
+  "Create Date",
+];
+export const headerDataForCategoryWarranty = [
+  "#",
+  "Name",
+  "Category Id",
+  "Brand Id",
+  "Charge",
+  "CID",
+  "Swap",
+  "CN",
+  "NTF",
+  "Create Date",
 ];
 
-export const itemDataForCategory = [
-  {
-    order_id: "123",
-    date_created: "2023-12-12",
-    date_updated: "2023-12-12",
-    customer_name: "John Doe",
-    product_name: "Monitor",
-  },
-  {
-    order_id: "124",
-    date_created: "2023-12-13",
-    date_updated: "2023-12-13",
-    customer_name: "Jane Doe",
-    product_name: "Keyboard",
-  },
+export const tableLayout = [
+  "item?.id",
+  "item?.value",
+  "item?.category",
+  "item?.basic_service_charge",
+  "item?.createdAt?.toString()?.slice(0,10)",
+];
+export const tableLayoutForWarranty = [
+  "item?.id",
+  "item?.value",
+  "item?.category",
+  "item?.brand",
+  "item?.basic_service_charge",
+  "item?.CID",
+  "item?.swap",
+  "item?.CN",
+  "item?.NTF",
+  "item?.createdAt?.toString()?.slice(0,10)",
 ];
 
-export const btnValues = ["All", "Pending", "Completed"];
+export const btnValues = ["Pending", "Completed"];

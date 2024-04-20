@@ -5,7 +5,12 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
-import { EngineerTableHeader, fields, keys, tableLayout } from "./config/constants";
+import {
+  EngineerTableHeader,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 
 import { useSearchParams } from "react-router-dom";
@@ -42,7 +47,7 @@ const EngineerLibraryForService = () => {
     {
       isLoading: assignLoading,
       isError: assignError,
-      error:assignErrorObject
+      error: assignErrorObject,
     },
   ] = useAssignEngineerMutation();
 
@@ -60,23 +65,20 @@ const EngineerLibraryForService = () => {
     }
   }, [data]);
 
-
   function handleSubmit(id: string) {
     const fullData = {
       engineerId: id,
       repairIds: checkedRows,
     };
     assignEngineer({ fullData, token });
-
   }
   if (isError || assignError) {
-    <ErrorShow error={assignErrorObject}/>
+    <ErrorShow error={assignErrorObject} />;
   }
 
   if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
-
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
@@ -100,6 +102,7 @@ const EngineerLibraryForService = () => {
             setCheckedRows={setCheckedRows}
             checkbox
             productData
+            link="/service/engineer-items/order-details"
           />
 
           <div className="absolute bottom-2 right-[50px]">
@@ -108,7 +111,7 @@ const EngineerLibraryForService = () => {
               currentPage={currentPage}
               totalItems={totalItems}
               setCurrentPage={setCurrentPage}
-            ></Pagination>
+            />
           </div>
         </div>
       </div>

@@ -1,11 +1,62 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import InventoryRequestCard from "../../../common/components/InventoryRequestCard/InventoryRequestCard";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { RxCross2 } from "react-icons/rx";
 import InventoryRequestInfoDetails from "./partials/InventoryRequestInfoDetails";
-import { demoHeaderValueForInventoryRequestDetails } from "../../../shared/config/constaints";
 import Button from "../../../common/components/Button";
+import { useParams } from "react-router-dom";
+import {
+  useGetInventoryPartsByIdQuery,
+  useInventoryApproveMutation,
+  useInventoryRejectMutation,
+} from "../../../redux/features/api/inventory";
+import { useEffect, useState } from "react";
+import { HeaderValueForInventoryRequestDetails } from "./config/constants";
+import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { authKey } from "../../../shared/config/constaints";
+import swal from "sweetalert";
 
 const InventoryRequestDetailsPage = () => {
+  const token = getFromLocalStorage(authKey);
+  const [inventoryApprove] = useInventoryApproveMutation();
+  const [inventoryReject] = useInventoryRejectMutation();
+  const [inventoryData, setInventoryData] = useState();
+  const { id } = useParams();
+  const {
+    data: inventory,
+    isError,
+    isLoading,
+  } = useGetInventoryPartsByIdQuery({ id });
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setInventoryData(inventory?.data);
+    }
+  }, [inventory, isError, isLoading]);
+
+  const handleInventoryApprove = async () => {
+    console.log("hello");
+    const result: any = await inventoryApprove({ id, token });
+    if (result?.data?.success) {
+      swal("Success", `${result?.data?.message}`, "success");
+    } else {
+      swal("Error", `${result?.error?.data?.message}`, "error");
+    }
+  };
+  const handleInventoryReject = async () => {
+    console.log("hello");
+    const result: any = inventoryReject({ id, token });
+    if (result?.data?.success) {
+      swal("Success", `${result?.data?.message}`, "success");
+    } else {
+      swal("Error", `${result?.error?.data?.message}`, "error");
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
       <Navbar name="Inventory Request Details" />
@@ -50,15 +101,25 @@ const InventoryRequestDetailsPage = () => {
             />
             <div className="col-span-3 pb-8">
               <InventoryRequestInfoDetails
-                headerData={demoHeaderValueForInventoryRequestDetails}
+                itemData={inventoryData}
+                headerData={HeaderValueForInventoryRequestDetails}
               />
             </div>
             <div className="col-span-3 pb-10">
               <div className="flex justify-around items-center">
-                <Button danger className="!py-1">
+                <Button
+                  onClick={handleInventoryReject}
+                  danger
+                  className="!py-1"
+                >
                   Reject
                 </Button>
-                <Button className="!py-1 text-lg">Approve</Button>
+                <Button
+                  onClick={handleInventoryApprove}
+                  className="!py-1 text-lg"
+                >
+                  Approve
+                </Button>
               </div>
             </div>
           </div>
