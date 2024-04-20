@@ -17,6 +17,7 @@ import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const Qc = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +42,7 @@ const Qc = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQC, { isLoading, isError, isSuccess }] = useCreateQCMutation();
+  const [createQC, { isLoading, isError, isSuccess, error }] = useCreateQCMutation();
 
   function handleSubmit(id: string, user: string) {
     const fullData = {
@@ -49,6 +50,7 @@ const Qc = () => {
       user_name: user,
       repairIds: checkedRows,
     };
+    console.log(fullData)
     createQC({ fullData, token });
   }
 
@@ -80,8 +82,9 @@ const Qc = () => {
     });
   }
   if (isError) {
-    swal("Error!", "something is wrong", "error");
+    return <ErrorShow error={error} />
   }
+  console.log(checkedRows)
   return (
     <div className="px-5">
       <Navbar name={"QC"}></Navbar>
@@ -104,7 +107,6 @@ const Qc = () => {
             checkedRows={checkedRows}
             setCheckedRows={setCheckedRows}
             checkbox
-            link="/qc/order-details"
           />
 
           <div className="absolute bottom-2 right-[50px]">

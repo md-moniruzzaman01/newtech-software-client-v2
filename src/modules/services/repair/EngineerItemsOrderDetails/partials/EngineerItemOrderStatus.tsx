@@ -20,7 +20,7 @@ const EngineerItemOrderStatus = () => {
       status,
       note,
     }
-       const url = `${SERVER_URL}repair/${id}`;
+       const url = `${SERVER_URL}/repair/${id}`;
 
     fetch(url, {
       method: "PATCH",

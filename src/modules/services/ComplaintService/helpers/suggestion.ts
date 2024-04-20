@@ -5,7 +5,7 @@ export const fetchData = async (searchValue: string,setIsLoadingSuggestion: Reac
     try {
       setIsLoadingSuggestion(true)
       const response = await fetch(
-        `${SERVER_URL}partners?searchTerm=${searchValue}`, {
+        `${SERVER_URL}/partners?searchTerm=${searchValue}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

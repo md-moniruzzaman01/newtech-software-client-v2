@@ -41,7 +41,7 @@ const ComplaintOrderDetailsTable = ({
       setBillSingleData(billData?.data);
       const serviceCharge = billData?.data?.repair.map(item => {
         if (item.discount) {
-            const existingIndex = discount.findIndex((d) => d.id === item.discount.id);
+            const existingIndex = discount.findIndex((d:IDiscount) => d.id === item.discount.id);
             if (existingIndex !== 1) {
               const UpdateDiscount = { id: item.discount?.id, amount: item.discount.amount }
             if (item.discount.type ==="Discount") {
@@ -65,7 +65,7 @@ console.log(billSingleData)
   const handleSubmitPayment = () => {
     // navigate("/service-invoice");
 
-    const url = `${SERVER_URL}bill/${id}`;
+    const url = `${SERVER_URL}/bill/${id}`;
     const fullData = { discount, hiddenDiscount, totalBillAmount, repairServiceCharge }
 
     fetch(url, {

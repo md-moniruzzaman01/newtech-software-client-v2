@@ -13,6 +13,7 @@ import { useGetOldQcsQuery } from "../../../../redux/features/api/qc";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -25,7 +26,7 @@ const QCMyItems = () => {
 
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetOldQcsQuery({
+  const { data, isError, isLoading,error } = useGetOldQcsQuery({
     id,
     token,
     query,
@@ -41,9 +42,7 @@ const QCMyItems = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+  return <ErrorShow error={error}/>
   }
 
   return (

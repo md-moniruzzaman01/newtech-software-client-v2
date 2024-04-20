@@ -8,7 +8,6 @@ export const QCTableHeader = [
   "Repair Status",
   "Repair Count",
   "Received Date",
-  "Action",
 ];
 
 export const qcSelectData = { id: "", user: "" };
