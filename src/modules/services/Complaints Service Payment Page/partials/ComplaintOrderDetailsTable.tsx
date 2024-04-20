@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { ComplaintsOrderDetailsProps } from "../config/types";
+import { ComplaintsOrderDetailsProps, IDiscount } from "../config/types";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import Input from "../../../../common/components/Input";
@@ -7,27 +7,29 @@ import { useGetBillByIdQuery } from "../../../../redux/features/api/service";
 import {
   handleDiscountChange,
   handleHiddenDiscountChange,
+  handleServiceChange,
 } from "../Helpers/DiscountFunction";
+import Button from "../../../../common/components/Button";
+import { SERVER_URL } from "../../../../shared/config/secret";
 
 const ComplaintOrderDetailsTable = ({
   id,
   isEdit,
-  setTotalDiscount,
-  setTotalHiddenDiscount,
-  totalDiscount,
-  totalHiddenDiscount,
 }: {
   id?: string;
   isEdit?: boolean;
-  totalDiscount?: number;
-  setTotalDiscount?: (value: number) => void;
-  totalHiddenDiscount?: number;
-  setTotalHiddenDiscount?: (value: number) => void;
 }) => {
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
-  const [discount, setDiscount] = useState<number[]>([]);
-  const [hiddenDiscount, setHiddenDiscount] = useState<number[]>([]);
+
+  const [totalDiscount, setTotalDiscount] = useState<number>(0);
+  const [totalHiddenDiscount, setTotalHiddenDiscount] = useState<number>(0);
+
+  const [discount, setDiscount] = useState<IDiscount[] | []>([]);
+  const [hiddenDiscount, setHiddenDiscount] = useState<IDiscount[] | []>([]);
+  const [repairServiceCharge, setRepairServiceCharge] = useState<IDiscount[] | []>([]);
+  const [totalBillAmount, setTotalBillAmount] = useState<number>(0);
+
   const token = getFromLocalStorage(authKey);
   const {
     data: billData,
@@ -37,15 +39,48 @@ const ComplaintOrderDetailsTable = ({
   useEffect(() => {
     if (!billError && !billLoading) {
       setBillSingleData(billData?.data);
-    }
+      const serviceCharge = billData?.data?.repair.map(item => {
+        if (item.discount) {
+            const existingIndex = discount.findIndex((d) => d.id === item.discount.id);
+            if (existingIndex !== 1) {
+              const UpdateDiscount = { id: item.discount?.id, amount: item.discount.amount }
+            if (item.discount.type ==="Discount") {
+              setDiscount(prevDiscounts => [...prevDiscounts, UpdateDiscount])
+            }else{
+              setHiddenDiscount(prevDiscounts => [...prevDiscounts, UpdateDiscount])
+            }
+            }
+        }
 
-    if (billData && billData.data && billData.data.repair) {
-      const defaultDiscounts = billData.data.repair.map(() => 0);
-      const defaultHiddenDiscounts = billData.data.repair.map(() => 0);
-      setDiscount(defaultDiscounts);
-      setHiddenDiscount(defaultHiddenDiscounts);
+        const newServiceCharge = { id: item.id, amount: item.total_charge };
+        return newServiceCharge
+      })
+      setRepairServiceCharge(serviceCharge)
+
+      setTotalBillAmount(billData?.data?.total_amount)
     }
   }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
+
+console.log(billSingleData)
+  const handleSubmitPayment = () => {
+    // navigate("/service-invoice");
+
+    const url = `${SERVER_URL}bill/${id}`;
+    const fullData = { discount, hiddenDiscount, totalBillAmount, repairServiceCharge }
+
+    fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `${token}`,
+      },
+      body: JSON.stringify(fullData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+
+
+  };
 
   return (
     <div className="w-full ">
@@ -77,10 +112,12 @@ const ComplaintOrderDetailsTable = ({
               <Input
                 inputType="number"
                 IsDisabled={isEdit}
-                defaultValue={discount[index] === 0 ? null : discount[index]}
+                defaultValue={
+                  discount.find((discountItem:IDiscount) => discountItem.id === item.id)?.amount || 0
+                }
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   handleDiscountChange(
-                    index,
+                    item?.id,
                     Number(e.target.value),
                     discount,
                     setDiscount,
@@ -90,13 +127,14 @@ const ComplaintOrderDetailsTable = ({
               />
 
               <Input
+                inputType="number"
                 IsDisabled={isEdit}
                 defaultValue={
-                  hiddenDiscount[index] === 0 ? null : hiddenDiscount[index]
+                  hiddenDiscount.find((discountItem:IDiscount) => discountItem.id === item.id)?.amount || 0
                 }
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   handleHiddenDiscountChange(
-                    index,
+                    item?.id,
                     Number(e.target.value),
                     hiddenDiscount,
                     setHiddenDiscount,
@@ -104,12 +142,22 @@ const ComplaintOrderDetailsTable = ({
                   )
                 }
               />
-              <Input IsDisabled defaultValue={item?.total_charge} />
+              <Input defaultValue={item?.total_charge}
+                IsDisabled={isEdit}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleServiceChange(
+                    item?.id,
+                    Number(e.target.value),
+                    repairServiceCharge,
+                    setRepairServiceCharge,
+                    setTotalBillAmount
+                  )
+                }
+              />
             </div>
           ))}
 
         <hr className="border-b border-shadeOfGray my-2" />
-
         <div className="flex justify-end">
           <hr className="border-b border-shadeOfGray my-2 w-1/2" />
         </div>
@@ -122,7 +170,7 @@ const ComplaintOrderDetailsTable = ({
             <h3 className="font-semibold">Subtotal:</h3>
           </div>
           <div className="border py-2 border-gray-400 my-1">
-            {billSingleData?.total_amount}
+            {totalBillAmount}
           </div>
         </div>
         <div className="grid grid-cols-5  text-center">
@@ -133,12 +181,7 @@ const ComplaintOrderDetailsTable = ({
             <h3 className="font-semibold">Discount:</h3>
           </div>
           <div className="border py-2 border-gray-400 ">
-            {`${totalDiscount}% (${(totalDiscount !== 0 &&
-            typeof billSingleData?.total_amount === "number" &&
-            billSingleData?.total_amount !== undefined
-              ? (totalDiscount / 100) * billSingleData.total_amount
-              : 0
-            ).toFixed(2)})`}
+            {`${totalDiscount}% (${(totalDiscount !== 0 ? ((totalDiscount / 100) * totalBillAmount).toFixed(2) : 0)})`}
           </div>
         </div>
         <div className="grid grid-cols-5  text-center">
@@ -149,12 +192,7 @@ const ComplaintOrderDetailsTable = ({
             <h3 className="font-semibold">Hidden Discount:</h3>
           </div>
           <div className="border py-2 border-gray-400 ">
-            {`${totalHiddenDiscount}% (${(totalDiscount !== 0 &&
-            typeof billSingleData?.total_amount === "number" &&
-            billSingleData?.total_amount !== undefined
-              ? (totalHiddenDiscount / 100) * billSingleData.total_amount
-              : 0
-            ).toFixed(2)})`}
+            {`${totalHiddenDiscount}% (${(totalDiscount !== 0 ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2) : 0)})`}
           </div>
         </div>
 
@@ -171,13 +209,20 @@ const ComplaintOrderDetailsTable = ({
           </div>
           <div className="py-2 font-semibold">
             {billSingleData &&
-              billSingleData?.total_amount -
-                ((totalHiddenDiscount / 100) * billSingleData.total_amount +
-                  (totalDiscount / 100) * billSingleData.total_amount)}
+              totalBillAmount -
+              ((totalHiddenDiscount / 100) * totalBillAmount +
+                (totalDiscount / 100) * totalBillAmount)}
           </div>
         </div>
       </div>
-      <div>Create invoice by : Johnson doe</div>
+      {
+        !isEdit && <div className=" w-1/3 mx-auto py-10">
+          <Button onClick={handleSubmitPayment} className="w-full" primary>
+            Save
+          </Button>
+        </div>
+      }
+
     </div>
   );
 };

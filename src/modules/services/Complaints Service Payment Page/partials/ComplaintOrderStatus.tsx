@@ -5,7 +5,6 @@ import { ComplaintsOrderStatusProps } from "../config/types";
 import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import Button from "../../../../common/components/Button";
-
 const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
   isEdit = true,
   branch = "",
@@ -28,6 +27,8 @@ const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
     console.log("Selected Order Status:", selectedOrderStatus);
     console.log("Selected Repair Status:", selectedRepairStatus);
     console.log("Selected Branch:", selectedBranch);
+
+
   };
 
   return (
