@@ -1,4 +1,4 @@
-import {    useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ComplaintsOrderDetailsProps } from "./config/types";
 import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
@@ -16,7 +16,6 @@ const ComplaintsServicePayment = () => {
   const { id } = useParams();
   const [isEdit, setIsEdit] = useState(true);
 
-  
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
   const token = getFromLocalStorage(authKey);
@@ -31,8 +30,6 @@ const ComplaintsServicePayment = () => {
       setBillSingleData(billData?.data);
     }
   }, [billData, billError, BillLoading]);
-
-
 
   if (BillLoading) {
     return <LoadingPage />;
@@ -108,11 +105,7 @@ const ComplaintsServicePayment = () => {
               <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
             </div>
           </div>
-          <ComplaintOrderDetailsTable
-            isEdit={isEdit}
-            id={id}
-          />
-         
+          <ComplaintOrderDetailsTable isEdit={isEdit} id={id} />
         </div>
       </div>
     </div>

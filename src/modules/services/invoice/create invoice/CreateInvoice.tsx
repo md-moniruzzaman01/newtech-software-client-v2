@@ -10,7 +10,7 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useDispatch } from "react-redux";
 import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import {useGetServicesQuery} from "../../../../redux/features/api/service";
+import { useGetServicesQuery } from "../../../../redux/features/api/service";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useCreateBillMutation } from "../../../../redux/features/api/bill";
@@ -21,7 +21,7 @@ const CreateInvoice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
 
@@ -34,7 +34,6 @@ const CreateInvoice = () => {
   } = useGetServicesQuery({
     token,
   });
-
 
   useEffect(() => {
     if (complaintsData) {
@@ -103,14 +102,14 @@ const CreateInvoice = () => {
             />
           </div>
         </div>
-          <div className="absolute bottom-2 right-[50px]">
+        <div className="absolute bottom-2 right-[50px]">
           <Pagination
             limit={limit}
             currentPage={currentPage}
             totalItems={totalItems}
             setCurrentPage={setCurrentPage}
           />
-          </div>
+        </div>
       </div>
     </div>
   );

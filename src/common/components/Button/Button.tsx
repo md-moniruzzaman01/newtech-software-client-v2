@@ -7,7 +7,7 @@ const Button: FC<ButtonProps> = ({
   className = "",
   translate = "",
   sizeClass = "px-[20px] py-[7.5px]",
-  fontSize = "text-[16px]",
+  fontSize = "text-base",
   disabled = false,
   children,
   mini,

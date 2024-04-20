@@ -4,12 +4,11 @@ import InventoryRequest from "../modules/inventory/InventoryRequest/InventoryReq
 import InventoryRequestDetailsPage from "../modules/inventory/InventoryRequestDetailsPage/InventoryRequestDetailsPage";
 
 export const InventoryRoutes = [
-    { path: "/inventory", element: <Inventory /> },
-    { path: "/inventory/request", element: <InventoryRequest /> },
-    { path: "/inventory/request-details", element: <InventoryRequestDetailsPage /> },
-    { path: "/inventory/approve", element: <InventoryApprove /> },
-
+  { path: "/inventory", element: <Inventory /> },
+  { path: "/inventory/request", element: <InventoryRequest /> },
+  {
+    path: "/inventory/request-details/:id?",
+    element: <InventoryRequestDetailsPage />,
+  },
+  { path: "/inventory/approve", element: <InventoryApprove /> },
 ];
-
-
-

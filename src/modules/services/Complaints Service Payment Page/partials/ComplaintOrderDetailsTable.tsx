@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps, IDiscount } from "../config/types";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
@@ -11,6 +12,11 @@ import {
 } from "../Helpers/DiscountFunction";
 import Button from "../../../../common/components/Button";
 import { SERVER_URL } from "../../../../shared/config/secret";
+import Modal from "../../../../common/components/Modal/Modal";
+import { handlePaymentSubmit } from "../Helpers/hanlePaymentService";
+import { handleRejected } from "../Helpers/handleRejected";
+import { handleWaitingForBill } from "../Helpers/handleWaitingForBill";
+import { handleCompleted } from "../Helpers/handleCompleted";
 
 const ComplaintOrderDetailsTable = ({
   id,
@@ -19,6 +25,8 @@ const ComplaintOrderDetailsTable = ({
   id?: string;
   isEdit?: boolean;
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
 
@@ -27,7 +35,9 @@ const ComplaintOrderDetailsTable = ({
 
   const [discount, setDiscount] = useState<IDiscount[] | []>([]);
   const [hiddenDiscount, setHiddenDiscount] = useState<IDiscount[] | []>([]);
-  const [repairServiceCharge, setRepairServiceCharge] = useState<IDiscount[] | []>([]);
+  const [repairServiceCharge, setRepairServiceCharge] = useState<
+    IDiscount[] | []
+  >([]);
   const [totalBillAmount, setTotalBillAmount] = useState<number>(0);
 
   const token = getFromLocalStorage(authKey);
@@ -39,34 +49,49 @@ const ComplaintOrderDetailsTable = ({
   useEffect(() => {
     if (!billError && !billLoading) {
       setBillSingleData(billData?.data);
-      const serviceCharge = billData?.data?.repair.map(item => {
+      const serviceCharge = billData?.data?.repair.map((item) => {
         if (item.discount) {
-            const existingIndex = discount.findIndex((d) => d.id === item.discount.id);
-            if (existingIndex !== 1) {
-              const UpdateDiscount = { id: item.discount?.id, amount: item.discount.amount }
-            if (item.discount.type ==="Discount") {
-              setDiscount(prevDiscounts => [...prevDiscounts, UpdateDiscount])
-            }else{
-              setHiddenDiscount(prevDiscounts => [...prevDiscounts, UpdateDiscount])
+          const existingIndex = discount.findIndex(
+            (d: any) => d.id === item.discount.id
+          );
+          if (existingIndex !== 1) {
+            const UpdateDiscount = {
+              id: item.discount?.id,
+              amount: item.discount.amount,
+            };
+            if (item.discount.type === "Discount") {
+              setDiscount((prevDiscounts) => [
+                ...prevDiscounts,
+                UpdateDiscount,
+              ]);
+            } else {
+              setHiddenDiscount((prevDiscounts) => [
+                ...prevDiscounts,
+                UpdateDiscount,
+              ]);
             }
-            }
+          }
         }
 
         const newServiceCharge = { id: item.id, amount: item.total_charge };
-        return newServiceCharge
-      })
-      setRepairServiceCharge(serviceCharge)
+        return newServiceCharge;
+      });
+      setRepairServiceCharge(serviceCharge);
 
-      setTotalBillAmount(billData?.data?.total_amount)
+      setTotalBillAmount(billData?.data?.total_amount);
     }
   }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
 
-console.log(billSingleData)
   const handleSubmitPayment = () => {
     // navigate("/service-invoice");
 
     const url = `${SERVER_URL}bill/${id}`;
-    const fullData = { discount, hiddenDiscount, totalBillAmount, repairServiceCharge }
+    const fullData = {
+      discount,
+      hiddenDiscount,
+      totalBillAmount,
+      repairServiceCharge,
+    };
 
     fetch(url, {
       method: "PATCH",
@@ -78,9 +103,13 @@ console.log(billSingleData)
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
-
-
   };
+
+  const total =
+    billSingleData &&
+    totalBillAmount -
+      ((totalHiddenDiscount / 100) * totalBillAmount +
+        (totalDiscount / 100) * totalBillAmount);
 
   return (
     <div className="w-full ">
@@ -113,7 +142,9 @@ console.log(billSingleData)
                 inputType="number"
                 IsDisabled={isEdit}
                 defaultValue={
-                  discount.find((discountItem:IDiscount) => discountItem.id === item.id)?.amount || 0
+                  discount.find(
+                    (discountItem: IDiscount) => discountItem.id === item.id
+                  )?.amount || 0
                 }
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   handleDiscountChange(
@@ -130,7 +161,9 @@ console.log(billSingleData)
                 inputType="number"
                 IsDisabled={isEdit}
                 defaultValue={
-                  hiddenDiscount.find((discountItem:IDiscount) => discountItem.id === item.id)?.amount || 0
+                  hiddenDiscount.find(
+                    (discountItem: IDiscount) => discountItem.id === item.id
+                  )?.amount || 0
                 }
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   handleHiddenDiscountChange(
@@ -142,7 +175,8 @@ console.log(billSingleData)
                   )
                 }
               />
-              <Input defaultValue={item?.total_charge}
+              <Input
+                defaultValue={item?.total_charge}
                 IsDisabled={isEdit}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   handleServiceChange(
@@ -181,7 +215,11 @@ console.log(billSingleData)
             <h3 className="font-semibold">Discount:</h3>
           </div>
           <div className="border py-2 border-gray-400 ">
-            {`${totalDiscount}% (${(totalDiscount !== 0 ? ((totalDiscount / 100) * totalBillAmount).toFixed(2) : 0)})`}
+            {`${totalDiscount}% (${
+              totalDiscount !== 0
+                ? ((totalDiscount / 100) * totalBillAmount).toFixed(2)
+                : 0
+            })`}
           </div>
         </div>
         <div className="grid grid-cols-5  text-center">
@@ -192,7 +230,11 @@ console.log(billSingleData)
             <h3 className="font-semibold">Hidden Discount:</h3>
           </div>
           <div className="border py-2 border-gray-400 ">
-            {`${totalHiddenDiscount}% (${(totalDiscount !== 0 ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2) : 0)})`}
+            {`${totalHiddenDiscount}% (${
+              totalDiscount !== 0
+                ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2)
+                : 0
+            })`}
           </div>
         </div>
 
@@ -207,22 +249,50 @@ console.log(billSingleData)
           <div className="text-end pr-2 py-2">
             <h3 className="font-semibold">Total:</h3>
           </div>
-          <div className="py-2 font-semibold">
-            {billSingleData &&
-              totalBillAmount -
-              ((totalHiddenDiscount / 100) * totalBillAmount +
-                (totalDiscount / 100) * totalBillAmount)}
-          </div>
+          <div className="py-2 font-semibold">{total}</div>
         </div>
       </div>
-      {
-        !isEdit && <div className=" w-1/3 mx-auto py-10">
-          <Button onClick={handleSubmitPayment} className="w-full" primary>
-            Save
+      <div className="flex  py-10">
+        <div className="flex justify-start gap-2 items-center">
+          {total > 0 && (
+            <Button primary mini onClick={() => setIsOpen(true)}>
+              Payments
+            </Button>
+          )}
+          <Button onClick={() => handleRejected(id)} primary mini>
+            Rejected
           </Button>
+          <Button onClick={() => handleWaitingForBill(id)} primary mini>
+            Completed & waiting for bill
+          </Button>
+          <Button onClick={() => handleCompleted(id)} primary mini>
+            Completed
+          </Button>
+          <Modal header={"Make Payments"} setIsOpen={setIsOpen} isOpen={isOpen}>
+            <form
+              onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+                handlePaymentSubmit(e, id)
+              }
+              className="space-y-4"
+            >
+              <Input
+                defaultValue={total}
+                inputPlaceholder="Amount..."
+                inputName="amount"
+                inputType="number"
+              />
+              <Button primary>Submit</Button>
+            </form>
+          </Modal>
         </div>
-      }
-
+        <div className="w-1/3 mx-auto">
+          {!isEdit && (
+            <Button onClick={handleSubmitPayment} className="w-full" primary>
+              Save
+            </Button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
