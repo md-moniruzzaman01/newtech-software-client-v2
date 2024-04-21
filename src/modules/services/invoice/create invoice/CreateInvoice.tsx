@@ -81,7 +81,6 @@ const CreateInvoice = () => {
       <div className="pt-5">
         <SearchBar
           linkBtn="Generate Invoice"
-          link={`/complaints-service-payments`}
           isTrue={checkedRows?.length <= 0}
           checkedRows={checkedRows}
           handleBillGenerate={handleBillGenerate}

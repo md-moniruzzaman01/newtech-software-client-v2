@@ -6,7 +6,8 @@ import { useState } from "react";
 import EngineersFilter from "../EngineersFilter/EngineersFilter";
 
 const SearchBar: React.FC<SearchBarProps> = ({
-  link = "",
+  link,
+  linkValue,
   linkBtn = "+ Add Complaint’s",
   isDropdown = false,
   dropdown = false,
@@ -47,9 +48,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setActiveRoute(route);
   };
 
-  console.log(isMiddleBtnActive !== "Completed", disabled);
-  console.log(isMiddleBtnActive);
-
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -71,39 +69,32 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <div className="flex items-center gap-2 ">
           {isMiddleBtn && (
             <div className="flex gap-2">
-              <Button
-                disabled={isMiddleBtnActive !== "Completed" || disabled}
-                mini
-                primary
-                onClick={handleDelivery}
-              >
-                Delivery
-              </Button>
-              <Button
-                disabled={isMiddleBtnActive !== "Pending" || disabled}
-                onClick={handleReturn}
-                mini
-                primary
-              >
-                Return
-              </Button>
-              <Button
-                disabled={
-                  (isMiddleBtnActive !== "Cancel" &&
-                    isMiddleBtnActive !== "Reject") ||
-                  disabled
-                }
-                onClick={handleDelete}
-                mini
-                danger
-              >
-                Delete
-              </Button>
+              {isMiddleBtnActive === "Completed" && (
+                <Button
+                  disabled={disabled}
+                  mini
+                  primary
+                  onClick={handleDelivery}
+                >
+                  Delivery
+                </Button>
+              )}
+              {isMiddleBtnActive === "Pending" && (
+                <Button disabled={disabled} onClick={handleReturn} mini primary>
+                  Return
+                </Button>
+              )}
+              {(isMiddleBtnActive === "Cancel" ||
+                isMiddleBtnActive === "Reject") && (
+                <Button disabled={disabled} onClick={handleDelete} mini danger>
+                  Delete
+                </Button>
+              )}
             </div>
           )}
           <div>
             {link ? (
-              <NavLink to={link}>
+              <NavLink to={linkValue}>
                 <Button
                   loading={generateBtnLoading}
                   onClick={handleBillGenerate}
@@ -114,14 +105,22 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 </Button>
               </NavLink>
             ) : (
-              isDropdown && (
-                <EngineersFilter
-                  IsDisabled={dropdown}
-                  placeholder={dropdownPlaceHolder}
-                  Filter={filtersOptions}
-                  handleSubmit={handleSubmit}
-                />
-              )
+              <Button
+                loading={generateBtnLoading}
+                onClick={handleBillGenerate}
+                disabled={(checkedRows && checkedRows?.length <= 0) || false}
+                primary
+              >
+                {linkBtn}
+              </Button>
+            )}
+            {isDropdown && (
+              <EngineersFilter
+                IsDisabled={dropdown}
+                placeholder={dropdownPlaceHolder}
+                Filter={filtersOptions}
+                handleSubmit={handleSubmit}
+              />
             )}
           </div>
         </div>

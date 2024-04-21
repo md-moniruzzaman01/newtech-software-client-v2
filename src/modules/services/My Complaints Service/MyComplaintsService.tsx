@@ -26,7 +26,7 @@ import CommonTable from "../../../common/components/Common Table/CommonTable";
 const MyComplaintsService = () => {
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
   const [searchParams] = useSearchParams();
@@ -41,7 +41,6 @@ const MyComplaintsService = () => {
     query,
     token,
   });
-
 
   useEffect(() => {
     if (complaintsData) {
@@ -85,7 +84,10 @@ const MyComplaintsService = () => {
           handleReturn={handleReturn}
           handleDelete={handleDelete}
           isMiddleBtn
-          link={`${activeRoute ? "/add-warranty-complaint" : "/add-complaint"}`}
+          linkValue={`${
+            activeRoute ? "/add-warranty-complaint" : "/add-complaint"
+          }`}
+          link
         />
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
@@ -103,14 +105,14 @@ const MyComplaintsService = () => {
             />
           </div>
         </div>
-          <div className="absolute bottom-2 right-[50px]">
+        <div className="absolute bottom-2 right-[50px]">
           <Pagination
             limit={limit}
             currentPage={currentPage}
             totalItems={totalItems}
             setCurrentPage={setCurrentPage}
           />
-          </div>
+        </div>
       </div>
     </div>
   );

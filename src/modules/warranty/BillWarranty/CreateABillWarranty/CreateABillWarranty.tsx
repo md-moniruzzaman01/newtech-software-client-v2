@@ -27,7 +27,6 @@ const BillListWarranty = () => {
     token,
   });
 
-
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);
@@ -75,7 +74,8 @@ const BillListWarranty = () => {
       <div className="pt-5">
         <SearchBar
           linkBtn="Generate Invoice"
-          link="/service-invoice"
+          linkValue="/service-invoice"
+          link
           isTrue={checkedRows?.length <= 0}
           checkedRows={checkedRows}
         />
