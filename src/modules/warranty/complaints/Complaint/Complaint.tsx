@@ -99,7 +99,10 @@ const Complaint = () => {
           handleReturn={handleReturn}
           handleDelete={handleDelete}
           isMiddleBtn
-          link={`${activeRoute ? "/add-warranty-complaint" : "/add-complaint"}`}
+          linkValue={`${
+            activeRoute ? "/add-warranty-complaint" : "/add-complaint"
+          }`}
+          link
         />
       </div>
       <div className="mt-5 p-3 bg-solidWhite">

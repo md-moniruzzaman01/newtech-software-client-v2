@@ -26,7 +26,7 @@ import CommonTable from "../../../common/components/Common Table/CommonTable";
 const ComplaintsDeliveryService = () => {
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
   const [searchParams] = useSearchParams();
@@ -42,7 +42,6 @@ const ComplaintsDeliveryService = () => {
     token,
   });
 
-
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);
@@ -50,7 +49,6 @@ const ComplaintsDeliveryService = () => {
       setCurrentPage(complaintsData?.meta?.page);
     }
   }, [complaintsData]);
-
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
@@ -86,14 +84,16 @@ const ComplaintsDeliveryService = () => {
           handleReturn={handleReturn}
           handleDelete={handleDelete}
           isMiddleBtn
-          link={`${activeRoute ? "/add-warranty-complaint" : "/add-complaint"}`}
+          linkValue={`${
+            activeRoute ? "/add-warranty-complaint" : "/add-complaint"
+          }`}
+          link
         />
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <StatusGroup btnGroupValue={btnValue} />
           <div className="pt-5">
-
             <CommonTable
               itemData={complaints}
               headerData={complaintsTableHeader}
@@ -114,8 +114,6 @@ const ComplaintsDeliveryService = () => {
             setCurrentPage={setCurrentPage}
           />
         </div>
-
-
       </div>
     </div>
   );

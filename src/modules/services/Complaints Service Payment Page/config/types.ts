@@ -26,10 +26,10 @@ export type ProductsProps = {
   _id: string;
 };
 
-export type IDiscount ={
-  id:string;
-  amount:number
-}
+export type IDiscount = {
+  id: string;
+  amount: number;
+};
 export type Engineer = {
   id: string;
   name: {
@@ -56,6 +56,7 @@ export type RepairItem = {
   status: string;
   total_amount: number;
   total_paid: number;
+  discount: IDiscount;
 };
 
 export type ComplaintsOrderDetailsProps = {

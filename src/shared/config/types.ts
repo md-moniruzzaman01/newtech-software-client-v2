@@ -122,7 +122,7 @@ export type TableBodyProps = {
 };
 
 export type SearchBarProps = {
-  link?: string;
+  link?: boolean;
   linkValue?: string;
   linkBtn?: string;
   isDropdown?: boolean;

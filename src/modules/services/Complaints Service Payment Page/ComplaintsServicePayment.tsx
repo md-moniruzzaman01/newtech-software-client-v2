@@ -34,7 +34,6 @@ const ComplaintsServicePayment = () => {
   if (BillLoading) {
     return <LoadingPage />;
   }
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Service Payments"} />

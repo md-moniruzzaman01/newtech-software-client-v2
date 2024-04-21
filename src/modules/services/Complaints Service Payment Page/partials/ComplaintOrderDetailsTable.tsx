@@ -49,10 +49,11 @@ const ComplaintOrderDetailsTable = ({
   useEffect(() => {
     if (!billError && !billLoading) {
       setBillSingleData(billData?.data);
+
       const serviceCharge = billData?.data?.repair.map((item) => {
         if (item.discount) {
           const existingIndex = discount.findIndex(
-            (d: IDiscount) => d.id === item.discount.id
+            (d: IDiscount) => d.id === item?.discount?.id
           );
           if (existingIndex !== 1) {
             const UpdateDiscount = {
@@ -60,27 +61,37 @@ const ComplaintOrderDetailsTable = ({
               amount: item.discount.amount,
             };
             if (item.discount.type === "Discount") {
-              setDiscount((prevDiscounts) => [
-                ...prevDiscounts,
-                UpdateDiscount,
-              ]);
+              setDiscount([UpdateDiscount]);
             } else {
-              setHiddenDiscount((prevDiscounts) => [
-                ...prevDiscounts,
-                UpdateDiscount,
-              ]);
+              setHiddenDiscount([UpdateDiscount]);
             }
           }
         }
 
         const newServiceCharge = { id: item.id, amount: item.total_charge };
+
         return newServiceCharge;
       });
-      setRepairServiceCharge(serviceCharge);
 
-      setTotalBillAmount(billData?.data?.total_amount);
+      const totalCharge =
+        billData &&
+        billData?.data?.repair?.reduce(
+          (prev: any, curr: any) => prev + curr?.total_charge,
+          0
+        );
+      setRepairServiceCharge(serviceCharge);
+      setTotalBillAmount(totalCharge);
     }
   }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
+
+  // const totalCharge =
+  //   billData &&
+  //   billData?.data?.repair?.reduce(
+  //     (prev: any, curr: any) => prev + curr?.total_charge,
+  //     0
+  //   );
+
+  // console.log("Total charge of repairs:", totalCharge);
 
   const handleSubmitPayment = () => {
     // navigate("/service-invoice");
@@ -105,12 +116,35 @@ const ComplaintOrderDetailsTable = ({
       .then((data) => console.log(data));
   };
 
+  const updateData = hiddenDiscount.map((data: IDiscount) => data.amount);
+  const totalHiddenDiscountDefault = updateData?.reduce(
+    (acc, curr) => acc + curr,
+    0
+  );
+  const updateDataForDiscount = discount.map((data: IDiscount) => data.amount);
+  const totalDiscountDefault = updateDataForDiscount?.reduce(
+    (acc, curr) => acc + curr,
+    0
+  );
+
   const total =
     billSingleData &&
     totalBillAmount -
       ((totalHiddenDiscount / 100) * totalBillAmount +
         (totalDiscount / 100) * totalBillAmount);
+  const totalDefault =
+    billSingleData &&
+    totalBillAmount -
+      ((totalHiddenDiscountDefault / 100) * totalBillAmount +
+        (totalDiscountDefault / 100) * totalBillAmount);
 
+  // console.log(totalHiddenDiscountDefault);
+  // console.log("data", billSingleData);
+  // console.log("data2", hiddenDiscount);
+  // console.log("totalDiscount", totalDiscount);
+
+  // console.log("repairServiceCharge", repairServiceCharge);
+  // console.log("totalBillAmount", totalBillAmount);
   return (
     <div className="w-full ">
       {/* header row start here  */}
@@ -143,12 +177,13 @@ const ComplaintOrderDetailsTable = ({
                 IsDisabled={isEdit}
                 defaultValue={
                   discount.find(
-                    (discountItem: IDiscount) => discountItem.id === item.id
+                    (discountItem: IDiscount) =>
+                      item?.discount?.id === discountItem?.id
                   )?.amount || 0
                 }
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   handleDiscountChange(
-                    item?.id,
+                    item?.discount?.id,
                     Number(e.target.value),
                     discount,
                     setDiscount,
@@ -162,12 +197,13 @@ const ComplaintOrderDetailsTable = ({
                 IsDisabled={isEdit}
                 defaultValue={
                   hiddenDiscount.find(
-                    (discountItem: IDiscount) => discountItem.id === item.id
+                    (discountItem: IDiscount) =>
+                      item?.discount?.id === discountItem?.id
                   )?.amount || 0
                 }
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   handleHiddenDiscountChange(
-                    item?.id,
+                    item?.discount?.id,
                     Number(e.target.value),
                     hiddenDiscount,
                     setHiddenDiscount,
@@ -215,10 +251,12 @@ const ComplaintOrderDetailsTable = ({
             <h3 className="font-semibold">Discount:</h3>
           </div>
           <div className="border py-2 border-gray-400 ">
-            {`${totalDiscount}% (${
+            {`${
+              totalDiscount > 0 ? totalDiscount : totalDiscountDefault || 0
+            }% (${
               totalDiscount !== 0
                 ? ((totalDiscount / 100) * totalBillAmount).toFixed(2)
-                : 0
+                : ((totalDiscountDefault / 100) * totalBillAmount).toFixed(2)
             })`}
           </div>
         </div>
@@ -230,10 +268,17 @@ const ComplaintOrderDetailsTable = ({
             <h3 className="font-semibold">Hidden Discount:</h3>
           </div>
           <div className="border py-2 border-gray-400 ">
-            {`${totalHiddenDiscount}% (${
+            {`${
+              totalHiddenDiscount > 0
+                ? totalHiddenDiscount
+                : totalHiddenDiscountDefault || 0
+            }% (${
               totalDiscount !== 0
                 ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2)
-                : 0
+                : (
+                    (totalHiddenDiscountDefault / 100) *
+                    totalBillAmount
+                  ).toFixed(2)
             })`}
           </div>
         </div>
@@ -249,7 +294,9 @@ const ComplaintOrderDetailsTable = ({
           <div className="text-end pr-2 py-2">
             <h3 className="font-semibold">Total:</h3>
           </div>
-          <div className="py-2 font-semibold">{total}</div>
+          <div className="py-2 font-semibold">
+            {billSingleData?.total_amount === total ? total : totalDefault}
+          </div>
         </div>
       </div>
       <div className="flex  py-10">
