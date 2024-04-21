@@ -13,10 +13,8 @@ import {
 import Button from "../../../../common/components/Button";
 import { SERVER_URL } from "../../../../shared/config/secret";
 import Modal from "../../../../common/components/Modal/Modal";
-import { handlePaymentSubmit } from "../Helpers/hanlePaymentService";
-import { handleRejected } from "../Helpers/handleRejected";
-import { handleWaitingForBill } from "../Helpers/handleWaitingForBill";
-import { handleCompleted } from "../Helpers/handleCompleted";
+import { handleDelivededWithOutPaySubmit, handlePaymentSubmit } from "../Helpers/hanlePaymentService";
+
 
 const ComplaintOrderDetailsTable = ({
   id,
@@ -108,172 +106,170 @@ const ComplaintOrderDetailsTable = ({
   const total =
     billSingleData &&
     totalBillAmount -
-      ((totalHiddenDiscount / 100) * totalBillAmount +
-        (totalDiscount / 100) * totalBillAmount);
+    ((totalHiddenDiscount / 100) * totalBillAmount +
+      (totalDiscount / 100) * totalBillAmount);
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {/* header row start here  */}
-      <div className="grid grid-cols-6 gap-5 text-center">
-        <div>Order No</div>
-        <div>SL No</div>
-        <div>Problem</div>
-        <div>Discount</div>
-        <div>Hidden Discount</div>
-        <div>Service Charge</div>
-      </div>
-      <hr className="border-b border-shadeOfGray my-2" />
-
-      <div className="text-center">
-        {/* second row start here  */}
-        {billSingleData &&
-          billSingleData?.repair?.map((item, index) => (
-            <div key={index} className="grid grid-cols-6  text-center">
-              <div className="border py-2 border-grayForBorder">
-                {item?.order_number}
-              </div>
-              <div className="border py-2 border-grayForBorder">
-                {item?.products?.serial_number}
-              </div>
-              <div className="border py-2 border-grayForBorder">
-                {item?.products?.problems?.join(",")}
-              </div>
-              <Input
-                inputType="number"
-                IsDisabled={isEdit}
-                defaultValue={
-                  discount.find(
-                    (discountItem: IDiscount) => discountItem.id === item.id
-                  )?.amount || 0
-                }
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleDiscountChange(
-                    item?.id,
-                    Number(e.target.value),
-                    discount,
-                    setDiscount,
-                    setTotalDiscount
-                  )
-                }
-              />
-
-              <Input
-                inputType="number"
-                IsDisabled={isEdit}
-                defaultValue={
-                  hiddenDiscount.find(
-                    (discountItem: IDiscount) => discountItem.id === item.id
-                  )?.amount || 0
-                }
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleHiddenDiscountChange(
-                    item?.id,
-                    Number(e.target.value),
-                    hiddenDiscount,
-                    setHiddenDiscount,
-                    setTotalHiddenDiscount
-                  )
-                }
-              />
-              <Input
-                defaultValue={item?.total_charge}
-                IsDisabled={isEdit}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleServiceChange(
-                    item?.id,
-                    Number(e.target.value),
-                    repairServiceCharge,
-                    setRepairServiceCharge,
-                    setTotalBillAmount
-                  )
-                }
-              />
-            </div>
-          ))}
-
+      <div>
+        <div className="grid grid-cols-6 gap-5 text-center">
+          <div>Order No</div>
+          <div>SL No</div>
+          <div>Problem</div>
+          <div>Discount</div>
+          <div>Hidden Discount</div>
+          <div>Service Charge</div>
+        </div>
         <hr className="border-b border-shadeOfGray my-2" />
-        <div className="flex justify-end">
-          <hr className="border-b border-shadeOfGray my-2 w-1/2" />
-        </div>
-        {/* calculate area start here  */}
-        <div className="grid grid-cols-5  text-center">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div className="text-end pr-2 my-1 py-2">
-            <h3 className="font-semibold">Subtotal:</h3>
-          </div>
-          <div className="border py-2 border-gray-400 my-1">
-            {totalBillAmount}
-          </div>
-        </div>
-        <div className="grid grid-cols-5  text-center">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div className="text-end pr-2  py-2">
-            <h3 className="font-semibold">Discount:</h3>
-          </div>
-          <div className="border py-2 border-gray-400 ">
-            {`${totalDiscount}% (${
-              totalDiscount !== 0
-                ? ((totalDiscount / 100) * totalBillAmount).toFixed(2)
-                : 0
-            })`}
-          </div>
-        </div>
-        <div className="grid grid-cols-5  text-center">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div className="text-end pr-2  py-2">
-            <h3 className="font-semibold">Hidden Discount:</h3>
-          </div>
-          <div className="border py-2 border-gray-400 ">
-            {`${totalHiddenDiscount}% (${
-              totalDiscount !== 0
-                ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2)
-                : 0
-            })`}
-          </div>
-        </div>
 
-        <div className="flex justify-end">
-          <hr className="border-b border-shadeOfGray my-2 w-1/2" />
-        </div>
-        {/* total calculate area  */}
-        <div className="grid grid-cols-5  text-center">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div className="text-end pr-2 py-2">
-            <h3 className="font-semibold">Total:</h3>
+        <div className="text-center">
+          {/* second row start here  */}
+          {billSingleData &&
+            billSingleData?.repair?.map((item, index) => (
+              <div key={index} className="grid grid-cols-6  text-center">
+                <div className="border py-2 border-grayForBorder">
+                  {item?.order_number}
+                </div>
+                <div className="border py-2 border-grayForBorder">
+                  {item?.products?.serial_number}
+                </div>
+                <div className="border py-2 border-grayForBorder">
+                  {item?.products?.problems?.join(",")}
+                </div>
+                <Input
+                  inputType="number"
+                  IsDisabled={isEdit}
+                  defaultValue={
+                    discount.find(
+                      (discountItem: IDiscount) => discountItem.id === item.id
+                    )?.amount || 0
+                  }
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleDiscountChange(
+                      item?.id,
+                      Number(e.target.value),
+                      discount,
+                      setDiscount,
+                      setTotalDiscount
+                    )
+                  }
+                />
+
+                <Input
+                  inputType="number"
+                  IsDisabled={isEdit}
+                  defaultValue={
+                    hiddenDiscount.find(
+                      (discountItem: IDiscount) => discountItem.id === item.id
+                    )?.amount || 0
+                  }
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleHiddenDiscountChange(
+                      item?.id,
+                      Number(e.target.value),
+                      hiddenDiscount,
+                      setHiddenDiscount,
+                      setTotalHiddenDiscount
+                    )
+                  }
+                />
+                <Input
+                  defaultValue={item?.total_charge}
+                  IsDisabled={isEdit}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleServiceChange(
+                      item?.id,
+                      Number(e.target.value),
+                      repairServiceCharge,
+                      setRepairServiceCharge,
+                      setTotalBillAmount
+                    )
+                  }
+                />
+              </div>
+            ))}
+
+          <hr className="border-b border-shadeOfGray my-2" />
+          <div className="flex justify-end">
+            <hr className="border-b border-shadeOfGray my-2 w-1/2" />
           </div>
-          <div className="py-2 font-semibold">{total}</div>
+          {/* calculate area start here  */}
+          <div className="grid grid-cols-5  text-center">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className="text-end pr-2 my-1 py-2">
+              <h3 className="font-semibold">Subtotal:</h3>
+            </div>
+            <div className="border py-2 border-gray-400 my-1">
+              {totalBillAmount}
+            </div>
+          </div>
+          <div className="grid grid-cols-5  text-center">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className="text-end pr-2  py-2">
+              <h3 className="font-semibold">Discount:</h3>
+            </div>
+            <div className="border py-2 border-gray-400 ">
+              {`${totalDiscount}% (${totalDiscount !== 0
+                  ? ((totalDiscount / 100) * totalBillAmount).toFixed(2)
+                  : 0
+                })`}
+            </div>
+          </div>
+          <div className="grid grid-cols-5  text-center">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className="text-end pr-2  py-2">
+              <h3 className="font-semibold">Hidden Discount:</h3>
+            </div>
+            <div className="border py-2 border-gray-400 ">
+              {`${totalHiddenDiscount}% (${totalDiscount !== 0
+                  ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2)
+                  : 0
+                })`}
+            </div>
+          </div>
+
+          <div className="flex justify-end">
+            <hr className="border-b border-shadeOfGray my-2 w-1/2" />
+          </div>
+          {/* total calculate area  */}
+          <div className="grid grid-cols-5  text-center">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className="text-end pr-2 py-2">
+              <h3 className="font-semibold">Total:</h3>
+            </div>
+            <div className="py-2 font-semibold">{total}</div>
+          </div>
         </div>
       </div>
-      <div className="flex  py-10">
-        <div className="flex justify-start gap-2 items-center">
+      <div className="w-full py-10 ">
+        <div className=" space-y-7">
           {total > 0 && (
-            <Button primary mini onClick={() => setIsOpen(true)}>
+            <Button primary className="w-full" onClick={() => setIsOpen(true)}>
               Payments
             </Button>
           )}
-          <Button onClick={() => handleRejected(id)} primary mini>
+          {/* <Button className="w-full" onClick={() => handleRejected(id)} primary >
             Rejected
-          </Button>
-          <Button onClick={() => handleWaitingForBill(id)} primary mini>
+          </Button> */}
+          <Button className="w-full" onClick={() => handleDelivededWithOutPaySubmit(id)} primary >
             Completed & waiting for bill
           </Button>
-          <Button onClick={() => handleCompleted(id)} primary mini>
-            Completed
-          </Button>
+
           <Modal header={"Make Payments"} setIsOpen={setIsOpen} isOpen={isOpen}>
             <form
               onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
                 handlePaymentSubmit(e, id)
               }
-              className="space-y-4"
+              className="space-y-4 p-2"
             >
               <Input
                 defaultValue={total}
@@ -281,7 +277,7 @@ const ComplaintOrderDetailsTable = ({
                 inputName="amount"
                 inputType="number"
               />
-              <Button primary>Submit</Button>
+              <Button primary className="w-full">Submit</Button>
             </form>
           </Modal>
         </div>
