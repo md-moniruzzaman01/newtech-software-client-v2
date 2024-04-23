@@ -23,6 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
     swal("success", "Successfully logged out");
     removeUserInfo(authKey);
   };
+  console.log("user",user)
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">

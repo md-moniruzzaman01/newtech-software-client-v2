@@ -132,7 +132,7 @@ export type SearchBarProps = {
   itemsId?: string[];
   filtersOptions?: {
     value: string;
-    _id: string;
+    id: string;
     name?: { firstName?: string; middleName?: string; lastName?: string };
   }[];
   isTrue?: boolean;

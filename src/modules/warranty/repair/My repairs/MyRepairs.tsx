@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { MyRepairHeader, fields, keys, tableLayout } from "./config/constants";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { getUserInfo } from "../../../../services/auth.service";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,9 +23,9 @@ const MyRepairs = () => {
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
+  const user = getUserInfo();
   const { data, isError, isLoading } = useGetOldRepairsQuery({
-    id,
+    id:user._id,
     token,
     query,
   });

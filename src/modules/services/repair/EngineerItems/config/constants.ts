@@ -11,7 +11,6 @@ export const EngineerTableHeader = [
   "Branch",
   "Status",
   "RD",
-  "Action",
 ];
 export const engineerSelectData = { id: "", user: "" };
 

@@ -145,7 +145,6 @@ const ComplaintOrderDetailsTable = ({
   // console.log("totalBillAmount", totalBillAmount);
   return (
     <div className="w-full">
-      {/* header row start here  */}
       <div>
         <div className="grid grid-cols-6 gap-5 text-center">
           <div>Order No</div>
@@ -337,6 +336,7 @@ const ComplaintOrderDetailsTable = ({
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

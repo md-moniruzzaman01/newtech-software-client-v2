@@ -14,6 +14,7 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { getUserInfo } from "../../../../services/auth.service";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -25,9 +26,9 @@ const QCMyItems = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
+  const user = getUserInfo();
   const { data, isError, isLoading,error } = useGetOldQcsQuery({
-    id,
+    id:user._id,
     token,
     query,
   });

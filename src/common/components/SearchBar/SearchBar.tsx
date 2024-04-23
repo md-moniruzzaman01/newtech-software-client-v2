@@ -33,7 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       queryParams.delete(paramName);
       queryParams.delete("searchTerm");
       queryParams.delete("brand_name");
-      queryParams.delete("category");
+      queryParams.delete("category_name");
       queryParams.delete("sort");
       queryParams.delete("repair_status");
       queryParams.delete("branch");

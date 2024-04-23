@@ -1,12 +1,12 @@
 export const fields =
-  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer";
+  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer,category_name";
 export const keys = [
   "brand",
   "branch",
   "sort",
   "repair_status",
-  "search",
-  "category",
+  "searchTerm",
+  "category_name",
 ];
 
 export const btnValue = [
@@ -38,8 +38,8 @@ export const complaintsTableHeader = [
   "Customer Name",
   "category",
   "Brand",
-  "QC",
-  "Engineer",
+  "Status",
+  "RD",
 ];
 
 export const tableLayout = [

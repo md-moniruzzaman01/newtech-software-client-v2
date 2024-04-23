@@ -5,8 +5,8 @@ export const keys = [
   "branch",
   "sort",
   "repair_status",
-  "search",
-  "category",
+  "searchTerm",
+  "category_name",
 ];
 
 export const btnValue = [
@@ -38,8 +38,7 @@ export const complaintsTableHeader = [
   "Customer Name",
   "category",
   "Brand",
-  "QC",
-
+  "status",
   "Action",
 ];
 

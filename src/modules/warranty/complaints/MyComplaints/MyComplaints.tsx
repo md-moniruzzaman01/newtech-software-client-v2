@@ -18,6 +18,7 @@ import { getUserInfo } from "../../../../services/auth.service";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useState } from "react";
 
+
 const MyComplaints = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 50;
@@ -25,10 +26,12 @@ const MyComplaints = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
+  const warranty=true
   const { data, isError, isLoading } = useGetMyComplaintQuery({
     id: user?.userId,
     query,
     token,
+    warranty
   });
   if (isLoading) {
     return <LoadingPage />;
