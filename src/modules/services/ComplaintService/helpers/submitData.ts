@@ -60,7 +60,7 @@ export const handleDataSubmit = async (
           if (isPaymentButton) {
             navigate("/complaints-service-payments");
           }
-        } else if ("error" in result) {
+        } else if ("error" in result || "errorMessages" in result) {
           swal("Something went wrong!", {
             icon: "error",
           });

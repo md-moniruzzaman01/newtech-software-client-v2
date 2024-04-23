@@ -21,17 +21,19 @@ const EngineerItemOrderDetailsTable = ({ product }: { product: any }) => {
             {product?.serial_number}
           </div>
           <div className="border py-2 border-gray-400">
-            {product?.model_number}
+            {product?.repair?.products?.model_number}
           </div>
           <div className="border py-2 border-gray-400">
-            {product?.brand_name}
+            {product?.repair?.products?.brand_name}
           </div>
-          <div className="border py-2 border-gray-400">{product?.problems}</div>
           <div className="border py-2 border-gray-400">
-            {product?.attachments}
+            {product?.repair?.products?.problems}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {product?.repair?.products?.attachments}
           </div>
           <div className="border py-2 border-gray-400 underline text-blue-500">
-            {product?.repair_count}
+            {product?.repair?.products?.repair_count}
           </div>
         </div>
 

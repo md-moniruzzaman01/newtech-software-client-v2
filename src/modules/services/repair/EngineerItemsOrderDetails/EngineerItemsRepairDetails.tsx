@@ -4,10 +4,7 @@ import EngineerItemOrderStatus from "./partials/EngineerItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import {
-  ComplaintDetails,
-  authKey,
-} from "../../../../shared/config/constaints";
+import { authKey } from "../../../../shared/config/constaints";
 import { useState } from "react";
 import EngineerPartsReplace from "./partials/EngineerPartsReplace";
 import { useParams } from "react-router-dom";
@@ -30,7 +27,9 @@ const EngineerItemsRepairDetails = () => {
         return <EngineerItemOrderStatus />;
 
       case 2:
-        return <EngineerPartsReplace id={data?.data?.repairId}  repairItemId={id}/>;
+        return (
+          <EngineerPartsReplace id={data?.data?.repairId} repairItemId={id} />
+        );
     }
   }
 
@@ -51,11 +50,9 @@ const EngineerItemsRepairDetails = () => {
           headerTitle="Repair assign Date"
         />
         <ComplaintHeaderCard
-          headerDetails={
-            data?.data?.repair?.received_date?.toString().slice(0, 10) || ""
-          }
+          headerDetails={data?.data?.status || ""}
           bgColor="primary"
-          headerTitle="Complaint Received"
+          headerTitle="Status"
         />
         <ComplaintHeaderCard
           headerDetails={
@@ -68,20 +65,30 @@ const EngineerItemsRepairDetails = () => {
 
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
-          headerTitle="Branch"
+          headerTitle="Branch Details"
           CardInformation={[
             { title: "Branch", value: data?.data.repair?.branch },
             { title: "Received By", value: data?.data.repair?.receiver },
           ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Billing Address"
-          CardInformation={ComplaintDetails}
-        />
-        <ComplaintDetailsCard
           headerTitle="Complaint Details"
           CardInformation={[
-            { title: "order number", value: data?.data.repair?.order_number },
+            { title: "Engineer ID", value: data?.data?.engineer },
+            { title: "Order Number", value: data?.data.repair?.order_number },
+          ]}
+        />
+        <ComplaintDetailsCard
+          headerTitle="Customer Details"
+          CardInformation={[
+            {
+              title: "Name",
+              value: data?.data?.repair?.Nonwarrentycustomer?.name,
+            },
+            {
+              title: "Contact Number",
+              value: data?.data?.repair.Nonwarrentycustomer?.contact_number,
+            },
           ]}
         />
 
