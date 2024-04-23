@@ -13,13 +13,15 @@ import {
 } from "./config/constants";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
-import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
+
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
+import { getUserInfo } from "../../../services/auth.service";
+import { useGetMyComplaintQuery } from "../../../redux/features/api/complaints";
 
 //internal
 
@@ -33,13 +35,17 @@ const MyComplaintsService = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
+  const user = getUserInfo();
+  const warranty=false;
   const {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
+  } = useGetMyComplaintQuery({
+    id: user?.userId,
     query,
     token,
+    warranty
   });
 
   useEffect(() => {

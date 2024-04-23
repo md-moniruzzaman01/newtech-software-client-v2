@@ -4,9 +4,9 @@ export const cx = classNames;
 export const authKey = "accessToken";
 
 export const branches = [
-  { id: "01", value: "Multilane Branch" },
-  { id: "02", value: "Sylhet Branch" },
-  { id: "03", value: "Banani Branch" },
+  { id: "01", value: "Banani Branch" },
+  { id: "02", value: "Multilane Branch" },
+  { id: "03", value: "Sylhet Branch" },
   { id: "04", value: "Chattagram Branch" },
   { id: "05", value: "HQ Branch" },
 ];

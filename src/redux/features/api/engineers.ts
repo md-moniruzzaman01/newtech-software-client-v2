@@ -15,10 +15,8 @@ const EngineerApi = baseApi.injectEndpoints({
     }),
     getEngineers: builder.query({
       query: (params) => {
-        // console.log(`/complaints?${params?.query}`);
-        // console.log(params);
         return {
-          url: `/engineers`,
+          url: "/engineers",
           headers: {
             authorization: params?.token,
           },

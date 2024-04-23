@@ -88,6 +88,7 @@ const ComplaintListService = () => {
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
+  console.log("complaints",complaintsData)
   return (
     <div className=" px-5">
       <Navbar name="Complaint Service" />

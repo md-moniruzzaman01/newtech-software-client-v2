@@ -33,6 +33,7 @@ const EngineerLibraryForService = () => {
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
+
   const { data, isError, isLoading } = useGetServiceProductsForRepairQuery({
     query,
     token,
@@ -41,7 +42,7 @@ const EngineerLibraryForService = () => {
     data: engineerData,
     isError: engineerError,
     isLoading: engineerLoading,
-  } = useGetEngineersQuery({ token });
+  } = useGetEngineersQuery({ token, });
   const [
     assignEngineer,
     {
@@ -79,6 +80,7 @@ const EngineerLibraryForService = () => {
   if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
+
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
@@ -102,7 +104,6 @@ const EngineerLibraryForService = () => {
             setCheckedRows={setCheckedRows}
             checkbox
             productData
-            link="/service/engineer-items/order-details"
           />
 
           <div className="absolute bottom-2 right-[50px]">

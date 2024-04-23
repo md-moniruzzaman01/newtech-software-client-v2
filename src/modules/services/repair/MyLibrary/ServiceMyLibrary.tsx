@@ -16,6 +16,8 @@ import {
   tableLayout,
 } from "./config/constants";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { getUserInfo } from "../../../../services/auth.service";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const ServiceMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,9 +29,9 @@ const ServiceMyLibrary = () => {
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetRepairsQuery({
-    id,
+  const user = getUserInfo();
+  const { data, isError, isLoading,error } = useGetRepairsQuery({
+    id:user._id,
     query,
     token,
   });
@@ -47,7 +49,7 @@ const ServiceMyLibrary = () => {
   if (isError) {
     console.error(isError);
 
-    return <div>Error</div>;
+    return <ErrorShow error={error}/>;
   }
 
   const handleDeleteData = () => {
@@ -58,7 +60,7 @@ const ServiceMyLibrary = () => {
   };
   return (
     <div className=" px-5">
-      <Navbar name="QC My Library"></Navbar>
+      <Navbar name="Engineer My Library"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -71,7 +73,7 @@ const ServiceMyLibrary = () => {
               handleDeleteData={handleDeleteData}
               isButton
               dltBtnValue="Delete"
-              returnBtnValue="Return to the QC Library"
+              returnBtnValue="Return to the Engineer Library"
             />
           </div>
           <div className="pt-5">

@@ -9,6 +9,7 @@ import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
 import { MyQCTableHeader, tableLayout } from "./config/constants";
+import { getUserInfo } from "../../../../services/auth.service";
 
 const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,9 +19,9 @@ const EngineerAllRepairs = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
+  const user = getUserInfo();
   const { data, isError, isLoading } = useGetAllRepairsQuery({
-    id,
+    id:user._id,
     token,
   });
   useEffect(() => {

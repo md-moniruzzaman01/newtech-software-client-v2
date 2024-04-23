@@ -11,6 +11,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader, tableLayout } from "./config/constants";
 import { useGetQcsQuery } from "../../../../redux/features/api/qc";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { getUserInfo } from "../../../../services/auth.service";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,9 +21,9 @@ const QCMyLibrary = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
+  const user = getUserInfo();
   const { data, isError, isLoading } = useGetQcsQuery({
-    id,
+    id:user._id,
     token,
   });
   console.log(data);

@@ -14,6 +14,7 @@ import MyQATable from "./partials/MyQATable";
 import { useGetQasQuery } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { getUserInfo } from "../../../../services/auth.service";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -25,9 +26,9 @@ const QCMyLibrary = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
+  const user = getUserInfo();
   const { data, isError, isLoading } = useGetQasQuery({
-    id,
+    id:user._id,
     token,
     query,
   });

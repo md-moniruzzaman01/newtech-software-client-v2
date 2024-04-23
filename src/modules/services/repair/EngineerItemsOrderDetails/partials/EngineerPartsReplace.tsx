@@ -8,7 +8,7 @@ import { useCreatePartsRequestMutation } from '../../../../../redux/features/api
 import ErrorShow from '../../../../../common/components/Error Show/ErrorShow';
 import LoadingPage from '../../../../../common/components/LoadingPage/LoadingPage';
 
-const EngineerPartsReplace = ({id}:{id:string}) => {
+const EngineerPartsReplace = ({id,repairItemId}:{id:string,repairItemId:string}) => {
   const token = getFromLocalStorage(authKey);
   const [createPartsRequest,{isLoading,isSuccess,isError,error}]=useCreatePartsRequestMutation()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,7 +18,7 @@ const EngineerPartsReplace = ({id}:{id:string}) => {
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
     const parts = shedAndSplit(partname)
 
-    const fullData = {parts,note}
+    const fullData = {parts,note,repairItemId}
     createPartsRequest({fullData,token,id})
     if (isSuccess) {
       form.reset();

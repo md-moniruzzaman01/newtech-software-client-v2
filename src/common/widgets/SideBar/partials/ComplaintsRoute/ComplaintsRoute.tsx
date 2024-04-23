@@ -68,7 +68,7 @@ const ComplaintsRoute = () => {
         >
           <div className={routeStyle}>
             <span>&#8618;</span>
-            <span>Complaints Delivered</span>
+            <span>Ready for Delivery</span>
           </div>
         </NavLink>
 

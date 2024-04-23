@@ -10,6 +10,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
 import MyQcTable from "../../../warranty/QC/QCMyLibrary/partials/MyQcTable";
 import { MyQCTableHeader } from "../../../warranty/QC/QCMyLibrary/config/constants";
+import { getUserInfo } from "../../../../services/auth.service";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,9 +20,9 @@ const MyRepairs = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
+  const user = getUserInfo();
   const { data, isError, isLoading } = useGetOldRepairsQuery({
-    id,
+    id:user._id,
     token,
   });
   useEffect(() => {

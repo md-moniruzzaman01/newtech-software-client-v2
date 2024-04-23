@@ -66,7 +66,7 @@ const StatusGroup: FC<statusGroupProps> = ({
     const sort = (form.elements.namedItem("sort") as HTMLInputElement)?.value;
     const branch = (form.elements.namedItem("branch") as HTMLInputElement)
       ?.value;
-    const category = (form.elements.namedItem("category") as HTMLInputElement)
+    const category = (form.elements.namedItem("category_name") as HTMLInputElement)
       ?.value;
     // Constructing the query parameters
     const queryParams = new URLSearchParams();
@@ -81,7 +81,7 @@ const StatusGroup: FC<statusGroupProps> = ({
       queryParams.append("branch", branch);
     }
     if (category) {
-      queryParams.append("category", category);
+      queryParams.append("category_name", category);
     }
 
     // Constructing the new URL with the query parameters
@@ -189,7 +189,7 @@ const StatusGroup: FC<statusGroupProps> = ({
                         <InputFilterById
                           Filter={category}
                           label="Category"
-                          inputName="category"
+                          inputName="category_name"
                           placeholder="Select a Category"
                         />
                       </div>

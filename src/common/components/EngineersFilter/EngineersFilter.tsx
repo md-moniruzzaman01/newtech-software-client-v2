@@ -4,7 +4,7 @@ import { ChangeEvent } from "react";
 interface engineersFilterProps {
   Filter: {
     value: string;
-    _id: string;
+    id: string;
     name?: { firstName?: string; middleName?: string; lastName?: string };
   }[];
   label?: string;
@@ -33,11 +33,10 @@ const EngineersFilter: React.FC<engineersFilterProps> = ({
 }) => {
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
-    const selectedItem = Filter.find((item) => item._id === selectedValue);
-
+    const selectedItem = Filter.find((item) => item.id === selectedValue);
     if (selectedItem !== undefined) {
       handleSubmit(
-        selectedItem._id,
+        selectedItem.id,
         `${selectedItem.name?.firstName || ""} ${
           selectedItem.name?.middleName || ""
         } ${selectedItem.name?.lastName || ""}`
@@ -62,10 +61,11 @@ const EngineersFilter: React.FC<engineersFilterProps> = ({
         </option>
         {Filter &&
           Filter?.map((item, i) => (
-            <option key={i} value={item?._id}>
+            <option key={i} value={item?.id}>
               {(item?.name?.firstName ? item?.name?.firstName : "") +
                 " " +
                 (item?.name?.middleName ? item?.name?.middleName : "") +
+                (item?.name?.middleName ? item?.id : "") +
                 " " +
                 (item?.name?.lastName ? item?.name?.lastName : "")}
             </option>

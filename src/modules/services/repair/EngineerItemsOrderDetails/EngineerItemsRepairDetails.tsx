@@ -30,7 +30,7 @@ const EngineerItemsRepairDetails = () => {
         return <EngineerItemOrderStatus />;
 
       case 2:
-        return <EngineerPartsReplace id={data?.data?.repairId} />;
+        return <EngineerPartsReplace id={data?.data?.repairId}  repairItemId={id}/>;
     }
   }
 

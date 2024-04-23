@@ -5,7 +5,6 @@ import { TableBodyProps } from "./config/types";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../shared/helpers/constructQuery";
 import {
-  btnValue,
   complaintsTableHeader,
   fields,
   keys,
@@ -13,11 +12,11 @@ import {
 } from "./config/constants";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
-import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
+import {  useGetReadyForDelivaryServicesQuery } from "../../../redux/features/api/complaints";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
-import StatusGroup from "../../../common/components/Status Group";
+
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 
@@ -37,7 +36,7 @@ const ComplaintsDeliveryService = () => {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
+  } = useGetReadyForDelivaryServicesQuery({
     query,
     token,
   });
@@ -92,7 +91,6 @@ const ComplaintsDeliveryService = () => {
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={btnValue} />
           <div className="pt-5">
             <CommonTable
               itemData={complaints}
