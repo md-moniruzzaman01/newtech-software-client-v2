@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const EngineerItemOrderDetailsTable = ({product}:{product:any}) => {
+const EngineerItemOrderDetailsTable = ({ product }: { product: any }) => {
+  console.log(product);
   return (
     <div className="w-full">
       {/* header row start here  */}
@@ -16,22 +17,31 @@ const EngineerItemOrderDetailsTable = ({product}:{product:any}) => {
       <div className="text-center">
         {/* second row start here  */}
         <div className="grid grid-cols-6  text-center">
-          <div className="border py-2 border-gray-400">{product?.serial_number}</div>
-          <div className="border py-2 border-gray-400">{product?.model_number}</div>
-          <div className="border py-2 border-gray-400">{product?.brand_name}</div>
+          <div className="border py-2 border-gray-400">
+            {product?.serial_number}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {product?.model_number}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {product?.brand_name}
+          </div>
           <div className="border py-2 border-gray-400">{product?.problems}</div>
-          <div className="border py-2 border-gray-400">{product?.attachments}</div>
-          <div className="border py-2 border-gray-400 underline text-blue-500">{product?.repair_count}</div>
-
+          <div className="border py-2 border-gray-400">
+            {product?.attachments}
+          </div>
+          <div className="border py-2 border-gray-400 underline text-blue-500">
+            {product?.repair_count}
+          </div>
         </div>
 
         <hr className="border-b border-shadeOfGray my-2" />
 
-       
         {/* fourth row start here  */}
         <div className="grid grid-cols-4  text-start">
           <div className="border-l py-2 border-y border-gray-400 col-span-2 pl-[60px]">
-            Materials Replacement: <span> Yes </span>/ <span className=" text-green-600"> No</span>
+            Materials Replacement: <span> Yes </span>/{" "}
+            <span className=" text-green-600"> No</span>
           </div>
           <div className="border-t border-b border-gray-400"></div>
           <div className="border py-2 border-gray-400 text-center">
@@ -43,7 +53,6 @@ const EngineerItemOrderDetailsTable = ({product}:{product:any}) => {
           <hr className="border-b border-shadeOfGray my-2" />
         </div>
       </div>
-     
     </div>
   );
 };

@@ -1,4 +1,4 @@
 export type TableStatusProps = {
-  btnValues: string[];
-  status?:boolean
+  btnValues: { label?: string; value?: string }[];
+  status?: boolean;
 };

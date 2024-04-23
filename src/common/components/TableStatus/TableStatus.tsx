@@ -3,7 +3,7 @@ import { useState } from "react";
 import { TableStatusProps } from "./config/types";
 import { useNavigate } from "react-router-dom";
 
-const TableStatus: React.FC<TableStatusProps> = ({ btnValues,status }) => {
+const TableStatus: React.FC<TableStatusProps> = ({ btnValues, status }) => {
   const [activeRoute, setActiveRoute] = useState("");
 
   const navigate = useNavigate();
@@ -27,8 +27,8 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues,status }) => {
   const handleFilter = (route: string) => {
     if (!status) {
       setQuery("repair_status", route);
-    }else{
-      setQuery("status", route)
+    } else {
+      setQuery("status", route);
     }
     setActiveRoute(route);
   };
@@ -54,11 +54,11 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues,status }) => {
             key={index}
             status
             className={
-              activeRoute === `${btnValue}` ? "!bg-grayForBorder  " : ""
+              activeRoute === `${btnValue?.label}` ? "!bg-grayForBorder  " : ""
             }
-            onClick={() => handleFilter(btnValue)}
+            onClick={() => handleFilter(btnValue?.label)}
           >
-            {capitalize(btnValue)}
+            {capitalize(btnValue?.value)}
           </Button>
         ))}
       </div>

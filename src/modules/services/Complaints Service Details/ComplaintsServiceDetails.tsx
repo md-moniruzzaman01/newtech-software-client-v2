@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps } from "./config/types";
 import { NavLink, useParams } from "react-router-dom";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { ComplaintDetails, authKey } from "../../../shared/config/constaints";
+import { authKey } from "../../../shared/config/constaints";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
@@ -31,11 +31,12 @@ const ComplaintsServiceDetails = () => {
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
 
+  console.log(complaintsData);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
 
-      <div className="grid grid-cols-5 gap-2 pt-8">
+      <div className="grid grid-cols-4 gap-2 pt-8">
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.createdAt
             ?.toString()
@@ -51,17 +52,17 @@ const ComplaintsServiceDetails = () => {
           headerTitle="Due Date"
         />
         <ComplaintHeaderCard
-          headerDetails={complaintsSingleData?.Nonwarrentycustomer?.name}
+          headerDetails={complaintsSingleData?.category_name}
           bgColor="primary"
-          headerTitle="Name"
+          headerTitle="Category Name"
         />
-        <ComplaintHeaderCard
+        {/* <ComplaintHeaderCard
           headerDetails={
             complaintsSingleData?.Nonwarrentycustomer_contact_number
           }
           bgColor="primary"
           headerTitle="Number"
-        />
+        /> */}
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.repair_status}
           bgColor="primary"
@@ -71,16 +72,44 @@ const ComplaintsServiceDetails = () => {
 
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
-          headerTitle="Branch Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Customer Details"
+          CardInformation={[
+            {
+              title: "Name",
+              value: complaintsSingleData?.Nonwarrentycustomer?.name,
+            },
+            {
+              title: "Number",
+              value: complaintsSingleData?.Nonwarrentycustomer?.contact_number,
+            },
+          ]}
         />
         <ComplaintDetailsCard
           headerTitle="Billing Address"
-          CardInformation={ComplaintDetails}
+          CardInformation={[
+            {
+              title: "Total Charge",
+              value: complaintsSingleData?.total_charge,
+            },
+            {
+              title: "Due",
+              value:
+                complaintsSingleData?.due || complaintsSingleData?.total_charge,
+            },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Invoice Details"
-          CardInformation={ComplaintDetails}
+          headerTitle="Complaints Details"
+          CardInformation={[
+            {
+              title: "Receiver ID",
+              value: complaintsSingleData?.receiver,
+            },
+            {
+              title: "Order No",
+              value: complaintsSingleData?.order_number,
+            },
+          ]}
         />
 
         <div className="col-span-2 bg-solidWhite px-5 py-5">

@@ -42,7 +42,7 @@ export type complaintDetailsCardProps = {
 };
 export type complaintSingleDetailsProps = {
   title: string;
-  value: string;
+  value: string | number;
 };
 export type TableProps = {
   HeaderData: TableHeaderProps[];
@@ -122,6 +122,7 @@ export type TableBodyProps = {
 };
 
 export type SearchBarProps = {
+  fnBtn?: boolean;
   link?: boolean;
   linkValue?: string;
   linkBtn?: string;
@@ -149,7 +150,7 @@ export type SearchBarProps = {
 
 export type ComplaintMiniCardProps = {
   header?: string;
-  name?: string;
+  name?: string | number;
   img?: string;
   notes?: string;
 };

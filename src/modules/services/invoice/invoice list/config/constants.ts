@@ -2,10 +2,10 @@ export const fields = "";
 export const keys = ["branch", "sort", "status", "searchTerm"];
 
 export const btnValue = [
-  "pending",
-  "completed & waiting for bill",
-  "completed",
-  "canceled",
+  { label: "1", value: "pending" },
+  { label: "2", value: "completed & waiting for bill" },
+  { label: "3", value: "completed" },
+  { label: "4", value: "canceled" },
 ];
 
 export type SearchParams = {

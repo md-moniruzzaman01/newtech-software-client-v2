@@ -1,4 +1,3 @@
-import { useState } from "react";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -11,9 +10,9 @@ import {
 import { tableLayout } from "./config/constant";
 
 const ComplaintBuffers = () => {
-  const [currentPage, setCurrentPage] = useState(1); 
-  const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(10);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalItems, setTotalItems] = useState(0);
+  // const [limit, setLimit] = useState(10);
   return (
     <div className=" px-5">
       <Navbar name="Buffers"></Navbar>
@@ -32,14 +31,14 @@ const ComplaintBuffers = () => {
             />
           </div>
         </div>
-          <div className="absolute bottom-2 right-[50px]">
+        <div className="absolute bottom-2 right-[50px]">
           <Pagination
-            limit={limit}
-            currentPage={currentPage}
-            totalItems={totalItems}
-            setCurrentPage={setCurrentPage}
+          // limit={limit}
+          // currentPage={currentPage}
+          // totalItems={totalItems}
+          // setCurrentPage={setCurrentPage}
           />
-          </div>
+        </div>
       </div>
     </div>
   );

@@ -26,9 +26,6 @@ const RepairApi = baseApi.injectEndpoints({
     }),
     getServiceProductsForRepair: builder.query({
       query: (params) => {
-        console.log(
-          `/product?warranty=false&repair_status=Received&repair_status=Return%20to%20library&${params?.query}`
-        );
         return {
           url: `/product?warranty=false&repair_status=Received&repair_status=Return%20to%20library&${params?.query}`,
           headers: {

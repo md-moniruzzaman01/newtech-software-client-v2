@@ -24,7 +24,6 @@ const EngineerItemsRepairDetails = () => {
     id,
     token,
   });
-  console.log(data);
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
@@ -93,9 +92,7 @@ const EngineerItemsRepairDetails = () => {
               <MdModeEdit />
             </div>
           </div>
-          <EngineerItemOrderDetailsTable
-            product={data?.data?.repair?.products || {}}
-          />
+          <EngineerItemOrderDetailsTable product={data?.data || {}} />
         </div>
 
         <div className=" bg-solidWhite px-5 py-5">
