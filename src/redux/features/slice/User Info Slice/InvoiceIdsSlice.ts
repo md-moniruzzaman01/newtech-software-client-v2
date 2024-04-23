@@ -5,14 +5,32 @@ import { UserInfo } from "./config/types";
 // Define the initial state for user information
 
 const initialState: UserInfo = {
-  name: "",
+  name: {
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    _id: "",
+  },
   email: "",
   age: 0,
+  skill: [],
+  asp: [],
+  branch: "",
+  contactNo: "",
+  createdAt: "",
+  designation: "",
+  id: "",
+  power: [],
+  profileImage: "",
+  score: 0,
+  updatedAt: "",
+  __v: 0,
+  _id: "",
 };
 
 // Create a slice for user information
 const userSlice = createSlice({
-  name: "user",
+  name: "userInfo",
   initialState,
   reducers: {
     setUserInfo(state, action: PayloadAction<UserInfo>) {

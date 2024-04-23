@@ -6,11 +6,11 @@ import { authKey } from "../../../shared/config/constaints";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
 
 import { MdModeEdit } from "react-icons/md";
 import { useGetBillByIdQuery } from "../../../redux/features/api/service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
 
 const ComplaintsServicePayment = () => {
   const { id } = useParams();

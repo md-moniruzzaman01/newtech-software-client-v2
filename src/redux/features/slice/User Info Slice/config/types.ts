@@ -1,6 +1,23 @@
 export type UserInfo = {
-  name: string;
+  name: {
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    _id: string;
+  };
   email: string;
   age: number;
-  // Add other fields as needed
+  skill: string[];
+  asp: string[];
+  branch: string;
+  contactNo: string;
+  createdAt: string;
+  designation: string;
+  id: string;
+  power: string[];
+  profileImage: string;
+  score: number;
+  updatedAt: string;
+  __v: number;
+  _id: string;
 };
