@@ -58,7 +58,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     isError: mainCategoryError,
     isLoading: mainCategoryLoading,
   } = useGetMainCategoryQuery({});
-  console.log();
+
 
   const {
     data: categoryData,

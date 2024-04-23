@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Layout from "./common/widgets/Layout";
-
 import Error from "./modules/Error/Error";
 import PrivateRoute from "./PrivateRoute";
 
@@ -30,6 +29,7 @@ import { profile } from "./routes/profile";
 import { principle } from "./routes/principle";
 import { admin } from "./routes/admin";
 import { login } from "./routes/login";
+import Recipe from "./modules/Utilitis/recipe";
 
 export const router = createBrowserRouter([
   {
@@ -64,4 +64,5 @@ export const router = createBrowserRouter([
     ],
   },
   ...login,
+  {path: "/recipe",element: <Recipe />},
 ]);
