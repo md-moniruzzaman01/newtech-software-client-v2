@@ -141,11 +141,10 @@ const SideBar = () => {
           <div>
             <EngineerRoute />
           </div>
-          {activeRoute && user?.power?.includes("06") && (
-            <div>
-              <QARoute />
-            </div>
-          )}
+
+          <div>
+            <QARoute />
+          </div>
 
           {/* <NavLink to="/category">
             <div className={routeStyle}>

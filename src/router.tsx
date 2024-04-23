@@ -17,6 +17,7 @@ import { InventoryRoutes } from "./routes/inventory";
 import {
   serviceComplaintsRoutes,
   serviceInvoicesRoutes,
+  ServiceQARoute,
   serviceRepairsRoutes,
 } from "./routes/service";
 import { partners } from "./routes/partner";
@@ -51,6 +52,7 @@ export const router = createBrowserRouter([
       ...serviceComplaintsRoutes,
       ...serviceRepairsRoutes,
       ...serviceInvoicesRoutes,
+      ...ServiceQARoute,
       ...partners,
       ...employee,
       ...settings,
