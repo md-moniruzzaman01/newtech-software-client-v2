@@ -300,11 +300,12 @@ const ComplaintOrderDetailsTable = ({
           </div>
         </div>
         <div className="flex  py-10">
-          <div className="flex justify-start gap-2 items-center">
+          <div className="flex justify-start gap-2 items-center w-full">
             {total > 0 && (
               <Button
                 primary
                 className="w-full"
+                mini
                 onClick={() => setIsOpen(true)}
               >
                 Payments
@@ -314,6 +315,7 @@ const ComplaintOrderDetailsTable = ({
             Rejected
           </Button> */}
             <Button
+              mini
               className="w-full"
               onClick={() => handleDelivededWithOutPaySubmit(id)}
               primary
@@ -344,9 +346,9 @@ const ComplaintOrderDetailsTable = ({
               </form>
             </Modal>
           </div>
-          <div className="w-1/3 mx-auto">
+          <div className=" flex justify-end w-full">
             {!isEdit && (
-              <Button onClick={handleSubmitPayment} className="w-full" primary>
+              <Button onClick={handleSubmitPayment} className="w-1/3" primary>
                 Save
               </Button>
             )}

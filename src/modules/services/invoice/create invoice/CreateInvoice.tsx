@@ -85,6 +85,7 @@ const CreateInvoice = () => {
           checkedRows={checkedRows}
           handleBillGenerate={handleBillGenerate}
           generateBtnLoading={isLoading}
+          fnBtn
         />
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
