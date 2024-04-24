@@ -38,7 +38,7 @@ const BillRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-      <NavLink
+        <NavLink
           to={`${
             activeRoute ? "/create-bill-warranty" : "/create-bill-service"
           }`}
@@ -54,6 +54,12 @@ const BillRoute = () => {
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Bill List</span>
+          </div>
+        </NavLink>
+        <NavLink to={`/bill-pending-service`}>
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>Bill Pending</span>
           </div>
         </NavLink>
       </section>

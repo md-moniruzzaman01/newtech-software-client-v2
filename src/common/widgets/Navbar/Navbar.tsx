@@ -9,21 +9,24 @@ import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
 import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
 import { authKey } from "../../../shared/config/constaints";
 import swal from "sweetalert";
+import { useGetUserQuery } from "../../../redux/features/api/users";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 
 interface NavbarProps {
   name?: string;
 }
 
-const user = getUserInfo();
-
 const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   const navigate = useNavigate();
+  const token = getFromLocalStorage(authKey);
   const handleLogout = () => {
     navigate("/login");
     swal("success", "Successfully logged out");
     removeUserInfo(authKey);
   };
-  console.log("user",user)
+  const { userId } = getUserInfo();
+  const { data: userInfo } = useGetUserQuery({ userId, token });
+
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">
@@ -137,10 +140,8 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                   >
                     <div className="bg-solidWhite rounded-md px-2">
                       <h3 className="pt-3  font-semibold ">John Doe</h3>
-                      <h3 className="pt-1 ">ID: {user?.userId}</h3>
-                      {user?.role === "engineer" && (
-                        <p className="pt-1">Engineer</p>
-                      )}
+                      <h3 className="pt-1 ">ID: {userInfo?.data?.id}</h3>
+                      <p className="pt-1">{userInfo?.data?.designation}</p>
                       <hr className="mt-2" />
                       <div className="py-3 space-y-1">
                         <div>

@@ -10,14 +10,14 @@ const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
   isEdit = true,
   branch = "",
   defaultOrderStatus = "",
-  defaultRepairStatus = "",
+  // defaultRepairStatus = "",
 }) => {
   // State variables to store the selected order and repair statuses
   const [selectedBranch, setSelectedBranch] = useState(branch);
   const [selectedOrderStatus, setSelectedOrderStatus] =
     useState(defaultOrderStatus);
-  const [selectedRepairStatus, setSelectedRepairStatus] =
-    useState(defaultRepairStatus);
+  // const [selectedRepairStatus, setSelectedRepairStatus] =
+  //   useState(defaultRepairStatus);
 
   // Function to handle status update
   const handleUpdateStatus = () => {
@@ -26,7 +26,7 @@ const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
 
     // For demonstration, let's just log the selected statuses
     console.log("Selected Order Status:", selectedOrderStatus);
-    console.log("Selected Repair Status:", selectedRepairStatus);
+    // console.log("Selected Repair Status:", selectedRepairStatus);
     console.log("Selected Branch:", selectedBranch);
   };
 
@@ -46,13 +46,13 @@ const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
         Filter={orderStatus}
         onChange={setSelectedOrderStatus} // Update selected order status
       />
-      <InputFilter
+      {/* <InputFilter
         isDisabled={isEdit}
         defaultValue={defaultRepairStatus}
         label="Repair Status"
         Filter={orderStatus}
         onChange={setSelectedRepairStatus} // Update selected repair status
-      />
+      /> */}
 
       <Button disabled={isEdit} primary onClick={handleUpdateStatus}>
         Submit

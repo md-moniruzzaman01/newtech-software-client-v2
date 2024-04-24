@@ -10,18 +10,16 @@ export const keys = [
 ];
 
 export const btnValue = [
-  "Pending",
-  "In Progress",
-  "Buffer",
-  "Cancel",
-  "Reject",
-  "CN",
-  "NTF",
-  "Required Parts",
-  "Completed",
-  "Delivered",
-  "Unpaid",
-  "Paid",
+  { label: "1", value: "Pending" },
+  { label: "2", value: "In Progress" },
+  { label: "3", value: "Cancel" },
+  { label: "4", value: "Reject" },
+  { label: "5", value: "Required Parts" },
+  { label: "6", value: "Repair Failed" },
+  { label: "7", value: "Completed" },
+  { label: "8", value: "Delivered" },
+  { label: "9", value: "Unpaid" },
+  { label: "10", value: "Paid" },
 ];
 
 export type SearchParams = {

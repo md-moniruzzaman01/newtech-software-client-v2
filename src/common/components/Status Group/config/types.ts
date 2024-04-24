@@ -4,7 +4,7 @@ export type TableStatusProps = {
 };
 
 export type statusGroupProps = {
-  btnGroupValue?: string[];
+  btnGroupValue?: { label?: string; value?: string }[];
   handleDeleteData?: any;
   handleReturnData?: any;
   isSelected?: boolean;

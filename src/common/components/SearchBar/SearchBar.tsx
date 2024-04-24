@@ -7,6 +7,7 @@ import EngineersFilter from "../EngineersFilter/EngineersFilter";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link,
+  fnBtn = false,
   linkValue,
   linkBtn = "+ Add Complaint’s",
   isDropdown = false,
@@ -105,14 +106,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 </Button>
               </NavLink>
             ) : (
-              <Button
-                loading={generateBtnLoading}
-                onClick={handleBillGenerate}
-                disabled={(checkedRows && checkedRows?.length <= 0) || false}
-                primary
-              >
-                {linkBtn}
-              </Button>
+              fnBtn && (
+                <Button
+                  loading={generateBtnLoading}
+                  onClick={handleBillGenerate}
+                  disabled={(checkedRows && checkedRows?.length <= 0) || false}
+                  primary
+                >
+                  {linkBtn}
+                </Button>
+              )
             )}
             {isDropdown && (
               <EngineersFilter
