@@ -6,6 +6,7 @@ import {
   handleAllCheckboxChange,
   handleCheckboxChange,
 } from "../../../shared/helpers/handleCheckbox";
+import { emptyData } from "../../../shared/config/constaints";
 
 interface CommonTableProps {
   headerData: string[];
@@ -73,11 +74,15 @@ const CommonTable: FC<CommonTableProps> = ({
                           type="checkbox"
                           className="checkbox form-checkbox h-5 w-5 "
                           checked={checkedRows.includes(
-                            !productData ? item?.id || item?._id :  item?.repair[item.repair.length - 1]?.id
+                            !productData
+                              ? item?.id || item?._id
+                              : item?.repair[item.repair.length - 1]?.id
                           )}
                           onChange={() =>
                             handleCheckboxChange(
-                              !productData ? item?.id || item?._id :  item?.repair[item.repair.length - 1]?.id,
+                              !productData
+                                ? item?.id || item?._id
+                                : item?.repair[item.repair.length - 1]?.id,
                               checkedRows,
                               setCheckedRows
                             )
@@ -89,7 +94,7 @@ const CommonTable: FC<CommonTableProps> = ({
 
                   {dataLayout.map((layout, idx) => (
                     <td key={idx} className="border">
-                      {eval(layout)}
+                      {eval(layout) || emptyData}
                     </td>
                   ))}
                   {link && (

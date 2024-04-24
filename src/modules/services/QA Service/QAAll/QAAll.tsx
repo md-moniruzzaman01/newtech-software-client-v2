@@ -47,7 +47,6 @@ const QCMyItemsService = () => {
     return <div>Error</div>;
   }
 
-  console.log(data);
   return (
     <div className=" px-5">
       <Navbar name="Service QA All"></Navbar>
@@ -65,7 +64,7 @@ const QCMyItemsService = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
-              link="/qc/order-details"
+              link="/service/qa-items/order-details"
             />
           </div>
         </div>
