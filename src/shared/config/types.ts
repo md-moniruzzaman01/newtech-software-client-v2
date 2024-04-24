@@ -158,9 +158,13 @@ export type ComplaintMiniCardProps = {
 export type InventoryRequestDetailsCardProps = {
   header?: string;
   className?: string;
+  nameTitle?: string;
   name?: string;
+  designationTitle?: string;
   designation?: string;
+  teamTitle?: string;
   team?: string;
+  contactTitle?: string;
   contact?: string;
 };
 

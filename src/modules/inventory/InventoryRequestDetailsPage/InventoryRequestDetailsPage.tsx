@@ -14,14 +14,18 @@ import { useEffect, useState } from "react";
 import { HeaderValueForInventoryRequestDetails } from "./config/constants";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { authKey } from "../../../shared/config/constaints";
+import { authKey, emptyData } from "../../../shared/config/constaints";
 import swal from "sweetalert";
+import { ResponseData } from "./config/types";
+import Modal from "../../../common/components/Modal/Modal";
+import Input from "../../../common/components/Input";
 
 const InventoryRequestDetailsPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const token = getFromLocalStorage(authKey);
   const [inventoryApprove] = useInventoryApproveMutation();
   const [inventoryReject] = useInventoryRejectMutation();
-  const [inventoryData, setInventoryData] = useState();
+  const [inventoryData, setInventoryData] = useState<ResponseData>();
   const { id } = useParams();
   const {
     data: inventory,
@@ -34,8 +38,12 @@ const InventoryRequestDetailsPage = () => {
       setInventoryData(inventory?.data);
     }
   }, [inventory, isError, isLoading]);
+  console.log(inventoryData);
 
-  const handleInventoryApprove = async () => {
+  const handleInventoryApprove = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
     console.log("hello");
     const result: any = await inventoryApprove({ id, token });
     if (result?.data?.success) {
@@ -72,32 +80,53 @@ const InventoryRequestDetailsPage = () => {
 
         <div className="px-10">
           <h4 className="pb-3">
-            <span className="font-medium">Requisitions No : </span>#0514444
+            <span className="font-medium">Requisitions No : </span>
+            {inventoryData?.id}
           </h4>
           <div className="grid grid-cols-3 gap-3">
             <InventoryRequestCard
               className="bg-lightMistyBlue"
-              contact="1245215561"
-              designation="Developer"
+              contact={inventoryData?.user?.asp?.toString() || emptyData}
+              contactTitle="ASP"
+              designation={inventoryData?.user?.role || emptyData}
+              designationTitle="Designation"
               header="Engineer Info"
-              name="John Doe"
-              team="Software Engineer"
+              name={inventoryData?.user?.id || emptyData}
+              nameTitle="ID"
+              team={inventoryData?.user?.branch?.toString() || emptyData}
+              teamTitle="Branch"
             />
             <InventoryRequestCard
               className="bg-lightTurquoise"
-              contact="1245215561"
-              designation="Developer"
-              header="Engineer Info"
-              name="John Doe"
-              team="Software Engineer"
+              contact={
+                inventoryData?.repair?.turnaround_time
+                  ?.toString()
+                  ?.slice(0, 10) || emptyData
+              }
+              contactTitle="TAT"
+              designation={inventoryData?.repair?.brand_name || emptyData}
+              designationTitle="Brand"
+              header="Repair Info"
+              name={inventoryData?.repair?.order_number || emptyData}
+              nameTitle="Order No"
+              team={inventoryData?.repair?.category_name || emptyData}
+              teamTitle="Category"
             />
             <InventoryRequestCard
               className="bg-lightSkyBlue"
-              contact="1245215561"
-              designation="Developer"
-              header="Engineer Info"
-              name="John Doe"
-              team="Software Engineer"
+              contact={
+                inventoryData?.product?.received_date
+                  ?.toString()
+                  ?.slice(0, 10) || emptyData
+              }
+              contactTitle="Received Date"
+              designation={inventoryData?.product?.category_name || emptyData}
+              designationTitle="Category"
+              header="Product Info"
+              name={inventoryData?.product?.brand_name || emptyData}
+              nameTitle="Brand"
+              team={inventoryData?.product?.repair_status || emptyData}
+              teamTitle="Repair Status"
             />
             <div className="col-span-3 pb-8">
               <InventoryRequestInfoDetails
@@ -115,7 +144,7 @@ const InventoryRequestDetailsPage = () => {
                   Reject
                 </Button>
                 <Button
-                  onClick={handleInventoryApprove}
+                  onClick={() => setIsOpen(true)}
                   className="!py-1 text-lg"
                 >
                   Approve
@@ -125,6 +154,19 @@ const InventoryRequestDetailsPage = () => {
           </div>
         </div>
       </div>
+      <Modal header={"Make Payments"} setIsOpen={setIsOpen} isOpen={isOpen}>
+        <form onSubmit={handleInventoryApprove} className="space-y-4 p-2">
+          <Input
+            defaultValue={inventoryData?.repair?.total_charge}
+            inputPlaceholder="Amount..."
+            inputName="amount"
+            inputType="number"
+          />
+          <Button primary className="w-full">
+            Submit
+          </Button>
+        </form>
+      </Modal>
     </div>
   );
 };
