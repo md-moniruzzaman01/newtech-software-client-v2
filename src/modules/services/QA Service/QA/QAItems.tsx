@@ -17,6 +17,7 @@ import {
 } from "../../../../redux/features/api/qa";
 import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QAItemsService = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +45,7 @@ const QAItemsService = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQA, { isLoading, isError, isSuccess }] = useCreateQAMutation();
+  const [createQA, { isLoading, isError, isSuccess,error  }] = useCreateQAMutation();
 
   function handleSubmit(id: string) {
     const fullData = {
@@ -81,10 +82,10 @@ const QAItemsService = () => {
     });
   }
   if (isError) {
-    swal("Error!", "something is wrong", "error");
+    return <ErrorShow error={error} />;
   }
 
-  console.log(complaintsData)
+  console.log(complaintsData,checkedRows)
   return (
     <div className="px-5">
       <Navbar name={"Service QA Items"} />
@@ -106,6 +107,7 @@ const QAItemsService = () => {
             dataLayout={tableLayout}
             checkedRows={checkedRows}
             setCheckedRows={setCheckedRows}
+            productData
             checkbox
             link="/qa-items/order-details"
           />

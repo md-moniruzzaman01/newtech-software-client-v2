@@ -13,7 +13,7 @@ import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 import { useGetQasQuery } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
-import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCMyLibraryService = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -25,9 +25,7 @@ const QCMyLibraryService = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetQasQuery({
-    id,
+  const { data, isError, isLoading, error } = useGetQasQuery({
     token,
     query,
   });
@@ -44,8 +42,38 @@ const QCMyLibraryService = () => {
   if (isError) {
     console.error(isError);
 
-    return <div>Error</div>;
+    return <ErrorShow error={error}></ErrorShow>;
   }
+
+  console.log(data);
+  const handleCheckboxChange = (repair_id: string, qc_id: string) => {
+    if (
+      checkedRows.some(
+        (row) => row.repair_id === repair_id && row.qc_id === qc_id
+      )
+    ) {
+      setCheckedRows(checkedRows.filter((item) => item?.qc_id !== qc_id));
+    } else {
+      setCheckedRows([...checkedRows, { qc_id, repair_id }]);
+    }
+  };
+  const handleAllCheckboxChange = () => {
+    if (checkedRows.length === data?.data?.length) {
+      // If all checkboxes are already checked, uncheck them all
+      setCheckedRows([]);
+    } else {
+      const allIds =
+        data?.data
+          ?.map((item: any) => ({
+            qc_id: item?.id || "", // Set qc_id to item?.qc_id if it exists, otherwise set it to an empty string
+            repair_id: item?.repair?.id || "", // Set repair_id to item?.repair_id if it exists, otherwise set it to an empty string
+          }))
+          .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
+      if (allIds.length > 0) {
+        setCheckedRows(allIds);
+      }
+    }
+  };
 
   const handleDeleteData = () => {
     console.log(checkedRows);
