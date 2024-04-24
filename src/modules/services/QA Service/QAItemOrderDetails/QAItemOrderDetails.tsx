@@ -6,8 +6,10 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { useParams } from "react-router-dom";
 
 const QAItemServiceOrderDetails = () => {
+  const { id } = useParams();
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (QA)"} />
