@@ -38,4 +38,7 @@ export const tableLayoutForWarranty = [
   "item?.createdAt?.toString()?.slice(0,10)",
 ];
 
-export const btnValues = ["Pending", "Completed"];
+export const btnValues = [
+  { label: "Pending", value: "Pending" },
+  { label: "Completed", value: "Completed" },
+];

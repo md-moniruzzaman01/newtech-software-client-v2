@@ -45,7 +45,8 @@ const QAItemsService = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQA, { isLoading, isError, isSuccess,error  }] = useCreateQAMutation();
+  const [createQA, { isLoading, isError, isSuccess, error }] =
+    useCreateQAMutation();
 
   function handleSubmit(id: string) {
     const fullData = {
@@ -85,7 +86,7 @@ const QAItemsService = () => {
     return <ErrorShow error={error} />;
   }
 
-  console.log(complaintsData,checkedRows)
+  console.log(complaintsData, checkedRows);
   return (
     <div className="px-5">
       <Navbar name={"Service QA Items"} />
@@ -109,7 +110,7 @@ const QAItemsService = () => {
             setCheckedRows={setCheckedRows}
             productData
             checkbox
-            link="/qa-items/order-details"
+            link="/service/qa-items/order-details"
           />
           <div className="absolute bottom-2 right-[50px]">
             <Pagination

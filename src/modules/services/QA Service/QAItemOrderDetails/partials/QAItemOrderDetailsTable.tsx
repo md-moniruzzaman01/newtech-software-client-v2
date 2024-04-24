@@ -1,36 +1,47 @@
-const QAItemOrderDetailsTable = () => {
-  // const [droppedImage, setDroppedImage] = useState<string>();
+import { emptyData } from "../../../../../shared/config/constaints";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const QAItemOrderDetailsTable = ({ data }: any) => {
   return (
     <div className="w-full ">
       {/* header row start here  */}
       <div className="grid grid-cols-4 gap-5 text-center">
+        <div className="">Order Number</div>
         <div className="">SL Number</div>
-        <div className="">Items</div>
-        <div className="">Problem</div>
-        <div className="">Remark</div>
+        <div className="">Category</div>
+        <div className="">Brand</div>
       </div>
       <hr className="border-b border-shadeOfGray my-2" />
 
       <div className="text-center">
         {/* second row start here  */}
         <div className="grid grid-cols-4  text-center">
-          <div className="border py-2 border-gray-400">342323232</div>
-          <div className="border py-2 border-gray-400">Monitor</div>
-          <div className="border py-2 border-gray-400">No Display</div>
-          <div className="border py-2 border-gray-400">Bag</div>
+          <div className="border py-2 border-gray-400">
+            {data?.repair?.order_number || emptyData}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {data?.serial_number || emptyData}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {data?.repair?.category_name || emptyData}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {data?.repair?.brand_name || emptyData}
+          </div>
         </div>
 
         <hr className="border-b border-shadeOfGray my-2" />
 
         {/* third row start here  */}
-        <div className="grid grid-cols-4  text-start">
-          <div className="border-l py-2 border-y border-gray-400 col-span-2 pl-[60px] font-medium">
-            Status : Testing
-          </div>
-          <div className="border-y border-l border-gray-400 font-medium py-2 text-center">
-            Note : Write
+        <div className="grid grid-cols-4  text-center">
+          <div className="border-l py-2 border-y border-gray-400  font-medium">
+            Status : {data?.status}
           </div>
           <div className="border-y border-r  border-gray-400 "></div>
+          <div className="border-y border-l border-gray-400 font-medium py-2 col-span-2 text-center">
+            Create Date :{" "}
+            {data?.createdAt?.toString().slice(0, 10) || emptyData}
+          </div>
         </div>
 
         <div>
@@ -46,7 +57,7 @@ const QAItemOrderDetailsTable = () => {
           </DndProvider>
         </div> */}
       </div>
-      <div className="absolute bottom-5">QA by : Johnson doe</div>
+      <div className="absolute bottom-5">QA by : {data?.qa_checker_id?.id}</div>
     </div>
   );
 };

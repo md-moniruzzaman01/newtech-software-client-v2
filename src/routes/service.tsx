@@ -57,7 +57,7 @@ export const ServiceQARoute = [
   { path: "/service-qa-items", element: <QAItemsService /> },
   { path: "/service-qa-my-library", element: <QCMyLibraryService /> },
   {
-    path: "/qa-items/order-details/:id",
+    path: "/service/qa-items/order-details/:id",
     element: <QAItemServiceOrderDetails />,
   },
 ];

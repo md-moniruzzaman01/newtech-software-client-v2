@@ -69,6 +69,17 @@ const QAApi = baseApi.injectEndpoints({
       },
       providesTags: ["complaints"],
     }),
+    getQAProductsForServiceById: builder.query({
+      query: ({ id, token }) => {
+        return {
+          url: `/qa/${id}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: ["complaints"],
+    }),
   }),
 });
 
@@ -78,4 +89,5 @@ export const {
   useGetQAProductsQuery,
   useGetQAProductsForServiceQuery,
   useGetQasQuery,
+  useGetQAProductsForServiceByIdQuery,
 } = QAApi;

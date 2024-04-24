@@ -13,24 +13,23 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { AdminDashboardTableHeader, tableLayout } from "./config/constants";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
-import Chart from "./partials/chart";
 import { useGetCardDataQuery } from "../../../redux/features/api/others";
-
+import Chart from "./partials/Chart copy";
 
 const Dashboard = () => {
   const [billData, setBillData] = useState([]);
   const [CardData, setCardData] = useState({
-    "pendingCount": 0,
-    "InProgressCount": 0,
-    "DeliveredCount": 0,
-    "BufferCounts": 0,
-    "BufferCount": 0,
-    "UnpaidCount": 0,
-    "RequiredPartsCount": 0,
-    "RejectCount": 0,
-    "CompletedCount":0 ,
-    "CancelCount": 0,
-    "repairfailedCount": 0
+    pendingCount: 0,
+    InProgressCount: 0,
+    DeliveredCount: 0,
+    BufferCounts: 0,
+    BufferCount: 0,
+    UnpaidCount: 0,
+    RequiredPartsCount: 0,
+    RejectCount: 0,
+    CompletedCount: 0,
+    CancelCount: 0,
+    repairfailedCount: 0,
   });
 
   const token = getFromLocalStorage(authKey);
@@ -39,14 +38,10 @@ const Dashboard = () => {
     isError: complaintsError,
     isLoading: complaintsLoading,
   } = useGetComplaintsQuery({
-    token
+    token,
   });
-  const {
-    data,
-    isError,
-    isLoading,
-  } = useGetCardDataQuery({
-    token
+  const { data, isError, isLoading } = useGetCardDataQuery({
+    token,
   });
 
   useEffect(() => {
@@ -61,7 +56,7 @@ const Dashboard = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-  console.log(CardData)
+  console.log(CardData);
   return (
     <div className="px-5">
       <div className="pb-5">
@@ -75,7 +70,7 @@ const Dashboard = () => {
           className="bg-lightSkyBlue"
           icon={<PendingIcon />}
         />
-           <DashboardCard
+        <DashboardCard
           link="/complaints-service?repair_status=Completed"
           title="Completed"
           money={`${CardData?.CompletedCount}`}
@@ -89,7 +84,7 @@ const Dashboard = () => {
           className="bg-creamyPeach"
           icon={<InProgress />}
         />
-     
+
         <DashboardCard
           link="/complaints-service?repair_status=Delivered"
           title="Completed"

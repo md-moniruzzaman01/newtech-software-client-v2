@@ -1,4 +1,5 @@
 import classNames from "classnames";
+export const emptyData = "No Data";
 
 export const cx = classNames;
 export const authKey = "accessToken";

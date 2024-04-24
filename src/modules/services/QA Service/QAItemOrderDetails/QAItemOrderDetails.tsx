@@ -5,43 +5,78 @@ import QAItemOrderStatus from "./partials/QAItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { authKey } from "../../../../shared/config/constaints";
+import { useParams } from "react-router-dom";
+import { useGetQAProductsForServiceByIdQuery } from "../../../../redux/features/api/qa";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 
 const QAItemServiceOrderDetails = () => {
+  const { id } = useParams();
+  const token = getFromLocalStorage(authKey);
+  const { data: qaData, isLoading } = useGetQAProductsForServiceByIdQuery({
+    id,
+    token,
+  });
+  if (isLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (QA)"} />
 
       <div className="grid grid-cols-3 gap-2 pt-8">
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={qaData?.data?.createdAt?.toString()?.slice(0, 10)}
           bgColor="primary"
           headerTitle="Created Date"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={qaData?.data?.repair?.createdAt
+            ?.toString()
+            ?.slice(0, 10)}
           bgColor="primary"
-          headerTitle="Due Date"
+          headerTitle="TAT"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={qaData?.data?.status}
           bgColor="primary"
-          headerTitle="Name"
+          headerTitle="Status"
         />
       </div>
 
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
-          headerTitle="Branch Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="QA Checker Details"
+          CardInformation={[
+            { title: "ID", value: qaData?.data?.qa_checker_id?.id },
+            { title: "Role", value: qaData?.data?.qa_checker_id?.role },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Billing Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Repair Details"
+          CardInformation={[
+            {
+              title: "Receive Date",
+              value: qaData?.data?.repair?.received_date
+                ?.toString()
+                .slice(0, 10),
+            },
+            {
+              title: "Repair Status",
+              value: qaData?.data?.repair?.repair_status,
+            },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Invoice Details"
-          CardInformation={ComplaintDetails}
+          headerTitle="Product Details"
+          CardInformation={[
+            { title: "Category", value: qaData?.data?.repair?.category_name },
+            {
+              title: "Total Charge",
+              value: qaData?.data?.repair?.total_charge,
+            },
+          ]}
         />
 
         <div className="col-span-2 bg-solidWhite px-5 py-5 relative">
@@ -51,7 +86,7 @@ const QAItemServiceOrderDetails = () => {
               <MdModeEdit />
             </div>
           </div>
-          <QAItemOrderDetailsTable />
+          <QAItemOrderDetailsTable data={qaData.data} />
         </div>
 
         <div className=" bg-solidWhite px-5 py-5 ">
