@@ -14,6 +14,7 @@ import MyQATable from "./partials/MyQATable";
 import { useGetQasQuery } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCMyLibraryService = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -25,9 +26,7 @@ const QCMyLibraryService = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetQasQuery({
-    id,
+  const { data, isError, isLoading,error } = useGetQasQuery({
     token,
     query,
   });
@@ -44,9 +43,10 @@ const QCMyLibraryService = () => {
   if (isError) {
     console.error(isError);
 
-    return <div>Error</div>;
+    return <ErrorShow error={error}></ErrorShow>;
   }
 
+  console.log(data)
   const handleCheckboxChange = (repair_id: string, qc_id: string) => {
     if (
       checkedRows.some(
