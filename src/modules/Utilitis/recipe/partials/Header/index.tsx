@@ -1,21 +1,17 @@
-import React from "react";
-import Image from "next/image";
-import { OrderInfoPropsForRecipe } from "src/shared/Recipe page/type";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-interface HeaderOfRecipeProps {
-  copy: string;
-  orderInfo: OrderInfoPropsForRecipe | null;
-}
-const HeaderOfRecipe = ({ copy, orderInfo }: HeaderOfRecipeProps) => {
-  const received_date = orderInfo?.received_date || new Date();
-  const TaT_date = orderInfo?.turnaround_time || new Date();
-  let receivedDate = new Date(received_date).toLocaleDateString("en-US", {
+
+
+const HeaderOfRecipe = ({ copy, info }: any) => {
+  const received_date = info?.received_date || new Date();
+  const TaT_date = info?.turnaround_time || new Date();
+  const receivedDate = new Date(received_date).toLocaleDateString("en-US", {
     weekday: "short",
     month: "short",
     day: "numeric",
     year: "numeric",
   });
-  let turnaround_time = new Date(TaT_date).toLocaleDateString("en-US", {
+  const turnaround_time = new Date(TaT_date).toLocaleDateString("en-US", {
     weekday: "short",
     month: "short",
     day: "numeric",
@@ -26,7 +22,7 @@ const HeaderOfRecipe = ({ copy, orderInfo }: HeaderOfRecipeProps) => {
     <div>
       <div className="relative  font-primary text-black">
         <div className="absolute ">
-          <Image src="/NT-LOGO.png" width={110} height={110} alt="Logo" />
+         
         </div>
         <div className=" text-center">
           <h1 className=" text-2xl font-bold text-[#2f368f] font-secondary">
@@ -35,30 +31,30 @@ const HeaderOfRecipe = ({ copy, orderInfo }: HeaderOfRecipeProps) => {
           <p className="text-sm font-bold">Pioneer of service in Bangladesh</p>
           <div className="text-sm">
             {/* <p>{order?.branch}</p> */}
-            {orderinfo?.branch === "Multiplan Branch" && (
+            {info?.branch === "02" && (
               <p>
                 Suite-1406, Level-14, Multiplan Center{" "}
                 <span>69-71 New Elephant Road, Dhaka-1205</span>
               </p>
             )}
-            {orderinfo?.branch === "Banani Branch" && (
+            {info?.branch === "01" && (
               <p>
                 House-03, Road-07, Block-F <span>Banani, Dhaka-1213</span>
               </p>
             )}
-            {orderinfo?.branch === "Sylhet Branch" && (
+            {info?.branch === "03" && (
               <p>
                 510, Level-4 (5th Floor), West World Shopping City
                 <span>Jallarpara, Zindabazar, Sylhet-3100</span>
               </p>
             )}
-            {orderinfo?.branch === "Chattagram Branch" && (
+            {info?.branch === "04" && (
               <p>
                 M. Court (Old), Bashar Square (5/FL){" "}
                 <span>108 Agrabad C/A, Chattagram-4100</span>
               </p>
             )}
-            {orderinfo?.branch === "HQ Branch" && (
+            {info?.branch === "05" && (
               <p>
                 3th Floor ,House-77
                 <span> Road-07, Banani,Dhaka-1230</span>
@@ -79,27 +75,27 @@ const HeaderOfRecipe = ({ copy, orderInfo }: HeaderOfRecipeProps) => {
             <p>Complaint ID : </p>
 
             <p>Status : </p>
-            {!orderinfo?.warranty && (
+            {!info?.warranty && (
               <>
                 <p>Paid : </p> <p>Due : </p>
               </>
             )}
-            {((!orderinfo?.warranty && orderinfo?.discount) || 0 > 0) && (
+            {((!info?.warranty && info?.discount) || 0 > 0) && (
               <p>Discount</p>
             )}
           </div>
           <div className="space-y-1">
-            <p className="text-primary">{orderinfo?.order_number}</p>
+            <p className="text-primary">{info?.order_number}</p>
 
-            <p>{orderinfo?.warranty ? "Warranty" : "NON warranty "}</p>
-            {!orderinfo?.warranty && (
+            <p>{info?.warranty ? "Warranty" : "NON warranty "}</p>
+            {!info?.warranty && (
               <>
-                <p>{orderinfo?.total_paid}</p>
-                <p>{orderinfo?.due}</p>
+                <p>{info?.total_paid}</p>
+                <p>{info?.due}</p>
               </>
             )}
-            {((!orderinfo?.warranty && orderinfo?.discount) || 0 > 0) && (
-              <p>{orderinfo?.discount}</p>
+            {((!info?.warranty && info?.discount) || 0 > 0) && (
+              <p>{info?.discount}</p>
             )}
           </div>
         </div>
@@ -114,23 +110,23 @@ const HeaderOfRecipe = ({ copy, orderInfo }: HeaderOfRecipeProps) => {
           <div className="space-y-1">
             <p className="text-primary">
               {" "}
-              {orderinfo?.customer?.company ? (
-                <span className="ml-2 ">{orderinfo?.customer?.company}</span>
+              {info?.customer?.company ? (
+                <span className="ml-2 ">{info?.customer?.company}</span>
               ) : (
                 <span className="ml-2">
-                  {orderinfo?.Nonwarrentycustomer?.name}
+                  {info?.Nonwarrentycustomer?.name}
                 </span>
               )}
             </p>
             <p className="text-primary">
               {" "}
-              {orderinfo?.customer?.contact_number ? (
+              {info?.customer?.contact_number ? (
                 <span className="ml-2 ">
-                  {orderinfo?.customer?.contact_number}
+                  {info?.customer?.contact_number}
                 </span>
               ) : (
                 <span className="ml-2">
-                  {orderinfo?.Nonwarrentycustomer?.contact_number}
+                  {info?.Nonwarrentycustomer?.contact_number}
                 </span>
               )}
             </p>

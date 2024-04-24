@@ -3,7 +3,6 @@ export const engineerStatus = [
   { id: "Repaired", value: "Repaired"},
   { id: "Not Repairable", value: "Not Repairable" },
   { id:  "Reject", value: "Reject" },
-  { id: "Completed", value: "Completed" },
 ];
 
 export const replacement = [

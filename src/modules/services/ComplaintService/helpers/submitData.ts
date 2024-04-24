@@ -55,7 +55,8 @@ export const handleDataSubmit = async (
             icon: "success",
           });
           if (!isPaymentButton) {
-            navigate("/complaints-service");
+            window.open(`/repice?complaintsId=01,02,03`, "Print recipe!");
+            // navigate("/complaints-service");
           }
           if (isPaymentButton) {
             navigate("/complaints-service-payments");

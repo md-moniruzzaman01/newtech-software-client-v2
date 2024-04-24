@@ -53,9 +53,9 @@ export const serviceComplaintsRoutes = [
 ];
 
 export const ServiceQARoute = [
+  { path: "/service-qa-all", element: <QCMyItemsService /> },
   { path: "/service-qa-items", element: <QAItemsService /> },
   { path: "/service-qa-my-library", element: <QCMyLibraryService /> },
-  { path: "/service-qa-all", element: <QCMyItemsService /> },
   {
     path: "/qa-items/order-details/:id",
     element: <QAItemServiceOrderDetails />,

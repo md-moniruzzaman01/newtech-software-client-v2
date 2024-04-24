@@ -1,9 +1,6 @@
-import { UserAtom } from '@utils/functions';
-import { useAtom } from 'jotai';
-import React from 'react';
+
 
 const FooterOfRecipe = () => {
-    const [User] = useAtom(UserAtom);
     return (
         <div className='absolute bottom-0' >
             <div className=' flex justify-between text-center'>
@@ -11,7 +8,7 @@ const FooterOfRecipe = () => {
                     Customer Signature
                 </h2>
                 <h2 className='w-72 border-t-2 border-black'>
-                    Authorized Signature({User?.full_name})
+                    Authorized Signature()
                 </h2>
             </div>
             <div className='mt-4'>

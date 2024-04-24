@@ -13,7 +13,7 @@ import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
 import {
   useCreateQAMutation,
-  useGetQAProductsQuery,
+  useGetQAProductsForServiceQuery,
 } from "../../../../redux/features/api/qa";
 import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
@@ -35,7 +35,7 @@ const QAItemsService = () => {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetQAProductsQuery({
+  } = useGetQAProductsForServiceQuery({
     query,
     token,
   });
@@ -84,6 +84,7 @@ const QAItemsService = () => {
     swal("Error!", "something is wrong", "error");
   }
 
+  console.log(complaintsData)
   return (
     <div className="px-5">
       <Navbar name={"Service QA Items"} />
