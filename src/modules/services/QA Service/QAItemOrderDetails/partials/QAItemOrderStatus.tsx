@@ -1,7 +1,7 @@
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
 import Button from "../../../../../common/components/Button";
-import { orderStatus } from "../config/constants";
+import { RepairStatus } from "../config/constants";
 
 const QAItemOrderStatus = () => {
   // const [droppedImage, setDroppedImage] = useState<string>();
@@ -22,19 +22,10 @@ const QAItemOrderStatus = () => {
         <InputFilter
           placeholder="Select Status"
           label="QA Status :"
-          Filter={orderStatus}
+          Filter={RepairStatus}
           inputName="status"
         />
 
-        {/* <div>
-        <h1 className="font-medium">Upload Item Image :</h1>
-        <DndProvider backend={HTML5Backend}>
-          <PhotoAttach
-            droppedImage={droppedImage}
-            setDroppedImage={setDroppedImage}
-          />
-        </DndProvider>
-      </div> */}
         <TextArea name="note" label="Note" placeholder="write your note" />
         <Button primary>Submit</Button>
       </form>

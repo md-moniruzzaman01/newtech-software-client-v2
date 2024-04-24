@@ -12,9 +12,10 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { AdminDashboardTableHeader, tableLayout } from "./config/constants";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
-import { useGetCardDataQuery } from "../../../redux/features/api/others";
+import { useGetCardDataForServiceQuery } from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
 import { icons } from "../../../shared/libs/Icons";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const ServiceDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -40,7 +41,7 @@ const ServiceDashboard = () => {
   } = useGetComplaintsQuery({
     token,
   });
-  const { data, isError, isLoading } = useGetCardDataQuery({
+  const { data, isError, isLoading,error } = useGetCardDataForServiceQuery({
     token,
   });
 
@@ -49,6 +50,7 @@ const ServiceDashboard = () => {
       setBillData(complaintsData?.data);
     }
     if (!isError && !isLoading) {
+      console.log("data",data)
       setCardData(data?.data);
     }
   }, [
@@ -63,11 +65,15 @@ const ServiceDashboard = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
+  if (isError) {
+    return <ErrorShow error={error}/>
+  }
   return (
     <div className="px-5">
       <div className="pb-5">
         <Navbar name="Welcome" />
       </div>
+
       <div className="grid grid-cols-4 gap-3">
         <DashboardCard
           link="/complaints-service?repair_status=Pending"
