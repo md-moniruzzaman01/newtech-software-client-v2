@@ -36,7 +36,6 @@ const QAApi = baseApi.injectEndpoints({
       },
       providesTags: ["qa"],
     }),
-
     getQas: builder.query({
       query: (params) => {
         return {
@@ -51,7 +50,18 @@ const QAApi = baseApi.injectEndpoints({
     getQAProducts: builder.query({
       query: (params) => {
         return {
-          url: `/product?${params?.query}`,
+          url: `/product?warranty=true&repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["complaints"],
+    }),
+    getQAProductsForService: builder.query({
+      query: (params) => {
+        return {
+          url: `/product?warranty=false&repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -66,5 +76,6 @@ export const {
   useCreateQAMutation,
   useGetOldQasQuery,
   useGetQAProductsQuery,
+  useGetQAProductsForServiceQuery,
   useGetQasQuery,
 } = QAApi;

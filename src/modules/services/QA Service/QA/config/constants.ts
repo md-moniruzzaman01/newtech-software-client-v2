@@ -15,7 +15,7 @@ export const QATableHeader = [
 
 export const qaSelectData = { id: "", user: "" };
 export const fields =
-  " serial_number,model_number,brand_name,category,category_name,problems,attachments,repair_status,repair_count,repair_count,received_date,received_date";
+  " serial_number,model_number,brand_name,category,category_name,problems,attachments,repair_status,repair_count,repair_count,received_date,warranty";
 export const keys = [
   "brand_name",
   "sort",
@@ -33,7 +33,7 @@ export const tableLayout = [
   "item?.category_name",
   "item?.category",
   "item?.brand_name",
-  "item?.repair_count",
+  "item?.warranty.toString()",
   "item?.repair_status",
   "item?.received_date?.toString()?.slice(0, 10)",
 ];
