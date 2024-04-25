@@ -26,8 +26,6 @@ const QAItemsService = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qaData, setQAData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
-  // const [selectEngineer, setSelectEngineer] =
-  //   useState<qaDateProps>(qaSelectData);
 
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys);
@@ -86,7 +84,6 @@ const QAItemsService = () => {
     return <ErrorShow error={error} />;
   }
 
-  console.log(complaintsData, checkedRows);
   return (
     <div className="px-5">
       <Navbar name={"Service QA Items"} />
@@ -110,7 +107,6 @@ const QAItemsService = () => {
             setCheckedRows={setCheckedRows}
             productData
             checkbox
-            link="/service/qa-items/order-details"
           />
           <div className="absolute bottom-2 right-[50px]">
             <Pagination

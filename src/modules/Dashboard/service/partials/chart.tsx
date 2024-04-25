@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 
-import { useGetChartDataQuery } from "../../../../redux/features/api/others";
+import { useGetChartDataForServiceQuery } from "../../../../redux/features/api/others";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { labels } from "../config/constants";
@@ -20,6 +20,7 @@ ChartJS.register(
   LinearScale,
   BarElement,
   Title,
+
   Tooltip,
   Legend
 );
@@ -31,7 +32,7 @@ const Chart = () => {
     data: Chart,
     isError: ChartsError,
     isLoading: ChartsLoading,
-  } = useGetChartDataQuery({
+  } = useGetChartDataForServiceQuery({
     token,
   });
 

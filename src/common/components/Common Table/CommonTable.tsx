@@ -76,13 +76,13 @@ const CommonTable: FC<CommonTableProps> = ({
                           checked={checkedRows.includes(
                             !productData
                               ? item?.id || item?._id
-                              : item?.repair[item.repair.length - 1]?.id
+                              : item?.repair[item?.repair?.length - 1]?.id
                           )}
                           onChange={() =>
                             handleCheckboxChange(
                               !productData
                                 ? item?.id || item?._id
-                                : item?.repair[item.repair.length - 1]?.id,
+                                : item?.repair[item?.repair?.length - 1]?.id,
                               checkedRows,
                               setCheckedRows
                             )

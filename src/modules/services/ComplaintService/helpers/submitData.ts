@@ -27,7 +27,7 @@ export const handleDataSubmit = async (
     setRedirectToPayment(false);
   }
   const token = getFromLocalStorage(authKey);
-
+console.log(fullData)
   try {
     setloading(true);
     const url = SERVER_URL + "/complaints/create-service";
@@ -41,7 +41,6 @@ export const handleDataSubmit = async (
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if ("data" in result) {
           setAddedItem([]);
           const dataIds = result?.data?.data?.map(

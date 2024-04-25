@@ -32,6 +32,7 @@ const EngineerApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
+      invalidatesTags: ["repair", "qa"],
     }),
     // deletePost: builder.mutation({
     //   query: (postId) => ({a

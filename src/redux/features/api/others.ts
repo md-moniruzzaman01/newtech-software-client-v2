@@ -6,7 +6,7 @@ const OthersApi = baseApi.injectEndpoints({
     getChartData: builder.query({
         query: (params) => {
           return {
-            url: `/complaints/chart`,
+            url: "/complaints/chart",
             headers: {
               authorization: params?.token,
             },
@@ -16,7 +16,27 @@ const OthersApi = baseApi.injectEndpoints({
     getCardData: builder.query({
         query: (params) => {
           return {
-            url: `/complaints/card`,
+            url: "/complaints/card",
+            headers: {
+              authorization: params?.token,
+            },
+          };
+        },
+      }),
+    getChartDataForService: builder.query({
+        query: (params) => {
+          return {
+            url: "/complaints/chart/services",
+            headers: {
+              authorization: params?.token,
+            },
+          };
+        },
+      }),
+    getCardDataForService: builder.query({
+        query: (params) => {
+          return {
+            url: '/complaints/card/services',
             headers: {
               authorization: params?.token,
             },
@@ -27,4 +47,4 @@ const OthersApi = baseApi.injectEndpoints({
   }),
 });
 
-export const {useGetChartDataQuery,useGetCardDataQuery  } = OthersApi;
+export const {useGetChartDataQuery,useGetCardDataQuery,useGetCardDataForServiceQuery,useGetChartDataForServiceQuery } = OthersApi;
