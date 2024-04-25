@@ -41,9 +41,9 @@ const SideBar = () => {
   }, [activeRoute]);
 
   useEffect(() => {
-    if (activeRoute === true && location.pathname === "/") {
+    if (activeRoute === true && location.pathname === "/services") {
       navigate("/");
-    } else if (activeRoute === false && location.pathname === "/services") {
+    } else if (activeRoute === false && location.pathname === "/") {
       navigate("/services");
     }
   }, [navigate, activeRoute]);
