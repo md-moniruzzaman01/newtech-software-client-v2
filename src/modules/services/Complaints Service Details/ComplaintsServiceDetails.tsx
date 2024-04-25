@@ -13,6 +13,7 @@ import Navbar from "../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import { useGetServicesByIdQuery } from "../../../redux/features/api/service";
+import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 
 const ComplaintsServiceDetails = () => {
   const { id } = useParams();
@@ -31,7 +32,9 @@ const ComplaintsServiceDetails = () => {
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
 
-  console.log(complaintsData);
+  if (complaintsLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />

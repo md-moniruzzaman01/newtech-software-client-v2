@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../common/components/Button";
 import Input from "../../../common/components/Input";
 import { useState } from "react";
@@ -11,7 +11,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  
 
   const data = {
     id,
@@ -82,14 +81,6 @@ const Login = () => {
             Login
           </Button>
         </form>
-        <p className="text-sm text-gray-600 mt-4">
-          Don't have an account yet?{" "}
-          <NavLink to={"/register"}>
-            <Button link className="!text-shadeOfBlueLight !bg-transparent">
-              Sign up here.
-            </Button>
-          </NavLink>
-        </p>
       </div>
     </div>
   );
