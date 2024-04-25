@@ -27,7 +27,6 @@ export const handleDataSubmit = async (
     setRedirectToPayment(false);
   }
   const token = getFromLocalStorage(authKey);
-console.log(fullData)
   try {
     setloading(true);
     const url = SERVER_URL + "/complaints/create-service";
@@ -42,6 +41,7 @@ console.log(fullData)
       .then((res) => res.json())
       .then((result) => {
         if ("data" in result) {
+          console.log(result)
           setAddedItem([]);
           const dataIds = result?.data?.data?.map(
             (item: { id: string }) => item?.id
@@ -54,7 +54,7 @@ console.log(fullData)
             icon: "success",
           });
           if (!isPaymentButton) {
-            window.open(`/repice?complaintsId=01,02,03`, "Print recipe!");
+            window.open(`/recipe/${result.data?.toString()}`, "Print recipe!");
             // navigate("/complaints-service");
           }
           if (isPaymentButton) {

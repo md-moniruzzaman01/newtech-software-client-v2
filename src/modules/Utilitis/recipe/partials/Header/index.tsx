@@ -75,28 +75,13 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
             <p>Complaint ID : </p>
 
             <p>Status : </p>
-            {!info?.warranty && (
-              <>
-                <p>Paid : </p> <p>Due : </p>
-              </>
-            )}
-            {((!info?.warranty && info?.discount) || 0 > 0) && (
-              <p>Discount</p>
-            )}
+           
           </div>
           <div className="space-y-1">
             <p className="text-primary">{info?.order_number}</p>
 
             <p>{info?.warranty ? "Warranty" : "NON warranty "}</p>
-            {!info?.warranty && (
-              <>
-                <p>{info?.total_paid}</p>
-                <p>{info?.due}</p>
-              </>
-            )}
-            {((!info?.warranty && info?.discount) || 0 > 0) && (
-              <p>{info?.discount}</p>
-            )}
+          
           </div>
         </div>
 

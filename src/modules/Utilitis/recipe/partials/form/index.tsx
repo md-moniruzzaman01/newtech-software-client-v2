@@ -36,10 +36,10 @@ const FormOfRecipe = ({ products }: { products: any }) => {
               {products?.serial_number}{" "}
             </td>
             <td className="px-4 py-2 border border-primary">
-              {products?.versions[0]?.problems}
+              {products?.problems}
             </td>
             <td className="px-4 py-2 border border-primary">
-              {products?.versions[0]?.attachments}
+              {products?.attachments}
             </td>
           </tr>
         </tbody>
