@@ -5,10 +5,10 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
-import { BillTableHeader } from "./config/constant";
+import { BillTableHeader, tableLayout } from "./config/constant";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
-import BillPendingWarrantyTable from "./partials/BillPendingWarrantyTable";
+import { useGetPendingBillsQuery } from "../../../../redux/features/api/bill";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const BillPendingService = () => {
   const [billData, setBillData] = useState([]);
@@ -20,10 +20,10 @@ const BillPendingService = () => {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
+  } = useGetPendingBillsQuery({
     token,
   });
-
+  console.log(complaintsData);
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);
@@ -51,10 +51,11 @@ const BillPendingService = () => {
         <div>
           <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
-            <BillPendingWarrantyTable
-              Link="/complaints/order-details"
+            <CommonTable
+              dataLayout={tableLayout}
+              headerData={BillTableHeader}
               itemData={billData}
-              HeaderData={BillTableHeader}
+              link="/complaints-service-payments"
             />
           </div>
         </div>

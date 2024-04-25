@@ -1,14 +1,18 @@
 export const BillTableHeader = [
-  "Order ID",
-  "Model No.",
-  "S/N No.",
-  "Customer Name",
-  "category",
-  "Brand",
-  "QC",
-  "Engineer",
-  "QA",
+  "ID",
+  "Branch",
+  "Total Amount",
+  "Due",
   "Status",
-  "RD",
+  "Created Date",
   "Action",
+];
+
+export const tableLayout = [
+  "item.id",
+  "item?.branch",
+  "item?.total_amount",
+  "item?.due",
+  "item?.status",
+  "item?.createdAt?.toString()?.slice(0,10)",
 ];

@@ -100,6 +100,7 @@ const QAItemsService = () => {
         <StatusGroup />
         <div className=" rounded-t-md ">
           <CommonTable
+            // link="/service/qa-items/order-details"
             itemData={qaData}
             headerData={QATableHeader}
             dataLayout={tableLayout}
