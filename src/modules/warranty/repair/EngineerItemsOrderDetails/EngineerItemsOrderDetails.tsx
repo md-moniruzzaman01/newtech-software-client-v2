@@ -4,7 +4,7 @@ import EngineerItemOrderStatus from "./partials/EngineerItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails, authKey } from "../../../../shared/config/constaints";
+import { authKey } from "../../../../shared/config/constaints";
 import { useState } from "react";
 import EngineerPartsReplace from "./partials/EngineerPartsReplace";
 import { useParams } from "react-router-dom";
@@ -15,10 +15,13 @@ import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const EngineerItemsOrderDetails = () => {
   const [select_parts_replece, setSelect_parts_replace] = useState(1);
-  const {id}=useParams()
+  const { id } = useParams();
   const token = getFromLocalStorage(authKey);
-const {data,isError, isLoading,error}=useGetRepairByIdQuery({id,token})
-
+  const { data, isError, isLoading, error } = useGetRepairByIdQuery({
+    id,
+    token,
+  });
+  console.log(data);
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
@@ -29,46 +32,76 @@ const {data,isError, isLoading,error}=useGetRepairByIdQuery({id,token})
     }
   }
   if (isLoading) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
   if (isError) {
-    return <ErrorShow error={error}/>;
+    return <ErrorShow error={error} />;
   }
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint Order Details (Engineer)"} />
 
       <div className="grid grid-cols-3 gap-2 pt-8">
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={data?.data?.repair?.received_date
+            ?.toString()
+            ?.slice(0, 10)}
           bgColor="primary"
-          headerTitle="Created Date"
+          headerTitle="Received Date"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={data?.data?.repair?.turnaround_time
+            ?.toString()
+            ?.slice(0, 10)}
           bgColor="primary"
-          headerTitle="Due Date"
+          headerTitle="TAT"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={data?.data?.status}
           bgColor="primary"
-          headerTitle="Name"
+          headerTitle="Status"
         />
       </div>
 
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
-          headerTitle="Branch Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Customer Details"
+          CardInformation={[
+            {
+              title: "Name",
+              value: data?.data?.repair?.Nonwarrentycustomer?.name,
+            },
+            {
+              title: "Number",
+              value: data?.data?.repair?.Nonwarrentycustomer?.contact_number,
+            },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Billing Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Repair Details"
+          CardInformation={[
+            {
+              title: "Order No",
+              value: data?.data?.repair?.order_number,
+            },
+            {
+              title: "Receiver Date",
+              value: data?.data?.repair?.receiver,
+            },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Invoice Details"
-          CardInformation={ComplaintDetails}
+          headerTitle="Product Details"
+          CardInformation={[
+            {
+              title: "Brand",
+              value: data?.data?.repair?.products?.brand_name,
+            },
+            {
+              title: "Category",
+              value: data?.data?.repair?.products?.category_name,
+            },
+          ]}
         />
 
         <div className="col-span-2 bg-solidWhite px-5 py-5  relative h-full">
@@ -78,7 +111,7 @@ const {data,isError, isLoading,error}=useGetRepairByIdQuery({id,token})
               <MdModeEdit />
             </div>
           </div>
-          <EngineerItemOrderDetailsTable />
+          <EngineerItemOrderDetailsTable data={data?.data} />
         </div>
 
         <div className=" bg-solidWhite px-5 py-5">
