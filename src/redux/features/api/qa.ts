@@ -90,4 +90,5 @@ export const {
   useGetQAProductsForServiceQuery,
   useGetQasQuery,
   useGetQAProductsForServiceByIdQuery,
+  useUpdateStatusQAMutation
 } = QAApi;

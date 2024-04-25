@@ -12,11 +12,11 @@ export const handleAddItem = (
 ) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
-    const contact_person = (
-        form.elements.namedItem("contact_person") as HTMLInputElement
+    const name = (
+        form.elements.namedItem("partner_name") as HTMLInputElement
     ).value;
-    const contactNo = (
-        form.elements.namedItem("contactNo") as HTMLInputElement
+    const contact_number = (
+        form.elements.namedItem("contact_number") as HTMLInputElement
     ).value;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const address = (form.elements.namedItem("address") as HTMLInputElement)
@@ -42,8 +42,8 @@ export const handleAddItem = (
         .value;
 
     const partner = {
-        contact_person,
-        contactNo,
+        name,
+        contact_number,
         email,
         address,
     };

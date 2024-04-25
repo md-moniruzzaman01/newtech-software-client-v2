@@ -1,6 +1,6 @@
 export const defaultPartnerValue = {
-  contact_person: "",
-  contactNo: "",
+  name: "",
+  contact_number: "",
   email: "",
   address: "",
 };

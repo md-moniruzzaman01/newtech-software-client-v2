@@ -25,7 +25,7 @@ export const keys = [
 ];
 
 export const tableLayout = [
-  "item?.repair?.[0]?.order_number",
+  "item?.repair?.[item?.repair.length - 1]?.order_number",
   "item?.model_number",
   "item?.serial_number",
   "item?.problems",

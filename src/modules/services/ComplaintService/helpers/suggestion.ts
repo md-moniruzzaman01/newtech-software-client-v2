@@ -35,11 +35,12 @@ export const handleSuggestionClick = async (
   setSearchInput: React.Dispatch<React.SetStateAction<string | null>>,
   setSuggestions: React.Dispatch<React.SetStateAction<partnerProps[] | []>>
 ) => {
+
   setPartnerInfo((prevCustomerInfo: partnerProps) => ({
     ...prevCustomerInfo,
-    contact_person: selected.contact_person,
+    contact_person: selected.name,
     email: selected.email,
-    contactNo: selected.contactNo,
+    contact_number: selected.contact_number,
     address: selected.address,
   }));
   setSearchInput(null);

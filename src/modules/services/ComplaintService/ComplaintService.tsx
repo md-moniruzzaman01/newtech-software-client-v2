@@ -78,9 +78,10 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }
   }, []);
 
+
   const {
-    contact_person: partner_name,
-    contactNo: contact_number,
+    name: partner_name,
+    contact_number,
     email,
     address,
   } = partnerInfo;
@@ -115,7 +116,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     mainCategoryError,
     mainCategoryLoading,
   ]);
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -140,11 +140,11 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               <div>
                 <Input
                   defaultValue={`${
-                    partnerInfo ? partnerInfo?.contact_person : ""
+                    partnerInfo ? partnerInfo?.name : ""
                   }`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
-                  inputName="contact_person"
+                  inputName="partner_name"
                   inputPlaceholder="Partner name"
                   labelName="Partner name"
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,7 +173,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                           }
                           className="suggestion-item"
                         >
-                          {`${suggestion?.contact_person}-${suggestion?.contactNo}`}
+                          {`${suggestion?.name}-${suggestion?.contact_number}`}
                         </li>
                       ))}
                   </ul>
@@ -183,12 +183,12 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
               <div>
                 <Input
-                  defaultValue={`${partnerInfo ? partnerInfo?.contactNo : ""}`}
+                  defaultValue={`${partnerInfo ? partnerInfo?.contact_number : ""}`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
                   inputPlaceholder="Contact Number"
                   labelName="Contact Number"
-                  inputName="contactNo"
+                  inputName="contact_number"
                 ></Input>
               </div>
               {/* Email  */}

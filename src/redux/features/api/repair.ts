@@ -60,9 +60,6 @@ const RepairApi = baseApi.injectEndpoints({
 
     getRepairs: builder.query({
       query: (params) => {
-        console.log(
-          `/repair/my-library/${params?.id}?status=Engineer%20Is%20working&${params?.query}`
-        );
         return {
           url: `/repair/my-library/${params?.id}?status=Engineer%20Is%20working&${params?.query}`,
           headers: {
@@ -74,7 +71,6 @@ const RepairApi = baseApi.injectEndpoints({
     }),
     getRepairById: builder.query({
       query: (params) => {
-        console.log(`/repair/${params.id}`);
         return {
           url: `/repair/${params.id}`,
           headers: {

@@ -2,18 +2,54 @@ import InputFilter from "../../../../../common/components/InputFilter/InputFilte
 import TextArea from "../../../../../common/components/TextArea/TextArea";
 import Button from "../../../../../common/components/Button";
 import { RepairStatus } from "../config/constants";
+import swal from "sweetalert";
+import { authKey } from "../../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
+import { useNavigate, useParams } from "react-router-dom";
+import LoadingPage from "../../../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
+import { useUpdateStatusQAMutation } from "../../../../../redux/features/api/qa";
 
 const QAItemOrderStatus = () => {
   // const [droppedImage, setDroppedImage] = useState<string>();
+  const token = getFromLocalStorage(authKey);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [updateStatusQA, { isLoading, isError, isSuccess, error }] = useUpdateStatusQAMutation();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget; // Use currentTarget for the form element
+    const form = event.currentTarget;
     const status = (form.elements.namedItem("status") as HTMLInputElement)
       .value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
-    console.log(note, status);
-    form.reset();
+
+    const fullData = {
+      status,
+      note,
+      qa_image:[]
+    };
+
+    await updateStatusQA({ id, fullData, token });
+    if (isLoading) {
+      return <LoadingPage />
+    }
+    if (isError) {
+      swal("Something went wrong!", {
+        icon: "error",
+      });
+      return <ErrorShow error={error} />
+
+    }
+    if (isSuccess) {
+      swal("Your data has been successfully Updated.", {
+        icon: "success",
+      });
+      navigate("/service-qa-my-library");
+      form.reset();
+    }
+
+
   };
 
   return (
