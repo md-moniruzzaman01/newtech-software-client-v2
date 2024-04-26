@@ -10,7 +10,7 @@ export const QATableHeader = [
   "Repair Count",
   "Status",
   "Received Date",
-  "Action",
+  // "Action",
 ];
 
 export const qaSelectData = { id: "", user: "" };

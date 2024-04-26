@@ -15,7 +15,8 @@ const QAItemOrderStatus = () => {
   const token = getFromLocalStorage(authKey);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [updateStatusQA, { isLoading, isError, isSuccess, error }] = useUpdateStatusQAMutation();
+  const [updateStatusQA, { isLoading, isError, isSuccess, error }] =
+    useUpdateStatusQAMutation();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,29 +28,25 @@ const QAItemOrderStatus = () => {
     const fullData = {
       status,
       note,
-      qa_image:[]
+      qa_image: [],
     };
-
-    await updateStatusQA({ id, fullData, token });
+    const result = await updateStatusQA({ id, fullData, token });
     if (isLoading) {
-      return <LoadingPage />
+      return <LoadingPage />;
     }
-    if (isError) {
+    if (isError || "error" in result) {
       swal("Something went wrong!", {
         icon: "error",
       });
-      return <ErrorShow error={error} />
-
+      return <ErrorShow error={error} />;
     }
-    if (isSuccess) {
+    if (isSuccess || "success" in result) {
       swal("Your data has been successfully Updated.", {
         icon: "success",
       });
       navigate("/service-qa-my-library");
       form.reset();
     }
-
-
   };
 
   return (
@@ -63,7 +60,9 @@ const QAItemOrderStatus = () => {
         />
 
         <TextArea name="note" label="Note" placeholder="write your note" />
-        <Button primary>Submit</Button>
+        <Button loading={isLoading} primary>
+          Submit
+        </Button>
       </form>
     </div>
   );

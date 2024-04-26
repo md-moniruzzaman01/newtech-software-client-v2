@@ -13,10 +13,20 @@ const WithdrawSlice = baseApi.injectEndpoints({
         };
       },
     }),
+    getTotalAmount: builder.query({
+      query: ({ token }) => {
+        return {
+          url: `/transactions/account`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
     createWithdraw: builder.mutation({
       query: ({ fullData, token }) => ({
-        url: `/transactions/create`,
-        method: "PUT",
+        url: "/transactions/create",
+        method: "POST",
         headers: {
           authorization: token,
         },
@@ -54,4 +64,8 @@ const WithdrawSlice = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetWithdrawQuery, useCreateWithdrawMutation } = WithdrawSlice;
+export const {
+  useGetWithdrawQuery,
+  useCreateWithdrawMutation,
+  useGetTotalAmountQuery,
+} = WithdrawSlice;

@@ -30,8 +30,8 @@ const ServiceMyLibrary = () => {
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading,error } = useGetRepairsQuery({
-    id:user._id,
+  const { data, isError, isLoading, error } = useGetRepairsQuery({
+    id: user._id,
     query,
     token,
   });
@@ -49,7 +49,7 @@ const ServiceMyLibrary = () => {
   if (isError) {
     console.error(isError);
 
-    return <ErrorShow error={error}/>;
+    return <ErrorShow error={error} />;
   }
 
   const handleDeleteData = () => {
@@ -60,7 +60,7 @@ const ServiceMyLibrary = () => {
   };
   return (
     <div className=" px-5">
-      <Navbar name="Engineer My Library"></Navbar>
+      <Navbar name="Engineer Myhe Library"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>

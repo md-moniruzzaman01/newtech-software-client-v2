@@ -1,3 +1,4 @@
+import swal from "sweetalert";
 import { authKey } from "../../../../shared/config/constaints";
 import { SERVER_URL } from "../../../../shared/config/secret";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
@@ -17,9 +18,8 @@ export const handlePaymentSubmit = async (
   );
   // console.log(paymantamount, id);
 
-  
   const url = `${SERVER_URL}/bill/payment/${id}`;
-  const fullData = {paymentamount};
+  const fullData = { paymentamount };
 
   fetch(url, {
     method: "PATCH",
@@ -30,7 +30,14 @@ export const handlePaymentSubmit = async (
     body: JSON.stringify(fullData),
   })
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      if (data?.success) {
+        swal("success", "Payment successful", "success");
+        form?.reset();
+      } else {
+        swal("error", "Payment failed", "error");
+      }
+    });
 };
 
 export const handleDelivededWithOutPaySubmit = async (id: string) => {

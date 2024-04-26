@@ -11,7 +11,7 @@ import swal from "sweetalert";
 const EngineerItemOrderStatus = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [updateRepair] = useUpdateRepairStatusMutation();
+  const [updateRepair, { isLoading }] = useUpdateRepairStatusMutation();
   const token = getFromLocalStorage(authKey);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,7 +55,9 @@ const EngineerItemOrderStatus = () => {
       /> */}
 
         <TextArea label="Note" name="note" placeholder="write your note" />
-        <Button primary>Submit</Button>
+        <Button loading={isLoading} primary>
+          Submit
+        </Button>
       </form>
     </div>
   );

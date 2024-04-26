@@ -282,6 +282,17 @@ const ComplaintOrderDetailsTable = ({
               })`}
             </div>
           </div>
+          <div className="grid grid-cols-5  text-center">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className="text-end pr-2  py-2">
+              <h3 className="font-semibold">Total:</h3>
+            </div>
+            <div className="border py-2 border-gray-400 ">
+              {billSingleData?.total_amount === total ? total : totalDefault}
+            </div>
+          </div>
 
           <div className="flex justify-end">
             <hr className="border-b border-shadeOfGray my-2 w-1/2" />
@@ -292,11 +303,9 @@ const ComplaintOrderDetailsTable = ({
             <div></div>
             <div></div>
             <div className="text-end pr-2 py-2">
-              <h3 className="font-semibold">Total:</h3>
+              <h3 className="font-semibold">Due:</h3>
             </div>
-            <div className="py-2 font-semibold">
-              {billSingleData?.total_amount === total ? total : totalDefault}
-            </div>
+            <div className="py-2 font-semibold">{billSingleData?.due}</div>
           </div>
         </div>
         <div className="flex  py-10">
@@ -335,7 +344,7 @@ const ComplaintOrderDetailsTable = ({
                 className="space-y-4 p-2"
               >
                 <Input
-                  defaultValue={total}
+                  defaultValue={billSingleData?.due}
                   inputPlaceholder="Amount..."
                   inputName="amount"
                   inputType="number"

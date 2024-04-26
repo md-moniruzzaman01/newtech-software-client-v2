@@ -7,6 +7,7 @@ import {
   handleCheckboxChange,
 } from "../../../shared/helpers/handleCheckbox";
 import { emptyData } from "../../../shared/config/constaints";
+import Button from "../Button";
 
 interface CommonTableProps {
   headerData: string[];
@@ -17,6 +18,8 @@ interface CommonTableProps {
   productData?: boolean;
   checkedRows?: any;
   setCheckedRows?: any;
+  btnLink?: string;
+  btnValue?: string;
 }
 
 // type TableData = Record<string, any>;
@@ -30,6 +33,8 @@ const CommonTable: FC<CommonTableProps> = ({
   productData,
   itemData = [],
   dataLayout,
+  btnLink,
+  btnValue,
 }) => {
   return (
     <>
@@ -97,6 +102,18 @@ const CommonTable: FC<CommonTableProps> = ({
                       {eval(layout) || emptyData}
                     </td>
                   ))}
+                  {btnLink && (
+                    <td className="border">
+                      <NavLink
+                        className=" !text-black flex justify-center"
+                        to={`${btnLink}/${item?.id}`}
+                      >
+                        <Button primary mini className="!text-xs ">
+                          {btnValue}
+                        </Button>
+                      </NavLink>
+                    </td>
+                  )}
                   {link && (
                     <td className="border">
                       <NavLink

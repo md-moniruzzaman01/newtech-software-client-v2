@@ -8,9 +8,9 @@ import { useGetAllRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
-import MyQcTable from "../../../warranty/QC/QCMyLibrary/partials/MyQcTable";
-import { MyQCTableHeader } from "../../../warranty/QC/QCMyLibrary/config/constants";
 import { getUserInfo } from "../../../../services/auth.service";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { MyQCTableHeader, tableLayout } from "./config/constants";
 
 const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +32,7 @@ const EngineerAllRepairs = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);
+  console.log(data);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -41,36 +42,6 @@ const EngineerAllRepairs = () => {
 
     return <div>Error</div>;
   }
-
-  const handleCheckboxChange = (repair_id: string, qc_id: string) => {
-    if (
-      checkedRows.some(
-        (row) => row.repair_id === repair_id && row.qc_id === qc_id
-      )
-    ) {
-      setCheckedRows(checkedRows.filter((item) => item?.qc_id !== qc_id));
-    } else {
-      setCheckedRows([...checkedRows, { qc_id, repair_id }]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === data?.data?.length) {
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        data?.data
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ?.map((item: any) => ({
-            qc_id: item?.id || "",
-            repair_id: item?.repair?.id || "",
-          }))
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds);
-      }
-    }
-  };
 
   const handleDeleteData = () => {
     console.log(checkedRows);
@@ -97,21 +68,15 @@ const EngineerAllRepairs = () => {
             />
           </div>
           <div className="pt-5">
-            {/* <CommonTable
-            itemData={}
-            HeaderData={}   
-            dataLayout={[]}
-            >
-
-            </CommonTable> */}
-            <MyQcTable
-              Link="/engineer-items/order-details"
+            <CommonTable
               itemData={data?.data}
-              HeaderData={MyQCTableHeader}
+              headerData={MyQCTableHeader}
+              dataLayout={tableLayout}
+              link="/engineer-items/order-details"
+              checkbox
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
-            ></MyQcTable>
+              setCheckedRows={setCheckedRows}
+            ></CommonTable>
           </div>
         </div>
         <div className="absolute bottom-2 right-[50px]">
