@@ -19,7 +19,7 @@ export const handleAddItem = (
 
     const partner_name = (
         form.elements.namedItem("partner_name") as HTMLInputElement
-    ).value;
+    )?.value;
     const partner_id = (
         form.elements.namedItem("partner_id") as HTMLInputElement
     )?.value || "";
