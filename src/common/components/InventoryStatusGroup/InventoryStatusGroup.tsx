@@ -36,7 +36,7 @@ const InventoryStatusGroup = () => {
         >
           Requisitions
         </Button>
-        <Button
+        {/* <Button
           status
           className={
             activeRoute === "/inventory/Stock" ? "!bg-lightGray  " : ""
@@ -44,7 +44,7 @@ const InventoryStatusGroup = () => {
           onClick={() => handleFilter("/inventory/Stock")}
         >
           Stock
-        </Button>
+        </Button> */}
         <Button
           status
           className={
@@ -54,7 +54,7 @@ const InventoryStatusGroup = () => {
         >
           Approve
         </Button>
-        <Button
+        {/* <Button
           status
           className={
             activeRoute === "/inventory/rejected" ? "!bg-lightGray  " : ""
@@ -62,21 +62,21 @@ const InventoryStatusGroup = () => {
           onClick={() => handleFilter("/inventory/rejected")}
         >
           Rejected
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           status
           className={activeRoute === "/buffer" ? "!bg-lightGray  " : ""}
           onClick={() => handleFilter("/buffer")}
         >
           Part Return
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           status
           className={activeRoute === "/good-product" ? "!bg-lightGray  " : ""}
           onClick={() => handleFilter("/good-product")}
         >
           Scrap
-        </Button>
+        </Button> */}
       </div>
       <div></div>
     </div>

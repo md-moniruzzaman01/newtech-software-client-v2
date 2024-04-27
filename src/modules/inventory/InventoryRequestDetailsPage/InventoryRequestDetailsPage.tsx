@@ -33,6 +33,7 @@ const InventoryRequestDetailsPage = () => {
     isError,
     isLoading,
   } = useGetInventoryPartsByIdQuery({ id });
+  console.log(inventoryData?.status);
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -46,9 +47,9 @@ const InventoryRequestDetailsPage = () => {
     e.preventDefault();
     const fullData = {
       amount: amount,
-      status: "Approve"
-    }
-    const result: any = await inventoryApprove({ id, token,fullData });
+      status: "Approve",
+    };
+    const result: any = await inventoryApprove({ id, token, fullData });
     if (result?.data?.success) {
       swal("Success", `${result?.data?.message}`, "success");
     } else {
@@ -58,9 +59,9 @@ const InventoryRequestDetailsPage = () => {
   const handleInventoryReject = async () => {
     const fullData = {
       amount: amount,
-      status: "reject"
-    }
-    const result: any = inventoryReject({ id, token,fullData});
+      status: "reject",
+    };
+    const result: any = inventoryReject({ id, token, fullData });
     if (result?.data?.success) {
       swal("Success", `${result?.data?.message}`, "success");
     } else {
@@ -72,7 +73,6 @@ const InventoryRequestDetailsPage = () => {
     return <LoadingPage />;
   }
 
-  console.log("amount",amount)
   return (
     <div className="px-5">
       <Navbar name="Inventory Request Details" />
@@ -142,30 +142,32 @@ const InventoryRequestDetailsPage = () => {
                 headerData={HeaderValueForInventoryRequestDetails}
               />
             </div>
-            <div className="col-span-3 pb-10">
-              <div className="flex justify-around items-center">
-                <Button
-                  onClick={handleInventoryReject}
-                  danger
-                  className="!py-1"
-                >
-                  Reject
-                </Button>
-                <Button
-                  onClick={() => setIsOpen(true)}
-                  className="!py-1 text-lg"
-                >
-                  Approve
-                </Button>
+            {inventoryData?.status === "Approve" || (
+              <div className="col-span-3 pb-10">
+                <div className="flex justify-around items-center">
+                  <Button
+                    onClick={handleInventoryReject}
+                    danger
+                    className="!py-1"
+                  >
+                    Reject
+                  </Button>
+                  <Button
+                    onClick={() => setIsOpen(true)}
+                    className="!py-1 text-lg"
+                  >
+                    Approve
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
       <Modal header={"Make Payments"} setIsOpen={setIsOpen} isOpen={isOpen}>
         <form onSubmit={handleInventoryApprove} className="space-y-4 p-2">
           <Input
-            onChange={(e)=>setamount(parseFloat(e.target.value))}
+            onChange={(e) => setamount(parseFloat(e.target.value))}
             inputPlaceholder="Amount..."
             inputName="amount"
             inputType="number"
