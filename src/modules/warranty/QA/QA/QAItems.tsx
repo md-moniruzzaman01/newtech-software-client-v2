@@ -27,7 +27,7 @@ const QAItems = () => {
   const [engineers, setEngineers] = useState([]);
   // const [selectEngineer, setSelectEngineer] =
   //   useState<qaDateProps>(qaSelectData);
-
+  console.log(qaData);
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);

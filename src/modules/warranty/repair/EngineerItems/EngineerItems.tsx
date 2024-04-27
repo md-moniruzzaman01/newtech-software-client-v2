@@ -99,6 +99,7 @@ const EngineerAllRepairs = () => {
             headerData={EngineerTableHeader}
             dataLayout={tableLayout}
             checkedRows={checkedRows}
+            productData
             setCheckedRows={setCheckedRows}
             checkbox
           />

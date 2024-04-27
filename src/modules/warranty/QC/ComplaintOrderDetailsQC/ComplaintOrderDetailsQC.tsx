@@ -5,46 +5,88 @@ import ComplaintOrderStatusQC from "./partials/ComplaintOrderStatusQC";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import { ComplaintDetails } from "../../../../shared/config/constaints";
+import { authKey } from "../../../../shared/config/constaints";
 import { useParams } from "react-router-dom";
+import { useGetQcByIdQuery } from "../../../../redux/features/api/qc";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
 
 const ComplaintOrderDetailsQC = () => {
   const { id } = useParams();
+  const token = getFromLocalStorage(authKey);
+  const { data: qcData, isLoading } = useGetQcByIdQuery({ token, id });
 
+  const { data: complaintsData } = useGetComplaintByIdQuery({
+    token,
+    id: qcData?.data?.repairId,
+  });
+  console.log(complaintsData);
+  console.log(qcData);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
 
       <div className="grid grid-cols-3 gap-2 pt-8">
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={qcData?.data?.createdAt?.toString()?.slice(0, 10)}
           bgColor="primary"
           headerTitle="Created Date"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={qcData?.data?.id}
           bgColor="primary"
-          headerTitle="Due Date"
+          headerTitle="ID"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={qcData?.data?.status}
           bgColor="primary"
-          headerTitle="Name"
+          headerTitle="Status"
         />
       </div>
 
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
-          headerTitle="Branch Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Customer Details"
+          CardInformation={[
+            { title: "ID", value: complaintsData?.data?.customer?.id },
+            {
+              title: "Name",
+              value: complaintsData?.data?.customer?.contact_person,
+            },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Billing Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Other Details"
+          CardInformation={[
+            {
+              title: "Order No",
+              value: complaintsData?.data?.order_number,
+            },
+            {
+              title: "Category",
+              value: complaintsData?.data?.category_name,
+            },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Invoice Details"
-          CardInformation={ComplaintDetails}
+          headerTitle="Product Details"
+          CardInformation={[
+            {
+              title: "Received Date",
+              value: complaintsData?.data?.received_date
+                ?.toString()
+                ?.slice(0, 10),
+            },
+            {
+              title: "Total Charge",
+              value: complaintsData?.data?.total_charge,
+            },
+          ]}
         />
 
         <div className="col-span-2 bg-solidWhite px-5  relative h-2/3">
@@ -54,7 +96,7 @@ const ComplaintOrderDetailsQC = () => {
               <MdModeEdit />
             </div>
           </div>
-          <ComplaintOrderDetailsTableQC />
+          <ComplaintOrderDetailsTableQC data={qcData} data2={complaintsData} />
         </div>
 
         <div className=" bg-solidWhite px-5 py-5">

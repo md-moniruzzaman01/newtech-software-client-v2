@@ -50,6 +50,18 @@ const QCApi = baseApi.injectEndpoints({
       providesTags: ["qc"],
     }),
 
+    getQcById: builder.query({
+      query: (params) => {
+        return {
+          url: `/qc/${params?.id}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["qc"],
+    }),
+
     getProducts: builder.query({
       query: (params) => {
         return {
@@ -70,4 +82,5 @@ export const {
   useGetQcsQuery,
   useGetOldQcsQuery,
   useUpdateStatusQCMutation,
+  useGetQcByIdQuery,
 } = QCApi;
