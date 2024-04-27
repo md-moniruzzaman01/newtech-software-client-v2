@@ -106,6 +106,7 @@ const CommonTable: FC<CommonTableProps> = ({
                     <td className="border">
                       <NavLink
                         className=" !text-black flex justify-center"
+                        target="_blank"
                         to={`${btnLink}/${item?.id}`}
                       >
                         <Button primary mini className="!text-xs ">

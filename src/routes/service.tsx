@@ -49,7 +49,7 @@ export const serviceComplaintsRoutes = [
     path: "/complaints-delivery-service",
     element: <ComplaintsDeliveryService />,
   },
-  { path: "/service-invoice", element: <ServiceInvoicePage /> },
+  { path: "/service-invoice/:id", element: <ServiceInvoicePage /> },
 ];
 
 export const ServiceQARoute = [
