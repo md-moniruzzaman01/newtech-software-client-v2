@@ -29,7 +29,7 @@ const QCApi = baseApi.injectEndpoints({
     getOldQcs: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}?${params?.query}`,
+          url: `/qc/my-library?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -41,7 +41,7 @@ const QCApi = baseApi.injectEndpoints({
     getQcs: builder.query({
       query: (params) => {
         return {
-          url: `/qc/my-library/${params?.id}?status=QC&${params?.query}`,
+          url: `/qc/my-library?status=QC&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
