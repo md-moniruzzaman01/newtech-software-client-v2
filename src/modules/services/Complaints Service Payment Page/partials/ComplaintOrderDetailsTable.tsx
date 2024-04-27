@@ -17,6 +17,8 @@ import {
   handleDelivededWithOutPaySubmit,
   handlePaymentSubmit,
 } from "../Helpers/hanlePaymentService";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const ComplaintOrderDetailsTable = ({
   id,
@@ -26,6 +28,7 @@ const ComplaintOrderDetailsTable = ({
   isEdit?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
@@ -41,6 +44,7 @@ const ComplaintOrderDetailsTable = ({
   const [totalBillAmount, setTotalBillAmount] = useState<number>(0);
 
   const token = getFromLocalStorage(authKey);
+  const navigate = useNavigate();
   const {
     data: billData,
     isError: billError,
@@ -112,8 +116,20 @@ const ComplaintOrderDetailsTable = ({
       },
       body: JSON.stringify(fullData),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // Assuming data contains success or error information
+        if (data.success) {
+          swal("Success", "Discount is successful", "success");
+        } else {
+          swal("Error", "Something went wrong!", "error");
+        }
+      });
   };
 
   const updateData = hiddenDiscount.map((data: IDiscount) => data.amount);
@@ -339,7 +355,7 @@ const ComplaintOrderDetailsTable = ({
             >
               <form
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
-                  handlePaymentSubmit(e, id)
+                  handlePaymentSubmit(e, id, navigate, setIsLoading)
                 }
                 className="space-y-4 p-2"
               >
@@ -349,7 +365,7 @@ const ComplaintOrderDetailsTable = ({
                   inputName="amount"
                   inputType="number"
                 />
-                <Button primary className="w-full">
+                <Button loading={isLoading} primary className="w-full">
                   Submit
                 </Button>
               </form>

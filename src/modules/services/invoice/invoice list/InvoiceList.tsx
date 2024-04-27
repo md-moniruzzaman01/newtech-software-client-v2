@@ -78,6 +78,8 @@ const InvoiceList = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               link="/complaints-service-payments"
+              btnValue="Invoice"
+              btnLink="/service-invoice"
               checkbox
             />
           </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import swal from "sweetalert";
 import { authKey } from "../../../../shared/config/constaints";
 import { SERVER_URL } from "../../../../shared/config/secret";
@@ -5,7 +6,9 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 export const handlePaymentSubmit = async (
   e: React.FormEvent<HTMLFormElement>,
-  id: string
+  id: string,
+  navigate: any,
+  setIsLoading: any
 ) => {
   e.preventDefault();
 
@@ -20,8 +23,8 @@ export const handlePaymentSubmit = async (
 
   const url = `${SERVER_URL}/bill/payment/${id}`;
   const fullData = { paymentamount };
-
-  fetch(url, {
+  setIsLoading(true);
+  await fetch(url, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -33,10 +36,12 @@ export const handlePaymentSubmit = async (
     .then((data) => {
       if (data?.success) {
         swal("success", "Payment successful", "success");
+        navigate("/service-invoice");
         form?.reset();
       } else {
         swal("error", "Payment failed", "error");
       }
+      setIsLoading(false);
     });
 };
 

@@ -6,18 +6,27 @@ import VerticalChart from "../../../common/components/VerticalChart/VerticalChar
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { useGetInventoryPartsQuery } from "../../../redux/features/api/inventory";
 
-import InventoryInfoTable from "./partials/InventoryInfoTable";
-import { TableHeaderForInventory } from "./config/constants";
+import {
+  TableHeaderForInventory,
+  query,
+  tableLayout,
+} from "./config/constants";
 import { NavLink } from "react-router-dom";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import CommonTable from "../../../common/components/Common Table/CommonTable";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { authKey } from "../../../shared/config/constaints";
 
 const Inventory = () => {
+  const token = getFromLocalStorage(authKey);
   const [inventoryData, setInventoryData] = useState([]);
+
   const {
     data: inventory,
     isLoading: inventoryLoading,
     isError: inventoryError,
-  } = useGetInventoryPartsQuery({});
+  } = useGetInventoryPartsQuery({ token, query });
+  console.log(inventory);
 
   useEffect(() => {
     if (!inventoryError && !inventoryLoading) {
@@ -40,7 +49,7 @@ const Inventory = () => {
           <h1>
             Requisitions
             <span className="bg-shadeOfGray text-solidWhite text-sm rounded-full px-2 ml-2">
-              10
+              {inventoryData?.length || 0}
             </span>
           </h1>
           <div>
@@ -51,10 +60,12 @@ const Inventory = () => {
             </NavLink>
           </div>
         </div>
-        <InventoryInfoTable
-          HeaderData={TableHeaderForInventory}
-          link="/inventory/request-details"
+
+        <CommonTable
+          headerData={TableHeaderForInventory}
           itemData={inventoryData}
+          dataLayout={tableLayout}
+          link="/inventory/request-details"
         />
       </div>
 

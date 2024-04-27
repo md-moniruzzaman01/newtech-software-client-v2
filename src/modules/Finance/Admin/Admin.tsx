@@ -1,16 +1,20 @@
 import Button from "../../../common/components/Button";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
-import { DemoTableHeaderForCustomer } from "../../../shared/config/constaints";
+import { authKey } from "../../../shared/config/constaints";
 import { NavLink } from "react-router-dom";
-import TableStatus from "../../../common/components/TableStatus/TableStatus";
-import { btnValues } from "./config/constants";
-import CustomerInfoTable from "../../Utilitis/Partner/CustomerAdd/partials/CustomerInfoTable";
+import { TableHeaderForAdmin, tableLayout } from "./config/constants";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { useGetAdminQuery } from "../../../redux/features/api/users";
+import CommonTable from "../../../common/components/Common Table/CommonTable";
 
 const Admin = () => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalItems, setTotalItems] = useState(50);
   // const limit = 10;
+  const token = getFromLocalStorage(authKey);
+  const { data: adminData } = useGetAdminQuery({ token });
+  console.log(adminData);
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Admin Info" />
@@ -58,15 +62,11 @@ const Admin = () => {
 
       {/* table start here  */}
       <div className="bg-solidWhite p-3">
-        <div className="py-2">
-          <TableStatus btnValues={btnValues} />
-        </div>
-        <div>
-          <CustomerInfoTable
-            HeaderData={DemoTableHeaderForCustomer}
-            link="/partner/order-details"
-          />
-        </div>
+        <CommonTable
+          headerData={TableHeaderForAdmin}
+          dataLayout={tableLayout}
+          itemData={adminData?.data}
+        />
       </div>
 
       <div className="absolute bottom-0 right-5">
