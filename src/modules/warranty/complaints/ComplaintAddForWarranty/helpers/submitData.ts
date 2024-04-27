@@ -16,25 +16,8 @@ export const handleDataSubmit = async (
 ) => {
   const token = getFromLocalStorage(authKey);
 
-  // const options = {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     ...(token && { authorization: token }), // Conditionally set the authorization header
-  //   },
-  //   body: JSON.stringify(fullData),
-  // };
-  // const url = SERVER_URL + "complaints/create";
-
-  // setIsLoading(true);
-  // const response = await fetch(url, options);
-
-  // if (!response.ok) {
-  //   throw new Error("Failed to add complaint");
-  // }
+  setIsLoading(true);
   const result = await createComplaints({ fullData, token });
-  console.log("resul", result);
-  console.log("fullData", fullData);
   if ("data" in result) {
     setWarrantyAddedItem([]);
     setPartnerInfo({
@@ -49,9 +32,11 @@ export const handleDataSubmit = async (
     swal("Your data has been successfully submitted.", {
       icon: "success",
     });
+    setIsLoading(false);
   } else if ("error" in result) {
     swal("Something went wrong!", {
       icon: "error",
     });
+    setIsLoading(false);
   }
 };

@@ -50,7 +50,6 @@ const Qc = () => {
       user_name: user,
       repairIds: checkedRows,
     };
-    console.log(fullData)
     createQC({ fullData, token });
   }
 
@@ -107,6 +106,7 @@ const Qc = () => {
             checkedRows={checkedRows}
             setCheckedRows={setCheckedRows}
             checkbox
+            productData
           />
 
           <div className="absolute bottom-2 right-[50px]">

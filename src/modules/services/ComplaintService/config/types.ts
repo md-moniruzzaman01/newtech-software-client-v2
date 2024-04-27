@@ -13,9 +13,3 @@ export type updateAddedItemProps = {
   categoryValue?: string;
 };
 
-export type partnerProps = {
-  name?: string;
-  contact_number?: string;
-  email?: string;
-  address?: string;
-};

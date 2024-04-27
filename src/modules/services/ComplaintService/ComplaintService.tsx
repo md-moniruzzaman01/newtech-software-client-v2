@@ -5,7 +5,6 @@ import TextArea from "../../../common/components/TextArea/TextArea";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import {
   ComplaintServiceProps,
-  partnerProps,
   updateAddedItemProps,
 } from "./config/types";
 import { defaultPartnerValue } from "./config/constants";
@@ -20,12 +19,10 @@ import { useDispatch } from "react-redux";
 import { setIds } from "../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import { deleteAll, deleteData } from "./helpers/deleteProducts";
 import { handleDataSubmit } from "./helpers/submitData";
-import {
-  fetchData,
-  handleChangeInput,
-  handleSuggestionClick,
-} from "./helpers/suggestion";
+
 import { handleAddItem, updateData } from "./helpers/addItem";
+import { fetchData, handleChangeInput, handleSuggestionClick } from "../../../shared/helpers/Suggestions";
+import { partnerProps } from "../../../shared/config/types";
 
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [addedItem, setAddedItem] = useState<updateAddedItemProps[]>([]);
@@ -96,7 +93,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
   useEffect(() => {
     if (searchInput) {
-      fetchData(searchInput, setIsLoadingSuggestion, setSuggestions);
+      fetchData(searchInput,false, setIsLoadingSuggestion, setSuggestions);
     }
   }, [searchInput]);
 

@@ -177,3 +177,12 @@ export type UserEvent = {
   iat: number;
   exp: number;
 };
+
+
+export type partnerProps = {
+  name?: string;
+  contact_number?: string;
+  email?: string;
+  address?: string;
+};
+

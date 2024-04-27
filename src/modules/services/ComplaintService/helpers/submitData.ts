@@ -6,8 +6,9 @@ import {
   removeFromLocalStorage,
 } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import { partnerProps, updateAddedItemProps } from "../config/types";
+import {  updateAddedItemProps } from "../config/types";
 import { SERVER_URL } from "../../../../shared/config/secret";
+import { partnerProps } from "../../../../shared/config/types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const handleDataSubmit = async (

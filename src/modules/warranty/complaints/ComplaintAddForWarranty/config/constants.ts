@@ -13,7 +13,11 @@ export type PartnerProps = {
 
 export const defaultPartnerInfoStatic = {
   partner_id: "",
+  partner_name:"",
   contact_number: "",
+  contactNo:"",
   brand_name: "",
   brand_value: "",
+  email:"",
+  address:""
 };

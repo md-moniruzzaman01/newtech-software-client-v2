@@ -24,6 +24,9 @@ import { defaultPartner } from "./helpers/findDefaultPartner";
 import { handleDataSubmit } from "./helpers/submitData";
 import { deleteAll, deleteData } from "./helpers/deleteProducts";
 import { useComplaintAddMutation } from "../../../../redux/features/api/complaints";
+import { handleAddItem, updateData } from "../../../../shared/helpers/WarrantyComplaintsAddItem";
+import { partnerProps } from "../../../../shared/config/types";
+import { fetchData, handleChangeInput, handleSuggestionClick } from "../../../../shared/helpers/Suggestions";
 
 const ComplaintAddForWarranty = () => {
   const [createComplaints] = useComplaintAddMutation();
@@ -33,7 +36,12 @@ const ComplaintAddForWarranty = () => {
     warrantyUpdateAddedItemProps[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingSuggestion, setIsLoadingSuggestion] = useState(false);
+
   const [selectPartner, setSelectPartner] = useState<PartnerProps | null>(null);
+  const [searchInput, setSearchInput] = useState<string | null>(null);
+  const [suggestions, setSuggestions] = useState<partnerProps[]>([]);
+
 
   const [selectData, setSelectData] =
     useState<warrantyUpdateAddedItemProps | null>(null);
@@ -128,111 +136,28 @@ const ComplaintAddForWarranty = () => {
     }
   }, []);
 
-  const handleAddItem = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget; // Use currentTarget for the form element
-    const partner_id = (
-      form.elements.namedItem("partner_id") as HTMLInputElement
-    ).value;
-    const contactNo = selectPartner?.contactNo;
-    const contact_number = (
-      form.elements.namedItem("contact_number") as HTMLInputElement
-    )?.value;
-    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
-    const address = (form.elements.namedItem("address") as HTMLInputElement)
-      ?.value;
 
-    const brand_name = (
-      form.elements.namedItem("brand_name") as HTMLInputElement
-    )?.value;
-    const brand_name_for_new = (
-      form.elements.namedItem("brand_name_for_new") as HTMLInputElement
-    )?.value;
-    // const category_name = (
-    //   form.elements.namedItem("main_category") as HTMLInputElement
-    // ).value;
-
-    const category = (form.elements.namedItem("category") as HTMLInputElement)
-      .value;
-    const model_number = (
-      form.elements.namedItem("model_number") as HTMLInputElement
-    ).value;
-    const serial_number = (
-      form.elements.namedItem("serial_number") as HTMLInputElement
-    ).value;
-
-    const attachments = (form.elements.namedItem("remark") as HTMLInputElement)
-      .value;
-
-    const problems = (form.elements.namedItem("problems") as HTMLInputElement)
-      .value;
-    const newCustomer = {
-      partner_id,
-      contact_number,
-      email: email,
-      address: address,
-      brand_name: brand_name_for_new,
-    };
-    const partner = {
-      brandValue,
-      partner_id,
-      contactNo,
-      brand_name,
-    };
-
-    if (isNewPartner) {
-      setPartnerInfo(newCustomer);
-      localStorage.setItem("newCustomer", JSON.stringify(newCustomer));
+  useEffect(() => {
+    if (searchInput) {
+      fetchData(searchInput, true, setIsLoadingSuggestion, setSuggestions);
     }
+  }, [searchInput]);
 
-    if (!isNewPartner && warrantyAddedItem?.length <= 0) {
-      setPartnerInfo(partner);
-      localStorage.setItem("partnerInfo", JSON.stringify(partner));
-    }
+  const {
+    partner_id,
+    partner_name,
+    contact_number,
+    email,
+    address,
+    brand_name
+  } = partnerInfo;
 
-    const data = {
-      model_number,
-      serial_number,
-      attachments,
-      problems,
-      category,
-      category_name: mainCategoryValue,
-
-      categoryValue,
-    };
-
-    let updatedAddedItem: warrantyUpdateAddedItemProps[];
-
-    if (!Array.isArray(warrantyAddedItem)) {
-      updatedAddedItem = [data];
-    } else if (selectedItem !== null) {
-      updatedAddedItem = [
-        ...warrantyAddedItem.slice(0, selectedItem),
-        data,
-        ...warrantyAddedItem.slice(selectedItem + 1),
-      ];
-      setSelectedItem(null);
-      setSelectData(null);
-    } else {
-      updatedAddedItem = [...warrantyAddedItem, data];
-    }
-
-    setWarrantyAddedItem(updatedAddedItem);
-    localStorage.setItem("warrantyAddedItem", JSON.stringify(updatedAddedItem));
-    form.reset();
-  };
-
-  const updateData = (index: number) => {
-    const selectedItemData: warrantyUpdateAddedItemProps =
-      warrantyAddedItem[index];
-
-    setSelectedItem(index);
-    setSelectData(selectedItemData);
-  };
-
-  const { brand_name, partner_id } = partnerInfo;
   const fullData: any = {
     partner_id,
+    contact_number,
+    address,
+    partner_name,
+    email,
     brand_name,
     inputFields: warrantyAddedItem.map(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -246,6 +171,8 @@ const ComplaintAddForWarranty = () => {
   const defaultPartnerName =
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
+
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -261,7 +188,22 @@ const ComplaintAddForWarranty = () => {
               {isNewPartner ? "Partner" : "New Walk In Customer"}
             </Button>
           </div>
-          <form onSubmit={handleAddItem}>
+          <form onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
+            handleAddItem(
+              event,
+              selectPartner,
+              brandValue,
+              isNewPartner,
+              warrantyAddedItem,
+              mainCategoryValue,
+              categoryValue,
+              selectedItem,
+              setPartnerInfo,
+              setSelectedItem,
+              setSelectData,
+              setWarrantyAddedItem
+            )
+          }>
             <div className="grid grid-cols-3  gap-8 mt-20">
               {isNewPartner ? (
                 <div className="col-span-3 grid grid-cols-3 gap-8">
@@ -287,22 +229,49 @@ const ComplaintAddForWarranty = () => {
                   {/* Partner Name  */}
                   <div>
                     <Input
-                      defaultValue={`${
-                        partnerInfo ? partnerInfo?.partner_id : ""
-                      }`}
+                      defaultValue={`${partnerInfo ? partnerInfo?.partner_name : ""
+                        }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setSearchInput(event.target.value);
+                        handleChangeInput(event, setPartnerInfo);
+                      }}
                       required
-                      inputName="partner_id"
+                      inputName="partner_name"
                       labelName="Partner Name"
                       inputPlaceholder="Partner Name"
                     />
+                    {isLoadingSuggestion && (
+                      <p className="bg-slate-300 mx-2 p-2 w-full h-11">
+                        Loading...
+                      </p>
+                    )}
+                    {suggestions.length > 0 && (
+                      <ul className=" bg-slate-300  rounded   suggestions-list ">
+                        {suggestions &&
+                          suggestions?.map((suggestion, index) => (
+                            <li
+                              key={index}
+                              onClick={() =>
+                                handleSuggestionClick(
+                                  suggestion,
+                                  setPartnerInfo,
+                                  setSearchInput,
+                                  setSuggestions
+                                )
+                              }
+                              className="suggestion-item"
+                            >
+                              {`${suggestion?.name}-${suggestion?.contact_number}`}
+                            </li>
+                          ))}
+                      </ul>
+                    )}
                   </div>
                   {/* Contact Number  */}
                   <div>
                     <Input
-                      defaultValue={`${
-                        partnerInfo ? partnerInfo?.contact_number : ""
-                      }`}
+                      defaultValue={`${partnerInfo ? partnerInfo?.contact_number : ""}`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputPlaceholder="Contact Number"
@@ -313,9 +282,7 @@ const ComplaintAddForWarranty = () => {
                   {/* Email  */}
                   <div>
                     <Input
-                      defaultValue={`${
-                        warrantyAddedItem?.length > 0 ? partnerInfo?.email : ""
-                      }`}
+                      defaultValue={`${partnerInfo ? partnerInfo?.email : ""}`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputPlaceholder="Email"
@@ -326,11 +293,7 @@ const ComplaintAddForWarranty = () => {
                   {/* Address  */}
                   <div>
                     <Input
-                      defaultValue={`${
-                        warrantyAddedItem?.length > 0
-                          ? partnerInfo?.address
-                          : ""
-                      }`}
+                      defaultValue={`${partnerInfo ? partnerInfo?.address : ""}`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputName="address"
@@ -376,11 +339,10 @@ const ComplaintAddForWarranty = () => {
                   {/* Contact Number  */}
                   <div>
                     <Input
-                      defaultValue={`${
-                        selectPartner || partnerInfo?.contactNo
-                          ? selectPartner?.contactNo || partnerInfo?.contactNo
-                          : ""
-                      }`}
+                      defaultValue={`${selectPartner || partnerInfo?.contactNo
+                        ? selectPartner?.contactNo || partnerInfo?.contactNo
+                        : ""
+                        }`}
                       IsDisabled
                       required
                       inputPlaceholder="Contact Number"
@@ -394,9 +356,8 @@ const ComplaintAddForWarranty = () => {
               {/* main category  */}
               <div>
                 <InputFilter
-                  defaultValue={`${
-                    selectData ? selectData?.category_name : ""
-                  }`}
+                  defaultValue={`${selectData ? selectData?.category_name : ""
+                    }`}
                   required
                   inputName="main_category"
                   placeholder="Main Category"
@@ -408,9 +369,8 @@ const ComplaintAddForWarranty = () => {
               {/* category  */}
               <div>
                 <InputFilter
-                  defaultValue={`${
-                    selectData ? selectData?.categoryValue : ""
-                  }`}
+                  defaultValue={`${selectData ? selectData?.categoryValue : ""
+                    }`}
                   required
                   inputName="category"
                   placeholder="Category"
@@ -432,9 +392,8 @@ const ComplaintAddForWarranty = () => {
               {/* Serial Number  */}
               <div>
                 <Input
-                  defaultValue={`${
-                    selectData ? selectData?.serial_number : ""
-                  }`}
+                  defaultValue={`${selectData ? selectData?.serial_number : ""
+                    }`}
                   required
                   inputName="serial_number"
                   labelName="Serial Number"
@@ -570,7 +529,12 @@ const ComplaintAddForWarranty = () => {
                       </Button>
                       <Button
                         className="px-2 py-1 text-xs"
-                        onClick={() => updateData(index)}
+                        onClick={() => updateData(
+                          index,
+                          warrantyAddedItem,
+                          setSelectedItem,
+                          setSelectData
+                        )}
                         primary
                       >
                         Update

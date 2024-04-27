@@ -10,23 +10,23 @@ const InventoryApi = baseApi.injectEndpoints({
       }),
     }),
     inventoryApprove: builder.mutation({
-      query: ({ id, token }) => ({
-        url: "/parts",
+      query: ({ id, token,fullData }) => ({
+        url: `/parts/${id}`,
         method: "PATCH",
         headers: {
           authorization: token,
         },
-        body: id,
+        body: fullData,
       }),
     }),
     inventoryReject: builder.mutation({
-      query: ({ id, token }) => ({
-        url: "/parts",
+      query: ({ id, token,fullData }) => ({
+        url: `/parts/${id}`,
         method: "PATCH",
         headers: {
           authorization: token,
         },
-        body: id,
+        body: fullData,
       }),
     }),
     getInventoryParts: builder.query({

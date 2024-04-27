@@ -22,6 +22,7 @@ import Input from "../../../common/components/Input";
 
 const InventoryRequestDetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [amount, setamount] = useState(0);
   const token = getFromLocalStorage(authKey);
   const [inventoryApprove] = useInventoryApproveMutation();
   const [inventoryReject] = useInventoryRejectMutation();
@@ -38,14 +39,16 @@ const InventoryRequestDetailsPage = () => {
       setInventoryData(inventory?.data);
     }
   }, [inventory, isError, isLoading]);
-  console.log(inventoryData);
 
   const handleInventoryApprove = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    console.log("hello");
-    const result: any = await inventoryApprove({ id, token });
+    const fullData = {
+      amount: amount,
+      status: "Approve"
+    }
+    const result: any = await inventoryApprove({ id, token,fullData });
     if (result?.data?.success) {
       swal("Success", `${result?.data?.message}`, "success");
     } else {
@@ -53,8 +56,11 @@ const InventoryRequestDetailsPage = () => {
     }
   };
   const handleInventoryReject = async () => {
-    console.log("hello");
-    const result: any = inventoryReject({ id, token });
+    const fullData = {
+      amount: amount,
+      status: "reject"
+    }
+    const result: any = inventoryReject({ id, token,fullData});
     if (result?.data?.success) {
       swal("Success", `${result?.data?.message}`, "success");
     } else {
@@ -65,6 +71,8 @@ const InventoryRequestDetailsPage = () => {
   if (isLoading) {
     return <LoadingPage />;
   }
+
+  console.log("amount",amount)
   return (
     <div className="px-5">
       <Navbar name="Inventory Request Details" />
@@ -157,7 +165,7 @@ const InventoryRequestDetailsPage = () => {
       <Modal header={"Make Payments"} setIsOpen={setIsOpen} isOpen={isOpen}>
         <form onSubmit={handleInventoryApprove} className="space-y-4 p-2">
           <Input
-            defaultValue={inventoryData?.repair?.total_charge}
+            onChange={(e)=>setamount(parseFloat(e.target.value))}
             inputPlaceholder="Amount..."
             inputName="amount"
             inputType="number"

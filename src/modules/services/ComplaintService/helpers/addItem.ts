@@ -1,4 +1,5 @@
-import { partnerProps, updateAddedItemProps } from "../config/types";
+import { partnerProps } from "../../../../shared/config/types";
+import { updateAddedItemProps } from "../config/types";
 
 export const handleAddItem = (
     event: React.FormEvent<HTMLFormElement>,
