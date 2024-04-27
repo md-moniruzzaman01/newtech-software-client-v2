@@ -1,15 +1,20 @@
-import { useSelector } from "react-redux";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useParams } from "react-router-dom";
 import logoImg from "../../../../assets/NT-LOGO.png";
-import { useEffect } from "react";
-import { RootState } from "../../../../redux/store";
+import { useGetBillByIdQuery } from "../../../../redux/features/api/service";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 
 const ServiceInvoicePage = () => {
-  const checkedRows = useSelector((state: RootState) => state.data.checkedRows);
+  const { id } = useParams();
+  const token = getFromLocalStorage(authKey);
+  const { data: billData, isLoading } = useGetBillByIdQuery({ id, token });
+  console.log(billData);
 
-  useEffect(() => {
-    console.log(checkedRows);
-  }, [checkedRows]);
-  console.log(checkedRows);
+  if (isLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="py-10 w-[900px] mx-auto px-5 flex flex-col justify-between">
       {/* header section  */}
@@ -26,19 +31,24 @@ const ServiceInvoicePage = () => {
         <div className="flex justify-between  py-10">
           <div className="font-sans text-base leading-6">
             <div className="mb-1">
-              <strong className="font-bold">INVOICE:</strong> #INV202402230001
+              <strong className="font-bold">INVOICE: </strong>
+              {billData?.data?.id}
             </div>
             <div className="mb-1">
-              <strong className="font-bold">Invoice Status:</strong> Pending
+              <strong className="font-bold">Invoice Status: </strong>
+              {billData?.data?.status}
             </div>
             <div className="mb-1">
-              <strong className="font-bold">Payment Status:</strong> Due
+              <strong className="font-bold">Payment Status: </strong>
+              {billData?.data?.due > 0 ? "Unpaid" : "Paid"}
             </div>
             <div className="mb-1">
-              <strong className="font-bold">Issued:</strong> 2024-02-23
+              <strong className="font-bold">Issued: </strong>
+              {billData?.data?.createdAt?.toString()?.slice(0, 10)}
             </div>
             <div className="mb-1">
-              <strong className="font-bold">Due date:</strong> 2024-02-24
+              <strong className="font-bold">Updated date: </strong>
+              {billData?.data?.updatedAt?.toString()?.slice(0, 10)}
             </div>
           </div>
           <div>
@@ -56,23 +66,32 @@ const ServiceInvoicePage = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-grayForBorder">
-                <th className="px-4 py-2">Service Name</th>
-                <th className=" px-4 py-2">Service Code</th>
-                <th className=" px-4 py-2">Price</th>
-                <th className=" px-4 py-2">Tax</th>
+                <th className="px-4 py-2">Order No</th>
+                <th className=" px-4 py-2">Serial No</th>
+                <th className=" px-4 py-2">Model No</th>
+                <th className=" px-4 py-2">Problem</th>
                 <th className=" px-4 py-2">Discount</th>
                 <th className=" px-4 py-2">Total</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className=" px-4 py-2">DOMESTIC ATD</td>
-                <td className=" px-4 py-2">1</td>
-                <td className=" px-4 py-2">4500.00 BDT</td>
-                <td className=" px-4 py-2">0.00 %</td>
-                <td className=" px-4 py-2">0.00 %</td>
-                <td className=" px-4 py-2">4500.00 BDT</td>
-              </tr>
+              {billData?.data?.repair?.length > 0 &&
+                billData?.data?.repair?.map((item: any, index: number) => (
+                  <tr key={index}>
+                    <td className=" px-4 py-2">{item?.order_number}</td>
+                    <td className=" px-4 py-2">
+                      {item?.products?.serial_number}
+                    </td>
+                    <td className=" px-4 py-2">
+                      {item?.products?.model_number}
+                    </td>
+                    <td className=" px-4 py-2">
+                      {item?.products?.problems?.toString()}
+                    </td>
+                    <td className=" px-4 py-2">0.00 %</td>
+                    <td className=" px-4 py-2">{item?.total_charge}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

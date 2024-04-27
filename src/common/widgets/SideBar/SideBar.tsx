@@ -30,6 +30,7 @@ const SideBar = () => {
   const [activeRoute, setActiveRoute] = useState(true);
   const navigate = useNavigate();
   const user = getUserInfo();
+  console.log(user);
 
   const location = useLocation();
 
@@ -52,17 +53,26 @@ const SideBar = () => {
     const updatedActiveRoute = !activeRoute;
     setActiveRoute(updatedActiveRoute);
     if (route === "service") {
-      navigate("/services");
+      if (user?.role === "admin") {
+        navigate("/services");
+      } else {
+        navigate("/engineer-dashboard");
+      }
     } else {
-      navigate("/");
+      if (user?.role === "admin") {
+        navigate("/");
+      } else {
+        navigate("/engineer-dashboard");
+      }
     }
     localStorage.setItem("activeRoute", updatedActiveRoute.toString());
   };
 
   return (
     <div
-      className={`min-h-screen text-base ${activeRoute ? "bg-shadeOfBlueDark" : "bg-sideBarService "
-        } w-[256px]`}
+      className={`min-h-screen text-base ${
+        activeRoute ? "bg-shadeOfBlueDark" : "bg-sideBarService "
+      } w-[256px]`}
     >
       <div className="w-full text-center pt-[38px]">
         <h1 className="text-solidWhite font-bold text-[32px] my-0">Newtech</h1>
@@ -95,7 +105,8 @@ const SideBar = () => {
       </div>
       <div className="  font-semibold ">
         <div className="flex flex-col gap-3 pb-20">
-          {activeRoute && user?.power?.includes("01") && (
+          {((activeRoute && user?.power?.includes("01")) ||
+            (activeRoute && user?.role === "admin")) && (
             <NavLink to="/">
               <div className={routeStyle}>
                 <MdOutlineDashboardCustomize className="text-xl" />
@@ -103,7 +114,8 @@ const SideBar = () => {
               </div>
             </NavLink>
           )}
-          {!activeRoute && user?.power?.includes("01") && (
+          {((!activeRoute && user?.power?.includes("01")) ||
+            (!activeRoute && user?.role === "admin")) && (
             <NavLink to="/services">
               <div className={routeStyle}>
                 <MdOutlineDashboardCustomize className="text-xl" />
@@ -132,11 +144,14 @@ const SideBar = () => {
               <span>Inventory</span>
             </div>
           </NavLink>
-          {activeRoute && (user.role === "admin" || (user?.power?.includes("01") || user?.power?.includes("05"))) && (
-            <div>
-              <QCRoute />
-            </div>
-          )}
+          {activeRoute &&
+            (user.role === "admin" ||
+              user?.power?.includes("01") ||
+              user?.power?.includes("05")) && (
+              <div>
+                <QCRoute />
+              </div>
+            )}
           <div>
             <EngineerRoute />
           </div>
@@ -199,7 +214,8 @@ const SideBar = () => {
             </div>
           </NavLink> */}
 
-          {(user.role === "admin" || (user.role === "engineer" && user?.power?.includes("01"))) && (
+          {(user.role === "admin" ||
+            (user.role === "engineer" && user?.power?.includes("01"))) && (
             <div>
               <UsersRoute />
             </div>
