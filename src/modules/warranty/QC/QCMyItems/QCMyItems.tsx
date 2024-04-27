@@ -27,8 +27,8 @@ const QCMyItems = () => {
 
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading,error } = useGetOldQcsQuery({
-    id:user._id,
+  const { data, isError, isLoading, error } = useGetOldQcsQuery({
+    id: user._id,
     token,
     query,
   });
@@ -43,8 +43,10 @@ const QCMyItems = () => {
     return <LoadingPage />;
   }
   if (isError) {
-  return <ErrorShow error={error}/>
+    return <ErrorShow error={error} />;
   }
+
+  console.log(data);
 
   return (
     <div className=" px-5">

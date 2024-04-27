@@ -5,8 +5,8 @@ export const EngineerDashboardTableHeader = [
   "Customer Name",
   "category",
   "Brand",
-  "QC",
-  "Engineer",
+  "Status",
+  "Received Date",
 ];
 
 export const tableLayout = [

@@ -21,8 +21,6 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
 
-  console.log(complaintsSingleData);
-
   return (
     <div className="w-full ">
       {/* header row start here  */}
@@ -57,8 +55,12 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
           <div className="border py-2 border-gray-400">
             {complaintsSingleData?.category_name}
           </div>
-          <div className="border py-2 border-gray-400">{"No Data"}</div>
-          <div className="border py-2 border-gray-400">{"No Data"}</div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData?.products?.attachments}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {complaintsSingleData?.products?.problems?.toString()}
+          </div>
           <div className="border py-2 border-gray-400">
             {complaintsSingleData?.products?.repair_count}
           </div>

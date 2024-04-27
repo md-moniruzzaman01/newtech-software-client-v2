@@ -6,15 +6,13 @@ import ComplaintMiniCard from "./partials/ComplaintMiniCard";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
-import {
-  ComplaintDetails,
-  authKey,
-} from "../../../../shared/config/constaints";
+import { authKey } from "../../../../shared/config/constaints";
 import { NavLink, useParams } from "react-router-dom";
 import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps } from "./config/types";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 
 const ComplaintOrderDetails = () => {
   const { id } = useParams();
@@ -33,15 +31,18 @@ const ComplaintOrderDetails = () => {
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
 
+  if (complaintsLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
 
-      <div className="grid grid-cols-5 gap-2 pt-8">
+      <div className="grid grid-cols-4 gap-2 pt-8">
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.createdAt
             ?.toString()
-            .slice(0, 10)}
+            ?.slice(0, 10)}
           bgColor="primary"
           headerTitle="Created Date"
         />
@@ -53,34 +54,64 @@ const ComplaintOrderDetails = () => {
           headerTitle="Due Date"
         />
         <ComplaintHeaderCard
-          headerDetails="25/02/24"
+          headerDetails={complaintsSingleData?.category_name}
           bgColor="primary"
-          headerTitle="Name"
+          headerTitle="Category Name"
         />
-        <ComplaintHeaderCard
-          headerDetails="fahimkhandakar1@gmail.com"
+        {/* <ComplaintHeaderCard
+          headerDetails={
+            complaintsSingleData?.Nonwarrentycustomer_contact_number
+          }
           bgColor="primary"
-          headerTitle="Email"
-        />
+          headerTitle="Number"
+        /> */}
         <ComplaintHeaderCard
-          headerDetails={complaintsSingleData?.customer_contact_number}
+          headerDetails={complaintsSingleData?.repair_status}
           bgColor="primary"
-          headerTitle="Contact No"
+          headerTitle="Repair Status"
         />
       </div>
 
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
-          headerTitle="Branch Address"
-          CardInformation={ComplaintDetails}
+          headerTitle="Customer Details"
+          CardInformation={[
+            {
+              title: "Name",
+              value: complaintsSingleData?.customer?.contact_person,
+            },
+            {
+              title: "Number",
+              value: complaintsSingleData?.customer?.contactNo,
+            },
+          ]}
         />
         <ComplaintDetailsCard
           headerTitle="Billing Address"
-          CardInformation={ComplaintDetails}
+          CardInformation={[
+            {
+              title: "Total Charge",
+              value: complaintsSingleData?.total_charge,
+            },
+            {
+              title: "Due",
+              value:
+                complaintsSingleData?.due || complaintsSingleData?.total_charge,
+            },
+          ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Invoice Details"
-          CardInformation={ComplaintDetails}
+          headerTitle="Complaints Details"
+          CardInformation={[
+            {
+              title: "Receiver ID",
+              value: complaintsSingleData?.receiver,
+            },
+            {
+              title: "Order No",
+              value: complaintsSingleData?.order_number,
+            },
+          ]}
         />
 
         <div className="col-span-2 bg-solidWhite px-5 py-5">
