@@ -29,6 +29,7 @@ const Qc = () => {
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
+
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -42,7 +43,8 @@ const Qc = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQC, { isLoading, isError, isSuccess, error }] = useCreateQCMutation();
+  const [createQC, { isLoading, isError, isSuccess, error }] =
+    useCreateQCMutation();
 
   function handleSubmit(id: string, user: string) {
     const fullData = {
@@ -81,9 +83,9 @@ const Qc = () => {
     });
   }
   if (isError) {
-    return <ErrorShow error={error} />
+    return <ErrorShow error={error} />;
   }
-  console.log(checkedRows)
+  console.log(checkedRows);
   return (
     <div className="px-5">
       <Navbar name={"QC"}></Navbar>

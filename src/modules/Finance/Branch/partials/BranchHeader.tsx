@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
 import Button from "../../../../common/components/Button";
-import InputFilter from "../../../../common/components/InputFilter/InputFilter";
-import { useGetBrandsQuery } from "../../../../redux/features/api/Brand";
+import { branches } from "../../../../shared/config/constaints";
+import EngineersFilter from "../../../../common/components/EngineersFilter/EngineersFilter";
 
 const BranchHeader = () => {
-  const { data: brands } = useGetBrandsQuery({});
   return (
     <div className="flex justify-between items-center mt-8 pb-5">
       <h1 className="text-2xl font-semibold">Branch</h1>
@@ -15,10 +14,7 @@ const BranchHeader = () => {
           </Button>
         </NavLink>
         <div className="w-1/3">
-          <InputFilter
-            placeholder="Select a Brand"
-            Filter={brands?.data}
-          ></InputFilter>
+          <EngineersFilter placeholder="Select a Branch" Filter={branches} />
         </div>
       </div>
     </div>

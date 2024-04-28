@@ -1,11 +1,15 @@
+import { useState } from "react";
 import BranchCard from "../../../common/components/BranchCard/BranchCard";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import BranchHeader from "./partials/BranchHeader";
 
 const Branch = () => {
+  const [selectedBranch, setSelectedBranch] = useState("");
+  console.log(selectedBranch);
   return (
     <div className="px-5">
       <BranchHeader />
+
       <div className="grid grid-cols-3 gap-2  pt-3 ">
         <BranchCard
           bgColor="primary"
