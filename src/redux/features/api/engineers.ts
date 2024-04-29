@@ -14,11 +14,21 @@ const EngineerApi = baseApi.injectEndpoints({
       }),
     }),
     getEngineers: builder.query({
-      query: (params) => {
+      query: ({ token }) => {
         return {
           url: "/engineers",
           headers: {
-            authorization: params?.token,
+            authorization: token,
+          },
+        };
+      },
+    }),
+    getEngineersData: builder.query({
+      query: ({ token }) => {
+        return {
+          url: "/repair/data",
+          headers: {
+            authorization: token,
           },
         };
       },
@@ -70,4 +80,5 @@ export const {
   useGetEngineersQuery,
   useUpdateRepairStatusMutation,
   useRepairReturnToLibraryMutation,
+  useGetEngineersDataQuery,
 } = EngineerApi;
