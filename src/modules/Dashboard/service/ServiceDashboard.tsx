@@ -50,7 +50,7 @@ const ServiceDashboard = () => {
       setBillData(complaintsData?.data);
     }
     if (!isError && !isLoading) {
-      console.log("data",data)
+  
       setCardData(data?.data);
     }
   }, [

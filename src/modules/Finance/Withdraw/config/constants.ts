@@ -1,3 +1,9 @@
+export const fields =
+  "";
+export const keys = [
+  "type",
+];
+
 export const TableHeader = [
   "ID",
   "Branch",

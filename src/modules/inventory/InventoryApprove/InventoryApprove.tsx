@@ -25,7 +25,7 @@ const InventoryApprove = () => {
     isLoading: inventoryLoading,
     isError: inventoryError,
   } = useGetInventoryPartsQuery({ token, query });
-  console.log(inventory);
+
 
   useEffect(() => {
     if (!inventoryError && !inventoryLoading) {

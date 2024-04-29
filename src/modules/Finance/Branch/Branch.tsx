@@ -21,7 +21,7 @@ const Branch = () => {
           branchTitle="Repair Complete"
           headerTitle="Repair Complete"
           details="Amount Reparing in branch"
-          price="5,500"
+          price="5,700"
           link="/branch/repair-complete"
         ></BranchCard>
         <BranchCard

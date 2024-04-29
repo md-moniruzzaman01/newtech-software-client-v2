@@ -23,7 +23,7 @@ const BillPendingService = () => {
   } = useGetPendingBillsQuery({
     token,
   });
-  console.log(complaintsData);
+
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);

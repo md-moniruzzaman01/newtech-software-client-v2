@@ -15,7 +15,6 @@ const BillApi = baseApi.injectEndpoints({
 
     getBills: builder.query({
       query: (params) => {
-        console.log(`/bill?${params?.query}`);
         return {
           url: `/bill?${params?.query}`,
           headers: {

@@ -3,7 +3,6 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { useGetOldRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
@@ -11,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getUserInfo } from "../../../../services/auth.service";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { MyRepairTableHeader, tableLayout } from "./config/constants";
+import { useGetOldRepairsForServiceQuery } from "../../../../redux/features/api/repair";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +21,7 @@ const MyRepairs = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetOldRepairsQuery({
+  const { data, isError, isLoading } = useGetOldRepairsForServiceQuery({
     id: user._id,
     token,
   });
@@ -33,7 +33,6 @@ const MyRepairs = () => {
     }
   }, [data]);
 
-  console.log(data);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -76,7 +75,6 @@ const MyRepairs = () => {
               itemData={data?.data}
               checkbox
               checkedRows={checkedRows}
-              link="/engineer-items/order-details"
               setCheckedRows={setCheckedRows}
             />
           </div>

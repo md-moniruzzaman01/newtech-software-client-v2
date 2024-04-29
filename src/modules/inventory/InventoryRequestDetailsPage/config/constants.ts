@@ -3,6 +3,6 @@ export const HeaderValueForInventoryRequestDetails = [
   "Parts Name",
   "Item No",
   "Brand",
-  "Repair Count",
+  "Repair Id",
   "Status",
 ];

@@ -47,7 +47,7 @@ const EngineerAllRepairs = () => {
   const handleReturnData = () => {
     console.log(checkedRows);
   };
-  console.log("all repaired", data);
+
   return (
     <div className=" px-5">
       <Navbar name="All Repairs" />

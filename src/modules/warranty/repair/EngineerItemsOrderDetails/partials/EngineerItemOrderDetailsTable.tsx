@@ -1,5 +1,5 @@
 const EngineerItemOrderDetailsTable = ({ data }) => {
-  console.log(data);
+
   return (
     <div className="w-full">
       {/* header row start here  */}

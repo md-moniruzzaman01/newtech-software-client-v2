@@ -25,6 +25,17 @@ const ServiceApi = baseApi.injectEndpoints({
       },
       providesTags: ["complaints"],
     }),
+    getServicesForBill: builder.query({
+      query: (params) => {
+        return {
+          url: `complaints/services?billExists=true&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["complaints"],
+    }),
     getServicesById: builder.query({
       query: (params) => {
         return {
@@ -63,7 +74,6 @@ const ServiceApi = baseApi.injectEndpoints({
 
     getPartners: builder.query({
       query: (params) => {
-        console.log(`/partners?searchTerm=${params?.searchInput}`);
         return {
           url: `/partners?searchTerm=${params?.searchInput}`,
           headers: {
@@ -95,4 +105,5 @@ export const {
   useGetBillByIdQuery,
   useGetPartnersQuery,
   useDeleteComplaintsMutation,
+  useGetServicesForBillQuery
 } = ServiceApi;

@@ -19,21 +19,23 @@ import swal from "sweetalert";
 import { ResponseData } from "./config/types";
 import Modal from "../../../common/components/Modal/Modal";
 import Input from "../../../common/components/Input";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const InventoryRequestDetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [amount, setamount] = useState(0);
   const token = getFromLocalStorage(authKey);
-  const [inventoryApprove] = useInventoryApproveMutation();
-  const [inventoryReject] = useInventoryRejectMutation();
+  const [inventoryApprove, { isLoading, isError, error }] = useInventoryApproveMutation();
+  const [inventoryReject,{ isLoading:isLoadingReject, isError:isErrorReject, error:errorReject }] = useInventoryRejectMutation();
   const [inventoryData, setInventoryData] = useState<ResponseData>();
   const { id } = useParams();
   const {
     data: inventory,
-    isError,
-    isLoading,
+    isError: isInventoryError,
+    isLoading: inventoryLoading,
+    error: inventoryError
   } = useGetInventoryPartsByIdQuery({ id });
-  console.log(inventoryData?.status);
+
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -58,10 +60,9 @@ const InventoryRequestDetailsPage = () => {
   };
   const handleInventoryReject = async () => {
     const fullData = {
-      amount: amount,
       status: "reject",
     };
-    const result: any = inventoryReject({ id, token, fullData });
+    const result: any =await inventoryReject({ id, token, fullData });
     if (result?.data?.success) {
       swal("Success", `${result?.data?.message}`, "success");
     } else {
@@ -69,10 +70,21 @@ const InventoryRequestDetailsPage = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || inventoryLoading || isLoadingReject) {
     return <LoadingPage />;
   }
 
+  if (isError) {
+    return <ErrorShow error={error} />
+  }
+  if (isInventoryError) {
+    return <ErrorShow error={inventoryError} />
+  }
+  if (isErrorReject) {
+    return <ErrorShow error={errorReject} />
+  }
+
+  console.log(inventory)
   return (
     <div className="px-5">
       <Navbar name="Inventory Request Details" />
@@ -123,17 +135,17 @@ const InventoryRequestDetailsPage = () => {
             <InventoryRequestCard
               className="bg-lightSkyBlue"
               contact={
-                inventoryData?.product?.received_date
+                inventoryData?.repair?.received_date
                   ?.toString()
                   ?.slice(0, 10) || emptyData
               }
               contactTitle="Received Date"
-              designation={inventoryData?.product?.category_name || emptyData}
+              designation={inventoryData?.repair?.category_name || emptyData}
               designationTitle="Category"
               header="Product Info"
-              name={inventoryData?.product?.brand_name || emptyData}
+              name={inventoryData?.repair?.brand_name || emptyData}
               nameTitle="Brand"
-              team={inventoryData?.product?.repair_status || emptyData}
+              team={inventoryData?.repair?.repair_status || emptyData}
               teamTitle="Repair Status"
             />
             <div className="col-span-3 pb-8">

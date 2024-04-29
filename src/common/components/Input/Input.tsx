@@ -21,7 +21,6 @@ const Input: React.FC<InputProps> = ({
   // value,
   onChange,
 }) => {
-  // console.log(defaultValue);
   return (
     <div>
       <div>

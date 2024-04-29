@@ -31,6 +31,9 @@ export type ResponseData = {
     asp?: string[];
   };
   repair?: RepairItem;
+  repairItem?: {
+    id?:string
+  };
   asp: string[];
   branch: string;
   needsPasswordChange: boolean;

@@ -41,10 +41,11 @@ export const fetchData = async (
     setPartnerInfo((prevCustomerInfo: partnerProps) => ({
       ...prevCustomerInfo,
       contact_person: selected.name,
-      email: selected.email,
       contact_number: selected.contact_number,
+      email: selected.email,
       address: selected.address,
     }));
+    console.log(selected)
     setSearchInput(null);
     setSuggestions([]);
   };

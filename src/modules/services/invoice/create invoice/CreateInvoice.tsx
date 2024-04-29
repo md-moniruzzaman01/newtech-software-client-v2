@@ -10,7 +10,7 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useDispatch } from "react-redux";
 import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { useGetServicesQuery } from "../../../../redux/features/api/service";
+import { useGetServicesForBillQuery } from "../../../../redux/features/api/service";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useCreateBillMutation } from "../../../../redux/features/api/bill";
@@ -31,7 +31,7 @@ const CreateInvoice = () => {
     data: complaintsData,
     isError: complaintsError,
     isLoading: complaintsLoading,
-  } = useGetServicesQuery({
+  } = useGetServicesForBillQuery({
     token,
   });
 
@@ -74,7 +74,7 @@ const CreateInvoice = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-
+console.log("generate bill",complaintsData)
   return (
     <div className=" px-5">
       <Navbar name="Create Bill Service" />

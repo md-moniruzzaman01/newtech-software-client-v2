@@ -12,7 +12,6 @@ const QAItemOrderStatus = () => {
     const status = (form.elements.namedItem("status") as HTMLInputElement)
       .value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
-    console.log(note, status);
     form.reset();
   };
 

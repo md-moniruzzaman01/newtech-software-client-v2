@@ -35,7 +35,6 @@ const RepairComplete = () => {
       0
     ) || 0;
 
-  console.log(complaintsData);
 
   return (
     <div className=" px-5">

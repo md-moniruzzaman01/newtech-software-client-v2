@@ -88,18 +88,9 @@ const ComplaintOrderDetailsTable = ({
     }
   }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
 
-  // const totalCharge =
-  //   billData &&
-  //   billData?.data?.repair?.reduce(
-  //     (prev: any, curr: any) => prev + curr?.total_charge,
-  //     0
-  //   );
 
-  // console.log("Total charge of repairs:", totalCharge);
 
   const handleSubmitPayment = () => {
-    // navigate("/service-invoice");
-
     const url = `${SERVER_URL}/bill/${id}`;
     const fullData = {
       discount,
@@ -118,7 +109,6 @@ const ComplaintOrderDetailsTable = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        // Assuming data contains success or error information
         if (data.success) {
           swal("Success", "Discount is successful", "success");
         } else {
@@ -142,21 +132,17 @@ const ComplaintOrderDetailsTable = ({
   const total =
     billSingleData &&
     totalBillAmount -
-      ((totalHiddenDiscount / 100) * totalBillAmount +
-        (totalDiscount / 100) * totalBillAmount);
+    ((totalHiddenDiscount / 100) * totalBillAmount +
+      (totalDiscount / 100) * totalBillAmount);
   const totalDefault =
     billSingleData &&
     totalBillAmount -
-      ((totalHiddenDiscountDefault / 100) * totalBillAmount +
-        (totalDiscountDefault / 100) * totalBillAmount);
+    ((totalHiddenDiscountDefault / 100) * totalBillAmount +
+      (totalDiscountDefault / 100) * totalBillAmount);
 
-  // console.log(totalHiddenDiscountDefault);
-  // console.log("data", billSingleData);
-  // console.log("data2", hiddenDiscount);
-  // console.log("totalDiscount", totalDiscount);
 
-  // console.log("repairServiceCharge", repairServiceCharge);
-  // console.log("totalBillAmount", totalBillAmount);
+
+  console.log("bill", billData)
   return (
     <div className="w-full">
       <div>
@@ -263,13 +249,11 @@ const ComplaintOrderDetailsTable = ({
               <h3 className="font-semibold">Discount:</h3>
             </div>
             <div className="border py-2 border-gray-400 ">
-              {`${
-                totalDiscount > 0 ? totalDiscount : totalDiscountDefault || 0
-              }% (${
-                totalDiscount !== 0
+              {`${totalDiscount > 0 ? totalDiscount : totalDiscountDefault || 0
+                }% (${totalDiscount !== 0
                   ? ((totalDiscount / 100) * totalBillAmount).toFixed(2)
                   : ((totalDiscountDefault / 100) * totalBillAmount).toFixed(2)
-              })`}
+                })`}
             </div>
           </div>
           <div className="grid grid-cols-5  text-center">
@@ -280,18 +264,16 @@ const ComplaintOrderDetailsTable = ({
               <h3 className="font-semibold">Hidden Discount:</h3>
             </div>
             <div className="border py-2 border-gray-400 ">
-              {`${
-                totalHiddenDiscount > 0
-                  ? totalHiddenDiscount
-                  : totalHiddenDiscountDefault || 0
-              }% (${
-                totalDiscount !== 0
+              {`${totalHiddenDiscount > 0
+                ? totalHiddenDiscount
+                : totalHiddenDiscountDefault || 0
+                }% (${totalDiscount !== 0
                   ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2)
                   : (
-                      (totalHiddenDiscountDefault / 100) *
-                      totalBillAmount
-                    ).toFixed(2)
-              })`}
+                    (totalHiddenDiscountDefault / 100) *
+                    totalBillAmount
+                  ).toFixed(2)
+                })`}
             </div>
           </div>
           <div className="grid grid-cols-5  text-center">
@@ -310,6 +292,15 @@ const ComplaintOrderDetailsTable = ({
             <hr className="border-b border-shadeOfGray my-2 w-1/2" />
           </div>
           {/* total calculate area  */}
+          <div className="grid grid-cols-5  text-center">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className="text-end pr-2 py-2">
+              <h3 className="font-semibold">Paid:</h3>
+            </div>
+            <div className="py-2 font-semibold">{billSingleData?.total_paid}</div>
+          </div>
           <div className="grid grid-cols-5  text-center">
             <div></div>
             <div></div>
@@ -336,9 +327,10 @@ const ComplaintOrderDetailsTable = ({
             Rejected
           </Button> */}
             <Button
+              loading={isLoading}
               mini
               className="w-full"
-              onClick={() => handleDelivededWithOutPaySubmit(id)}
+              onClick={() => handleDelivededWithOutPaySubmit(id, navigate, setIsLoading)}
               primary
             >
               Completed & waiting for bill

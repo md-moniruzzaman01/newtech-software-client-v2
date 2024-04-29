@@ -1,1 +1,5 @@
-export const btnValues = ["All", "Pending", "Completed"];
+
+export const btnValues = [
+    { label: "Pending", value: "Pending" },
+    { label: "Completed", value: "Completed" },
+  ];
