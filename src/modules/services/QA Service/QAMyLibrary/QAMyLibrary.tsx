@@ -11,7 +11,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 
 import {
-  useGetQasQuery,
+  useGetMyQasQuery,
   useQaReturnToLibraryMutation,
 } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
@@ -39,7 +39,7 @@ const QCMyLibraryService = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
-  const { data, isError, isLoading, error } = useGetQasQuery({
+  const { data, isError, isLoading, error } = useGetMyQasQuery({
     token,
     query,
   });

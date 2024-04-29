@@ -4,7 +4,7 @@ export const QATableHeader = [
   "Complaint R/D",
   "S/N No.",
   "user_name",
-  "rma",
+  "status",
   "images",
   "Qa CreatedAt",
   "Updated",
@@ -18,6 +18,7 @@ export const tableLayout = [
   "item?.serial_number",
   "item?.user_name",
   "item?.status",
+  "item?.qa_imag?.toString()",
   "item?.createdAt?.toString().slice(0, 10)",
   "item?.updatedAt?.toString()?.slice(0,10)",
 ];

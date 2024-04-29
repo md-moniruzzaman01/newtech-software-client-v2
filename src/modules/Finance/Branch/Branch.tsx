@@ -1,11 +1,6 @@
 import { useState } from "react";
 import BranchCard from "../../../common/components/BranchCard/BranchCard";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
-import ErrorShow from "../../../common/components/Error Show/ErrorShow";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
-import { useGetComplaintsDataQuery } from "../../../redux/features/api/finance";
-import { authKey } from "../../../shared/config/constaints";
-import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import BranchHeader from "./partials/BranchHeader";
 import { branches } from "../../../shared/config/constaints";
 import { useGetBranchesQuery } from "../../../redux/features/api/branch";
