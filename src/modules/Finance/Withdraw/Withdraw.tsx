@@ -16,14 +16,18 @@ import {
   useGetWithdrawQuery,
 } from "../../../redux/features/api/withdraw";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
-import { TableHeader, tableLayout, withdrawOption } from "./config/constants";
+import { TableHeader, fields, keys, tableLayout, withdrawOption } from "./config/constants";
 import { useEffect, useState } from "react";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import swal from "sweetalert";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 import { getUserInfo } from "../../../services/auth.service";
+import { constructQuery } from "../../../shared/helpers/constructQuery";
+import { useSearchParams } from "react-router-dom";
 
 const Withdraw = () => {
+  const [searchParams] = useSearchParams();
+
   const [totalAmount, setTotalAmount] = useState(0);
   const [branchAmount, setbranchAmount] = useState(0);
   const [availableAmountInBranch, setAvailableAmountInBranch] = useState(0);
@@ -31,7 +35,7 @@ const Withdraw = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setlimit] = useState(10);
   const [totalItems, setTotalItems] = useState(50);
-
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo()
   const [createWithdraw, { isError, error }] =
@@ -52,6 +56,7 @@ const Withdraw = () => {
     data: withdrowData,
     isLoading: withdrowLoading,
   } = useGetWithdrawQuery({
+    query,
     token,
   });
 

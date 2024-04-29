@@ -1,12 +1,14 @@
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "../../api/apiSlice";
 
 const WithdrawSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getWithdraw: builder.query({
-      query: ({ token }) => {
+      query: ({ token,query }) => {
+        console.log(`/transactions?${query}`)
         return {
-          url: `/transactions`,
+          url: `/transactions?${query}`,
           headers: {
             authorization: token,
           },
