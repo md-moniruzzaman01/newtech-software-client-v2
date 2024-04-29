@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const data = {
     id,
@@ -20,7 +21,7 @@ const Login = () => {
     e.preventDefault();
 
     const apiUrl = SERVER_URL + "/auth/login";
-
+    setIsLoading(true);
     await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -29,12 +30,7 @@ const Login = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           localStorage.setItem(authKey, data.data.accessToken);
@@ -51,6 +47,7 @@ const Login = () => {
         console.error("Fetch error:", error);
         swal("Error!", error.message, "error");
       });
+    setIsLoading(false);
   };
 
   return (
@@ -77,7 +74,7 @@ const Login = () => {
               required
             />
           </div>
-          <Button type="submit" primary>
+          <Button loading={isLoading} type="submit" primary>
             Login
           </Button>
         </form>

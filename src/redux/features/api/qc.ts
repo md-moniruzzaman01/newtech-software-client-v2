@@ -73,6 +73,17 @@ const QCApi = baseApi.injectEndpoints({
       },
       providesTags: ["complaints"],
     }),
+    qcReturnToLibrary: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: `/qc/return-to-library`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["repair", "qa"],
+    }),
   }),
 });
 
@@ -83,4 +94,5 @@ export const {
   useGetOldQcsQuery,
   useUpdateStatusQCMutation,
   useGetQcByIdQuery,
+  useQcReturnToLibraryMutation,
 } = QCApi;

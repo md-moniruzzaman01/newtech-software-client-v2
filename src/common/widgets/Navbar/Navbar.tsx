@@ -9,8 +9,12 @@ import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
 import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
 import { authKey } from "../../../shared/config/constaints";
 import swal from "sweetalert";
-import { useGetUserQuery } from "../../../redux/features/api/users";
+import {
+  useGetAdminQuery,
+  useGetUserQuery,
+} from "../../../redux/features/api/users";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import LoadingPage from "../../components/LoadingPage/LoadingPage";
 
 interface NavbarProps {
   name?: string;
@@ -25,7 +29,17 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
     removeUserInfo(authKey);
   };
   const { userId } = getUserInfo();
-  const { data: userInfo } = useGetUserQuery({ userId, token });
+  const { data: userInfo, isLoading: userLoading } = useGetUserQuery({
+    userId,
+    token,
+  });
+  const { data: userAdminInfo, isLoading: adminLoading } = useGetAdminQuery({
+    userId,
+    token,
+  });
+  if (userLoading || adminLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div>
@@ -139,9 +153,29 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                     className="absolute right-0 mt-3 z-[1] w-52  shadow"
                   >
                     <div className="bg-solidWhite rounded-md px-2">
-                      <h3 className="pt-3  font-semibold ">John Doe</h3>
-                      <h3 className="pt-1 ">ID: {userInfo?.data?.id}</h3>
-                      <p className="pt-1">{userInfo?.data?.designation}</p>
+                      <h3 className="pt-3  font-semibold ">
+                        {" "}
+                        {userAdminInfo?.data
+                          ? userAdminInfo?.data?.name?.firstName +
+                            " " +
+                            userAdminInfo?.data?.name?.lastName
+                          : userInfo?.data &&
+                            userInfo?.data?.name?.firstName +
+                              " " +
+                              userInfo?.data?.name?.lastName}
+                      </h3>
+                      <h3 className="pt-1 ">
+                        ID:{" "}
+                        {userAdminInfo?.data
+                          ? userAdminInfo?.data?.id
+                          : userInfo?.data && userInfo?.data?.id}
+                      </h3>
+                      <p className="pt-1">
+                        {" "}
+                        {userAdminInfo?.data
+                          ? userAdminInfo?.data?.designation
+                          : userInfo?.data && userInfo?.data?.designation}
+                      </p>
                       <hr className="mt-2" />
                       <div className="py-3 space-y-1">
                         <div>

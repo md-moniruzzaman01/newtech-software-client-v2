@@ -45,6 +45,17 @@ const EngineerApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["repair", "qa"],
     }),
+    repairDelete: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: `/repair/return-to-library`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["repair", "qa"],
+    }),
     // deletePost: builder.mutation({
     //   query: (postId) => ({a
     //     url: `/posts/${postId}`,

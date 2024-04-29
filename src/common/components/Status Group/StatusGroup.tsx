@@ -96,25 +96,29 @@ const StatusGroup: FC<statusGroupProps> = ({
     <div className="flex justify-between items-center  ">
       {isButton ? (
         <div>
-          <Button
-            loading={isReturnLoading}
-            mini
-            className="mr-2"
-            disabled={isSelected}
-            primary
-            onClick={handleReturnData}
-          >
-            {returnBtnValue}
-          </Button>
-          <Button
-            loading={isDeleteLoading}
-            mini
-            disabled={isSelected}
-            danger
-            onClick={handleDeleteData}
-          >
-            {dltBtnValue}
-          </Button>
+          {handleReturnData && (
+            <Button
+              loading={isReturnLoading}
+              mini
+              className="mr-2"
+              disabled={isSelected}
+              primary
+              onClick={handleReturnData}
+            >
+              {returnBtnValue}
+            </Button>
+          )}
+          {handleDeleteData && (
+            <Button
+              loading={isDeleteLoading}
+              mini
+              disabled={isSelected}
+              danger
+              onClick={handleDeleteData}
+            >
+              {dltBtnValue}
+            </Button>
+          )}
         </div>
       ) : (
         <TableStatus btnValues={btnGroupValue || []} status={status} />

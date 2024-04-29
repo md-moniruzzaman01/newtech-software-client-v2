@@ -63,9 +63,6 @@ const ServiceMyLibrary = () => {
     return <ErrorShow error={error} />;
   }
 
-  const handleDeleteData = () => {
-    console.log(checkedRows);
-  };
   const handleReturnData = async () => {
     const fullData = {
       repairIds: checkedRows,
@@ -92,7 +89,6 @@ const ServiceMyLibrary = () => {
               isReturnLoading={returnToLibraryIsLoading}
               isSelected={checkedRows?.length <= 0}
               handleReturnData={handleReturnData}
-              handleDeleteData={handleDeleteData}
               isButton
               dltBtnValue="Delete"
               returnBtnValue="Return to the Engineer Library"
