@@ -6,7 +6,7 @@ import {
   removeFromLocalStorage,
 } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import {  updateAddedItemProps } from "../config/types";
+import { updateAddedItemProps } from "../config/types";
 import { SERVER_URL } from "../../../../shared/config/secret";
 import { partnerProps } from "../../../../shared/config/types";
 
@@ -31,7 +31,7 @@ export const handleDataSubmit = async (
   try {
     setloading(true);
     const url = SERVER_URL + "/complaints/create-service";
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,12 +53,31 @@ export const handleDataSubmit = async (
           swal("Your data has been successfully submitted.", {
             icon: "success",
           });
-          if (!isPaymentButton) {
-            window.open(`/recipe/${result.data?.toString()}`, "Print recipe!");
-            // navigate("/complaints-service");
-          }
           if (isPaymentButton) {
-            navigate("/complaints-service-payments");
+            const fullData = {
+              complaintIds: result?.data,
+            };
+            const url = SERVER_URL + "/bill/create";
+            fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `${token}`,
+              },
+              body: JSON.stringify(fullData),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data?.success) {
+                  navigate(`/complaints-service-payments/${data?.data[0]?.id}`);
+                } else {
+                  swal("Error", `${data?.error?.data?.message}`, "error");
+                }
+              });
+          }
+          if (!isPaymentButton) {
+            console.log("data", result);
+            window.open(`/recipe/${result.data?.toString()}`, "Print recipe!");
           }
         } else if ("error" in result || "errorMessages" in result) {
           swal("Something went wrong!", {

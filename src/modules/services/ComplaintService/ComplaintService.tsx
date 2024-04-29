@@ -3,10 +3,7 @@ import Button from "../../../common/components/Button";
 import Input from "../../../common/components/Input";
 import TextArea from "../../../common/components/TextArea/TextArea";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-import {
-  ComplaintServiceProps,
-  updateAddedItemProps,
-} from "./config/types";
+import { ComplaintServiceProps, updateAddedItemProps } from "./config/types";
 import { defaultPartnerValue } from "./config/constants";
 
 import {
@@ -21,7 +18,11 @@ import { deleteAll, deleteData } from "./helpers/deleteProducts";
 import { handleDataSubmit } from "./helpers/submitData";
 
 import { handleAddItem, updateData } from "./helpers/addItem";
-import { fetchData, handleChangeInput, handleSuggestionClick } from "../../../shared/helpers/Suggestions";
+import {
+  fetchData,
+  handleChangeInput,
+  handleSuggestionClick,
+} from "../../../shared/helpers/Suggestions";
 import { partnerProps } from "../../../shared/config/types";
 
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
@@ -37,6 +38,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<partnerProps[]>([]);
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
+
   const [partnerInfo, setPartnerInfo] =
     useState<partnerProps>(defaultPartnerValue);
   const [redirectToPayment, setRedirectToPayment] = useState(false);
@@ -56,7 +58,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     isLoading: mainCategoryLoading,
   } = useGetMainCategoryQuery({});
 
-
   const {
     data: categoryData,
     isError: categoryError,
@@ -75,13 +76,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     }
   }, []);
 
-
-  const {
-    name: partner_name,
-    contact_number,
-    email,
-    address,
-  } = partnerInfo;
+  const { name: partner_name, contact_number, email, address } = partnerInfo;
 
   const fullData = {
     partner_name,
@@ -93,7 +88,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
   useEffect(() => {
     if (searchInput) {
-      fetchData(searchInput,false, setIsLoadingSuggestion, setSuggestions);
+      fetchData(searchInput, false, setIsLoadingSuggestion, setSuggestions);
     }
   }, [searchInput]);
 
@@ -136,9 +131,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               {/* Customers Name  */}
               <div>
                 <Input
-                  defaultValue={`${
-                    partnerInfo ? partnerInfo?.name : ""
-                  }`}
+                  defaultValue={`${partnerInfo ? partnerInfo?.name : ""}`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
                   inputName="partner_name"
@@ -180,7 +173,9 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
               <div>
                 <Input
-                  defaultValue={`${partnerInfo ? partnerInfo?.contact_number : ""}`}
+                  defaultValue={`${
+                    partnerInfo ? partnerInfo?.contact_number : ""
+                  }`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
                   inputPlaceholder="Contact Number"
