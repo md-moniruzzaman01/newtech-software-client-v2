@@ -25,8 +25,8 @@ const InventoryRequestInfoDetails: React.FC<
             </td>
             <td className="py-3">{itemData?.parts?.toString()}</td>
             <td className="py-3">{itemData?.id}</td>
-            <td className="py-3">{itemData?.product?.brand_name}</td>
-            <td className="py-3">{itemData?.product?.repair_count}</td>
+            <td className="py-3">{itemData?.repair?.brand_name}</td>
+            <td className="py-3">{itemData?.repairItem?.id}</td>
             <td className="py-3">{itemData?.status}</td>
           </tr>
         </tbody>

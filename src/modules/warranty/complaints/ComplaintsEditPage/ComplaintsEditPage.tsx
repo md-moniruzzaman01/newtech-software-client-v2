@@ -125,7 +125,7 @@ const ComplaintsEditPage = () => {
       brand_name,
     };
 
-    console.log(data);
+
     // form.reset();
   };
 

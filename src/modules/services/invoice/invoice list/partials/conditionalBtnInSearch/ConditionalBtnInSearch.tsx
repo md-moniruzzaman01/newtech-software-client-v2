@@ -4,7 +4,6 @@ import Button from "../../../../../../common/components/Button";
 const ConditionalBtnInSearch = () => {
   const [searchParams] = useSearchParams();
   const searchValue = searchParams.get("status");
-  console.log(searchValue);
   return (
     <div>
       {searchValue === "pending" ? (

@@ -5,7 +5,6 @@ import {
 } from "../shared/helpers/local_storage";
 import { authKey } from "../shared/config/constaints";
 import { decodedToken } from "../shared/helpers/jwt";
-import { decodedToken } from "../shared/helpers/jwt";
 
 export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
   return setToLocalStorage(authKey, accessToken as string);

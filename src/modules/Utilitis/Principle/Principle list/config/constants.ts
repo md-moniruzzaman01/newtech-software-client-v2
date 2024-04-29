@@ -1,4 +1,9 @@
-export const btnValues = [ "Active", "Deactivated", ];
+
+export const btnValues = [
+  { label: "Active", value: "Active" },
+  { label: "Deactivated", value: "Deactivated" },
+];
+
 export const PrincipleData=[
     "item?.id",
   

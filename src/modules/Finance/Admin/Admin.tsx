@@ -14,7 +14,6 @@ const Admin = () => {
   // const limit = 10;
   const token = getFromLocalStorage(authKey);
   const { data: adminData } = useGetAdminQuery({ token });
-  console.log(adminData);
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Admin Info" />

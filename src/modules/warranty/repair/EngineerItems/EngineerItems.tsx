@@ -70,7 +70,7 @@ const EngineerAllRepairs = () => {
   if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
-  console.log("products",data)
+
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />

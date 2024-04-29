@@ -9,6 +9,9 @@ import { SERVER_URL } from "../../../shared/config/secret";
 
 const Recipe = () => {
   const double_page = useRef(null);
+  const full_page = useRef(null);
+  const half_page = useRef(null);
+
   const [container, setContainer] = useState<number>(1);
   const [complaints, setComplaints] = useState([]);
   const { id } = useParams();
@@ -19,7 +22,7 @@ const Recipe = () => {
       const idArray = id.split(",");
       const tempComplaints = [];
       // Map through idArray and fetch data for each id
-      Promise.all(idArray.map(singleId => 
+      Promise.all(idArray.map(singleId =>
         fetch(SERVER_URL + "/complaints/" + singleId, {
           method: "GET",
           headers: {
@@ -27,58 +30,122 @@ const Recipe = () => {
             // authorization: `${token}`,
           },
         })
-        .then(res => res.json())
-        .then(data => tempComplaints.push(data.data))
-        .catch(error => console.error("Error fetching complaint:", error))
+          .then(res => res.json())
+          .then(data => tempComplaints.push(data.data))
+          .catch(error => console.error("Error fetching complaint:", error))
       ))
-      .then(() => {
-        // Update state with fetched data once all requests are complete
-        setComplaints(tempComplaints);
-      });
+        .then(() => {
+          // Update state with fetched data once all requests are complete
+          setComplaints(tempComplaints);
+        });
     }
   }, [id]);
-  
 
 
-  console.log("data", complaints)
-  return (
-    <div>
 
-      <div className="relative">
-        {complaints && complaints.map((complaint) => {
-          const { products, ...info } = complaint;
-          return <div key={complaint?.id} className="max-w-4xl px-11 mx-auto" ref={double_page}>
-            <div>
-            <h1 className="text-5xl text-sideBarBtnColor">Hello</h1>
-              <div className="recipe">
-                <RecipeComplaints copy="Receive copy" products={products} info={info} />
+  function showContainer(containerNumber: number) {
+    switch (containerNumber) {
+      case 1:
+        return (
+          <div className="max-w-4xl px-11 mx-auto" ref={double_page}>
+            {complaints && complaints.map((complaint) => {
+              const { products, ...info } = complaint;
+              return <div key={complaint?.id} className="max-w-4xl px-11 mx-auto" >
+                <div>
+                  <div className="recipe">
+                    <RecipeComplaints copy="Receive copy" products={products} info={info} />
+                  </div>
+
+                  <div className="recipe">
+                    <RecipeComplaints copy="Office copy" products={products} info={info} />
+                  </div>
+                </div>
               </div>
-
-              <div className="recipe">
-                <RecipeComplaints copy="Office copy" products={products} info={info} />
-              </div>
-            </div>
-          </div>
-        }
-        )}
-
-        <div className="flex justify-end gap-5 custom_sticky">
-          <ReactToPrint
-            content={() => double_page.current}
-            trigger={() => (
-              <div>
-                <Button onClick={() => setContainer(1)}>
-                  {container === 1 ? (
-                    <span>&nbsp; Print</span>
-                  ) : (
-                    <span> Show Double Page</span>
-                  )}
-                </Button>
-              </div>
+            }
             )}
-          />
+          </div>
+        );
+      case 2:
+        return (
+          <div className="max-w-4xl px-11 mt-2 mx-auto" ref={full_page}>
+            {complaints && complaints.map((complaint) => {
+              const { products, ...info } = complaint;
+              return <div key={complaint?.id} className="max-w-4xl px-11 mx-auto">
+                <div>
+                  <div className="recipe">
+                    <RecipeComplaints copy="Receive copy" products={products} info={info} />
+                  </div>
 
-        </div>
+                  <div className="recipe">
+                    <RecipeComplaints copy="Office copy" products={products} info={info} />
+                  </div>
+                </div>
+              </div>
+            }
+            )}
+          </div>
+        );
+      case 3:
+        return (
+          <div className="max-w-4xl px-11 mx-auto" ref={half_page}>
+            {complaints && complaints.map((complaint) => {
+              const { products, ...info } = complaint;
+              return <div key={complaint?.id} className="max-w-4xl px-11 mx-auto">
+                <div>
+                  <div className="recipe">
+                    <RecipeComplaints copy="Receive copy" products={products} info={info} />
+                  </div>
+
+                  <div className="recipe">
+                    <RecipeComplaints copy="Office copy" products={products} info={info} />
+                  </div>
+                </div>
+              </div>
+            }
+            )}
+          </div>
+        );
+    }
+  }
+
+  return (
+    <div className="relative">
+      {showContainer(container)}
+
+
+      <div className="flex justify-end gap-5 custom_sticky">
+        <ReactToPrint
+          content={() => double_page.current}
+          trigger={() => (
+            <div>
+              <Button onClick={() => setContainer(1)}>
+                {container === 1 ? <span>&nbsp;  Print</span> : <span> Show Double Page</span>}
+              </Button>
+            </div>
+          )}
+        />
+
+        <ReactToPrint
+          content={() => full_page.current}
+          trigger={() => (
+            <div>
+              <Button onClick={() => setContainer(2)}>
+                {container === 2 ? <span>&nbsp; Print</span> : <span> Show Full Page</span>}
+              </Button>
+            </div>
+          )}
+        />
+        <ReactToPrint
+          content={() => half_page.current}
+          trigger={() => (
+            <div>
+              <Button onClick={() => setContainer(3)}>
+                {container === 3 ? <span>&nbsp; Print Half page</span> : <span> Show Half page</span>}
+              </Button>
+
+            </div>
+          )}
+        />
       </div>
     </div>
   );

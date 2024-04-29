@@ -44,7 +44,6 @@ const WarrantyDashboard = () => {
   const { data, isError, isLoading } = useGetCardDataQuery({
     token,
   });
-  console.log(data);
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {

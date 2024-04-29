@@ -52,7 +52,7 @@ const MyRepairs = () => {
   const handleReturnData = () => {
     console.log(checkedRows);
   };
-  console.log(data);
+
   return (
     <div className=" px-5">
       <Navbar name="My Repaired"></Navbar>

@@ -10,7 +10,7 @@ const ServiceInvoicePage = () => {
   const { id } = useParams();
   const token = getFromLocalStorage(authKey);
   const { data: billData, isLoading } = useGetBillByIdQuery({ id, token });
-  console.log(billData);
+
 
   if (isLoading) {
     return <LoadingPage />;

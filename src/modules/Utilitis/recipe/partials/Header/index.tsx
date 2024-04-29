@@ -22,7 +22,7 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
     <div>
       <div className="relative  font-primary text-black">
         <div className="absolute ">
-         
+         <img src="../../../../../assets/NT-LOGO.png" height={300} width={300} alt="" />
         </div>
         <div className=" text-center">
           <h1 className=" text-2xl font-bold text-[#2f368f] font-secondary">

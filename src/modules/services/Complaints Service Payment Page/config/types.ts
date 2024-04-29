@@ -71,6 +71,7 @@ export type ComplaintsOrderDetailsProps = {
     id?: string;
   };
   repair: RepairItem[];
+  total_paid?: number;
   total_amount?: number;
   updatedAt: string;
   __v: number;

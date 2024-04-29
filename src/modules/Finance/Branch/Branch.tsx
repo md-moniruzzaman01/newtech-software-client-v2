@@ -1,8 +1,23 @@
 import BranchCard from "../../../common/components/BranchCard/BranchCard";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import { useGetComplaintsDataQuery } from "../../../redux/features/api/finance";
+import { authKey } from "../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import BranchHeader from "./partials/BranchHeader";
 
 const Branch = () => {
+  // const [BillData,setBillData]=useState([]);
+  const token = getFromLocalStorage(authKey);
+  const {data,isLoading,isSuccess,isError,error}=useGetComplaintsDataQuery(token);
+ if (isLoading) {
+  return <LoadingPage/>
+ }
+
+ if (isError) {
+  return <ErrorShow error={error} /> 
+ }
   return (
     <div className="px-5">
       <BranchHeader />
@@ -12,7 +27,7 @@ const Branch = () => {
           branchTitle="Repair Complete"
           headerTitle="Repair Complete"
           details="Amount Reparing in branch"
-          price="5,500"
+          price="5,700"
           link="/branch/repair-complete"
         ></BranchCard>
         <BranchCard

@@ -36,7 +36,7 @@ export const handlePaymentSubmit = async (
     .then((data) => {
       if (data?.success) {
         swal("success", "Payment successful", "success");
-        navigate("/service-invoice");
+        navigate(`/service-invoice/${data?.data?.id}`);
         form?.reset();
       } else {
         swal("error", "Payment failed", "error");
@@ -45,10 +45,11 @@ export const handlePaymentSubmit = async (
     });
 };
 
-export const handleDelivededWithOutPaySubmit = async (id: string) => {
+export const handleDelivededWithOutPaySubmit = async (id: string, navigate: any,
+  setIsLoading: any) => {
   const token = getFromLocalStorage(authKey);
   const url = `${SERVER_URL}/bill/delivered/${id}`;
-
+  setIsLoading(true);
   fetch(url, {
     method: "PATCH",
     headers: {
@@ -57,5 +58,10 @@ export const handleDelivededWithOutPaySubmit = async (id: string) => {
     },
   })
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      if (data?.success) {
+        navigate(`/service-invoice/${data?.data?.id}`);
+      }
+      setIsLoading(false);
+    });
 };
