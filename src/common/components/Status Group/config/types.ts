@@ -12,4 +12,6 @@ export type statusGroupProps = {
   status?: boolean;
   dltBtnValue?: string;
   returnBtnValue?: string;
+  isReturnLoading?: boolean;
+  isDeleteLoading?: boolean;
 };

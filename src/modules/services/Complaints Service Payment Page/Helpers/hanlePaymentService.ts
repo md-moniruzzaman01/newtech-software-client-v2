@@ -34,6 +34,7 @@ export const handlePaymentSubmit = async (
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       if (data?.success) {
         swal("success", "Payment successful", "success");
         navigate(`/service-invoice/${data?.data?.id}`);

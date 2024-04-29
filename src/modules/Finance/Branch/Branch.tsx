@@ -1,3 +1,4 @@
+import { useState } from "react";
 import BranchCard from "../../../common/components/BranchCard/BranchCard";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
@@ -6,21 +7,19 @@ import { useGetComplaintsDataQuery } from "../../../redux/features/api/finance";
 import { authKey } from "../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import BranchHeader from "./partials/BranchHeader";
+import { branches } from "../../../shared/config/constaints";
+import { useGetBranchesQuery } from "../../../redux/features/api/branch";
 
 const Branch = () => {
-  // const [BillData,setBillData]=useState([]);
-  const token = getFromLocalStorage(authKey);
-  const {data,isLoading,isSuccess,isError,error}=useGetComplaintsDataQuery(token);
- if (isLoading) {
-  return <LoadingPage/>
- }
-
- if (isError) {
-  return <ErrorShow error={error} /> 
- }
+  const [selectedBranch, setSelectedBranch] = useState("");
+  const selectBranch = branches?.find((item) => item?.value === selectedBranch);
+  const id = selectBranch?.id;
+  const { data } = useGetBranchesQuery({ id });
+  console.log("data", data);
   return (
     <div className="px-5">
-      <BranchHeader />
+      <BranchHeader setSelectedBranch={setSelectedBranch} />
+
       <div className="grid grid-cols-3 gap-2  pt-3 ">
         <BranchCard
           bgColor="primary"

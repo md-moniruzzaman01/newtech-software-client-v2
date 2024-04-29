@@ -23,10 +23,10 @@ const QCMyLibrary = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetQcsQuery({
-    id:user._id,
+    id: user._id,
     token,
   });
-  console.log(data);
+
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);

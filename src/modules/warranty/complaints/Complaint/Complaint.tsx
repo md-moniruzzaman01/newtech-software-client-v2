@@ -87,7 +87,7 @@ const Complaint = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-
+  console.log(complaints);
   return (
     <div className=" px-5">
       <Navbar name="Complaint"></Navbar>

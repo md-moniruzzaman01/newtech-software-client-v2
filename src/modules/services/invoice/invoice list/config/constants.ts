@@ -28,6 +28,7 @@ export const BillServiceTableHeader = [
   "created",
   "created date",
   "Action",
+  "Action",
 ];
 
 export const tableLayout = [

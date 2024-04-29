@@ -8,13 +8,13 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { MyQCTableHeader, fields, keys } from "./config/constants";
+import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 
-import MyQATable from "./partials/MyQATable";
 import { useGetQasQuery } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { getUserInfo } from "../../../../services/auth.service";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -28,7 +28,7 @@ const QCMyLibrary = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetQasQuery({
-    id:user._id,
+    id: user._id,
     token,
     query,
   });
@@ -47,35 +47,6 @@ const QCMyLibrary = () => {
 
     return <div>Error</div>;
   }
-
-  const handleCheckboxChange = (repair_id: string, qc_id: string) => {
-    if (
-      checkedRows.some(
-        (row) => row.repair_id === repair_id && row.qc_id === qc_id
-      )
-    ) {
-      setCheckedRows(checkedRows.filter((item) => item?.qc_id !== qc_id));
-    } else {
-      setCheckedRows([...checkedRows, { qc_id, repair_id }]);
-    }
-  };
-  const handleAllCheckboxChange = () => {
-    if (checkedRows.length === data?.data?.length) {
-      // If all checkboxes are already checked, uncheck them all
-      setCheckedRows([]);
-    } else {
-      const allIds =
-        data?.data
-          ?.map((item: any) => ({
-            qc_id: item?.id || "", // Set qc_id to item?.qc_id if it exists, otherwise set it to an empty string
-            repair_id: item?.repair?.id || "", // Set repair_id to item?.repair_id if it exists, otherwise set it to an empty string
-          }))
-          .filter((obj: any) => obj.qc_id !== "" && obj.repair_id !== "") || [];
-      if (allIds.length > 0) {
-        setCheckedRows(allIds);
-      }
-    }
-  };
 
   const handleDeleteData = () => {
     console.log(checkedRows);
@@ -102,13 +73,14 @@ const QCMyLibrary = () => {
             />
           </div>
           <div className="pt-5">
-            <MyQATable
-              Link="/qa-items/order-details"
+            <CommonTable
+              dataLayout={tableLayout}
+              headerData={MyQCTableHeader}
               itemData={data?.data}
-              HeaderData={MyQCTableHeader}
+              checkbox
               checkedRows={checkedRows}
-              handleCheckboxChange={handleCheckboxChange}
-              handleAllCheckboxChange={handleAllCheckboxChange}
+              link="/qa-items/order-details"
+              setCheckedRows={setCheckedRows}
             />
           </div>
         </div>

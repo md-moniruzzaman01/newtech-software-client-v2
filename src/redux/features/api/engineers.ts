@@ -23,9 +23,20 @@ const EngineerApi = baseApi.injectEndpoints({
         };
       },
     }),
-   updateRepairStatus: builder.mutation({
+    updateRepairStatus: builder.mutation({
       query: ({ id, fullData, token }) => ({
         url: `/repair/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["repair", "qa"],
+    }),
+    repairReturnToLibrary: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: `/repair/return-to-library`,
         method: "PATCH",
         headers: {
           authorization: token,
@@ -46,5 +57,6 @@ const EngineerApi = baseApi.injectEndpoints({
 export const {
   useAddEngineerMutation,
   useGetEngineersQuery,
-  useUpdateRepairStatusMutation
+  useUpdateRepairStatusMutation,
+  useRepairReturnToLibraryMutation,
 } = EngineerApi;

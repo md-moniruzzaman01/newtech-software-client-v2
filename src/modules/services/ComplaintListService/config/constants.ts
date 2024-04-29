@@ -38,6 +38,8 @@ export const complaintsTableHeader = [
   "Brand",
   "Status",
   "RD",
+  "Action",
+  "Action",
 ];
 
 export const tableLayout = [

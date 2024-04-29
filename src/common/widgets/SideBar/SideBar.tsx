@@ -128,21 +128,36 @@ const SideBar = () => {
               <span>Engineer Dashboard</span>
             </div>
           </NavLink>
-          <NavLink to="/branch">
-            <div className={routeStyle}>
-              <FaCodeBranch className="text-xl" />
-              <span>Branch</span>
+
+          {(user?.power?.includes("01") ||
+            user?.power?.includes("04") ||
+            user?.role === "admin") && (
+            <NavLink to="/branch">
+              <div className={routeStyle}>
+                <FaCodeBranch className="text-xl" />
+                <span>Branch</span>
+              </div>
+            </NavLink>
+          )}
+
+          {(user?.power?.includes("01") ||
+            user?.power?.includes("04") ||
+            user?.role === "admin") && (
+            <div>
+              <ComplaintsRoute />
             </div>
-          </NavLink>
-          <div>
-            <ComplaintsRoute />
-          </div>
-          <NavLink to="/inventory">
-            <div className={routeStyle}>
-              <FiMonitor className="text-xl" />
-              <span>Inventory</span>
-            </div>
-          </NavLink>
+          )}
+
+          {(user?.power?.includes("01") ||
+            user?.power?.includes("04") ||
+            user?.role === "admin") && (
+            <NavLink to="/inventory">
+              <div className={routeStyle}>
+                <FiMonitor className="text-xl" />
+                <span>Inventory</span>
+              </div>
+            </NavLink>
+          )}
           {activeRoute &&
             (user.role === "admin" ||
               user?.power?.includes("01") ||

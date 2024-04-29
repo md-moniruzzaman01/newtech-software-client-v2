@@ -37,7 +37,7 @@ const EngineerAllRepairs = () => {
     data: engineerData,
     isError: engineerError,
     isLoading: engineerLoading,
-    error
+    error,
   } = useGetEngineersQuery({ token });
   const [
     assignEngineer,
@@ -61,16 +61,15 @@ const EngineerAllRepairs = () => {
     };
     assignEngineer({ fullData, token });
     console.log(assginSuccess);
-
   }
 
   if (isError || assignError) {
-    return <ErrorShow error={error}/>
+    return <ErrorShow error={error} />;
   }
   if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
-
+  console.log("products", data);
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
@@ -91,9 +90,9 @@ const EngineerAllRepairs = () => {
             headerData={EngineerTableHeader}
             dataLayout={tableLayout}
             checkedRows={checkedRows}
+            productData
             setCheckedRows={setCheckedRows}
             checkbox
-            productData
           />
 
           <div className="absolute bottom-2 right-[50px]">

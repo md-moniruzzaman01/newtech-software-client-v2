@@ -107,17 +107,13 @@ const ComplaintOrderDetailsTable = ({
       },
       body: JSON.stringify(fullData),
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           swal("Success", "Discount is successful", "success");
         } else {
-          swal("Error", "Something went wrong!", "error");
+          // swal("Error", "Something went wrong!", "error");
+          console.log(data);
         }
       });
   };
