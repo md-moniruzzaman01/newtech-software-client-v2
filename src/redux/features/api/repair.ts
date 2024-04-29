@@ -101,5 +101,5 @@ export const {
   useGetAllRepairsQuery,
   useGetRepairByIdQuery,
   useGetServiceProductsForRepairQuery,
-  useGetOldRepairsForServiceQuery
+  useGetOldRepairsForServiceQuery,
 } = RepairApi;
