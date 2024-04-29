@@ -9,9 +9,13 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader, tableLayout } from "./config/constants";
-import { useGetQcsQuery } from "../../../../redux/features/api/qc";
+import {
+  useGetQcsQuery,
+  useQcReturnToLibraryMutation,
+} from "../../../../redux/features/api/qc";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../../services/auth.service";
+import swal from "sweetalert";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +24,15 @@ const QCMyLibrary = () => {
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
+  const [
+    qcReturnToLibrary,
+    {
+      isError: returnToLibraryIsError,
+      error: returnToLibraryError,
+      isLoading: returnToLibraryLoading,
+      isSuccess: returnToLibraryIsSuccess,
+    },
+  ] = useQcReturnToLibraryMutation();
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetQcsQuery({
@@ -44,11 +57,18 @@ const QCMyLibrary = () => {
     return <div>Error</div>;
   }
 
-  const handleDeleteData = () => {
-    console.log(checkedRows);
-  };
-  const handleReturnData = () => {
-    console.log(checkedRows);
+  const handleReturnData = async () => {
+    const fullData = {
+      repairIds: checkedRows,
+    };
+    const result = await qcReturnToLibrary({ token, fullData });
+    console.log(result);
+    if (returnToLibraryIsSuccess) {
+      swal("Success", "Return to library is done", "success");
+    }
+    if (returnToLibraryIsError) {
+      swal("Error", `${returnToLibraryError}`, "error");
+    }
   };
 
   return (
@@ -63,7 +83,7 @@ const QCMyLibrary = () => {
             <StatusGroup
               isSelected={checkedRows?.length <= 0}
               handleReturnData={handleReturnData}
-              handleDeleteData={handleDeleteData}
+              isReturnLoading={returnToLibraryLoading}
               isButton
               dltBtnValue="Delete"
               returnBtnValue="Return to the QC Library"

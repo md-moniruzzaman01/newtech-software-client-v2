@@ -10,11 +10,15 @@ import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 
-import { useGetQasQuery } from "../../../../redux/features/api/qa";
+import {
+  useGetQasQuery,
+  useQaReturnToLibraryMutation,
+} from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import swal from "sweetalert";
 
 const QCMyLibraryService = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -22,6 +26,15 @@ const QCMyLibraryService = () => {
   const [limit, setLimit] = useState(10);
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
+  const [
+    qaReturnToLibrary,
+    {
+      isSuccess: returnToLibraryIsSuccess,
+      isError: returnToLibraryIsError,
+      error: returnToLibraryError,
+      isLoading: returnToLibraryLoading,
+    },
+  ] = useQaReturnToLibraryMutation();
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
@@ -46,12 +59,21 @@ const QCMyLibraryService = () => {
     return <ErrorShow error={error}></ErrorShow>;
   }
 
-  const handleDeleteData = () => {
-    console.log(checkedRows);
+  const handleReturnData = async () => {
+    const fullData = {
+      repairIds: checkedRows,
+    };
+    console.log(fullData);
+    const result = await qaReturnToLibrary({ token, fullData });
+    console.log(result);
+    if (returnToLibraryIsSuccess) {
+      swal("Success", "Return to library is done", "success");
+    }
+    if (returnToLibraryIsError) {
+      swal("Error", `${returnToLibraryError}`, "error");
+    }
   };
-  const handleReturnData = () => {
-    console.log(checkedRows);
-  };
+
   return (
     <div className=" px-5">
       <Navbar name="Service My QA Library"></Navbar>
@@ -62,9 +84,9 @@ const QCMyLibraryService = () => {
         <div>
           <div>
             <StatusGroup
+              isReturnLoading={returnToLibraryLoading}
               isSelected={checkedRows?.length <= 0}
               handleReturnData={handleReturnData}
-              handleDeleteData={handleDeleteData}
               isButton
               dltBtnValue="Delete"
               returnBtnValue="Return to the QC Library"

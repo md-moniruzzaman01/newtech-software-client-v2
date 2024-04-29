@@ -80,6 +80,17 @@ const QAApi = baseApi.injectEndpoints({
       },
       providesTags: ["complaints"],
     }),
+    qaReturnToLibrary: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: "/qa/return-to-library",
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["complaints"],
+    }),
   }),
 });
 
@@ -90,5 +101,6 @@ export const {
   useGetQAProductsForServiceQuery,
   useGetQasQuery,
   useGetQAProductsForServiceByIdQuery,
-  useUpdateStatusQAMutation
+  useUpdateStatusQAMutation,
+  useQaReturnToLibraryMutation,
 } = QAApi;
