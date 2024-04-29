@@ -104,8 +104,7 @@ const SideBar = () => {
       </div>
       <div className="  font-semibold ">
         <div className="flex flex-col gap-3 pb-20">
-          {((activeRoute && user?.power?.includes("01")) ||
-            (activeRoute && user?.role === "admin")) && (
+          {activeRoute && user?.role === "admin" && (
             <NavLink to="/">
               <div className={routeStyle}>
                 <MdOutlineDashboardCustomize className="text-xl" />
