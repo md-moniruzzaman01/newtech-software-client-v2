@@ -21,9 +21,11 @@ const StatusGroup: FC<statusGroupProps> = ({
   handleReturnData,
   isSelected = false,
   isButton = false,
-  status=false,
+  status = false,
   dltBtnValue = "Delete",
   returnBtnValue = "Return",
+  isDeleteLoading = false,
+  isReturnLoading = false,
 }) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -66,8 +68,9 @@ const StatusGroup: FC<statusGroupProps> = ({
     const sort = (form.elements.namedItem("sort") as HTMLInputElement)?.value;
     const branch = (form.elements.namedItem("branch") as HTMLInputElement)
       ?.value;
-    const category = (form.elements.namedItem("category_name") as HTMLInputElement)
-      ?.value;
+    const category = (
+      form.elements.namedItem("category_name") as HTMLInputElement
+    )?.value;
     // Constructing the query parameters
     const queryParams = new URLSearchParams();
     if (sort) {
@@ -94,6 +97,7 @@ const StatusGroup: FC<statusGroupProps> = ({
       {isButton ? (
         <div>
           <Button
+            loading={isReturnLoading}
             mini
             className="mr-2"
             disabled={isSelected}
@@ -102,7 +106,13 @@ const StatusGroup: FC<statusGroupProps> = ({
           >
             {returnBtnValue}
           </Button>
-          <Button mini disabled={isSelected} danger onClick={handleDeleteData}>
+          <Button
+            loading={isDeleteLoading}
+            mini
+            disabled={isSelected}
+            danger
+            onClick={handleDeleteData}
+          >
             {dltBtnValue}
           </Button>
         </div>

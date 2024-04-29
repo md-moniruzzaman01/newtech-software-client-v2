@@ -2,13 +2,18 @@ import { useState } from "react";
 import BranchCard from "../../../common/components/BranchCard/BranchCard";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import BranchHeader from "./partials/BranchHeader";
+import { branches } from "../../../shared/config/constaints";
+import { useGetBranchesQuery } from "../../../redux/features/api/branch";
 
 const Branch = () => {
   const [selectedBranch, setSelectedBranch] = useState("");
-  console.log(selectedBranch);
+  const selectBranch = branches?.find((item) => item?.value === selectedBranch);
+  const id = selectBranch?.id;
+  const { data } = useGetBranchesQuery({ id });
+  console.log("data", data);
   return (
     <div className="px-5">
-      <BranchHeader />
+      <BranchHeader setSelectedBranch={setSelectedBranch} />
 
       <div className="grid grid-cols-3 gap-2  pt-3 ">
         <BranchCard

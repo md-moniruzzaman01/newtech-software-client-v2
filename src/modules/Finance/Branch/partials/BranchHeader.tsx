@@ -1,9 +1,12 @@
 import { NavLink } from "react-router-dom";
 import Button from "../../../../common/components/Button";
+import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import { branches } from "../../../../shared/config/constaints";
-import EngineersFilter from "../../../../common/components/EngineersFilter/EngineersFilter";
 
-const BranchHeader = () => {
+const BranchHeader = ({ setSelectedBranch }) => {
+  const handleBranchChange = (selectedBranch) => {
+    setSelectedBranch(selectedBranch);
+  };
   return (
     <div className="flex justify-between items-center mt-8 pb-5">
       <h1 className="text-2xl font-semibold">Branch</h1>
@@ -14,7 +17,11 @@ const BranchHeader = () => {
           </Button>
         </NavLink>
         <div className="w-1/3">
-          <EngineersFilter placeholder="Select a Branch" Filter={branches} />
+          <InputFilter
+            Filter={branches}
+            onChange={handleBranchChange}
+            inputName="branch"
+          />
         </div>
       </div>
     </div>

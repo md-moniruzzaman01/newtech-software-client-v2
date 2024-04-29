@@ -18,6 +18,8 @@ import {
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../../services/auth.service";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { useRepairReturnToLibraryMutation } from "../../../../redux/features/api/engineers";
+import swal from "sweetalert";
 
 const ServiceMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,6 +32,15 @@ const ServiceMyLibrary = () => {
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
+  const [
+    returnToLibrary,
+    {
+      isLoading: returnToLibraryIsLoading,
+      isSuccess: returnToLibraryIsSuccess,
+      isError: returnToLibraryIsError,
+      error: returnToLibraryError,
+    },
+  ] = useRepairReturnToLibraryMutation();
   const { data, isError, isLoading, error } = useGetRepairsQuery({
     id: user._id,
     query,
@@ -55,12 +66,22 @@ const ServiceMyLibrary = () => {
   const handleDeleteData = () => {
     console.log(checkedRows);
   };
-  const handleReturnData = () => {
-    console.log(checkedRows);
+  const handleReturnData = async () => {
+    const fullData = {
+      repairIds: checkedRows,
+    };
+    const result = await returnToLibrary({ token, fullData });
+    console.log(result);
+    if (returnToLibraryIsSuccess) {
+      swal("Success", "Return to library is done", "success");
+    }
+    if (returnToLibraryIsError) {
+      swal("Error", `${returnToLibraryError}`, "error");
+    }
   };
   return (
     <div className=" px-5">
-      <Navbar name="Engineer Myhe Library"></Navbar>
+      <Navbar name="Engineer My Library"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -68,6 +89,7 @@ const ServiceMyLibrary = () => {
         <div>
           <div>
             <StatusGroup
+              isReturnLoading={returnToLibraryIsLoading}
               isSelected={checkedRows?.length <= 0}
               handleReturnData={handleReturnData}
               handleDeleteData={handleDeleteData}

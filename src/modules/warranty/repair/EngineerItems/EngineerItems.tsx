@@ -21,6 +21,7 @@ import {
   useGetProductsForRepairQuery,
 } from "../../../../redux/features/api/repair";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const EngineerAllRepairs = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -36,6 +37,7 @@ const EngineerAllRepairs = () => {
     data: engineerData,
     isError: engineerError,
     isLoading: engineerLoading,
+    error,
   } = useGetEngineersQuery({ token });
   const [
     assignEngineer,
@@ -59,26 +61,15 @@ const EngineerAllRepairs = () => {
     };
     assignEngineer({ fullData, token });
     console.log(assginSuccess);
-    //     const url = `http://localhost:5000/api/v2/repair/multiple`;
-
-    // fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     authorization: `${token}`,
-    //   },
-    //   body: JSON.stringify(fullData),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data));
   }
 
   if (isError || assignError) {
-    return <div>error</div>;
+    return <ErrorShow error={error} />;
   }
   if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
+  console.log("products", data);
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
