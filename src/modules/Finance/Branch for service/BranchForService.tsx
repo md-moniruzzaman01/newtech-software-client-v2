@@ -4,21 +4,12 @@ import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import BranchHeader from "./partials/BranchHeader";
 import { branches } from "../../../shared/config/constaints";
 import { useGetBranchesQuery } from "../../../redux/features/api/branch";
-import { getUserInfo } from "../../../services/auth.service";
 
-const Branch = () => {
+const BranchForService = () => {
   const [selectedBranch, setSelectedBranch] = useState("");
   const selectBranch = branches?.find((item) => item?.value === selectedBranch);
-  const user = getUserInfo();
-  const id = selectBranch?.id || user?.branch || "05";
-  // const color = [
-  //   "primary",
-  //   "lightBlue",
-  //   "lightYellow",
-  //   "darkYellow",
-  //   "lightCyan",
-  //   "lightOlive",
-  // ];
+  const id = selectBranch?.id;
+  console.log("id", id);
   const { data } = useGetBranchesQuery({ id });
   console.log("data", data);
   return (
@@ -85,4 +76,4 @@ const Branch = () => {
   );
 };
 
-export default Branch;
+export default BranchForService;

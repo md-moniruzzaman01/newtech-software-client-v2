@@ -10,6 +10,7 @@ interface BranchCardProps {
   price?: string;
   color?: string;
   link?: string;
+  count?: number;
 }
 
 const BranchCard: React.FC<BranchCardProps> = ({
@@ -20,6 +21,7 @@ const BranchCard: React.FC<BranchCardProps> = ({
   price,
   color,
   link,
+  count,
 }) => {
   const CBC_CLASSES = cx(
     bgColor === "primary" && "bg-[#8FD3FE]",
@@ -53,6 +55,7 @@ const BranchCard: React.FC<BranchCardProps> = ({
             <h3 className=" font-semibold">{details}</h3>
           </div>
           <div>
+            <p className="font-bold">{count}</p>
             <p className="font-bold">$ {price}</p>
           </div>
         </div>

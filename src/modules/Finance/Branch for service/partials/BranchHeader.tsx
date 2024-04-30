@@ -10,13 +10,13 @@ const BranchHeader = ({ setSelectedBranch }) => {
   return (
     <div className="flex justify-between items-center mt-8 pb-5">
       <h1 className="text-2xl font-semibold">Branch</h1>
-      <div className=" flex items-center justify-center gap-5">
+      <div className="w-1/4 flex items-center justify-center gap-5">
         <NavLink to={"/Add-brand"}>
           <Button icon="+" className="rounded-full bg-btn_secondary ">
             + Add Branch
           </Button>
         </NavLink>
-        <div>
+        <div className="w-1/3">
           <InputFilter
             Filter={branches}
             onChange={handleBranchChange}

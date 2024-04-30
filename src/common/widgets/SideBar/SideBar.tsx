@@ -137,7 +137,7 @@ const SideBar = () => {
           {(user?.power?.includes("01") ||
             user?.power?.includes("04") ||
             user?.role === "admin") && (
-            <NavLink to="/branch">
+            <NavLink to={`${activeRoute ? "/branch" : "/service-branch"}`}>
               <div className={routeStyle}>
                 <FaCodeBranch className="text-xl" />
                 <span>Branch</span>
