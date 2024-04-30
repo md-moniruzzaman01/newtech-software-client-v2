@@ -25,6 +25,7 @@ import {
 } from "../../../shared/helpers/Suggestions";
 import { partnerProps } from "../../../shared/config/types";
 
+1;
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [addedItem, setAddedItem] = useState<updateAddedItemProps[]>([]);
   const [categories, setCategories] = useState([]);
@@ -413,7 +414,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                         }
                         primary
                       >
-                        Update
+                        Edit
                       </Button>
                     </div>
                   </div>

@@ -24,9 +24,16 @@ import { defaultPartner } from "./helpers/findDefaultPartner";
 import { handleDataSubmit } from "./helpers/submitData";
 import { deleteAll, deleteData } from "./helpers/deleteProducts";
 import { useComplaintAddMutation } from "../../../../redux/features/api/complaints";
-import { handleAddItem, updateData } from "../../../../shared/helpers/WarrantyComplaintsAddItem";
+import {
+  handleAddItem,
+  updateData,
+} from "../../../../shared/helpers/WarrantyComplaintsAddItem";
 import { partnerProps } from "../../../../shared/config/types";
-import { fetchData, handleChangeInput, handleSuggestionClick } from "../../../../shared/helpers/Suggestions";
+import {
+  fetchData,
+  handleChangeInput,
+  handleSuggestionClick,
+} from "../../../../shared/helpers/Suggestions";
 
 const ComplaintAddForWarranty = () => {
   const [createComplaints] = useComplaintAddMutation();
@@ -41,7 +48,6 @@ const ComplaintAddForWarranty = () => {
   const [selectPartner, setSelectPartner] = useState<PartnerProps | null>(null);
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<partnerProps[]>([]);
-
 
   const [selectData, setSelectData] =
     useState<warrantyUpdateAddedItemProps | null>(null);
@@ -136,7 +142,6 @@ const ComplaintAddForWarranty = () => {
     }
   }, []);
 
-
   useEffect(() => {
     if (searchInput) {
       fetchData(searchInput, true, setIsLoadingSuggestion, setSuggestions);
@@ -149,7 +154,7 @@ const ComplaintAddForWarranty = () => {
     contact_number,
     email,
     address,
-    brand_name
+    brand_name,
   } = partnerInfo;
 
   const fullData: any = {
@@ -172,7 +177,6 @@ const ComplaintAddForWarranty = () => {
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
 
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -188,22 +192,24 @@ const ComplaintAddForWarranty = () => {
               {isNewPartner ? "Partner" : "New Walk In Customer"}
             </Button>
           </div>
-          <form onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
-            handleAddItem(
-              event,
-              selectPartner,
-              brandValue,
-              isNewPartner,
-              warrantyAddedItem,
-              mainCategoryValue,
-              categoryValue,
-              selectedItem,
-              setPartnerInfo,
-              setSelectedItem,
-              setSelectData,
-              setWarrantyAddedItem
-            )
-          }>
+          <form
+            onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
+              handleAddItem(
+                event,
+                selectPartner,
+                brandValue,
+                isNewPartner,
+                warrantyAddedItem,
+                mainCategoryValue,
+                categoryValue,
+                selectedItem,
+                setPartnerInfo,
+                setSelectedItem,
+                setSelectData,
+                setWarrantyAddedItem
+              )
+            }
+          >
             <div className="grid grid-cols-3  gap-8 mt-20">
               {isNewPartner ? (
                 <div className="col-span-3 grid grid-cols-3 gap-8">
@@ -229,10 +235,13 @@ const ComplaintAddForWarranty = () => {
                   {/* Partner Name  */}
                   <div>
                     <Input
-                      defaultValue={`${partnerInfo ? partnerInfo?.partner_name : ""
-                        }`}
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.partner_name : ""
+                      }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
                         setSearchInput(event.target.value);
                         handleChangeInput(event, setPartnerInfo);
                       }}
@@ -271,7 +280,9 @@ const ComplaintAddForWarranty = () => {
                   {/* Contact Number  */}
                   <div>
                     <Input
-                      defaultValue={`${partnerInfo ? partnerInfo?.contact_number : ""}`}
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.contact_number : ""
+                      }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputPlaceholder="Contact Number"
@@ -293,7 +304,9 @@ const ComplaintAddForWarranty = () => {
                   {/* Address  */}
                   <div>
                     <Input
-                      defaultValue={`${partnerInfo ? partnerInfo?.address : ""}`}
+                      defaultValue={`${
+                        partnerInfo ? partnerInfo?.address : ""
+                      }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
                       inputName="address"
@@ -339,10 +352,11 @@ const ComplaintAddForWarranty = () => {
                   {/* Contact Number  */}
                   <div>
                     <Input
-                      defaultValue={`${selectPartner || partnerInfo?.contactNo
-                        ? selectPartner?.contactNo || partnerInfo?.contactNo
-                        : ""
-                        }`}
+                      defaultValue={`${
+                        selectPartner || partnerInfo?.contactNo
+                          ? selectPartner?.contactNo || partnerInfo?.contactNo
+                          : ""
+                      }`}
                       IsDisabled
                       required
                       inputPlaceholder="Contact Number"
@@ -356,8 +370,9 @@ const ComplaintAddForWarranty = () => {
               {/* main category  */}
               <div>
                 <InputFilter
-                  defaultValue={`${selectData ? selectData?.category_name : ""
-                    }`}
+                  defaultValue={`${
+                    selectData ? selectData?.category_name : ""
+                  }`}
                   required
                   inputName="main_category"
                   placeholder="Main Category"
@@ -369,8 +384,9 @@ const ComplaintAddForWarranty = () => {
               {/* category  */}
               <div>
                 <InputFilter
-                  defaultValue={`${selectData ? selectData?.categoryValue : ""
-                    }`}
+                  defaultValue={`${
+                    selectData ? selectData?.categoryValue : ""
+                  }`}
                   required
                   inputName="category"
                   placeholder="Category"
@@ -392,8 +408,9 @@ const ComplaintAddForWarranty = () => {
               {/* Serial Number  */}
               <div>
                 <Input
-                  defaultValue={`${selectData ? selectData?.serial_number : ""
-                    }`}
+                  defaultValue={`${
+                    selectData ? selectData?.serial_number : ""
+                  }`}
                   required
                   inputName="serial_number"
                   labelName="Serial Number"
@@ -529,15 +546,17 @@ const ComplaintAddForWarranty = () => {
                       </Button>
                       <Button
                         className="px-2 py-1 text-xs"
-                        onClick={() => updateData(
-                          index,
-                          warrantyAddedItem,
-                          setSelectedItem,
-                          setSelectData
-                        )}
+                        onClick={() =>
+                          updateData(
+                            index,
+                            warrantyAddedItem,
+                            setSelectedItem,
+                            setSelectData
+                          )
+                        }
                         primary
                       >
-                        Update
+                        Edit
                       </Button>
                     </div>
                   </div>
