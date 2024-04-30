@@ -9,33 +9,42 @@ import { shedAndSplit } from "../../../../../shared/helpers/removeShedAndSplit";
 import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
 import LoadingPage from "../../../../../common/components/LoadingPage/LoadingPage";
 
-const EngineerPartsReplace = ({id,repairId}:{id:string,repairId:string}) => {
+const EngineerPartsReplace = ({
+  id,
+  repairId,
+}: {
+  id: string;
+  repairId: string;
+}) => {
   const token = getFromLocalStorage(authKey);
-  const [createPartsRequest,{isLoading,isSuccess,isError,error}]=useCreatePartsRequestMutation()
+  const [createPartsRequest, { isLoading, isSuccess, isError, error }] =
+    useCreatePartsRequestMutation();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const partname = (form.elements.namedItem("parts") as HTMLInputElement).value;
+    const partname = (form.elements.namedItem("parts") as HTMLInputElement)
+      .value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
-    const parts = shedAndSplit(partname)
+    const parts = shedAndSplit(partname);
 
-    const fullData = {parts,note,repairItemId:id}
-    createPartsRequest({fullData,token,id:repairId})
+    const fullData = { parts, note, repairItemId: id };
+    createPartsRequest({ fullData, token, id: repairId });
     if (isSuccess) {
       form.reset();
     }
   };
   if (isError) {
-    return <ErrorShow error={error}/>
+    return <ErrorShow error={error} />;
   }
   if (isLoading) {
-    return <LoadingPage/>
+    return <LoadingPage />;
   }
 
   return (
     <div className="space-y-2">
       <form onSubmit={handleSubmit}>
         <TextArea
+          required
           label="Parts Name"
           name="parts"
           placeholder="write your parts name"

@@ -21,7 +21,6 @@ import EngineerLibraryForService from "../modules/services/repair/EngineerItems/
 import EngineerItemsRepairDetails from "../modules/services/repair/EngineerItemsOrderDetails/EngineerItemsRepairDetails";
 import MyRepairs from "../modules/services/repair/My repairs/MyRepairs";
 import ServiceMyLibrary from "../modules/services/repair/MyLibrary/ServiceMyLibrary";
-import EngineerItemsOrderDetails from "../modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 
 export const serviceComplaintsRoutes = [
   { path: "/add-complaint", element: <ComplaintService /> },
@@ -64,10 +63,7 @@ export const ServiceQARoute = [
 
 export const serviceRepairsRoutes = [
   { path: "service/engineer-items", element: <EngineerLibraryForService /> },
-  {
-    path: "/engineer-items/order-details/:id",
-    element: <EngineerItemsOrderDetails />,
-  },
+
   {
     path: "/service/engineer-items/order-details/:id",
     element: <EngineerItemsRepairDetails />,

@@ -89,6 +89,7 @@ const RepairApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["repair", "qa"],
     }),
   }),
 });

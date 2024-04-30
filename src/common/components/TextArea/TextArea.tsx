@@ -4,6 +4,7 @@ interface textAreaProps {
   name?: string;
   IsDisabled?: boolean;
   defaultValue?: string;
+  required?: boolean;
 }
 
 const TextArea: React.FC<textAreaProps> = ({
@@ -12,6 +13,7 @@ const TextArea: React.FC<textAreaProps> = ({
   name,
   IsDisabled = false,
   defaultValue,
+  required,
 }) => {
   return (
     <div>
@@ -20,6 +22,7 @@ const TextArea: React.FC<textAreaProps> = ({
           <span className="text-lg font-semibold">{label}</span>
         </div>
         <textarea
+          required={required}
           defaultValue={defaultValue}
           disabled={IsDisabled}
           name={name}

@@ -7,12 +7,13 @@ import { engineerStatus } from "../config/constants";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
 
-import swal from "sweetalert";
 import { useUpdateRepairStatusMutation } from "../../../../../redux/features/api/engineers";
+import { showSwal } from "../../../../../shared/helpers/SwalShower";
 
 const EngineerItemOrderStatus = () => {
   const { id } = useParams();
-  const [updateRepairStatus] = useUpdateRepairStatusMutation();
+
+  const [updateRepairStatus, { isLoading }] = useUpdateRepairStatusMutation();
   const token = getFromLocalStorage(authKey);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,11 +27,7 @@ const EngineerItemOrderStatus = () => {
     };
 
     const result: any = await updateRepairStatus({ id, fullData, token });
-    if (result?.data?.success) {
-      swal("Success", `${result?.data?.message}`, "success");
-    } else {
-      swal("Error", `${result?.error?.data?.message}`, "error");
-    }
+    showSwal(result);
 
     form.reset();
   };
@@ -39,6 +36,7 @@ const EngineerItemOrderStatus = () => {
     <div className="space-y-2">
       <form onSubmit={handleSubmit}>
         <InputFilter
+          required
           placeholder="Select Status"
           label="Engineer status :"
           Filter={engineerStatus}
@@ -51,7 +49,9 @@ const EngineerItemOrderStatus = () => {
       /> */}
 
         <TextArea label="Note" name="note" placeholder="write your note" />
-        <Button primary>Submit</Button>
+        <Button loading={isLoading} primary>
+          Submit
+        </Button>
       </form>
     </div>
   );

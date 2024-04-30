@@ -1,17 +1,11 @@
 export const EngineerTableHeader = [
-  "Order ID",
-  "Model No.",
-  "S/N No.",
+  "Serial No",
+  "Model No",
+  "Category",
   "Problems",
   "Remarks",
-  "category",
-  "sub category",
-  "Brand",
-  "repair count",
-  "Branch",
+  "Repair Count",
   "Status",
-  "RD",
-  "Action",
 ];
 export const engineerSelectData = { id: "", user: "" };
 
@@ -26,12 +20,11 @@ export const keys = [
 ];
 
 export const tableLayout = [
-  "item.order_number",
-  "item?.products?.serial_number",
-  "item?.products?.model_number",
-  "item?.Nonwarrentycustomer?.name || item?.customer?.contact_person",
+  "item.serial_number",
+  "item?.model_number",
   "item?.category_name",
-  "item?.brand_name",
+  "item?.problems?.toString()",
+  "item?.attachments",
+  "item?.repair_count",
   "item?.repair_status",
-  "item?.received_date?.toString()?.slice(0,10)",
 ];

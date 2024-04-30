@@ -1,4 +1,3 @@
-import { MdModeEdit } from "react-icons/md";
 import EngineerItemOrderDetailsTable from "./partials/EngineerItemOrderDetailsTable";
 import EngineerItemOrderStatus from "./partials/EngineerItemOrderStatus";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -21,14 +20,13 @@ const EngineerItemsOrderDetails = () => {
     id,
     token,
   });
-
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
         return <EngineerItemOrderStatus />;
 
       case 2:
-        return <EngineerPartsReplace id={id}  repairId={data?.data?.repairId} />;
+        return <EngineerPartsReplace id={id} repairId={data?.data?.repairId} />;
     }
   }
   if (isLoading) {
@@ -69,11 +67,11 @@ const EngineerItemsOrderDetails = () => {
           CardInformation={[
             {
               title: "Name",
-              value: data?.data?.repair?.Nonwarrentycustomer?.name,
+              value: data?.data?.repair?.customer?.contact_person,
             },
             {
               title: "Number",
-              value: data?.data?.repair?.Nonwarrentycustomer?.contact_number,
+              value: data?.data?.repair?.customer?.contactNo,
             },
           ]}
         />
@@ -107,9 +105,9 @@ const EngineerItemsOrderDetails = () => {
         <div className="col-span-2 bg-solidWhite px-5 py-5  relative h-full">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summary</h2>
-            <div>
+            {/* <div>
               <MdModeEdit />
-            </div>
+            </div> */}
           </div>
           <EngineerItemOrderDetailsTable data={data?.data} />
         </div>
@@ -117,9 +115,9 @@ const EngineerItemsOrderDetails = () => {
         <div className=" bg-solidWhite px-5 py-5">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Status Order</h2>
-            <div>
+            {/* <div>
               <MdModeEdit />
-            </div>
+            </div> */}
           </div>
 
           <select

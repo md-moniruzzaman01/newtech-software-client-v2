@@ -25,6 +25,7 @@ import BillListWarranty from "../modules/warranty/BillWarranty/BillListWarranty/
 import BillPendingWarranty from "../modules/warranty/BillWarranty/BillPendingWarranty/BillPendingWarranty";
 import CreateABillWarranty from "../modules/warranty/BillWarranty/CreateABillWarranty/CreateABillWarranty";
 import ComplaintsInDetails from "../modules/warranty/complaints/Complains In Details/ComplaintsInDetails";
+import EngineerItemsOrderDetails from "../modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 
 export const warrantyComplaintsRoutes = [
   { path: "/", element: <WarrantyDashboard /> },
@@ -56,6 +57,10 @@ export const warrantyQasRoutes = [
   { path: "/qa-items/order-details/:id", element: <QAItemOrderDetails /> },
 ];
 export const warrantyRepairsRoutes = [
+  {
+    path: "/engineer-items/order-details/:id",
+    element: <EngineerItemsOrderDetails />,
+  },
   { path: "/engineer-items", element: <EngineerItems /> },
   { path: "/engineer-my-repaired", element: <MyRepairs /> },
   { path: "/engineer-all-repairs", element: <EngineerAllRepairs /> },
