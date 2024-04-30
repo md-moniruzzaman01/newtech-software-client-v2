@@ -1,4 +1,3 @@
-import { MdModeEdit } from "react-icons/md";
 //internal
 import ComplaintOrderDetailsTableQC from "./partials/ComplaintOrderDetailsTableQC";
 import ComplaintOrderStatusQC from "./partials/ComplaintOrderStatusQC";
@@ -15,16 +14,18 @@ import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complai
 const ComplaintOrderDetailsQC = () => {
   const { id } = useParams();
   const token = getFromLocalStorage(authKey);
-  const { data: qcData, isLoading } = useGetQcByIdQuery({ token, id });
-
-  const { data: complaintsData } = useGetComplaintByIdQuery({
+  const { data: qcData, isLoading: gcIsLoading } = useGetQcByIdQuery({
     token,
-    id: qcData?.data?.repairId,
+    id,
   });
-  console.log(complaintsData);
-  console.log(qcData);
 
-  if (isLoading) {
+  const { data: complaintsData, isLoading: complaintsIsLoading } =
+    useGetComplaintByIdQuery({
+      token,
+      id: qcData?.data?.repairId,
+    });
+
+  if (gcIsLoading || complaintsIsLoading) {
     return <LoadingPage />;
   }
   return (
@@ -92,9 +93,6 @@ const ComplaintOrderDetailsQC = () => {
         <div className="col-span-2 bg-solidWhite px-5  relative h-2/3">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
-            <div>
-              <MdModeEdit />
-            </div>
           </div>
           <ComplaintOrderDetailsTableQC data={qcData} data2={complaintsData} />
         </div>
@@ -102,9 +100,6 @@ const ComplaintOrderDetailsQC = () => {
         <div className=" bg-solidWhite px-5 py-5">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Status Order</h2>
-            <div>
-              <MdModeEdit />
-            </div>
           </div>
           <ComplaintOrderStatusQC id={id} />
         </div>

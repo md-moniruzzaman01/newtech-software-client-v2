@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import Button from "../../../../../common/components/Button";
 import Input from "../../../../../common/components/Input";
@@ -7,6 +8,7 @@ import { repairStatus } from "../config/constants";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
 import { useUpdateStatusQCMutation } from "../../../../../redux/features/api/qc";
+import { showSwal } from "../../../../../shared/helpers/SwalShower";
 
 const ComplaintOrderStatusQC = ({ id }: { id: string | undefined }) => {
   const [qcStatusValue, setQcStatusValue] = useState("");
@@ -28,17 +30,18 @@ const ComplaintOrderStatusQC = ({ id }: { id: string | undefined }) => {
       status: qc_status,
       qcImage: [],
     };
-    updateStatusQC({fullData,token,id})
-
+    const result: any = await updateStatusQC({ fullData, token, id });
+    showSwal(result);
 
     form.reset();
   };
   return (
     <div className="space-y-2">
       <form onSubmit={handleSubmit}>
-        <Input inputName="rma_number" labelName="RMA Number :" />
+        <Input inputName="rma_number" labelName="RMA Number :" required />
 
         <InputFilter
+          required
           inputName="qc_status"
           label="QC Status :"
           Filter={repairStatus}

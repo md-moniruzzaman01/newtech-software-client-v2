@@ -12,6 +12,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
+      invalidatesTags: ["complaints"],
     }),
     getComplaints: builder.query({
       query: (params) => {
@@ -79,5 +80,4 @@ export const {
   useGetMyComplaintQuery,
   useGetReadyForDelivaryComplaintsQuery,
   useGetReadyForDelivaryServicesQuery,
-
 } = ComplaintsApi;
