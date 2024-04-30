@@ -149,7 +149,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   </p>
                 )}
                 {suggestions.length > 0 && (
-                  <ul className=" bg-slate-300  rounded   suggestions-list ">
+                  <ul className=" bg-slate-200 px-2  rounded   suggestions-list ">
                     {suggestions &&
                       suggestions?.map((suggestion, index) => (
                         <li
@@ -162,7 +162,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                               setSuggestions
                             )
                           }
-                          className="suggestion-item"
+                          className="suggestion-item cursor-pointer"
                         >
                           {`${suggestion?.name}-${suggestion?.contact_number}`}
                         </li>

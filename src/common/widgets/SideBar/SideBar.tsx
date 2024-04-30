@@ -121,7 +121,13 @@ const SideBar = () => {
               </div>
             </NavLink>
           )}
-          <NavLink to="/engineer-dashboard">
+          <NavLink
+            to={`${
+              activeRoute
+                ? "/engineer-dashboard"
+                : "services-engineer-dashboard"
+            }`}
+          >
             <div className={routeStyle}>
               <FiMonitor className="text-xl" />
               <span>Engineer Dashboard</span>
@@ -169,9 +175,11 @@ const SideBar = () => {
             <EngineerRoute />
           </div>
 
-          <div>
-            <QARoute />
-          </div>
+          {(user?.role === "admin" || user?.power?.includes("06")) && (
+            <div>
+              <QARoute />
+            </div>
+          )}
 
           {/* <NavLink to="/category">
             <div className={routeStyle}>

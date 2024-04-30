@@ -25,7 +25,7 @@ import ServiceMyLibrary from "../modules/services/repair/MyLibrary/ServiceMyLibr
 export const serviceComplaintsRoutes = [
   { path: "/add-complaint", element: <ComplaintService /> },
   { path: "/services", element: <ServiceDashboard /> },
-  { path: "services/engineer-dashboard", element: <EngineerDashboard /> },
+  { path: "services-engineer-dashboard", element: <EngineerDashboard /> },
   { path: "/complaints-service", element: <ComplaintListService /> },
   {
     path: "/complaints-service-details/:id",
