@@ -14,15 +14,22 @@ export const handleCheckboxChange = (
 export const handleAllCheckboxChange = (
   checkedRows: string[],
   setCheckedRows: any,
-  items: any
+  items: any,
+  productData: any
 ) => {
   if (checkedRows.length === items?.length) {
     setCheckedRows([]);
   } else {
-    const allIds =
-      items
-        ?.map((item) => item?.id || item?._id)
-        .filter((id) => id !== undefined) || [];
+    console.log("debug", items);
+    const allIds = !productData
+      ? items
+          ?.map((item) => item?.id || item?._id)
+          .filter((id) => id !== undefined) || []
+      : items
+          ?.map(
+            (item) => item?.repair[item?.repair?.length - 1]?.id || item?._id
+          )
+          .filter((id) => id !== undefined) || [];
     if (allIds.length > 0) {
       setCheckedRows(allIds as string[]);
     }

@@ -17,6 +17,7 @@ import {
 } from "../../../../redux/features/api/qa";
 import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const QAItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,13 +47,14 @@ const QAItems = () => {
   } = useGetEngineersQuery({ token });
   const [createQA, { isLoading, isError, isSuccess }] = useCreateQAMutation();
 
-  function handleSubmit(id: string) {
+  const handleSubmit = async (id: string) => {
     const fullData = {
       qa_checker_id: id,
       repairIds: checkedRows,
     };
-    createQA({ fullData, token });
-  }
+    const result = await createQA({ fullData, token });
+    showSwal(result);
+  };
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
@@ -106,7 +108,7 @@ const QAItems = () => {
             checkedRows={checkedRows}
             setCheckedRows={setCheckedRows}
             checkbox
-            link="/qa-items/order-details"
+            productData
           />
           <div className="absolute bottom-2 right-[50px]">
             <Pagination

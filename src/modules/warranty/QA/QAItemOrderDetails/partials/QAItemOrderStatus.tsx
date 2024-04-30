@@ -1,18 +1,42 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
 import Button from "../../../../../common/components/Button";
 import { orderStatus } from "../config/constants";
+import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../../shared/config/constaints";
+import { useNavigate, useParams } from "react-router-dom";
+import { useUpdateStatusQAMutation } from "../../../../../redux/features/api/qa";
+import swal from "sweetalert";
 
 const QAItemOrderStatus = () => {
   // const [droppedImage, setDroppedImage] = useState<string>();
+  const token = getFromLocalStorage(authKey);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [updateStatusQA, { isLoading }] = useUpdateStatusQAMutation();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
     const status = (form.elements.namedItem("status") as HTMLInputElement)
       .value;
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
-    form.reset();
+
+    const fullData = {
+      status,
+      note,
+      qa_image: [],
+    };
+
+    const result: any = await updateStatusQA({ id, fullData, token });
+    if (result?.data?.success) {
+      swal("Success", `${result?.data?.message}`, "success");
+      navigate("/qa-my-library");
+      form.reset();
+    } else {
+      swal("Error", `${result?.error?.data?.message}`, "error");
+    }
   };
 
   return (
@@ -35,7 +59,9 @@ const QAItemOrderStatus = () => {
         </DndProvider>
       </div> */}
         <TextArea name="note" label="Note" placeholder="write your note" />
-        <Button primary>Submit</Button>
+        <Button loading={isLoading} primary>
+          Submit
+        </Button>
       </form>
     </div>
   );

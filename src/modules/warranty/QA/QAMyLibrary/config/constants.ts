@@ -1,11 +1,9 @@
 export const MyQCTableHeader = [
-  "id",
-  "Order ID",
-  "S/N No.",
-  "user_name",
+  "ID",
+  "Serial No",
+  "Engineer Name",
   "Status",
-  "Qc CreatedAt",
-  "RD",
+  "QA CreatedAt",
   "Action",
 ];
 
@@ -21,12 +19,9 @@ export const keys = [
 ];
 
 export const tableLayout = [
-  "item.order_number",
-  "item?.products?.serial_number",
-  "item?.products?.model_number",
-  "item?.Nonwarrentycustomer?.name || item?.customer?.contact_person",
-  "item?.category_name",
-  "item?.brand_name",
-  "item?.repair_status",
-  "item?.received_date?.toString()?.slice(0,10)",
+  "item.id",
+  "item?.serial_number",
+  `${"item?.qa_checker_id?.Engineer?.name?.firstName"} + " " + ${"item?.qa_checker_id?.Engineer?.name?.lastName"}`,
+  "item?.status",
+  "item?.createdAt?.toString()?.slice(0,10)",
 ];

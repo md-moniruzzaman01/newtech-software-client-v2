@@ -1,7 +1,5 @@
 export const orderStatus = [
-  { id: "pending", value: "Pending" },
-  { id: "processing", value: "Processing" },
-  { id: "completed", value: "Completed" },
-  { id: "delivered", value: "Delivered" },
+  { id: "QA Ok", value: "QA Ok" },
+  { id: "Retrun to Engineer", value: "Retrun to Engineer" },
   // Add more statuses as needed
 ];

@@ -1,22 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
 import Button from "../../../../../common/components/Button";
 import { RepairStatus } from "../config/constants";
-import swal from "sweetalert";
 import { authKey } from "../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
-import { useNavigate, useParams } from "react-router-dom";
-import LoadingPage from "../../../../../common/components/LoadingPage/LoadingPage";
-import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
 import { useUpdateStatusQAMutation } from "../../../../../redux/features/api/qa";
+import { useNavigate, useParams } from "react-router-dom";
+import swal from "sweetalert";
 
 const QAItemOrderStatus = () => {
   // const [droppedImage, setDroppedImage] = useState<string>();
   const token = getFromLocalStorage(authKey);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [updateStatusQA, { isLoading, isError, isSuccess, error }] =
-    useUpdateStatusQAMutation();
+  const [updateStatusQA, { isLoading }] = useUpdateStatusQAMutation();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,23 +28,17 @@ const QAItemOrderStatus = () => {
       note,
       qa_image: [],
     };
-    const result = await updateStatusQA({ id, fullData, token });
-    if (isLoading) {
-      return <LoadingPage />;
-    }
-    if (isError || "error" in result) {
-      swal("Something went wrong!", {
-        icon: "error",
-      });
-      return <ErrorShow error={error} />;
-    }
-    if (isSuccess || "success" in result) {
-      swal("Your data has been successfully Updated.", {
-        icon: "success",
-      });
-      navigate("/service-qa-my-library");
+    const result: any = await updateStatusQA({ id, fullData, token });
+
+    if (result?.data?.success) {
+      swal("Success", `${result?.data?.message}`, "success");
+      navigate("/qa-my-library");
       form.reset();
+    } else {
+      swal("Error", `${result?.error?.data?.message}`, "error");
     }
+
+    form.reset();
   };
 
   return (

@@ -55,7 +55,8 @@ const CommonTable: FC<CommonTableProps> = ({
                           handleAllCheckboxChange(
                             checkedRows,
                             setCheckedRows,
-                            itemData
+                            itemData,
+                            productData
                           )
                         }
                       />
@@ -119,7 +120,11 @@ const CommonTable: FC<CommonTableProps> = ({
                     <td className="border">
                       <NavLink
                         className=" !text-black flex justify-center"
-                        to={`${link}/${item?.id}`}
+                        to={`${link}/${
+                          productData
+                            ? item?.repair[item?.repair?.length - 1]?.id
+                            : item?.id
+                        }`}
                       >
                         <IoMdEye />
                       </NavLink>

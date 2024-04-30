@@ -32,7 +32,7 @@ const QAItemServiceOrderDetails = () => {
           headerTitle="Created Date"
         />
         <ComplaintHeaderCard
-          headerDetails={qaData?.data?.repair?.createdAt
+          headerDetails={qaData?.data?.repair?.turnaround_time
             ?.toString()
             ?.slice(0, 10)}
           bgColor="primary"
