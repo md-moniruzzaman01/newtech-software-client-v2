@@ -1,3 +1,4 @@
+import ForgetPassword from "../modules/Utilitis/Forget Password";
 import SettingPage from "../modules/Utilitis/SettingPage";
 
 export const settings = [
@@ -7,6 +8,6 @@ export const settings = [
   },
   {
     path: "/forget-password",
-    element: <SettingPage />,
+    element: <ForgetPassword />,
   },
 ];
