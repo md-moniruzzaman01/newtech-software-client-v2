@@ -22,7 +22,9 @@ const BillApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["bill"],
     }),
+
     getPendingBills: builder.query({
       query: (params) => {
         return {
@@ -51,6 +53,7 @@ const BillApi = baseApi.injectEndpoints({
           authorization: token,
         },
       }),
+      invalidatesTags: ["bill"],
     }),
   }),
 });

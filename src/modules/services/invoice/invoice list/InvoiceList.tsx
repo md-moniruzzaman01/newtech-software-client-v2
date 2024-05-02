@@ -14,10 +14,16 @@ import {
 } from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { useGetBillsQuery } from "../../../../redux/features/api/bill";
+import {
+  useDeleteBillMutation,
+  useGetBillsQuery,
+} from "../../../../redux/features/api/bill";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
 import ConditionalBtnInSearch from "./partials/conditionalBtnInSearch/ConditionalBtnInSearch";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
+import swal from "sweetalert";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const InvoiceList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -31,12 +37,15 @@ const InvoiceList = () => {
   const token = getFromLocalStorage(authKey);
   const {
     data: billData,
+    error,
     isError: billsError,
     isLoading: billsLoading,
   } = useGetBillsQuery({
     token,
     query,
   });
+
+  const [deleteBill] = useDeleteBillMutation();
 
   useEffect(() => {
     if (billData) {
@@ -46,16 +55,30 @@ const InvoiceList = () => {
     }
   }, [billData]);
 
+  const handleDeleteBil = async (id: string) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this bill details!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result = await deleteBill({ id, token });
+        showSwal(result);
+      } else {
+        swal("Your bill details is safe!");
+      }
+    });
+  };
+
   if (billsLoading) {
     return <LoadingPage />;
   }
   if (billsError) {
-    return (
-      <div className="min-h-screen flex justify-items-center items-center">
-        <p>Error found</p>
-      </div>
-    );
+    return <ErrorShow error={error} />;
   }
+
   return (
     <div className=" px-5">
       <Navbar name="Service Bill List" />
@@ -81,6 +104,8 @@ const InvoiceList = () => {
               btnValue="Invoice"
               btnLink="/service-invoice"
               checkbox
+              deleteBtn="Delete"
+              deleteFn={handleDeleteBil}
             />
           </div>
         </div>

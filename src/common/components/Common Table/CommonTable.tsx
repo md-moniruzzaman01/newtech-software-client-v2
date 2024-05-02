@@ -20,6 +20,8 @@ interface CommonTableProps {
   setCheckedRows?: any;
   btnLink?: string;
   btnValue?: string;
+  deleteBtn?: string;
+  deleteFn?: any;
 }
 
 // type TableData = Record<string, any>;
@@ -35,6 +37,8 @@ const CommonTable: FC<CommonTableProps> = ({
   dataLayout,
   btnLink,
   btnValue,
+  deleteBtn,
+  deleteFn,
 }) => {
   return (
     <>
@@ -114,6 +118,18 @@ const CommonTable: FC<CommonTableProps> = ({
                           {btnValue}
                         </Button>
                       </NavLink>
+                    </td>
+                  )}
+                  {deleteBtn && (
+                    <td className="border">
+                      <Button
+                        onClick={() => deleteFn(item?.id)}
+                        danger
+                        mini
+                        className="!text-xs "
+                      >
+                        {deleteBtn}
+                      </Button>
                     </td>
                   )}
                   {link && (
