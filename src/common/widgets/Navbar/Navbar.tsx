@@ -41,7 +41,6 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   });
 
   const { data: notification } = useGetNotificationQuery({ id, token });
-  console.log(notification);
   if (userLoading || adminLoading) {
     return <LoadingPage />;
   }
