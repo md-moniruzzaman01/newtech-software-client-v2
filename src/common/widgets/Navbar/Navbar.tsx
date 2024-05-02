@@ -15,6 +15,7 @@ import {
 } from "../../../redux/features/api/users";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
+import { useGetNotificationQuery } from "../../../redux/features/api/others";
 
 interface NavbarProps {
   name?: string;
@@ -23,12 +24,13 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   const navigate = useNavigate();
   const token = getFromLocalStorage(authKey);
+
   const handleLogout = () => {
     navigate("/login");
     swal("success", "Successfully logged out");
     removeUserInfo(authKey);
   };
-  const { userId } = getUserInfo();
+  const { userId, _id: id } = getUserInfo();
   const { data: userInfo, isLoading: userLoading } = useGetUserQuery({
     userId,
     token,
@@ -37,6 +39,9 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
     userId,
     token,
   });
+
+  const { data: notification } = useGetNotificationQuery({ id, token });
+  console.log(notification);
   if (userLoading || adminLoading) {
     return <LoadingPage />;
   }
@@ -55,12 +60,15 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 <Menu.Button className="flex justify-center gap-2 items-center bg-transparent border-0 cursor-pointer">
                   <div>
                     <NotificationIcon />
-                    <span className="w-[14px] h-[14px] rounded-full bg-[#FF0032] absolute top-0 right-0 flex items-center justify-center text-[12px] text-white">
-                      8
-                    </span>
+                    {notification?.data?.length > 0 && (
+                      <span className="w-[14px] h-[14px] rounded-full bg-shadeOfRed absolute top-0 right-0 flex items-center justify-center text-[12px] text-white">
+                        {notification?.data?.length || 0}
+                      </span>
+                    )}
                   </div>
                 </Menu.Button>
               </div>
+
               <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
