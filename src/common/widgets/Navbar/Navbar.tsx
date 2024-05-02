@@ -7,6 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
 import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
+import { LuMessageSquare } from "react-icons/lu";
 import { authKey } from "../../../shared/config/constaints";
 import swal from "sweetalert";
 import {
@@ -83,18 +84,29 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 <Menu.Items className="absolute right-0 mt-2  origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                   <div
                     tabIndex={0}
-                    className="absolute right-0 z-10 mt-3  w-52 bg-base-500 shadow"
+                    className="absolute right-0 z-10 mt-3  w-72 bg-base-500 shadow"
                   >
-                    <div className="bg-solidWhite rounded-md">
-                      <h3 className="pt-3  font-semibold text-center">
-                        New Buffer In
-                      </h3>
-                      <h3 className="pt-1 text-center">258963</h3>
-                      <hr className="mt-2" />
-                      <div className="py-3 pl-5">
-                        <p>Notification</p>
+                    {notification?.data?.map((item, index) => (
+                      <div
+                        key={index}
+                        className={`${
+                          item?.isRead ? "bg-grayForBorder" : "bg-solidWhite"
+                        } rounded-md text-solidBlack px-5 pt-2`}
+                      >
+                        <div>
+                          <p className="text-sm">
+                            {item?.createdAt?.toString()?.slice(0, 10)}
+                          </p>
+                          <div className="flex justify-center items-center gap-5 pt-1">
+                            <div>
+                              <LuMessageSquare />
+                            </div>
+                            <p>{item?.message}</p>
+                          </div>
+                        </div>
+                        <hr className="mt-2" />
                       </div>
-                    </div>
+                    ))}
                   </div>
                 </Menu.Items>
               </Transition>
