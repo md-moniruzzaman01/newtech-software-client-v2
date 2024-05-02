@@ -55,7 +55,7 @@ const SideBar = () => {
       if (user?.role === "admin") {
         navigate("/services");
       } else {
-        navigate("/engineer-dashboard");
+        navigate("/services-engineer-dashboard");
       }
     } else {
       if (user?.role === "admin") {
@@ -66,7 +66,6 @@ const SideBar = () => {
     }
     localStorage.setItem("activeRoute", updatedActiveRoute.toString());
   };
-
   return (
     <div
       className={`min-h-screen text-base ${
@@ -104,7 +103,8 @@ const SideBar = () => {
       </div>
       <div className="  font-semibold ">
         <div className="flex flex-col gap-3 pb-20">
-          {activeRoute && user?.role === "admin" && (
+          {((activeRoute && user?.power?.includes("01")) ||
+            (activeRoute && user?.role === "admin")) && (
             <NavLink to="/">
               <div className={routeStyle}>
                 <MdOutlineDashboardCustomize className="text-xl" />

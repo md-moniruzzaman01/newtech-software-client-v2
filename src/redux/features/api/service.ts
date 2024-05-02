@@ -45,6 +45,7 @@ const ServiceApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["complaints"],
     }),
     deleteComplaints: builder.mutation({
       query: ({ fullData, token }) => ({
@@ -70,6 +71,19 @@ const ServiceApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["bill"],
+    }),
+
+    billUpdateDiscount: builder.mutation({
+      query: ({ id, token, fullData }) => ({
+        url: `/bill/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["bill"],
     }),
 
     getPartners: builder.query({
@@ -105,5 +119,6 @@ export const {
   useGetBillByIdQuery,
   useGetPartnersQuery,
   useDeleteComplaintsMutation,
-  useGetServicesForBillQuery
+  useGetServicesForBillQuery,
+  useBillUpdateDiscountMutation,
 } = ServiceApi;

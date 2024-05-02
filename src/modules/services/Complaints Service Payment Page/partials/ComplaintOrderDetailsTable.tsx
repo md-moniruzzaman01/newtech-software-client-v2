@@ -4,21 +4,23 @@ import { ComplaintsOrderDetailsProps, IDiscount } from "../config/types";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import Input from "../../../../common/components/Input";
-import { useGetBillByIdQuery } from "../../../../redux/features/api/service";
+import {
+  useBillUpdateDiscountMutation,
+  useGetBillByIdQuery,
+} from "../../../../redux/features/api/service";
 import {
   handleDiscountChange,
   handleHiddenDiscountChange,
   handleServiceChange,
 } from "../Helpers/DiscountFunction";
 import Button from "../../../../common/components/Button";
-import { SERVER_URL } from "../../../../shared/config/secret";
 import Modal from "../../../../common/components/Modal/Modal";
 import {
   handleDelivededWithOutPaySubmit,
   handlePaymentSubmit,
 } from "../Helpers/hanlePaymentService";
 import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const ComplaintOrderDetailsTable = ({
   id,
@@ -50,6 +52,8 @@ const ComplaintOrderDetailsTable = ({
     isError: billError,
     isLoading: billLoading,
   } = useGetBillByIdQuery({ id, token });
+  const [updateDiscount, { isLoading: updateDiscountLoading }] =
+    useBillUpdateDiscountMutation();
   useEffect(() => {
     if (!billError && !billLoading) {
       setBillSingleData(billData?.data);
@@ -88,34 +92,16 @@ const ComplaintOrderDetailsTable = ({
     }
   }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
 
-
-
-  const handleSubmitPayment = () => {
-    const url = `${SERVER_URL}/bill/${id}`;
+  const handleSubmitPayment = async () => {
+    // const url = `${SERVER_URL}/bill/${id}`;
     const fullData = {
       discount,
       hiddenDiscount,
       totalBillAmount,
       repairServiceCharge,
     };
-
-    fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `${token}`,
-      },
-      body: JSON.stringify(fullData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          swal("Success", "Discount is successful", "success");
-        } else {
-          // swal("Error", "Something went wrong!", "error");
-          console.log(data);
-        }
-      });
+    const result = await updateDiscount({ id, token, fullData });
+    showSwal(result);
   };
 
   const updateData = hiddenDiscount.map((data: IDiscount) => data.amount);
@@ -132,17 +118,14 @@ const ComplaintOrderDetailsTable = ({
   const total =
     billSingleData &&
     totalBillAmount -
-    ((totalHiddenDiscount / 100) * totalBillAmount +
-      (totalDiscount / 100) * totalBillAmount);
+      ((totalHiddenDiscount / 100) * totalBillAmount +
+        (totalDiscount / 100) * totalBillAmount);
   const totalDefault =
     billSingleData &&
     totalBillAmount -
-    ((totalHiddenDiscountDefault / 100) * totalBillAmount +
-      (totalDiscountDefault / 100) * totalBillAmount);
+      ((totalHiddenDiscountDefault / 100) * totalBillAmount +
+        (totalDiscountDefault / 100) * totalBillAmount);
 
-
-
-  console.log("bill", billData)
   return (
     <div className="w-full">
       <div>
@@ -249,11 +232,13 @@ const ComplaintOrderDetailsTable = ({
               <h3 className="font-semibold">Discount:</h3>
             </div>
             <div className="border py-2 border-gray-400 ">
-              {`${totalDiscount > 0 ? totalDiscount : totalDiscountDefault || 0
-                }% (${totalDiscount !== 0
+              {`${
+                totalDiscount > 0 ? totalDiscount : totalDiscountDefault || 0
+              }% (${
+                totalDiscount !== 0
                   ? ((totalDiscount / 100) * totalBillAmount).toFixed(2)
                   : ((totalDiscountDefault / 100) * totalBillAmount).toFixed(2)
-                })`}
+              })`}
             </div>
           </div>
           <div className="grid grid-cols-5  text-center">
@@ -264,16 +249,18 @@ const ComplaintOrderDetailsTable = ({
               <h3 className="font-semibold">Hidden Discount:</h3>
             </div>
             <div className="border py-2 border-gray-400 ">
-              {`${totalHiddenDiscount > 0
-                ? totalHiddenDiscount
-                : totalHiddenDiscountDefault || 0
-                }% (${totalDiscount !== 0
+              {`${
+                totalHiddenDiscount > 0
+                  ? totalHiddenDiscount
+                  : totalHiddenDiscountDefault || 0
+              }% (${
+                totalDiscount !== 0
                   ? ((totalHiddenDiscount / 100) * totalBillAmount).toFixed(2)
                   : (
-                    (totalHiddenDiscountDefault / 100) *
-                    totalBillAmount
-                  ).toFixed(2)
-                })`}
+                      (totalHiddenDiscountDefault / 100) *
+                      totalBillAmount
+                    ).toFixed(2)
+              })`}
             </div>
           </div>
           <div className="grid grid-cols-5  text-center">
@@ -299,7 +286,9 @@ const ComplaintOrderDetailsTable = ({
             <div className="text-end pr-2 py-2">
               <h3 className="font-semibold">Paid:</h3>
             </div>
-            <div className="py-2 font-semibold">{billSingleData?.total_paid}</div>
+            <div className="py-2 font-semibold">
+              {billSingleData?.total_paid}
+            </div>
           </div>
           <div className="grid grid-cols-5  text-center">
             <div></div>
@@ -330,7 +319,9 @@ const ComplaintOrderDetailsTable = ({
               loading={isLoading}
               mini
               className="w-full"
-              onClick={() => handleDelivededWithOutPaySubmit(id, navigate, setIsLoading)}
+              onClick={() =>
+                handleDelivededWithOutPaySubmit(id, navigate, setIsLoading)
+              }
               primary
             >
               Completed & waiting for bill
@@ -361,7 +352,12 @@ const ComplaintOrderDetailsTable = ({
           </div>
           <div className=" flex justify-end w-full">
             {!isEdit && (
-              <Button onClick={handleSubmitPayment} className="w-1/3" primary>
+              <Button
+                loading={updateDiscountLoading}
+                onClick={handleSubmitPayment}
+                className="w-1/3"
+                primary
+              >
                 Save
               </Button>
             )}
