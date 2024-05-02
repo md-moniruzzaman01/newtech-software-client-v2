@@ -2,7 +2,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import CrossIcon from "../../../shared/libs/custom icons/CrossIcon";
 
-const Modal = ({ setIsOpen, isOpen, children, header }) => {
+const Modal = ({
+  setIsOpen,
+  isOpen,
+  children,
+  header,
+  bgColor = "solidWhite",
+}) => {
   return (
     <div>
       <>
@@ -23,8 +29,10 @@ const Modal = ({ setIsOpen, isOpen, children, header }) => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-4 text-left align-middle shadow-xl transition-all">
-                    <div className="flex justify-between items-center pb-3">
+                  <Dialog.Panel
+                    className={`w-full max-w-md transform overflow-hidden rounded-2xl bg-${bgColor} py-7 px-5 text-left align-middle shadow-xl transition-all`}
+                  >
+                    <div className="flex justify-between items-center pb-5">
                       <h2 className="text-xl font-semibold ">{header}</h2>
 
                       <button

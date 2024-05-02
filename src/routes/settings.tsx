@@ -5,4 +5,8 @@ export const settings = [
     path: "/setting",
     element: <SettingPage />,
   },
+  {
+    path: "/forget-password",
+    element: <SettingPage />,
+  },
 ];
