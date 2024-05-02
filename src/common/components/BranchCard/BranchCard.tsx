@@ -40,7 +40,7 @@ const BranchCard: React.FC<BranchCardProps> = ({
 
   return (
     <div className={cx("min-h-48  rounded-md ", CBC_CLASSES, CTC_CLASSES)}>
-      <div className="flex flex-col gap-10 h-full  justify-center">
+      <div className="flex flex-col gap-10 h-full  justify-between py-8">
         <div className="flex justify-between px-8">
           <div className="text-xl font-bold">{headerTitle}</div>
           <div>
@@ -49,14 +49,14 @@ const BranchCard: React.FC<BranchCardProps> = ({
             </NavLink>
           </div>
         </div>
-        <div className="flex justify-between items-center px-8">
-          <div className="space-y-2">
+        <div className="">
+          <div className="space-y-2 flex justify-between items-center px-8">
             <h3 className=" font-semibold">{branchTitle}</h3>
-            <h3 className=" font-semibold">{details}</h3>
-          </div>
-          <div>
             <p className="font-bold">{count}</p>
-            <p className="font-bold">$ {price}</p>
+          </div>
+          <div className="flex justify-between items-center px-8 space-y-2">
+            <h3 className=" font-semibold">{details}</h3>
+            <p className="font-bold">{price}</p>
           </div>
         </div>
       </div>
