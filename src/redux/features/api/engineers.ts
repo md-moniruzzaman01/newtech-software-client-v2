@@ -33,6 +33,16 @@ const EngineerApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getEngineerDataForService: builder.query({
+      query: ({ token }) => {
+        return {
+          url: "/repair/services/data",
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
     updateRepairStatus: builder.mutation({
       query: ({ id, fullData, token }) => ({
         url: `/repair/${id}`,
@@ -81,4 +91,5 @@ export const {
   useUpdateRepairStatusMutation,
   useRepairReturnToLibraryMutation,
   useGetEngineersDataQuery,
+  useGetEngineerDataForServiceQuery,
 } = EngineerApi;

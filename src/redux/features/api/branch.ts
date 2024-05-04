@@ -20,6 +20,16 @@ const BranchApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getBranchesForService: builder.query({
+      query: ({ id, token }) => {
+        return {
+          url: `complaints/data/services/${id}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
     //     url: `/posts/${postId}`,
@@ -36,4 +46,8 @@ const BranchApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateBranchMutation, useGetBranchesQuery } = BranchApi;
+export const {
+  useCreateBranchMutation,
+  useGetBranchesQuery,
+  useGetBranchesForServiceQuery,
+} = BranchApi;

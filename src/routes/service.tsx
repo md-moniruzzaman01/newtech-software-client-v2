@@ -1,4 +1,4 @@
-import EngineerDashboard from "../modules/Dashboard/Engineer Dashboard";
+import EngineerDashboardForService from "../modules/Dashboard/Engineer Dashboard For Service";
 import ServiceDashboard from "../modules/Dashboard/service/ServiceDashboard";
 import ComplaintListService from "../modules/services/ComplaintListService/ComplaintListService";
 import ComplaintService from "../modules/services/ComplaintService/ComplaintService";
@@ -25,7 +25,10 @@ import ServiceMyLibrary from "../modules/services/repair/MyLibrary/ServiceMyLibr
 export const serviceComplaintsRoutes = [
   { path: "/add-complaint", element: <ComplaintService /> },
   { path: "/services", element: <ServiceDashboard /> },
-  { path: "services-engineer-dashboard", element: <EngineerDashboard /> },
+  {
+    path: "services-engineer-dashboard",
+    element: <EngineerDashboardForService />,
+  },
   { path: "/complaints-service", element: <ComplaintListService /> },
   {
     path: "/complaints-service-details/:id",

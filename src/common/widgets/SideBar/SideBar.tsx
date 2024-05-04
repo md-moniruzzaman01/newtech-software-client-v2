@@ -174,7 +174,9 @@ const SideBar = () => {
             <EngineerRoute />
           </div>
 
-          {(user?.role === "admin" || user?.power?.includes("06")) && (
+          {(user?.role === "admin" ||
+            user?.power?.includes("06") ||
+            user?.power?.includes("01")) && (
             <div>
               <QARoute />
             </div>

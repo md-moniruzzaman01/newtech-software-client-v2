@@ -7,7 +7,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
 import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
-import { authKey } from "../../../shared/config/constaints";
+import { LuMessageSquare } from "react-icons/lu";
+import { authKey, emptyData } from "../../../shared/config/constaints";
 import swal from "sweetalert";
 import {
   useGetAdminQuery,
@@ -15,6 +16,7 @@ import {
 } from "../../../redux/features/api/users";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import LoadingPage from "../../components/LoadingPage/LoadingPage";
+import { useGetNotificationQuery } from "../../../redux/features/api/others";
 
 interface NavbarProps {
   name?: string;
@@ -23,12 +25,13 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   const navigate = useNavigate();
   const token = getFromLocalStorage(authKey);
+
   const handleLogout = () => {
     navigate("/login");
     swal("success", "Successfully logged out");
     removeUserInfo(authKey);
   };
-  const { userId } = getUserInfo();
+  const { userId, _id: id } = getUserInfo();
   const { data: userInfo, isLoading: userLoading } = useGetUserQuery({
     userId,
     token,
@@ -37,6 +40,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
     userId,
     token,
   });
+
+  const { data: notification } = useGetNotificationQuery({ id, token });
+
+  // console.log(notification);
+
   if (userLoading || adminLoading) {
     return <LoadingPage />;
   }
@@ -55,12 +63,15 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 <Menu.Button className="flex justify-center gap-2 items-center bg-transparent border-0 cursor-pointer">
                   <div>
                     <NotificationIcon />
-                    <span className="w-[14px] h-[14px] rounded-full bg-[#FF0032] absolute top-0 right-0 flex items-center justify-center text-[12px] text-white">
-                      8
-                    </span>
+                    {notification?.data?.length > 0 && (
+                      <span className="w-[14px] h-[14px] rounded-full bg-shadeOfRed absolute top-0 right-0 flex items-center justify-center text-[12px] text-white">
+                        {notification?.data?.length || 0}
+                      </span>
+                    )}
                   </div>
                 </Menu.Button>
               </div>
+
               <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
@@ -73,18 +84,33 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 <Menu.Items className="absolute right-0 mt-2  origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                   <div
                     tabIndex={0}
-                    className="absolute right-0 z-10 mt-3  w-52 bg-base-500 shadow"
+                    className="absolute right-0 z-10 mt-3  w-72 bg-base-500 shadow"
                   >
-                    <div className="bg-solidWhite rounded-md">
-                      <h3 className="pt-3  font-semibold text-center">
-                        New Buffer In
-                      </h3>
-                      <h3 className="pt-1 text-center">258963</h3>
-                      <hr className="mt-2" />
-                      <div className="py-3 pl-5">
-                        <p>Notification</p>
-                      </div>
-                    </div>
+                    {notification?.data?.length ? (
+                      notification?.data?.map((item, index) => (
+                        <div
+                          key={index}
+                          className={`${
+                            item?.isRead ? "bg-grayForBorder" : "bg-solidWhite"
+                          } rounded-md text-solidBlack px-5 pt-3 `}
+                        >
+                          <div>
+                            <p className="text-sm">
+                              {item?.createdAt?.toString()?.slice(0, 10)}
+                            </p>
+                            <div className="flex justify-center items-center gap-5 pt-1">
+                              <div>
+                                <LuMessageSquare className="text-2xl" />
+                              </div>
+                              <p className="text-sm">{item?.message}</p>
+                            </div>
+                          </div>
+                          <hr className="mt-2" />
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-center py-5">{emptyData}</p>
+                    )}
                   </div>
                 </Menu.Items>
               </Transition>

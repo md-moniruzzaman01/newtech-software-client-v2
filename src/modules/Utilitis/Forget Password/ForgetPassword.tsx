@@ -2,11 +2,10 @@ import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
 
-const SettingPage = () => {
+const ForgetPassword = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value;
 
     const newPassword = (
       form.elements.namedItem("newPassword") as HTMLInputElement
@@ -15,7 +14,6 @@ const SettingPage = () => {
       form.elements.namedItem("confirmPassword") as HTMLInputElement
     )?.value;
     const fullData = {
-      email,
       newPassword,
       confirmPassword,
     };
@@ -26,11 +24,13 @@ const SettingPage = () => {
       <div className="w-2/3 mx-auto bg-solidWhite rounded-md p-8 ">
         <HeaderWithCrossBtn name="Change Password" />
         <form onSubmit={handleSubmit} className="space-y-3 py-5">
-          <Input labelName="Email" inputName="email" />
           <Input labelName="New Password" inputName="newPassword" />
           <Input labelName="Confirm Password" inputName="confirmPassword" />
-          <div className="w-1/2 mx-auto pt-8">
-            <Button primary sizeClass="px-8 py-2" className="w-full">
+          <div className="flex justify-center gap-20 items-center pt-8">
+            <Button danger sizeClass="px-8 py-2">
+              Cancel
+            </Button>
+            <Button primary sizeClass="px-8 py-2">
               Save
             </Button>
           </div>
@@ -40,4 +40,4 @@ const SettingPage = () => {
   );
 };
 
-export default SettingPage;
+export default ForgetPassword;

@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import DashboardCard from "../../../common/components/DashboardCard/DashboardCard";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { EngineerDashboardTableHeader, tableLayout } from "./config/constants";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
-import { useGetEngineersDataQuery } from "../../../redux/features/api/engineers";
+import { useGetEngineerDataForServiceQuery } from "../../../redux/features/api/engineers";
 import { icons } from "../../../shared/libs/Icons";
 
-const EngineerDashboard = () => {
+const EngineerDashboardForService = () => {
   const [billData, setBillData] = useState([]);
   const token = getFromLocalStorage(authKey);
   const { data: engineersData, isLoading: engineersIsLoading } =
-    useGetEngineersDataQuery({ token });
+    useGetEngineerDataForServiceQuery({ token });
 
   const {
     data: complaintsData,
@@ -24,7 +23,7 @@ const EngineerDashboard = () => {
   } = useGetComplaintsQuery({
     token,
   });
-  console.log(engineersData);
+  // console.log(engineersData);
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
@@ -43,31 +42,22 @@ const EngineerDashboard = () => {
       <div className="grid grid-cols-4 gap-3">
         <DashboardCard
           link="/service/engineer-items"
-          title="QC Library"
+          title="Engineer Library"
           money={engineersData?.data?.QC_OR_Engineer_Library_for_service_Count}
           className="bg-lightShadeOfGreenishYellow"
           icon={icons?.qcLibrary}
         />
-
-        <DashboardCard
-          link="/service/engineer-items"
-          title="Engineer Library"
-          money={engineersData?.data?.EngineerLibraryCountForWarranty}
-          className="bg-lightSkyBlue"
-          icon={icons?.qcLibrary}
-        />
-
         <DashboardCard
           link="/service-qa-items"
           title="QA Library"
           money={engineersData?.data?.QaLibrary}
-          className="bg-mintFrost"
+          className="bg-lightSkyBlue"
           icon={icons?.qcLibrary}
         />
         <DashboardCard
           title="Not Repairable"
           money={engineersData?.data?.NotRepairableCount}
-          className="bg-creamyPeach"
+          className="bg-mintFrost"
           icon={icons?.notRepairable}
         />
 
@@ -112,4 +102,4 @@ const EngineerDashboard = () => {
   );
 };
 
-export default EngineerDashboard;
+export default EngineerDashboardForService;

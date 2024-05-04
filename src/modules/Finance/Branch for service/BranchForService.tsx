@@ -2,15 +2,17 @@ import { useState } from "react";
 import BranchCard from "../../../common/components/BranchCard/BranchCard";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import BranchHeader from "./partials/BranchHeader";
-import { branches } from "../../../shared/config/constaints";
-import { useGetBranchesQuery } from "../../../redux/features/api/branch";
+import { authKey, branches } from "../../../shared/config/constaints";
+import { useGetBranchesForServiceQuery } from "../../../redux/features/api/branch";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 
 const BranchForService = () => {
   const [selectedBranch, setSelectedBranch] = useState("");
+  const token = getFromLocalStorage(authKey);
   const selectBranch = branches?.find((item) => item?.value === selectedBranch);
   const id = selectBranch?.id;
   console.log("id", id);
-  const { data } = useGetBranchesQuery({ id });
+  const { data } = useGetBranchesForServiceQuery({ id, token });
   console.log("data", data);
   return (
     <div className="px-5">
