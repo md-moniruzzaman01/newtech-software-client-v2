@@ -11,7 +11,13 @@ import { MdDashboard, MdMenu } from "react-icons/md";
 import CrossIcon from "./custom icons/CrossIcon";
 import { MdMoneyOffCsred } from "react-icons/md";
 import { FcCancel } from "react-icons/fc";
+import { TbDeviceImacCancel } from "react-icons/tb";
 import { CiDeliveryTruck } from "react-icons/ci";
+import { FaDropbox } from "react-icons/fa";
+import { MdBrokenImage } from "react-icons/md";
+import { MdOutlineSyncProblem } from "react-icons/md";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
+import { PiMonitorThin } from "react-icons/pi";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const icons: any = {
@@ -29,6 +35,12 @@ export const icons: any = {
   unPaid: <MdMoneyOffCsred />,
   failed: <FcCancel />,
   delivered: <CiDeliveryTruck />,
+  qcLibrary: <FaDropbox />,
+  notRepairable: <MdBrokenImage />,
+  difficulty: <MdOutlineSyncProblem />,
+  repaired: <IoCheckmarkDoneCircleOutline />,
+  requiredParts: <PiMonitorThin />,
+  cancel: <TbDeviceImacCancel />,
 
   // other icon
   // full_box: <FullBox />,
