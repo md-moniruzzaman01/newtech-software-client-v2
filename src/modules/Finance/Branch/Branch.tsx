@@ -2,14 +2,16 @@ import { useState } from "react";
 import BranchCard from "../../../common/components/BranchCard/BranchCard";
 import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import BranchHeader from "./partials/BranchHeader";
-import { branches } from "../../../shared/config/constaints";
+import { authKey, branches } from "../../../shared/config/constaints";
 import { useGetBranchesQuery } from "../../../redux/features/api/branch";
 import { getUserInfo } from "../../../services/auth.service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 
 const Branch = () => {
   const [selectedBranch, setSelectedBranch] = useState("");
   const selectBranch = branches?.find((item) => item?.value === selectedBranch);
+  const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const id = selectBranch?.id || user?.branch || "05";
   // const color = [
@@ -21,7 +23,7 @@ const Branch = () => {
   //   "lightOlive",
   // "darkYellow"
   // ];
-  const { data, isLoading } = useGetBranchesQuery({ id });
+  const { data, isLoading } = useGetBranchesQuery({ id, token });
   if (isLoading) {
     return <LoadingPage />;
   }

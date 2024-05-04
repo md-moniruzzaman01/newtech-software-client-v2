@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
 import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
 import { LuMessageSquare } from "react-icons/lu";
-import { authKey } from "../../../shared/config/constaints";
+import { authKey, emptyData } from "../../../shared/config/constaints";
 import swal from "sweetalert";
 import {
   useGetAdminQuery,
@@ -86,27 +86,31 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                     tabIndex={0}
                     className="absolute right-0 z-10 mt-3  w-72 bg-base-500 shadow"
                   >
-                    {notification?.data?.map((item, index) => (
-                      <div
-                        key={index}
-                        className={`${
-                          item?.isRead ? "bg-grayForBorder" : "bg-solidWhite"
-                        } rounded-md text-solidBlack px-5 pt-2`}
-                      >
-                        <div>
-                          <p className="text-sm">
-                            {item?.createdAt?.toString()?.slice(0, 10)}
-                          </p>
-                          <div className="flex justify-center items-center gap-5 pt-1">
-                            <div>
-                              <LuMessageSquare />
+                    {notification?.data?.length ? (
+                      notification?.data?.map((item, index) => (
+                        <div
+                          key={index}
+                          className={`${
+                            item?.isRead ? "bg-grayForBorder" : "bg-solidWhite"
+                          } rounded-md text-solidBlack px-5 pt-3 `}
+                        >
+                          <div>
+                            <p className="text-sm">
+                              {item?.createdAt?.toString()?.slice(0, 10)}
+                            </p>
+                            <div className="flex justify-center items-center gap-5 pt-1">
+                              <div>
+                                <LuMessageSquare className="text-2xl" />
+                              </div>
+                              <p className="text-sm">{item?.message}</p>
                             </div>
-                            <p>{item?.message}</p>
                           </div>
+                          <hr className="mt-2" />
                         </div>
-                        <hr className="mt-2" />
-                      </div>
-                    ))}
+                      ))
+                    ) : (
+                      <p className="text-center py-5">{emptyData}</p>
+                    )}
                   </div>
                 </Menu.Items>
               </Transition>

@@ -51,6 +51,15 @@ const OthersApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: [
+        "complaints",
+        "brand_category",
+        "category",
+        "repair",
+        "qc",
+        "qa",
+        "bill",
+      ],
     }),
   }),
 });

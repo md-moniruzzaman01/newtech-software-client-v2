@@ -38,6 +38,7 @@ const QAApi = baseApi.injectEndpoints({
     }),
     getQas: builder.query({
       query: (params) => {
+        console.log(`/qa?${params?.query}`);
         return {
           url: `/qa?${params?.query}`,
           headers: {
@@ -114,5 +115,5 @@ export const {
   useGetQAProductsForServiceByIdQuery,
   useUpdateStatusQAMutation,
   useQaReturnToLibraryMutation,
-  useGetMyQasQuery
+  useGetMyQasQuery,
 } = QAApi;
