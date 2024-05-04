@@ -33,6 +33,7 @@ const CategoryApi = baseApi.injectEndpoints({
 
     getCategory: builder.query({
       query: ({ mainCategoryId, brandId }) => {
+        console.log(`/brand/category?category=${mainCategoryId?.id}&brand=${brandId?.id}`)
         return {
           url: `/brand/category?category=${mainCategoryId?.id}&brand=${brandId?.id}`,
         };

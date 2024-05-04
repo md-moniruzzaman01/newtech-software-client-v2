@@ -15,7 +15,7 @@ export const handleDataSubmit = async (
   createComplaints: any
 ) => {
   const token = getFromLocalStorage(authKey);
-
+  console.log(fullData)
   setIsLoading(true);
   const result = await createComplaints({ fullData, token });
   if ("data" in result) {

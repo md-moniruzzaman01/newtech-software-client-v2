@@ -30,7 +30,6 @@ const SideBar = () => {
   const [activeRoute, setActiveRoute] = useState(true);
   const navigate = useNavigate();
   const user = getUserInfo();
-
   const location = useLocation();
 
   useEffect(() => {
