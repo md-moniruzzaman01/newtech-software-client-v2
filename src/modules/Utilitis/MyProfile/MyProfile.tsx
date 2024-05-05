@@ -20,12 +20,7 @@ const MyProfile = () => {
     userId,
     token,
   });
-  console.log("user Info", userInfo);
-  console.log("adminInfo", userAdminInfo);
-  console.log(
-    "user name",
-    userInfo?.data?.name?.firstName + " " + userInfo?.data?.name?.lastName
-  );
+
   if (userLoading || adminLoading) {
     return <LoadingPage />;
   }

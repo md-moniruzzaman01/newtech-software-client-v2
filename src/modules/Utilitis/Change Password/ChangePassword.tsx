@@ -19,7 +19,7 @@ const ChangePassword = () => {
       newPassword,
       confirmPassword,
     };
-    console.log(fullData);
+console.log(fullData)
   };
   return (
     <div className="pt-20">

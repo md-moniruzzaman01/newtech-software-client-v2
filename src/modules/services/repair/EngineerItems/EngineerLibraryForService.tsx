@@ -31,7 +31,7 @@ const EngineerLibraryForService = () => {
   const [limit, setLimit] = useState(10);
 
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys,currentPage,limit);
   const token = getFromLocalStorage(authKey);
 
   const { data, isError, isLoading } = useGetServiceProductsForRepairQuery({

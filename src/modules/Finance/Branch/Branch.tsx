@@ -14,20 +14,12 @@ const Branch = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const id = selectBranch?.id || user?.branch || "05";
-  // const color = [
-  //   "primary",
-  //   "lightBlue",
-  //   "lightYellow",
-  //   "darkYellow",
-  //   "lightCyan",
-  //   "lightOlive",
-  // "darkYellow"
-  // ];
+
   const { data, isLoading } = useGetBranchesQuery({ id, token });
   if (isLoading) {
     return <LoadingPage />;
   }
-  console.log("data", data?.data);
+
   return (
     <div className="px-5">
       <BranchHeader setSelectedBranch={setSelectedBranch} />

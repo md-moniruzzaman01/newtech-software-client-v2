@@ -61,8 +61,8 @@ const QCMyLibrary = () => {
     const fullData = {
       repairIds: checkedRows,
     };
-    const result = await qcReturnToLibrary({ token, fullData });
-    console.log(result);
+     await qcReturnToLibrary({ token, fullData });
+
     if (returnToLibraryIsSuccess) {
       swal("Success", "Return to library is done", "success");
     }

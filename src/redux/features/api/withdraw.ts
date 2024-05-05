@@ -6,7 +6,6 @@ const WithdrawSlice = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getWithdraw: builder.query({
       query: ({ token,query }) => {
-        console.log(`/transactions?${query}`)
         return {
           url: `/transactions?${query}`,
           headers: {

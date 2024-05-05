@@ -85,7 +85,7 @@ const Qc = () => {
   if (isError) {
     return <ErrorShow error={error} />;
   }
-  console.log(checkedRows);
+
   return (
     <div className="px-5">
       <Navbar name={"QC"}></Navbar>

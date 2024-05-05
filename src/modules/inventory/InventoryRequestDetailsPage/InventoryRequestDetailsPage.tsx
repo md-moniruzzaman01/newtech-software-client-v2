@@ -84,7 +84,7 @@ const InventoryRequestDetailsPage = () => {
     return <ErrorShow error={errorReject} />
   }
 
-  console.log(inventory)
+
   return (
     <div className="px-5">
       <Navbar name="Inventory Request Details" />

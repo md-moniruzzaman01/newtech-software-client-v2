@@ -47,7 +47,7 @@ const QCMyItemsService = () => {
     return <div>Error</div>;
   }
 
-  console.log(data)
+
   return (
     <div className=" px-5">
       <Navbar name="Service QA All"></Navbar>

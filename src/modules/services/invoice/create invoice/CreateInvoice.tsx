@@ -74,7 +74,7 @@ const CreateInvoice = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-console.log("generate bill",complaintsData)
+
   return (
     <div className=" px-5">
       <Navbar name="Create Bill Service" />

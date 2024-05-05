@@ -76,7 +76,6 @@ export const handleDataSubmit = async (
               });
           }
           if (!isPaymentButton) {
-            console.log("data", result);
             window.open(`/recipe/${result.data?.toString()}`, "Print recipe!");
           }
         } else if ("error" in result || "errorMessages" in result) {
