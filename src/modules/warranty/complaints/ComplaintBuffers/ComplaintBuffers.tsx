@@ -1,18 +1,43 @@
+import { useSearchParams } from "react-router-dom";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
+import { useGetBuffersQuery } from "../../../../redux/features/api/complaints";
+import { authKey } from "../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import {
-  DemoTableHeaderView,
-  DemoTableValue,
-} from "../../../../shared/config/constaints";
-import { tableLayout } from "./config/constant";
+  complaintsTableHeader,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constant";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { useEffect, useState } from "react";
 
 const ComplaintBuffers = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(0);
-  // const [limit, setLimit] = useState(10);
+  const token = getFromLocalStorage(authKey);
+  const [searchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
+
+  const {
+    data: buffers,
+    isLoading,
+    isError,
+  } = useGetBuffersQuery({ token, query });
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setTotalItems(buffers.meta.total);
+      setLimit(buffers.meta.limit);
+      setCurrentPage(buffers?.meta?.page);
+    }
+  }, [isLoading, isError, buffers]);
+  console.log(buffers);
   return (
     <div className=" px-5">
       <Navbar name="Buffers"></Navbar>
@@ -24,8 +49,8 @@ const ComplaintBuffers = () => {
           <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
             <CommonTable
-              itemData={DemoTableValue}
-              headerData={DemoTableHeaderView}
+              itemData={buffers?.data}
+              headerData={complaintsTableHeader}
               dataLayout={tableLayout}
               link="/complaints/order-details"
             />
@@ -33,10 +58,10 @@ const ComplaintBuffers = () => {
         </div>
         <div className="absolute bottom-2 right-[50px]">
           <Pagination
-          // limit={limit}
-          // currentPage={currentPage}
-          // totalItems={totalItems}
-          // setCurrentPage={setCurrentPage}
+            limit={limit}
+            currentPage={currentPage}
+            totalItems={totalItems}
+            setCurrentPage={setCurrentPage}
           />
         </div>
       </div>
