@@ -31,8 +31,7 @@ const ServiceInvoicePage = () => {
     userId,
     token,
   });
-  console.log("billData", billData);
-  console.log(billData?.data?.total_paid);
+
 
   if (userIsLoading || billDataLoading || adminIsLoading) {
     return <LoadingPage />;

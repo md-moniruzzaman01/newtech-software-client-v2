@@ -28,7 +28,6 @@ const QCMyLibrary = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetMyQasQuery({
-  const { data, isError, isLoading } = useGetMyQasQuery({
     id: user._id,
     token,
     query,

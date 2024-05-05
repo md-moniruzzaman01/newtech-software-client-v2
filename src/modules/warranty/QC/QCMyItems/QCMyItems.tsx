@@ -46,7 +46,7 @@ const QCMyItems = () => {
     return <ErrorShow error={error} />;
   }
 
-  console.log(data);
+ 
 
   return (
     <div className=" px-5">

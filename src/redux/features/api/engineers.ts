@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { baseApi } from "../../api/apiSlice";
 
 const EngineerApi = baseApi.injectEndpoints({
@@ -14,9 +14,9 @@ const EngineerApi = baseApi.injectEndpoints({
       }),
     }),
     getEngineers: builder.query({
-      query: ({ token }) => {
+      query: ({ token,query }) => {
         return {
-          url: "/engineers",
+          url: `/engineers?${query}`,
           headers: {
             authorization: token,
           },

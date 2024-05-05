@@ -67,8 +67,8 @@ const ServiceMyLibrary = () => {
     const fullData = {
       repairIds: checkedRows,
     };
-    const result = await returnToLibrary({ token, fullData });
-    console.log(result);
+    await returnToLibrary({ token, fullData });
+
     if (returnToLibraryIsSuccess) {
       swal("Success", "Return to library is done", "success");
     }

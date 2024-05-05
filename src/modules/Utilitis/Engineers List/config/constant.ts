@@ -2,15 +2,24 @@ export const headerForEngineersTable = [
   "ID",
   "Name",
   "Designation",
-  "Contact Number",
+  "Branch",
   "Email",
+  "Contact Number",
   "Created Date",
 ];
 export const tableLayout = [
   "item?.id",
-  `${"item?.name?.firstName"} + " " + ${"item?.name?.lastName"}`,
+  `${"item?.name?.firstName"} + " "+ ${"item?.name?.middleName"}+ " " + ${"item?.name?.lastName"}`,
   "item?.designation",
-  "item?.contactNo",
+  "item?.branch",
   "item?.email",
+  "item?.contactNo",
   "item?.createdAt?.toString().slice(0, 10)",
+];
+
+
+export const fields =
+  "";
+export const keys = [
+  "searchTerm",
 ];

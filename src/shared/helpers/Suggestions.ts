@@ -45,7 +45,6 @@ export const fetchData = async (
       email: selected.email,
       address: selected.address,
     }));
-    console.log(selected)
     setSearchInput(null);
     setSuggestions([]);
   };

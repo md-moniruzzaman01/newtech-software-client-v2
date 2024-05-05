@@ -51,7 +51,7 @@ const UsersRoute = () => {
         <NavLink to={`engineers-list`}>
           <div className={routeStyle}>
             <span>&#8618;</span>
-            <span>Engineer List</span>
+            <span>Engineer</span>
           </div>
         </NavLink>
         <NavLink to={`/admin`}>

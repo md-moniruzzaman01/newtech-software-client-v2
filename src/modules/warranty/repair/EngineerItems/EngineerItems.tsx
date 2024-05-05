@@ -44,7 +44,6 @@ const EngineerAllRepairs = () => {
     {
       isLoading: assignLoading,
       isError: assignError,
-      isSuccess: assginSuccess,
     },
   ] = useAssignEngineerMutation();
 
@@ -60,7 +59,7 @@ const EngineerAllRepairs = () => {
       repairIds: checkedRows,
     };
     assignEngineer({ fullData, token });
-    console.log(assginSuccess);
+   
   }
 
   if (isError || assignError) {
@@ -69,7 +68,7 @@ const EngineerAllRepairs = () => {
   if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
-  console.log("products", data);
+ 
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />

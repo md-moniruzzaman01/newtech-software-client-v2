@@ -11,7 +11,7 @@ const BranchForService = () => {
   const token = getFromLocalStorage(authKey);
   const selectBranch = branches?.find((item) => item?.value === selectedBranch);
   const id = selectBranch?.id;
-  console.log("id", id);
+
   const { data } = useGetBranchesForServiceQuery({ id, token });
   console.log("data", data);
   return (
