@@ -35,6 +35,7 @@ const Complaint = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
+
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -55,6 +56,7 @@ const Complaint = () => {
       setCurrentPage(complaintsData?.meta?.page);
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
+  console.log(complaintsData?.data);
   useEffect(() => {
     if (searchParams?.get("repair_status")) {
       setIsActiveBtn(searchParams?.get("repair_status"));
@@ -87,7 +89,6 @@ const Complaint = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-  console.log(complaints);
   return (
     <div className=" px-5">
       <Navbar name="Complaint"></Navbar>

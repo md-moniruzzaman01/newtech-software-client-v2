@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import Button from "../Button";
 import DatePicker from "react-datepicker";
 import { Menu, Transition } from "@headlessui/react";
@@ -6,7 +6,7 @@ import { Fragment } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 import InputFilter from "../InputFilter/InputFilter";
-import { FilterOptions } from "../../../shared/config/constaints";
+import { branches } from "../../../shared/config/constaints";
 import TableStatus from "../TableStatus/TableStatus";
 import { statusGroupProps } from "./config/types";
 import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
@@ -14,6 +14,7 @@ import { filterOptionsForFiler } from "./config/constants";
 import { useGetMainCategoryQuery } from "../../../redux/features/api/Category";
 import { useNavigate } from "react-router-dom";
 import InputFilterById from "../InputFilterById/InputFilterById";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 
 const StatusGroup: FC<statusGroupProps> = ({
   btnGroupValue,
@@ -27,11 +28,21 @@ const StatusGroup: FC<statusGroupProps> = ({
   isDeleteLoading = false,
   isReturnLoading = false,
 }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [activeRoute, setActiveRoute] = useState(true);
+
   const [brands, setBrands] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState("");
   const navigate = useNavigate();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const activeRouteValue = getFromLocalStorage("activeRoute");
+    if (activeRouteValue) {
+      setActiveRoute(JSON.parse(activeRouteValue));
+    }
+  }, [activeRoute]);
 
   const {
     data: brandData,
@@ -39,27 +50,13 @@ const StatusGroup: FC<statusGroupProps> = ({
     isLoading: brandsLoading,
   } = useGetBrandsQuery({});
 
-  const {
-    data: categoryData,
-    isError: categoryError,
-    isLoading: categoryLoading,
-  } = useGetMainCategoryQuery({});
+  const { data: categories } = useGetMainCategoryQuery({});
 
   useEffect(() => {
     if (!brandsError && !brandsLoading) {
       setBrands(brandData?.data);
     }
-    if (!categoryError && !categoryLoading) {
-      setCategory(categoryData?.data);
-    }
-  }, [
-    brandData,
-    brandsLoading,
-    brandsError,
-    categoryData,
-    categoryError,
-    categoryLoading,
-  ]);
+  }, [brandData, brandsLoading, brandsError]);
 
   const handleFilter = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,29 +65,56 @@ const StatusGroup: FC<statusGroupProps> = ({
     const sort = (form.elements.namedItem("sort") as HTMLInputElement)?.value;
     const branch = (form.elements.namedItem("branch") as HTMLInputElement)
       ?.value;
-    const category = (
-      form.elements.namedItem("category_name") as HTMLInputElement
-    )?.value;
+    // const category = (
+    //   form.elements.namedItem("category_name") as HTMLInputElement
+    // )?.value;
     // Constructing the query parameters
-    const queryParams = new URLSearchParams();
+    const queryParams = new URLSearchParams(window?.location?.search);
+
     if (sort) {
+      queryParams.delete("sort");
       queryParams.append("sort", sort);
     }
 
     if (brand) {
+      queryParams.delete("brand_name");
       queryParams.append("brand_name", brand);
     }
     if (branch) {
+      queryParams.delete("branch");
       queryParams.append("branch", branch);
     }
     if (category) {
+      queryParams.delete("category_name");
       queryParams.append("category_name", category);
     }
+    if (startDate) {
+      const day = startDate?.getDate();
+      const month = startDate?.getMonth() + 1; // Month is zero-indexed, so we add 1 to get the correct month number
+      const year = startDate?.getFullYear();
+      queryParams.delete("start_Date");
+      queryParams.append("start_Date", `${day}-${month}-${year}`);
+    }
+    if (endDate) {
+      const day = endDate.getDate();
+      const month = endDate.getMonth() + 1; // Month is zero-indexed, so we add 1 to get the correct month number
+      const year = endDate.getFullYear();
+      queryParams.delete("end_Date");
+      queryParams.append("end_Date", `${day}-${month}-${year}`);
+    }
 
-    // Constructing the new URL with the query parameters
-
-    // Setting the new URL
     navigate(`?${queryParams.toString()}`);
+  };
+
+  const handleClearQueryParams = () => {
+    // Reset the form values
+    if (formRef.current) {
+      formRef.current.reset();
+      // Manually reset the DatePicker component
+      setStartDate(null);
+      setEndDate(null);
+      navigate("");
+    }
   };
   return (
     <div className="flex justify-between items-center  ">
@@ -141,7 +165,7 @@ const StatusGroup: FC<statusGroupProps> = ({
                       fill="#888888"
                     />
                   </svg>
-                  <span> Filter</span>
+                  <span>Filter</span>
                 </div>
               </div>
             </Menu.Button>
@@ -160,7 +184,11 @@ const StatusGroup: FC<statusGroupProps> = ({
                     <h2 className="text-2xl py-3 font-semibold">Filter</h2>
                     <hr />
                   </div>
-                  <form onSubmit={handleFilter} className="w-full">
+                  <form
+                    ref={formRef}
+                    onSubmit={handleFilter}
+                    className="w-full"
+                  >
                     <div className="px-5 pt-5  w-full">
                       <label className="text-lg font-semibold ">Date</label>
                       <div className="flex items-center gap-2 justify-center pt-2">
@@ -181,14 +209,16 @@ const StatusGroup: FC<statusGroupProps> = ({
                     </div>
 
                     <div className="flex flex-col gap-5 py-5  px-5">
-                      <div className="w-full space-y-2">
-                        <InputFilterById
-                          Filter={brands}
-                          label="Brand"
-                          inputName="brand"
-                          placeholder="Select a brand"
-                        />
-                      </div>
+                      {activeRoute && (
+                        <div className="w-full space-y-2">
+                          <InputFilterById
+                            Filter={brands}
+                            label="Brand"
+                            inputName="brand"
+                            placeholder="Select a brand"
+                          />
+                        </div>
+                      )}
 
                       <div className="w-full space-y-2">
                         <InputFilter
@@ -200,8 +230,9 @@ const StatusGroup: FC<statusGroupProps> = ({
                       </div>
 
                       <div className="w-full space-y-2 ">
-                        <InputFilterById
-                          Filter={category}
+                        <InputFilter
+                          onChange={setCategory}
+                          Filter={categories?.data}
                           label="Category"
                           inputName="category_name"
                           placeholder="Select a Category"
@@ -209,7 +240,7 @@ const StatusGroup: FC<statusGroupProps> = ({
                       </div>
                       <div className="w-full space-y-2 ">
                         <InputFilter
-                          Filter={FilterOptions}
+                          Filter={branches}
                           label="Branch"
                           inputName="branch"
                           placeholder="Select a Branch"
@@ -219,7 +250,11 @@ const StatusGroup: FC<statusGroupProps> = ({
 
                     <div className="flex justify-around items-center pb-5">
                       <div>
-                        <Button className="!bg-shadeOfRed !text-white" status>
+                        <Button
+                          onClick={handleClearQueryParams}
+                          className="!bg-shadeOfRed !text-white"
+                          status
+                        >
                           Clear
                         </Button>
                       </div>
