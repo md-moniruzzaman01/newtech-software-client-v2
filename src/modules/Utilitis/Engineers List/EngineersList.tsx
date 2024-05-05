@@ -38,7 +38,7 @@ const EngineersList = () => {
       setLimit(engineers.meta.limit);
       setCurrentPage(engineers?.meta?.page);
     }
-  }, [engineers]);
+  }, [engineers, isError, isLoading]);
 
   if (isLoading) {
     return <LoadingPage />;

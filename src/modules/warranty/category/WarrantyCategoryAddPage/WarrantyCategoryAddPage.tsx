@@ -13,7 +13,7 @@ import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import { handleFormReset } from "../../../../common/widgets/FormResetFunction/FormResetFunction";
 import Button from "../../../../common/components/Button";
-import swal from "sweetalert";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const WarrantyCategoryAddPage = () => {
   const [activeRoute, setActiveRoute] = useState(false);
@@ -81,14 +81,7 @@ const WarrantyCategoryAddPage = () => {
       ? await createCategory(dataToUse)
       : await createCategoryForService(dataToUse);
 
-    if (result?.data?.success) {
-      console.log(result);
-      form.reset();
-      swal("Success", "Category added successfully", "success");
-    } else {
-      console.log(result);
-      swal("Error", "Something went wrong", "error");
-    }
+    showSwal(result);
   };
 
   return (

@@ -10,7 +10,6 @@ const routeStyle = " pt-3  flex  items-center gap-2";
 const SettingsRoute = () => {
   const [activeRoute, setActiveRoute] = useState(false);
   const user = getUserInfo();
-  console.log(user);
   const storedActiveRoute = localStorage.getItem("activeRoute");
   useEffect(() => {
     if (storedActiveRoute) {

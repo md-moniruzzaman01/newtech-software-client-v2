@@ -37,7 +37,6 @@ const ComplaintBuffers = () => {
       setCurrentPage(buffers?.meta?.page);
     }
   }, [isLoading, isError, buffers]);
-  console.log(buffers);
   return (
     <div className=" px-5">
       <Navbar name="Buffers"></Navbar>

@@ -20,7 +20,6 @@ export const handleAllCheckboxChange = (
   if (checkedRows.length === items?.length) {
     setCheckedRows([]);
   } else {
-    console.log("debug", items);
     const allIds = !productData
       ? items
           ?.map((item) => item?.id || item?._id)
