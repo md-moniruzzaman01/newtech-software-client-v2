@@ -9,8 +9,12 @@ import { authKey } from "../../../shared/config/constaints";
 import { headerForEngineersTable, tableLayout } from "./config/constant";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import { useEffect, useState } from "react";
 
 const EngineersList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   const token = getFromLocalStorage(authKey);
   const {
     data: engineers,
@@ -18,6 +22,13 @@ const EngineersList = () => {
     isError,
     error,
   } = useGetEngineersQuery({ token });
+  useEffect(() => {
+    if (engineers) {
+      setTotalItems(engineers.meta.total);
+      setLimit(engineers.meta.limit);
+      setCurrentPage(engineers?.meta?.page);
+    }
+  }, [engineers]);
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -25,7 +36,7 @@ const EngineersList = () => {
     return <ErrorShow error={error} />;
   }
   return (
-    <div className="px-5 relative h-full">
+    <div className="px-5 relative">
       <Navbar name="Engineers List" />
 
       <div className="flex gap-2 justify-end py-5">
@@ -47,8 +58,13 @@ const EngineersList = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 right-5">
-        <Pagination />
+      <div className="fixed bottom-5 right-5">
+        <Pagination
+          limit={limit}
+          currentPage={currentPage}
+          totalItems={totalItems}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );

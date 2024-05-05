@@ -72,6 +72,8 @@ const EngineerAdd = () => {
     const result: any = await addEngineer({ fullData, token });
     if (result?.data?.success) {
       swal("success", `${result?.data?.message}`, "success");
+      setPowerArr([]);
+      setSkillArr([]);
       form.reset();
     } else {
       swal("error", `Something went wrong`, "error"); // Show the error with swal
@@ -111,7 +113,6 @@ const EngineerAdd = () => {
               inputName="branch"
             />
             <SearchFilterInput
-              required
               options={engineerPower}
               labelName="power"
               filterName="power"
@@ -119,7 +120,7 @@ const EngineerAdd = () => {
               data={powerArr}
             />
             <SearchFilterInput
-              required
+              required={!powerArr?.includes("01")}
               options={brand?.data}
               labelName="ASP"
               filterName="asp"
