@@ -10,11 +10,11 @@ import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 
-import { useGetQasQuery } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { getUserInfo } from "../../../../services/auth.service";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { useGetMyQasQuery } from "../../../../redux/features/api/qa";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -27,7 +27,7 @@ const QCMyLibrary = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetQasQuery({
+  const { data, isError, isLoading } = useGetMyQasQuery({
     id: user._id,
     token,
     query,
