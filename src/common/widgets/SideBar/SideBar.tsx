@@ -5,7 +5,6 @@ import { FiMonitor } from "react-icons/fi";
 // import { FaRegCircleUser } from "react-icons/fa6";
 // import { IoIosPeople } from "react-icons/io";
 // import { MdEditNote } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import "./SideBar.css";
 import Button from "../../components/Button";
 import { useEffect, useState } from "react";
@@ -21,6 +20,7 @@ import OthersRoute from "./partials/OthersRoute/OthersRoute";
 import BillRoute from "./partials/BillRoute/BillRoute";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { getUserInfo } from "../../../services/auth.service";
+import SettingsRoute from "./partials/SettingsRoute/SettingsRoute";
 
 // routeStyle
 const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
@@ -245,12 +245,10 @@ const SideBar = () => {
           <div>
             <OthersRoute />
           </div>
-          <NavLink to="/setting">
-            <div className={routeStyle}>
-              <IoSettingsOutline className="text-xl" />
-              <span>Setting</span>
-            </div>
-          </NavLink>
+
+          <div>
+            <SettingsRoute />
+          </div>
         </div>
 
         {/* for login route  */}

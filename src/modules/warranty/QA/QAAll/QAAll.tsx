@@ -12,7 +12,7 @@ import { QATableHeader, fields, keys, tableLayout } from "./config/constants";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
-import { useGetQasQuery } from "../../../../redux/features/api/qa";
+import { useGetOldQasQuery } from "../../../../redux/features/api/qa";
 import { getUserInfo } from "../../../../services/auth.service";
 
 const QCMyItems = () => {
@@ -25,8 +25,8 @@ const QCMyItems = () => {
 
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetQasQuery({
-    id:user._id,
+  const { data, isError, isLoading } = useGetOldQasQuery({
+    id: user._id,
     token,
     query,
   });

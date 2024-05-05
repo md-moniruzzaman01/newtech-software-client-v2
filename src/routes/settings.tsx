@@ -1,10 +1,10 @@
+import ChangePassword from "../modules/Utilitis/Change Password";
 import ForgetPassword from "../modules/Utilitis/Forget Password";
-import SettingPage from "../modules/Utilitis/SettingPage";
 
 export const settings = [
   {
-    path: "/setting",
-    element: <SettingPage />,
+    path: "/change-password",
+    element: <ChangePassword />,
   },
   {
     path: "/forget-password",

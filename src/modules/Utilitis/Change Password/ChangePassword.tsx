@@ -2,7 +2,7 @@ import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
 
-const SettingPage = () => {
+const ChangePassword = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -40,4 +40,4 @@ const SettingPage = () => {
   );
 };
 
-export default SettingPage;
+export default ChangePassword;

@@ -109,7 +109,12 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-center py-5">{emptyData}</p>
+                      <div className=" bg-solidWhite">
+                        <div className="flex justify-center items-center gap-2 py-5">
+                          <LuMessageSquare className="text-2xl" />
+                          {emptyData}
+                        </div>
+                      </div>
                     )}
                   </div>
                 </Menu.Items>
@@ -145,7 +150,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                       <div className="py-3 pl-5">
                         <NavLink
                           className="hover:bg-transparent !bg-transparent"
-                          to={"/setting"}
+                          to={"/change-password"}
                         >
                           <Button link>Change Password</Button>
                         </NavLink>
