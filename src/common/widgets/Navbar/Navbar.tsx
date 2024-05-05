@@ -15,7 +15,6 @@ import {
   useGetUserQuery,
 } from "../../../redux/features/api/users";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import { useGetNotificationQuery } from "../../../redux/features/api/others";
 
 interface NavbarProps {
@@ -32,21 +31,16 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
     removeUserInfo(authKey);
   };
   const { userId, _id: id } = getUserInfo();
-  const { data: userInfo, isLoading: userLoading } = useGetUserQuery({
+  const { data: userInfo } = useGetUserQuery({
     userId,
     token,
   });
-  const { data: userAdminInfo, isLoading: adminLoading } = useGetAdminQuery({
+  const { data: userAdminInfo } = useGetAdminQuery({
     userId,
     token,
   });
 
   const { data: notification } = useGetNotificationQuery({ id, token });
-
-
-  if (userLoading || adminLoading) {
-    return <LoadingPage />;
-  }
 
   return (
     <div>
@@ -217,11 +211,6 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                           </NavLink>
                         </div>
 
-                        <div>
-                          <NavLink className="!bg-transparent" to={"/setting"}>
-                            <Button link>Setting</Button>
-                          </NavLink>
-                        </div>
                         <Button link onClick={handleLogout}>
                           Logout
                         </Button>

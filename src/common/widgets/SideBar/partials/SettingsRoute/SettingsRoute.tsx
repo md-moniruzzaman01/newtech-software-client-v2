@@ -38,14 +38,19 @@ const SettingsRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-        {user?.role === "admin" && (
-          <NavLink to="/change-password">
-            <div className={routeStyle}>
-              <span>&#8618;</span>
-              <span>Change Password</span>
-            </div>
-          </NavLink>
-        )}
+        <NavLink
+          to={`${
+            user?.role === "admin"
+              ? "/change-password"
+              : "/user-change-password"
+          }`}
+        >
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>Change Password</span>
+          </div>
+        </NavLink>
+
         <NavLink to="/send-message">
           <div className={routeStyle}>
             <span>&#8618;</span>

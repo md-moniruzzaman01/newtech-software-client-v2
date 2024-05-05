@@ -19,8 +19,11 @@ import UsersRoute from "./partials/UsersRoute/UsersRoute";
 import OthersRoute from "./partials/OthersRoute/OthersRoute";
 import BillRoute from "./partials/BillRoute/BillRoute";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { getUserInfo } from "../../../services/auth.service";
+import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
 import SettingsRoute from "./partials/SettingsRoute/SettingsRoute";
+import { icons } from "../../../shared/libs/Icons";
+import swal from "sweetalert";
+import { authKey } from "../../../shared/config/constaints";
 
 // routeStyle
 const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
@@ -46,6 +49,12 @@ const SideBar = () => {
       navigate("/services");
     }
   }, [navigate, activeRoute]);
+
+  const handleLogout = () => {
+    removeUserInfo(authKey);
+    swal("success", "Successfully logged out");
+    navigate("/login");
+  };
 
   const handleFilter = (route: string) => {
     const updatedActiveRoute = !activeRoute;
@@ -252,9 +261,16 @@ const SideBar = () => {
         </div>
 
         {/* for login route  */}
-        {/* <NavLink className="flex gap-2 items-center pb-[120px]" to="/logout">
-          <div className="pl-[30px] py-2 flex  items-center gap-2">Logout</div>
-        </NavLink> */}
+        <div className="pb-10">
+          <Button
+            className="ml-[30px] !text-solidWhite"
+            link
+            onClick={handleLogout}
+          >
+            {icons?.logout}
+            <div className="pl-2">Logout</div>
+          </Button>
+        </div>
       </div>
     </div>
   );
