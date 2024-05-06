@@ -8,7 +8,7 @@ export const partners = [
     element: <Partner />,
   },
   {
-    path: "/partner/order-details",
+    path: "/partner/order-details/:id",
     element: <CustomerDetailsPage />,
   },
   {

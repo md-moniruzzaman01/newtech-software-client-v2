@@ -49,7 +49,6 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
   });
 
   const { data: notification } = useGetNotificationQuery({ id, token });
-  console.log(notification);
   const handleCheckNotification = async (
     id: string,
     link: string,
