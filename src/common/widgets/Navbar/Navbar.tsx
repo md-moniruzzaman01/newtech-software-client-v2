@@ -64,7 +64,6 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
       }
     }
   };
-  console.log(notification?.data?.filter((item) => !item.isRead)?.length);
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">

@@ -28,7 +28,11 @@ export type ProductsProps = {
 
 export type ComplaintsOrderDetailsProps = {
   Nonwarrentycustomer_contact_number: string;
-  Nonwarrentycustomer?: { name?: string; contact_number?: string };
+  Nonwarrentycustomer?: {
+    name?: string;
+    contact_number?: string;
+    contactNo?: string;
+  };
   Qa: any[]; // Assuming any type for now
   Qc: any[]; // Assuming any type for now
   RepairItem: any[]; // Assuming any type for now
@@ -36,7 +40,7 @@ export type ComplaintsOrderDetailsProps = {
   brand_name: string;
   category_name: string;
   createdAt: string; // Assuming ISO date string format
-  customer: { contact_person?: string };
+  customer: { contact_person?: string; contactNo?: string };
   customer_contact_number: string;
   due: number;
   id: string;
