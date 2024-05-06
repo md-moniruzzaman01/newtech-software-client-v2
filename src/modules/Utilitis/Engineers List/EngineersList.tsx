@@ -1,6 +1,5 @@
-import { NavLink, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-import Button from "../../../common/components/Button";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import { useGetEngineersQuery } from "../../../redux/features/api/engineers";
@@ -16,6 +15,7 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 import { useEffect, useState } from "react";
 import { constructQuery } from "../../../shared/helpers/constructQuery";
+import SearchBar from "../../../common/components/SearchBar/SearchBar";
 
 const EngineersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -51,13 +51,17 @@ const EngineersList = () => {
     <div className="px-5 h-full">
       <Navbar name="Engineers List" />
 
-      <div className="flex gap-2 justify-end py-5">
+      <div className="py-5">
+        <SearchBar link linkBtn="+ Add Engineer" linkValue="/add-engineer" />
+      </div>
+
+      {/* <div className="flex gap-2 justify-end py-5">
         <NavLink to="/add-engineer">
           <Button mini primary>
             + Add Engineer
           </Button>
         </NavLink>
-      </div>
+      </div> */}
 
       {/* table start here  */}
       <div className="bg-solidWhite p-3">
