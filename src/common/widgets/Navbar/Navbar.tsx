@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
@@ -15,7 +16,10 @@ import {
   useGetUserQuery,
 } from "../../../redux/features/api/users";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { useGetNotificationQuery } from "../../../redux/features/api/others";
+import {
+  useGetNotificationQuery,
+  useUpdateNotificationMutation,
+} from "../../../redux/features/api/others";
 
 interface NavbarProps {
   name?: string;
@@ -24,7 +28,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   const navigate = useNavigate();
   const token = getFromLocalStorage(authKey);
-
+  const [updateNotification] = useUpdateNotificationMutation();
   const handleLogout = () => {
     navigate("/login");
     swal("success", "Successfully logged out");
@@ -42,6 +46,25 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
 
   const { data: notification } = useGetNotificationQuery({ id, token });
 
+  const handleCheckNotification = async (
+    id: string,
+    link: string,
+    isRead: boolean
+  ) => {
+    console.log(link);
+    if (isRead) {
+      navigate(`${link}`);
+    } else {
+      const result: any = await updateNotification({ id, token });
+      console.log(result);
+      if (result?.data?.success) {
+        navigate(`${result?.data?.link}`);
+      } else {
+        swal("Error", `${result?.error?.data?.message}`, "error");
+      }
+    }
+  };
+  console.log(notification?.data?.filter((item) => !item.isRead)?.length);
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">
@@ -56,9 +79,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 <Menu.Button className="flex justify-center gap-2 items-center bg-transparent border-0 cursor-pointer">
                   <div>
                     <NotificationIcon />
-                    {notification?.data?.length > 0 && (
+                    {notification?.data?.filter((item) => !item.isRead)
+                      ?.length > 0 && (
                       <span className="w-[14px] h-[14px] rounded-full bg-shadeOfRed absolute top-0 right-0 flex items-center justify-center text-[12px] text-white">
-                        {notification?.data?.length || 0}
+                        {notification?.data?.filter((item) => !item.isRead)
+                          ?.length || 0}
                       </span>
                     )}
                   </div>
@@ -82,10 +107,19 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                     {notification?.data?.length ? (
                       notification?.data?.map((item, index) => (
                         <div
+                          onClick={() =>
+                            handleCheckNotification(
+                              item?._id,
+                              item?.link,
+                              item?.isRead
+                            )
+                          }
                           key={index}
                           className={`${
-                            item?.isRead ? "bg-grayForBorder" : "bg-solidWhite"
-                          } rounded-md text-solidBlack px-5 pt-3 `}
+                            item?.isRead
+                              ? "bg-readMessageColor text-linkColor" // Use a subdued color for read messages
+                              : "bg-unReadMessageColor text-solidBlack" // Use a darker color for unread messages
+                          } rounded-md px-5 pt-3 cursor-pointer`}
                         >
                           <div>
                             <p className="text-sm">

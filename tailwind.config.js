@@ -38,6 +38,8 @@ export default {
         coralBlush: "#FFEEED",
         linkColor: "#808080",
         sideBarService: "#004fab",
+        readMessageColor: "#FFFFFF",
+        unReadMessageColor: "#F1F1F1",
       },
     },
   },

@@ -8,7 +8,7 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { MyQCTableHeader, tableLayout } from "./config/constants";
+import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 import {
   useGetQcsQuery,
   useQcReturnToLibraryMutation,
@@ -16,6 +16,8 @@ import {
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../../services/auth.service";
 import swal from "sweetalert";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { useSearchParams } from "react-router-dom";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,13 +35,15 @@ const QCMyLibrary = () => {
       isSuccess: returnToLibraryIsSuccess,
     },
   ] = useQcReturnToLibraryMutation();
+  const [searchParams] = useSearchParams();
   const token = getFromLocalStorage(authKey);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetQcsQuery({
     id: user._id,
     token,
+    query,
   });
-
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -61,7 +65,7 @@ const QCMyLibrary = () => {
     const fullData = {
       repairIds: checkedRows,
     };
-     await qcReturnToLibrary({ token, fullData });
+    await qcReturnToLibrary({ token, fullData });
 
     if (returnToLibraryIsSuccess) {
       swal("Success", "Return to library is done", "success");

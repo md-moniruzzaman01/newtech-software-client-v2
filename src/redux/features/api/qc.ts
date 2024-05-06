@@ -39,11 +39,11 @@ const QCApi = baseApi.injectEndpoints({
     }),
 
     getQcs: builder.query({
-      query: (params) => {
+      query: ({ token, query }) => {
         return {
-          url: `/qc/my-library?status=QC&${params?.query}`,
+          url: `/qc/my-library?status=QC&${query}`,
           headers: {
-            authorization: params?.token,
+            authorization: token,
           },
         };
       },
