@@ -29,7 +29,7 @@ const QCMyItemsService = () => {
     token,
     query,
   });
-
+  console.log(data);
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -46,7 +46,6 @@ const QCMyItemsService = () => {
 
     return <div>Error</div>;
   }
-
 
   return (
     <div className=" px-5">
