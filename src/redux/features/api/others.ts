@@ -72,6 +72,16 @@ const OthersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["notifications"],
     }),
+    markAsReadNotification: builder.mutation({
+      query: ({ token }) => ({
+        url: `/notification`,
+        method: "POST",
+        headers: {
+          authorization: token,
+        },
+      }),
+      invalidatesTags: ["notifications"],
+    }),
   }),
 });
 
@@ -82,4 +92,5 @@ export const {
   useGetChartDataForServiceQuery,
   useGetNotificationQuery,
   useUpdateNotificationMutation,
+  useMarkAsReadNotificationMutation,
 } = OthersApi;

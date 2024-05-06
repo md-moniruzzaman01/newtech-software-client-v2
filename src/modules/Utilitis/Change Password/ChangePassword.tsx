@@ -7,6 +7,7 @@ import { useUpdatePasswordMutation } from "../../../redux/features/api/users";
 import { authKey } from "../../../shared/config/constaints";
 import { showSwal } from "../../../shared/helpers/SwalShower";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import Navbar from "../../../common/widgets/Navbar/Navbar";
 
 const ChangePassword = () => {
   const [isError, setIsError] = useState("");
@@ -42,29 +43,32 @@ const ChangePassword = () => {
     }
   };
   return (
-    <div className="pt-20">
-      <div className="w-2/3 mx-auto bg-solidWhite rounded-md p-8 ">
-        <HeaderWithCrossBtn name="Change Password" />
-        <form onSubmit={handleSubmit} className="space-y-3 py-5">
-          <Input required labelName="ID" inputName="id" />
-          <Input required labelName="New Password" inputName="newPassword" />
-          <Input
-            required
-            labelName="Confirm Password"
-            inputName="confirmPassword"
-          />
-          {isError && <p className="text-red-500">{isError}</p>}
-          <div className="w-1/2 mx-auto pt-8">
-            <Button
-              loading={isLoading}
-              primary
-              sizeClass="px-8 py-2"
-              className="w-full"
-            >
-              Save
-            </Button>
-          </div>
-        </form>
+    <div className="px-5">
+      <Navbar />
+      <div className="pt-20">
+        <div className="w-2/3 mx-auto bg-solidWhite rounded-md p-8 ">
+          <HeaderWithCrossBtn name="Change Password" />
+          <form onSubmit={handleSubmit} className="space-y-3 py-5">
+            <Input required labelName="ID" inputName="id" />
+            <Input required labelName="New Password" inputName="newPassword" />
+            <Input
+              required
+              labelName="Confirm Password"
+              inputName="confirmPassword"
+            />
+            {isError && <p className="text-red-500">{isError}</p>}
+            <div className="w-1/2 mx-auto pt-8">
+              <Button
+                loading={isLoading}
+                primary
+                sizeClass="px-8 py-2"
+                className="w-full"
+              >
+                Save
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

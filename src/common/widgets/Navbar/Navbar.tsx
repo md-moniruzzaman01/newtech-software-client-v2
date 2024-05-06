@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import NotificationIcon from "../../../shared/libs/custom icons/NotificationIcon";
@@ -18,23 +18,27 @@ import {
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import {
   useGetNotificationQuery,
+  useMarkAsReadNotificationMutation,
   useUpdateNotificationMutation,
 } from "../../../redux/features/api/others";
+import { showSwal } from "../../../shared/helpers/SwalShower";
 
 interface NavbarProps {
   name?: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
+const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
   const navigate = useNavigate();
+  const [limit, setLimit] = useState(5);
   const token = getFromLocalStorage(authKey);
   const [updateNotification] = useUpdateNotificationMutation();
+  const [markAsRead] = useMarkAsReadNotificationMutation();
   const handleLogout = () => {
     navigate("/login");
     swal("success", "Successfully logged out");
     removeUserInfo(authKey);
   };
-  const { userId, _id: id } = getUserInfo();
+  const { userId, _id: id, role } = getUserInfo();
   const { data: userInfo } = useGetUserQuery({
     userId,
     token,
@@ -45,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
   });
 
   const { data: notification } = useGetNotificationQuery({ id, token });
-
+  console.log(notification);
   const handleCheckNotification = async (
     id: string,
     link: string,
@@ -64,6 +68,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
       }
     }
   };
+
+  const handleMarkAsRead = async () => {
+    const result = await markAsRead({ token });
+    showSwal(result);
+  };
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">
@@ -76,7 +85,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="flex justify-center gap-2 items-center bg-transparent border-0 cursor-pointer">
-                  <div>
+                  <div onClick={() => setLimit(5)}>
                     <NotificationIcon />
                     {notification?.data?.filter((item) => !item.isRead)
                       ?.length > 0 && (
@@ -101,45 +110,68 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 <Menu.Items className="absolute right-0 mt-2  origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                   <div
                     tabIndex={0}
-                    className="absolute right-0 z-10 mt-3  w-72 bg-base-500 shadow"
+                    className="absolute right-0 z-10 mt-3  w-72  shadow bg-solidWhite rounded-md"
                   >
-                    {notification?.data?.length ? (
-                      notification?.data?.map((item, index) => (
-                        <div
-                          onClick={() =>
-                            handleCheckNotification(
-                              item?._id,
-                              item?.link,
-                              item?.isRead
-                            )
-                          }
-                          key={index}
-                          className={`${
-                            item?.isRead
-                              ? "bg-readMessageColor text-linkColor" // Use a subdued color for read messages
-                              : "bg-unReadMessageColor text-solidBlack" // Use a darker color for unread messages
-                          } rounded-md px-5 pt-3 cursor-pointer`}
+                    <div className="flex justify-between items-center p-2">
+                      <b>Notification</b>
+
+                      {notification?.data?.filter((item) => !item.isRead) && (
+                        <Button
+                          onClick={handleMarkAsRead}
+                          link
+                          className="text-xs"
                         >
-                          <div>
-                            <p className="text-sm">
-                              {item?.createdAt?.toString()?.slice(0, 10)}
-                            </p>
-                            <div className="flex justify-center items-center gap-5 pt-1">
-                              <div>
-                                <LuMessageSquare className="text-2xl" />
+                          Mark as Read
+                        </Button>
+                      )}
+                    </div>
+                    <hr />
+                    {notification?.data?.length ? (
+                      notification?.data
+                        ?.slice?.(0, limit)
+                        ?.map((item, index) => (
+                          <div
+                            onClick={() =>
+                              handleCheckNotification(
+                                item?._id,
+                                item?.link,
+                                item?.isRead
+                              )
+                            }
+                            key={index}
+                            className={`${
+                              item?.isRead
+                                ? "bg-readMessageColor text-linkColor" // Use a subdued color for read messages
+                                : "bg-unReadMessageColor text-solidBlack" // Use a darker color for unread messages
+                            } rounded-md px-5 pt-3 cursor-pointer`}
+                          >
+                            <div>
+                              <p className="text-sm">
+                                {item?.createdAt?.toString()?.slice(0, 10)}
+                              </p>
+                              <div className="flex justify-center items-center gap-5 pt-1">
+                                <div>
+                                  <LuMessageSquare className="text-2xl" />
+                                </div>
+                                <p className="text-sm">{item?.message}</p>
                               </div>
-                              <p className="text-sm">{item?.message}</p>
                             </div>
+                            <hr className="mt-2" />
                           </div>
-                          <hr className="mt-2" />
-                        </div>
-                      ))
+                        ))
                     ) : (
-                      <div className=" bg-solidWhite">
+                      <div>
                         <div className="flex justify-center items-center gap-2 py-5">
                           <LuMessageSquare className="text-2xl" />
                           {emptyData}
                         </div>
+                      </div>
+                    )}
+                    {notification?.data?.length >= limit && (
+                      <div className="text-center py-2 bg-solidWhite">
+                        <Button link onClick={() => setLimit(limit + 5)}>
+                          See More...
+                        </Button>
                       </div>
                     )}
                   </div>
@@ -176,7 +208,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                       <div className="py-3 pl-5">
                         <NavLink
                           className="hover:bg-transparent !bg-transparent"
-                          to={"/change-password"}
+                          to={`${
+                            role === "admin"
+                              ? "/change-password"
+                              : "/user-change-password"
+                          }`}
                         >
                           <Button link>Change Password</Button>
                         </NavLink>
