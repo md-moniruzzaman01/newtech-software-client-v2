@@ -61,7 +61,7 @@ const QAApi = baseApi.injectEndpoints({
     getQAProducts: builder.query({
       query: (params) => {
         return {
-          url: `/product?warranty=true&repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty${params?.query}`,
+          url: `/product?repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -72,7 +72,7 @@ const QAApi = baseApi.injectEndpoints({
     getQAProductsForService: builder.query({
       query: (params) => {
         return {
-          url: `/product?warranty=false&repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&${params?.query}`,
+          url: `/product/services?repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -82,6 +82,7 @@ const QAApi = baseApi.injectEndpoints({
     }),
     getQAProductsForServiceById: builder.query({
       query: ({ id, token }) => {
+        console.log(`/qa/${id}`);
         return {
           url: `/qa/${id}`,
           headers: {

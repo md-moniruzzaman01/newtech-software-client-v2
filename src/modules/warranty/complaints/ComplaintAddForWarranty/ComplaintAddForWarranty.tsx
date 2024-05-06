@@ -34,6 +34,7 @@ import {
   handleChangeInput,
   handleSuggestionClick,
 } from "../../../../shared/helpers/Suggestions";
+import { emptyData } from "../../../../shared/config/constaints";
 
 const ComplaintAddForWarranty = () => {
   const [createComplaints] = useComplaintAddMutation();
@@ -563,7 +564,7 @@ const ComplaintAddForWarranty = () => {
                 ))
               ) : (
                 <div className="font-semibold  text-center mt-20">
-                  Emty Data
+                  {emptyData}
                 </div>
               )}
             </div>
