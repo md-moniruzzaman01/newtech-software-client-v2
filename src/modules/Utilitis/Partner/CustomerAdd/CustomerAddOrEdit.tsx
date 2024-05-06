@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Input from "../../../../common/components/Input";
-import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import { useGetBrandsQuery } from "../../../../redux/features/api/Brand";
 import Button from "../../../../common/components/Button";
 import { useCreatePartnerMutation } from "../../../../redux/features/api/Partner";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import swal from "sweetalert";
+import { useState } from "react";
+import SearchFilterInput from "../../../../common/components/Search Filter Input/SearchFilterInput";
 
 const CustomerAddOrEdit = () => {
+  const [brandArr, setBrandArr] = useState([]);
   const token = getFromLocalStorage(authKey);
   const [createPartner, { isLoading }] = useCreatePartnerMutation();
   const { data: brands } = useGetBrandsQuery({});
@@ -28,7 +30,7 @@ const CustomerAddOrEdit = () => {
     const company = (
       form.elements.namedItem("company_name") as HTMLInputElement
     ).value;
-    const asp = (form.elements.namedItem("brand") as HTMLInputElement).value;
+    const asp = brandArr;
     const password = (form.elements.namedItem("password") as HTMLInputElement)
       .value;
 
@@ -67,10 +69,11 @@ const CustomerAddOrEdit = () => {
               <Input inputName="email" labelName="Email" />
               <Input inputName="address" labelName="Address" />
               <Input inputName="company_name" labelName="Company" />
-              <InputFilter
-                Filter={brands?.data}
-                label="Brand"
-                inputName="brand"
+              <SearchFilterInput
+                options={brands?.data}
+                labelName="Brand"
+                setData={setBrandArr}
+                data={brandArr}
               />
               <Input inputName="password" labelName="Password" />
             </div>
