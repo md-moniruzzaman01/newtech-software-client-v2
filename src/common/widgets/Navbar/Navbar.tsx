@@ -72,6 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
     const result = await markAsRead({ token });
     showSwal(result);
   };
+
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">
@@ -114,7 +115,8 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
                     <div className="flex justify-between items-center p-2">
                       <b>Notification</b>
 
-                      {notification?.data?.filter((item) => !item.isRead) && (
+                      {notification?.data?.filter((item) => !item?.isRead)
+                        ?.length > 0 && (
                         <Button
                           onClick={handleMarkAsRead}
                           link
