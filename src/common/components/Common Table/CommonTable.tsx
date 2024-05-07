@@ -8,6 +8,7 @@ import {
 } from "../../../shared/helpers/handleCheckbox";
 import { emptyData } from "../../../shared/config/constaints";
 import Button from "../Button";
+import { icons } from "../../../shared/libs/Icons";
 
 interface CommonTableProps {
   headerData: string[];
@@ -20,7 +21,7 @@ interface CommonTableProps {
   setCheckedRows?: any;
   btnLink?: string;
   btnValue?: string;
-  deleteBtn?: string;
+  deleteBtn?: boolean;
   deleteFn?: any;
 }
 
@@ -122,14 +123,12 @@ const CommonTable: FC<CommonTableProps> = ({
                   )}
                   {deleteBtn && (
                     <td className="border">
-                      <Button
+                      <div
                         onClick={() => deleteFn(item?.id)}
-                        danger
-                        mini
-                        className="!text-xs "
+                        className="text-shadeOfRed text-xl  flex justify-center cursor-pointer"
                       >
-                        {deleteBtn}
-                      </Button>
+                        {icons?.delete}
+                      </div>
                     </td>
                   )}
                   {link && (

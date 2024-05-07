@@ -10,11 +10,16 @@ import {
   keys,
 } from "./config/constants";
 import { useSearchParams } from "react-router-dom";
-import { useGetPartnersQuery } from "../../../../redux/features/api/Partner";
+import {
+  useDeletePartnerMutation,
+  useGetPartnersQuery,
+} from "../../../../redux/features/api/Partner";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
+import swal from "sweetalert";
 
 const Partner = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +28,9 @@ const Partner = () => {
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
+
+  const [deletePartner] = useDeletePartnerMutation();
+
   const { data, isError, isLoading } = useGetPartnersQuery({
     token,
     query,
@@ -35,6 +43,24 @@ const Partner = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data, isError, isLoading]);
+
+  const handleDelete = async (id: string) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this partner details!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result = await deletePartner({ id, token });
+        showSwal(result);
+      } else {
+        swal("Your partner details is safe!");
+      }
+    });
+  };
+
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -64,6 +90,8 @@ const Partner = () => {
             itemData={data?.data}
             dataLayout={PartnerData}
             link="/partner/order-details"
+            deleteBtn
+            deleteFn={handleDelete}
           ></CommonTable>
         </div>
       </div>

@@ -2,7 +2,10 @@ import { useSearchParams } from "react-router-dom";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
-import { useGetEngineersQuery } from "../../../redux/features/api/engineers";
+import {
+  useDeleteEngineerMutation,
+  useGetEngineersQuery,
+} from "../../../redux/features/api/engineers";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import {
@@ -16,6 +19,8 @@ import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 import { useEffect, useState } from "react";
 import { constructQuery } from "../../../shared/helpers/constructQuery";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
+import swal from "sweetalert";
+import { showSwal } from "../../../shared/helpers/SwalShower";
 
 const EngineersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +37,8 @@ const EngineersList = () => {
     error,
   } = useGetEngineersQuery({ token, query });
 
+  const [deleteEngineer] = useDeleteEngineerMutation();
+
   useEffect(() => {
     if (!isLoading && !isError) {
       setTotalItems(engineers.meta.total);
@@ -39,6 +46,23 @@ const EngineersList = () => {
       setCurrentPage(engineers?.meta?.page);
     }
   }, [engineers, isError, isLoading]);
+
+  const handleDelete = async (id: string) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this engineer details!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result = await deleteEngineer({ id, token });
+        showSwal(result);
+      } else {
+        swal("Your engineer details is safe!");
+      }
+    });
+  };
 
   if (isLoading) {
     return <LoadingPage />;
@@ -70,6 +94,8 @@ const EngineersList = () => {
             dataLayout={tableLayout}
             headerData={headerForEngineersTable}
             itemData={engineers?.data}
+            deleteBtn
+            deleteFn={handleDelete}
           />
         </div>
       </div>
