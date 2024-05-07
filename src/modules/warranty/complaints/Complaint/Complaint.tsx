@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useGetComplaintsQuery } from "../../../../redux/features/api/complaints";
+import {
+  useDeleteComplaintsMutation,
+  useGetComplaintsQuery,
+  useUpdateComplaintsStatusDeliveryMutation,
+} from "../../../../redux/features/api/complaints";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -19,7 +23,8 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { TableBodyProps } from "./config/types";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { SERVER_URL } from "../../../../shared/config/secret";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
+import swal from "sweetalert";
 
 //internal
 
@@ -44,6 +49,13 @@ const Complaint = () => {
     query,
     token,
   });
+
+  const [updateDeliveryComplaints, { isLoading: deliveryStatusLoading }] =
+    useUpdateComplaintsStatusDeliveryMutation();
+
+  const [deleteComplaints, { isLoading: deleteLoading }] =
+    useDeleteComplaintsMutation();
+
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
     if (storedActiveRoute) {
@@ -56,7 +68,6 @@ const Complaint = () => {
       setCurrentPage(complaintsData?.meta?.page);
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
-  console.log(complaintsData?.data);
   useEffect(() => {
     if (searchParams?.get("repair_status")) {
       setIsActiveBtn(searchParams?.get("repair_status"));
@@ -65,22 +76,45 @@ const Complaint = () => {
     }
   }, [searchParams]);
 
+  const fullData = checkedRows;
+
   const handleDelivery = () => {
-    const url = `${SERVER_URL}/complaints/delivered`;
-    const fullData = { repairIds: checkedRows };
-    fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `${token}`,
-      },
-      body: JSON.stringify(fullData),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    swal({
+      title: "Are you sure?",
+      text: "Once updated, you will not be able to recover this all complaints's status!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result: any = await updateDeliveryComplaints({ token, fullData });
+        showSwal(result);
+        if (result?.data.success) {
+          setCheckedRows([]);
+        }
+      } else {
+        swal("Your all complaints status is safe!");
+      }
+    });
   };
-  const handleDelete = () => {
-    console.log(checkedRows);
+  const handleDelete = async () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this all complaints details!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result: any = await deleteComplaints({ token, fullData });
+        showSwal(result);
+        if (result?.data.success) {
+          setCheckedRows([]);
+        }
+      } else {
+        swal("Your all complaints details is safe!");
+      }
+    });
   };
   const handleReturn = () => {
     console.log(checkedRows);
@@ -97,8 +131,10 @@ const Complaint = () => {
           isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}
           handleDelivery={handleDelivery}
+          isDeliveryLoading={deliveryStatusLoading}
           handleReturn={handleReturn}
           handleDelete={handleDelete}
+          isDeleteLoading={deleteLoading}
           isMiddleBtn
           linkValue={`${
             activeRoute ? "/add-warranty-complaint" : "/add-complaint"

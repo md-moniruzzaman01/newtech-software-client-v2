@@ -14,6 +14,39 @@ const ComplaintsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["complaints"],
     }),
+    updateComplaintsStatusDelivery: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: "/complaints/delivered",
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: { repairIds: fullData },
+      }),
+      invalidatesTags: ["complaints"],
+    }),
+    updateComplaintsStatus: builder.mutation({
+      query: ({ id, token, fullData }) => ({
+        url: `/complaints/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["complaints"],
+    }),
+    DeleteComplaints: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: "/complaints",
+        method: "DELETE",
+        headers: {
+          authorization: token,
+        },
+        body: { repairIds: fullData },
+      }),
+      invalidatesTags: ["complaints"],
+    }),
     getComplaints: builder.query({
       query: (params) => {
         return {
@@ -23,7 +56,9 @@ const ComplaintsApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["complaints"],
     }),
+
     getComplaintById: builder.query({
       query: (params) => {
         return {
@@ -91,4 +126,7 @@ export const {
   useGetReadyForDelivaryComplaintsQuery,
   useGetReadyForDelivaryServicesQuery,
   useGetBuffersQuery,
+  useDeleteComplaintsMutation,
+  useUpdateComplaintsStatusDeliveryMutation,
+  useUpdateComplaintsStatusMutation,
 } = ComplaintsApi;
