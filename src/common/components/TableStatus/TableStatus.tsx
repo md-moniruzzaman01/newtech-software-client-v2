@@ -1,5 +1,5 @@
 import Button from "../Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableStatusProps } from "./config/types";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +7,17 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues, status }) => {
   const [activeRoute, setActiveRoute] = useState("");
 
   const navigate = useNavigate();
+  const params = new URLSearchParams(window.location.search);
+
+  useEffect(() => {
+    if (!status) {
+      const repairStatus = params.get("repair_status");
+      setActiveRoute(repairStatus);
+    } else {
+      const status = params.get("status");
+      setActiveRoute(status);
+    }
+  }, [status]);
 
   const setQuery = (paramName: string, paramValue: string) => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -17,7 +28,10 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues, status }) => {
       queryParams.delete("repair_status");
       queryParams.delete("status");
       queryParams.delete("branch");
-      queryParams.delete("search");
+      queryParams.delete("searchTerm");
+      queryParams.delete("category_name");
+      queryParams.delete("start_Date");
+      queryParams.delete("end_Date");
     } else {
       queryParams.set(paramName, paramValue); // Set the search parameter if paramValue is not empty
     }

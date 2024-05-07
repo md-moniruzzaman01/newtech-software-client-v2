@@ -19,7 +19,6 @@ export const handlePaymentSubmit = async (
     (form.elements.namedItem("amount") as HTMLInputElement)?.value || "0",
     10
   );
-  // console.log(paymantamount, id);
 
   const url = `${SERVER_URL}/bill/payment/${id}`;
   const fullData = { paymentamount };
@@ -46,8 +45,11 @@ export const handlePaymentSubmit = async (
     });
 };
 
-export const handleDelivededWithOutPaySubmit = async (id: string, navigate: any,
-  setIsLoading: any) => {
+export const handleDelivededWithOutPaySubmit = async (
+  id: string,
+  navigate: any,
+  setIsLoading: any
+) => {
   const token = getFromLocalStorage(authKey);
   const url = `${SERVER_URL}/bill/delivered/${id}`;
   setIsLoading(true);

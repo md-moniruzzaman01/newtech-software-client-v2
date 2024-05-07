@@ -34,8 +34,10 @@ import {
   handleChangeInput,
   handleSuggestionClick,
 } from "../../../../shared/helpers/Suggestions";
+import { authKey, emptyData } from "../../../../shared/config/constaints";
 
 const ComplaintAddForWarranty = () => {
+  const token = getFromLocalStorage(authKey);
   const [createComplaints] = useComplaintAddMutation();
 
   // other state
@@ -52,6 +54,7 @@ const ComplaintAddForWarranty = () => {
   const [selectData, setSelectData] =
     useState<warrantyUpdateAddedItemProps | null>(null);
   const [isNewPartner, setIsNewPartner] = useState(false);
+
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [partners, setPartners] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -77,7 +80,7 @@ const ComplaintAddForWarranty = () => {
     data: partnersData,
     isLoading: partnerLoading,
     isError: partnerError,
-  } = useGetPartnersQuery({});
+  } = useGetPartnersQuery({ token });
   const {
     data: brandData,
     isError: brandsError,
@@ -563,7 +566,7 @@ const ComplaintAddForWarranty = () => {
                 ))
               ) : (
                 <div className="font-semibold  text-center mt-20">
-                  Emty Data
+                  {emptyData}
                 </div>
               )}
             </div>

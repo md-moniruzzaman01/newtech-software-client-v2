@@ -4,7 +4,7 @@ import Input from "../../../../common/components/Input";
 import { handleFormReset } from "../../../../common/widgets/FormResetFunction/FormResetFunction";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import { useCreateBrandMutation } from "../../../../redux/features/api/Brand";
-
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const BrandAddPage = () => {
   const [createBrand, { isLoading }] = useCreateBrandMutation();
@@ -18,13 +18,9 @@ const BrandAddPage = () => {
       value: brand.toUpperCase(),
     };
 
-    try {
-      await createBrand(brandData);
-      console.log("Brand added successfully");
-      form.reset();
-    } catch (error) {
-      console.error("Error adding brand:", error);
-    }
+    const result = await createBrand(brandData);
+    showSwal(result);
+    form.reset();
   };
 
   return (

@@ -1,7 +1,7 @@
 export const fields =
   "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer";
 export const keys = [
-  "brand",
+  "brand_name",
   "branch",
   "sort",
   "repair-status",

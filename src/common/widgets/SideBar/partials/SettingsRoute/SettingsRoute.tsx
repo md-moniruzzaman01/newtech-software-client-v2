@@ -3,11 +3,13 @@ import { useCollapse } from "react-collapsed";
 import { NavLink } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
+import { getUserInfo } from "../../../../../services/auth.service";
 
 const routeStyle = " pt-3  flex  items-center gap-2";
 
 const SettingsRoute = () => {
   const [activeRoute, setActiveRoute] = useState(false);
+  const user = getUserInfo();
   const storedActiveRoute = localStorage.getItem("activeRoute");
   useEffect(() => {
     if (storedActiveRoute) {
@@ -36,16 +38,29 @@ const SettingsRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-        <NavLink to="/change-password">
+        <NavLink
+          to={`${
+            user?.role === "admin"
+              ? "/change-password"
+              : "/user-change-password"
+          }`}
+        >
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>Change Password</span>
           </div>
         </NavLink>
-        <NavLink to="/other-report">
+
+        <NavLink to="/send-message">
           <div className={routeStyle}>
             <span>&#8618;</span>
-            <span>Report</span>
+            <span>Send Message</span>
+          </div>
+        </NavLink>
+        <NavLink to="/send-email">
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>Send Email</span>
           </div>
         </NavLink>
       </section>

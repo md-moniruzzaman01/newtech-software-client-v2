@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import NotificationIcon from "../../../shared/libs/custom icons/NotificationIcon";
@@ -15,38 +16,62 @@ import {
   useGetUserQuery,
 } from "../../../redux/features/api/users";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import LoadingPage from "../../components/LoadingPage/LoadingPage";
-import { useGetNotificationQuery } from "../../../redux/features/api/others";
+import {
+  useGetNotificationQuery,
+  useMarkAsReadNotificationMutation,
+  useUpdateNotificationMutation,
+} from "../../../redux/features/api/others";
+import { showSwal } from "../../../shared/helpers/SwalShower";
 
 interface NavbarProps {
   name?: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
+const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
   const navigate = useNavigate();
+  const [limit, setLimit] = useState(5);
   const token = getFromLocalStorage(authKey);
-
+  const [updateNotification] = useUpdateNotificationMutation();
+  const [markAsRead] = useMarkAsReadNotificationMutation();
   const handleLogout = () => {
     navigate("/login");
     swal("success", "Successfully logged out");
     removeUserInfo(authKey);
   };
-  const { userId, _id: id } = getUserInfo();
-  const { data: userInfo, isLoading: userLoading } = useGetUserQuery({
+  const { userId, _id: id, role } = getUserInfo();
+  const { data: userInfo } = useGetUserQuery({
     userId,
     token,
   });
-  const { data: userAdminInfo, isLoading: adminLoading } = useGetAdminQuery({
+  const { data: userAdminInfo } = useGetAdminQuery({
     userId,
     token,
   });
 
   const { data: notification } = useGetNotificationQuery({ id, token });
+  const handleCheckNotification = async (
+    id: string,
+    link: string,
+    isRead: boolean
+  ) => {
+    console.log(link);
+    if (isRead) {
+      navigate(`${link}`);
+    } else {
+      const result: any = await updateNotification({ id, token });
+      console.log(result);
+      if (result?.data?.success) {
+        navigate(`${result?.data?.link}`);
+      } else {
+        swal("Error", `${result?.error?.data?.message}`, "error");
+      }
+    }
+  };
 
-
-  if (userLoading || adminLoading) {
-    return <LoadingPage />;
-  }
+  const handleMarkAsRead = async () => {
+    const result = await markAsRead({ token });
+    showSwal(result);
+  };
 
   return (
     <div>
@@ -60,11 +85,13 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="flex justify-center gap-2 items-center bg-transparent border-0 cursor-pointer">
-                  <div>
+                  <div onClick={() => setLimit(5)}>
                     <NotificationIcon />
-                    {notification?.data?.length > 0 && (
+                    {notification?.data?.filter((item) => !item.isRead)
+                      ?.length > 0 && (
                       <span className="w-[14px] h-[14px] rounded-full bg-shadeOfRed absolute top-0 right-0 flex items-center justify-center text-[12px] text-white">
-                        {notification?.data?.length || 0}
+                        {notification?.data?.filter((item) => !item.isRead)
+                          ?.length || 0}
                       </span>
                     )}
                   </div>
@@ -83,36 +110,69 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                 <Menu.Items className="absolute right-0 mt-2  origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
                   <div
                     tabIndex={0}
-                    className="absolute right-0 z-10 mt-3  w-72 bg-base-500 shadow"
+                    className="absolute right-0 z-10 mt-3  w-72  shadow bg-solidWhite rounded-md"
                   >
-                    {notification?.data?.length ? (
-                      notification?.data?.map((item, index) => (
-                        <div
-                          key={index}
-                          className={`${
-                            item?.isRead ? "bg-grayForBorder" : "bg-solidWhite"
-                          } rounded-md text-solidBlack px-5 pt-3 `}
+                    <div className="flex justify-between items-center p-2">
+                      <b>Notification</b>
+
+                      {notification?.data?.filter((item) => !item?.isRead)
+                        ?.length > 0 && (
+                        <Button
+                          onClick={handleMarkAsRead}
+                          link
+                          className="text-xs"
                         >
-                          <div>
-                            <p className="text-sm">
-                              {item?.createdAt?.toString()?.slice(0, 10)}
-                            </p>
-                            <div className="flex justify-center items-center gap-5 pt-1">
-                              <div>
-                                <LuMessageSquare className="text-2xl" />
+                          Mark as Read
+                        </Button>
+                      )}
+                    </div>
+                    <hr />
+                    {notification?.data?.length ? (
+                      notification?.data
+                        ?.slice?.(0, limit)
+                        ?.map((item, index) => (
+                          <div
+                            onClick={() =>
+                              handleCheckNotification(
+                                item?._id,
+                                item?.link,
+                                item?.isRead
+                              )
+                            }
+                            key={index}
+                            className={`${
+                              item?.isRead
+                                ? "bg-readMessageColor text-linkColor" // Use a subdued color for read messages
+                                : "bg-unReadMessageColor text-solidBlack" // Use a darker color for unread messages
+                            } rounded-md px-5 pt-3 cursor-pointer`}
+                          >
+                            <div>
+                              <p className="text-sm">
+                                {item?.createdAt?.toString()?.slice(0, 10)}
+                              </p>
+                              <div className="flex justify-center items-center gap-5 pt-1">
+                                <div>
+                                  <LuMessageSquare className="text-2xl" />
+                                </div>
+                                <p className="text-sm">{item?.message}</p>
                               </div>
-                              <p className="text-sm">{item?.message}</p>
                             </div>
+                            <hr className="mt-2" />
                           </div>
-                          <hr className="mt-2" />
-                        </div>
-                      ))
+                        ))
                     ) : (
-                      <div className=" bg-solidWhite">
+                      <div>
                         <div className="flex justify-center items-center gap-2 py-5">
                           <LuMessageSquare className="text-2xl" />
                           {emptyData}
                         </div>
+                      </div>
+                    )}
+                    {notification?.data?.length >= limit && (
+                      <div className="text-center py-2 bg-solidWhite">
+                        <Button link onClick={() => setLimit(limit + 5)}>
+                          See More...
+                        </Button>
                       </div>
                     )}
                   </div>
@@ -149,7 +209,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                       <div className="py-3 pl-5">
                         <NavLink
                           className="hover:bg-transparent !bg-transparent"
-                          to={"/change-password"}
+                          to={`${
+                            role === "admin"
+                              ? "/change-password"
+                              : "/user-change-password"
+                          }`}
                         >
                           <Button link>Change Password</Button>
                         </NavLink>
@@ -217,11 +281,6 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Hello" }) => {
                           </NavLink>
                         </div>
 
-                        <div>
-                          <NavLink className="!bg-transparent" to={"/setting"}>
-                            <Button link>Setting</Button>
-                          </NavLink>
-                        </div>
                         <Button link onClick={handleLogout}>
                           Logout
                         </Button>

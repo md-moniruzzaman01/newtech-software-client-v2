@@ -71,21 +71,21 @@ const WarrantyDashboard = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         <DashboardCard
-          link="/complaints-service?repair_status=Pending"
+          link="/complaints?repair_status=Pending"
           title="Pending"
           money={`${CardData?.pendingCount}`}
           className="bg-lightSkyBlue"
           icon={<PendingIcon />}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=Completed"
+          link="/complaints?repair_status=Completed"
           title="Completed"
           money={`${CardData?.CompletedCount}`}
           className="bg-mintFrost"
           icon={<DeliveryIcon />}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=In-Progress"
+          link="/complaints?repair_status=In-Progress"
           title="In Progress"
           money={`${CardData?.InProgressCount}`}
           className="bg-creamyPeach"
@@ -93,28 +93,28 @@ const WarrantyDashboard = () => {
         />
 
         <DashboardCard
-          link="/complaints-service?repair_status=Delivered"
+          link="/complaints?repair_status=Delivered"
           title="Delivered"
           money={`${CardData?.DeliveredCount}`}
           className="bg-lightTurquoise"
           icon={icons?.delivered}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=buffer"
+          link="/complaints?repair_status=buffer"
           title="Buffer"
           money={`${CardData?.BufferCounts}`}
           className="bg-LightLavender"
           icon={<BufferIcon />}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=Unpaid"
+          link="/complaints?repair_status=Unpaid"
           title="UnPaid"
           money={`${CardData?.UnpaidCount}`}
           className="bg-VeryLightYellow"
           icon={icons?.unPaid}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=repair failed"
+          link="/complaints?repair_status=repair failed"
           title="Repair Failed"
           money={`${CardData?.repairfailedCount}`}
           className="bg-coralBlush"

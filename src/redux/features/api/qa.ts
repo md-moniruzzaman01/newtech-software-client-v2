@@ -82,6 +82,7 @@ const QAApi = baseApi.injectEndpoints({
     }),
     getQAProductsForServiceById: builder.query({
       query: ({ id, token }) => {
+        console.log(`/qa/${id}`);
         return {
           url: `/qa/${id}`,
           headers: {

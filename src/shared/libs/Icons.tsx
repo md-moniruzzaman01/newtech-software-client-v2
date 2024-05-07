@@ -18,6 +18,8 @@ import { MdBrokenImage } from "react-icons/md";
 import { MdOutlineSyncProblem } from "react-icons/md";
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { PiMonitorThin } from "react-icons/pi";
+import { IoIosLogOut } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const icons: any = {
@@ -41,6 +43,8 @@ export const icons: any = {
   repaired: <IoCheckmarkDoneCircleOutline />,
   requiredParts: <PiMonitorThin />,
   cancel: <TbDeviceImacCancel />,
+  logout: <IoIosLogOut className="text-xl" />,
+  delete: <RiDeleteBin6Line />,
 
   // other icon
   // full_box: <FullBox />,

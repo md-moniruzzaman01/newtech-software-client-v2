@@ -64,6 +64,16 @@ const ComplaintsApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getBuffers: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints?repair_status=Buffer&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
     // deletePost: builder.mutation({
     //   query: (postId) => ({a
     //     url: `/posts/${postId}`,
@@ -80,4 +90,5 @@ export const {
   useGetMyComplaintQuery,
   useGetReadyForDelivaryComplaintsQuery,
   useGetReadyForDelivaryServicesQuery,
+  useGetBuffersQuery,
 } = ComplaintsApi;

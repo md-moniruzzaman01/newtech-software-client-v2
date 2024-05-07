@@ -1,4 +1,3 @@
-
 import { baseApi } from "../../api/apiSlice";
 
 const EngineerApi = baseApi.injectEndpoints({
@@ -13,8 +12,17 @@ const EngineerApi = baseApi.injectEndpoints({
         body: fullData,
       }),
     }),
+    deleteEngineer: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/engineer/${id}`,
+        method: "DELETE",
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
     getEngineers: builder.query({
-      query: ({ token,query }) => {
+      query: ({ token, query }) => {
         return {
           url: `/engineers?${query}`,
           headers: {
@@ -92,4 +100,5 @@ export const {
   useRepairReturnToLibraryMutation,
   useGetEngineersDataQuery,
   useGetEngineerDataForServiceQuery,
+  useDeleteEngineerMutation,
 } = EngineerApi;

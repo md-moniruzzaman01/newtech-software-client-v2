@@ -59,7 +59,28 @@ const OthersApi = baseApi.injectEndpoints({
         "qc",
         "qa",
         "bill",
+        "notifications",
       ],
+    }),
+    updateNotification: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/notification/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+      }),
+      invalidatesTags: ["notifications"],
+    }),
+    markAsReadNotification: builder.mutation({
+      query: ({ token }) => ({
+        url: `/notification`,
+        method: "POST",
+        headers: {
+          authorization: token,
+        },
+      }),
+      invalidatesTags: ["notifications"],
     }),
   }),
 });
@@ -70,4 +91,6 @@ export const {
   useGetCardDataForServiceQuery,
   useGetChartDataForServiceQuery,
   useGetNotificationQuery,
+  useUpdateNotificationMutation,
+  useMarkAsReadNotificationMutation,
 } = OthersApi;

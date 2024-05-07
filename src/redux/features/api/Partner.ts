@@ -14,7 +14,21 @@ const ComplaintsApi = baseApi.injectEndpoints({
       }),
     }),
     getPartners: builder.query({
-      query: () => "/partners",
+      query: ({ query, token }) => ({
+        url: `/partners?${query}`,
+        headers: {
+          authorization: token,
+        },
+      }),
+    }),
+    deletePartner: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/partners?${id}`,
+        method: "DELETE",
+        headers: {
+          authorization: token,
+        },
+      }),
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
@@ -32,4 +46,8 @@ const ComplaintsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreatePartnerMutation, useGetPartnersQuery } = ComplaintsApi;
+export const {
+  useCreatePartnerMutation,
+  useGetPartnersQuery,
+  useDeletePartnerMutation,
+} = ComplaintsApi;

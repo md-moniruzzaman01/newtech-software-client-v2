@@ -125,14 +125,14 @@ const ComplaintOrderDetailsTable = ({
     totalBillAmount -
       ((totalHiddenDiscountDefault / 100) * totalBillAmount +
         (totalDiscountDefault / 100) * totalBillAmount);
-
   return (
     <div className="w-full">
       <div>
-        <div className="grid grid-cols-6 gap-5 text-center">
+        <div className="grid grid-cols-7 gap-5 text-center">
           <div>Order No</div>
           <div>SL No</div>
           <div>Problem</div>
+          <div>Status</div>
           <div>Discount</div>
           <div>Hidden Discount</div>
           <div>Service Charge</div>
@@ -143,7 +143,7 @@ const ComplaintOrderDetailsTable = ({
           {/* second row start here  */}
           {billSingleData &&
             billSingleData?.repair?.map((item, index) => (
-              <div key={index} className="grid grid-cols-6  text-center">
+              <div key={index} className="grid grid-cols-7  text-center">
                 <div className="border py-2 border-grayForBorder">
                   {item?.order_number}
                 </div>
@@ -152,6 +152,9 @@ const ComplaintOrderDetailsTable = ({
                 </div>
                 <div className="border py-2 border-grayForBorder">
                   {item?.products?.problems?.join(",")}
+                </div>
+                <div className="border py-2 border-grayForBorder">
+                  {billSingleData?.status}
                 </div>
                 <Input
                   inputType="number"
@@ -302,16 +305,15 @@ const ComplaintOrderDetailsTable = ({
         </div>
         <div className="flex  py-10">
           <div className="flex justify-start gap-2 items-center w-full">
-            {(total > 0 || billSingleData?.total_amount === 0) && (
-              <Button
-                primary
-                className="w-full"
-                mini
-                onClick={() => setIsOpen(true)}
-              >
-                Payments
-              </Button>
-            )}
+            <Button
+              primary
+              className="w-full"
+              mini
+              onClick={() => setIsOpen(true)}
+            >
+              Payments
+            </Button>
+
             {/* <Button className="w-full" onClick={() => handleRejected(id)} primary >
             Rejected
           </Button> */}

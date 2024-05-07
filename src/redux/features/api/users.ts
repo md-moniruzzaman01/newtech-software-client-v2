@@ -24,6 +24,31 @@ const UserInfoSlice = baseApi.injectEndpoints({
       },
     }),
 
+    updatePassword: builder.mutation({
+      query: ({ id, fullData, token }) => {
+        return {
+          url: `/auth/admin/change-password/${id}`,
+          headers: {
+            authorization: token,
+          },
+          method: "POST",
+          body: fullData,
+        };
+      },
+    }),
+    normalUserUpdatePassword: builder.mutation({
+      query: ({ fullData, token }) => {
+        return {
+          url: "/auth/change-password",
+          headers: {
+            authorization: token,
+          },
+          method: "POST",
+          body: fullData,
+        };
+      },
+    }),
+
     // getBillById: builder.query({
     //   query: (params) => {
     //     return {
@@ -51,4 +76,9 @@ const UserInfoSlice = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetUserQuery, useGetAdminQuery } = UserInfoSlice;
+export const {
+  useGetUserQuery,
+  useGetAdminQuery,
+  useUpdatePasswordMutation,
+  useNormalUserUpdatePasswordMutation,
+} = UserInfoSlice;

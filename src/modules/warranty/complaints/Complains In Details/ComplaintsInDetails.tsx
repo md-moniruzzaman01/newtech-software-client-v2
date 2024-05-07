@@ -78,7 +78,7 @@ const ComplaintsInDetails = () => {
           </p>
           <p>
             <span className="font-bold">Contact Number:</span>{" "}
-            {complaintsSingleData?.customer_contact_number ||
+            {complaintsSingleData?.customer?.contactNo ||
               complaintsSingleData?.Nonwarrentycustomer?.contact_number}
           </p>
         </div>

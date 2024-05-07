@@ -42,7 +42,7 @@ const ComplaintsDelivered = () => {
   }
   return (
     <div className=" px-5">
-      <Navbar name="My Complaints"></Navbar>
+      <Navbar name="Ready for Delivery" />
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -58,15 +58,13 @@ const ComplaintsDelivered = () => {
             />
           </div>
         </div>
-        <div className="sticky bottom-0">
-          <div className="bg-slate-100 h-14 p-2">
-            <Pagination
-              limit={limit}
-              totalItems={data?.meta?.total}
-              currentPage={data?.meta?.page}
-              setCurrentPage={setCurrentPage}
-            />
-          </div>
+        <div className="fixed bottom-5 right-5">
+          <Pagination
+            limit={limit}
+            totalItems={data?.meta?.total}
+            currentPage={data?.meta?.page}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </div>

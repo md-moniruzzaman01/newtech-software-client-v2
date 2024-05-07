@@ -18,7 +18,6 @@ import { getUserInfo } from "../../../../services/auth.service";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useState } from "react";
 
-
 const MyComplaints = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 50;
@@ -26,12 +25,12 @@ const MyComplaints = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const warranty=true
+  const warranty = true;
   const { data, isError, isLoading } = useGetMyComplaintQuery({
     id: user?.userId,
     query,
     token,
-    warranty
+    warranty,
   });
   if (isLoading) {
     return <LoadingPage />;
@@ -48,7 +47,7 @@ const MyComplaints = () => {
   }
 
   return (
-    <div className=" px-5">
+    <div className=" px-5  min-h-screen ">
       <Navbar name="My Complaints"></Navbar>
       <div className="pt-5">
         <SearchBar />
@@ -65,16 +64,14 @@ const MyComplaints = () => {
             />
           </div>
         </div>
-        <div className="sticky bottom-0">
-          <div className="bg-slate-100 h-14 p-2">
-            <Pagination
-              limit={limit}
-              totalItems={data?.meta?.total}
-              currentPage={data?.meta?.page}
-              setCurrentPage={setCurrentPage}
-            />
-          </div>
-        </div>
+      </div>
+      <div className="fixed bottom-5 right-5">
+        <Pagination
+          limit={limit}
+          totalItems={data?.meta?.total}
+          currentPage={data?.meta?.page}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );
