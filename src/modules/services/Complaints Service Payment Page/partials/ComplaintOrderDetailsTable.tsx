@@ -302,7 +302,7 @@ const ComplaintOrderDetailsTable = ({
         </div>
         <div className="flex  py-10">
           <div className="flex justify-start gap-2 items-center w-full">
-            {total > 0 && (
+            {(total > 0 || billSingleData?.total_amount === 0) && (
               <Button
                 primary
                 className="w-full"
