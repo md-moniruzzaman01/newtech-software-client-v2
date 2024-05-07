@@ -34,9 +34,10 @@ import {
   handleChangeInput,
   handleSuggestionClick,
 } from "../../../../shared/helpers/Suggestions";
-import { emptyData } from "../../../../shared/config/constaints";
+import { authKey, emptyData } from "../../../../shared/config/constaints";
 
 const ComplaintAddForWarranty = () => {
+  const token = getFromLocalStorage(authKey);
   const [createComplaints] = useComplaintAddMutation();
 
   // other state
@@ -78,7 +79,7 @@ const ComplaintAddForWarranty = () => {
     data: partnersData,
     isLoading: partnerLoading,
     isError: partnerError,
-  } = useGetPartnersQuery({});
+  } = useGetPartnersQuery({ token });
   const {
     data: brandData,
     isError: brandsError,
