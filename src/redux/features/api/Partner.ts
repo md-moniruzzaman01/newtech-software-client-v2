@@ -14,13 +14,18 @@ const ComplaintsApi = baseApi.injectEndpoints({
       }),
     }),
     getPartners: builder.query({
-      query: ({ query, token }) => ({
-        url: `/partners?${query}`,
-        headers: {
-          authorization: token,
-        },
-      }),
+
+      query: ({ query, token }) => {
+        console.log( `/partners?${query}`)
+        return {
+          url: `/partners?${query}`,
+          headers: {
+            authorization: token,
+          },
+        }
+      },
     }),
+
     deletePartner: builder.mutation({
       query: ({ id, token }) => ({
         url: `/partners?${id}`,

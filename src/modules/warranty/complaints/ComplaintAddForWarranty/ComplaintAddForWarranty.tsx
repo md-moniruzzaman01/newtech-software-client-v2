@@ -74,13 +74,13 @@ const ComplaintAddForWarranty = () => {
   const brandId =
     brands?.length && brands?.find((item) => item?.value === brandValue);
 
-  // redux
-  // const [addComplaint, { isLoading }] = useComplaintAddMutation();
+    const query=`asp=${brandId?.id}`
+
   const {
     data: partnersData,
     isLoading: partnerLoading,
     isError: partnerError,
-  } = useGetPartnersQuery({ token });
+  } = useGetPartnersQuery({ token,query });
   const {
     data: brandData,
     isError: brandsError,
