@@ -1,7 +1,6 @@
 import { MdModeEdit } from "react-icons/md";
 //internal
 import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
-import ComplaintOrderStatus from "./partials/ComplaintOrderStatus";
 import ComplaintMiniCard from "./partials/ComplaintMiniCard";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
@@ -20,6 +19,7 @@ const ComplaintOrderDetails = () => {
     useState<ComplaintsOrderDetailsProps | null>(null);
   const [isEdit, setIsEdit] = useState(true);
   const token = getFromLocalStorage(authKey);
+
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -140,12 +140,12 @@ const ComplaintOrderDetails = () => {
               <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
             </div>
           </div>
-          <ComplaintOrderStatus
+          {/* <ComplaintOrderStatus
+            id={id}
             isEdit={isEdit}
-            branch={complaintsSingleData?.branch}
             defaultOrderStatus="Select Status"
             defaultRepairStatus={complaintsSingleData?.repair_status}
-          />
+          /> */}
         </div>
       </div>
 

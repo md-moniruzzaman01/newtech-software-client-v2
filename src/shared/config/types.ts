@@ -146,6 +146,9 @@ export type SearchBarProps = {
   handleBillGenerate?: () => void;
   generateBtnLoading?: boolean;
   isMiddleBtnActive?: string;
+  isDeliveryLoading?: boolean;
+  isReturnLoading?: boolean;
+  isDeleteLoading?: boolean;
 };
 
 export type ComplaintMiniCardProps = {
@@ -178,11 +181,9 @@ export type UserEvent = {
   exp: number;
 };
 
-
 export type partnerProps = {
   name?: string;
   contact_number?: string;
   email?: string;
   address?: string;
 };
-

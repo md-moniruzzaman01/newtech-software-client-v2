@@ -4,6 +4,7 @@ import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
 import { useState } from "react";
 import EngineersFilter from "../EngineersFilter/EngineersFilter";
+import { getUserInfo } from "../../../services/auth.service";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link,
@@ -24,9 +25,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
   handleBillGenerate,
   generateBtnLoading,
   isMiddleBtnActive = "",
+  isDeliveryLoading = false,
+  isReturnLoading = false,
+  isDeleteLoading = false,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
+  const user = getUserInfo();
 
   const setQuery = (paramName: string, paramValue: string) => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -71,24 +76,36 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <div className="flex items-center gap-2 ">
           {isMiddleBtn && (
             <div className="flex gap-2">
-              {isMiddleBtnActive === "Completed" && (
+              {isMiddleBtnActive === "Completed" && handleDelivery && (
                 <Button
                   disabled={disabled}
                   mini
                   primary
+                  loading={isDeliveryLoading}
                   onClick={handleDelivery}
                 >
                   Delivery
                 </Button>
               )}
               {isMiddleBtnActive === "Pending" && (
-                <Button disabled={disabled} onClick={handleReturn} mini primary>
+                <Button
+                  disabled={disabled}
+                  loading={isReturnLoading}
+                  onClick={handleReturn}
+                  mini
+                  primary
+                >
                   Return
                 </Button>
               )}
-              {(isMiddleBtnActive === "Cancel" ||
-                isMiddleBtnActive === "Reject") && (
-                <Button disabled={disabled} onClick={handleDelete} mini danger>
+              {handleDelete && user?.role === "admin" && (
+                <Button
+                  loading={isDeleteLoading}
+                  disabled={disabled}
+                  onClick={handleDelete}
+                  mini
+                  danger
+                >
                   Delete
                 </Button>
               )}

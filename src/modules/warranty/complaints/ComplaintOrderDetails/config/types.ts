@@ -4,6 +4,7 @@ export type ComplaintsOrderStatusProps = {
   branch?: string;
   defaultOrderStatus?: string;
   defaultRepairStatus?: string;
+  id?: string;
 };
 
 export type ProductsProps = {

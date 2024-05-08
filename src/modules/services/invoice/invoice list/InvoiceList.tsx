@@ -104,7 +104,7 @@ const InvoiceList = () => {
               btnValue="Invoice"
               btnLink="/service-invoice"
               checkbox
-              deleteBtn="Delete"
+              deleteBtn
               deleteFn={handleDeleteBil}
             />
           </div>

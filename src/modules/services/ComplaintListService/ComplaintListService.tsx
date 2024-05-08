@@ -71,9 +71,6 @@ const ComplaintListService = () => {
     }
   }, [complaintsData, complaintsLoading, complaintsError]);
 
-  const handleDelivery = () => {
-    console.log(checkedRows);
-  };
   const handleDelete = () => {
     console.log(checkedRows);
     const fullData = {
@@ -95,7 +92,6 @@ const ComplaintListService = () => {
         <SearchBar
           isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}
-          handleDelivery={handleDelivery}
           handleReturn={handleReturn}
           handleDelete={handleDelete}
           isMiddleBtn

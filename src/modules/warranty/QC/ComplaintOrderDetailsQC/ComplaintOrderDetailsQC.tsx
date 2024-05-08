@@ -90,14 +90,14 @@ const ComplaintOrderDetailsQC = () => {
           ]}
         />
 
-        <div className="col-span-2 bg-solidWhite px-5  relative h-2/3">
+        <div className="col-span-2 bg-solidWhite px-5  relative ">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
           </div>
           <ComplaintOrderDetailsTableQC data={qcData} data2={complaintsData} />
         </div>
 
-        <div className=" bg-solidWhite px-5 py-5">
+        <div className=" bg-solidWhite px-5 py-5 relative">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Status Order</h2>
           </div>

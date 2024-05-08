@@ -1,3 +1,8 @@
+// import { DndProvider } from "react-dnd";
+// import PhotoAttach from "../../../../../common/components/PhotoAttach/PhotoAttach";
+// import { useState } from "react";
+// import { HTML5Backend } from "react-dnd-html5-backend";
+
 const ComplaintOrderDetailsTableQC = ({ data, data2 }) => {
   // const [droppedImage, setDroppedImage] = useState<string>();
 
@@ -46,7 +51,7 @@ const ComplaintOrderDetailsTableQC = ({ data, data2 }) => {
           <hr className="border-b border-shadeOfGray my-2" />
         </div> */}
         {/* <h1 className="text-start font-medium py-3">Item Image</h1>
-        <div className="w-full pb-5">
+        <div className="w-full pb-14">
           <DndProvider backend={HTML5Backend}>
             <PhotoAttach
               droppedImage={droppedImage}
