@@ -22,6 +22,7 @@ import {
 } from "../../../../redux/features/api/repair";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const EngineerAllRepairs = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -48,13 +49,14 @@ const EngineerAllRepairs = () => {
     }
   }, [engineerError, engineerLoading, engineerData]);
 
-  function handleSubmit(id: string) {
+  const handleSubmit = async (id: string) => {
     const fullData = {
       engineerId: id,
       repairIds: checkedRows,
     };
-    assignEngineer({ fullData, token });
-  }
+    const result = await assignEngineer({ fullData, token });
+    showSwal(result);
+  };
 
   if (isError || assignError) {
     return <ErrorShow error={error} />;

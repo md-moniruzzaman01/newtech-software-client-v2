@@ -88,6 +88,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["complaints"],
     }),
     getReadyForDelivaryServices: builder.query({
       query: (params) => {

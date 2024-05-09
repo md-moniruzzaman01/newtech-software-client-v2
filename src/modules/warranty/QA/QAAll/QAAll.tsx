@@ -65,7 +65,7 @@ const QCMyItems = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
-              link="/qc/order-details"
+              link="/qa-items/order-details"
             />
           </div>
         </div>

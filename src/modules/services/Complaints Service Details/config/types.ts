@@ -63,3 +63,11 @@ export type ComplaintsOrderDetailsProps = {
 export type ComplaintOrderDetailsTableProps = {
   data?: ComplaintsOrderDetailsProps | null;
 };
+
+export type ComplaintMiniCardProps = {
+  header?: string;
+  name?: string | number;
+  img?: string;
+  status?: string;
+  notes?: string;
+};

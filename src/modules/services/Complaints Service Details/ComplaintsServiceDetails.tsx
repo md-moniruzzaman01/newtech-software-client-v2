@@ -31,7 +31,7 @@ const ComplaintsServiceDetails = () => {
       setComplaintsSingleData(complaintsData?.data);
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
-
+  console.log(complaintsData);
   if (complaintsLoading) {
     return <LoadingPage />;
   }
@@ -155,8 +155,12 @@ const ComplaintsServiceDetails = () => {
           complaintsSingleData?.Qa?.map((item, index) => (
             <ComplaintMiniCard
               key={index}
-              name={`Status: ${item?.status}`}
-              header={`ID: ${item?.qa_checker_id}`}
+              status={`Status: ${item?.status}`}
+              name={`Name: ${
+                item?.qa_checker_id?.Engineer?.name?.firstName +
+                " " +
+                item?.qa_checker_id?.Engineer?.name?.lastName
+              }`}
               notes={`${item?.serial_number}`}
             />
           ))}
@@ -164,8 +168,12 @@ const ComplaintsServiceDetails = () => {
           complaintsSingleData?.Qc?.map((item, index) => (
             <ComplaintMiniCard
               key={index}
-              name={`Status: ${item?.status}`}
-              header={`ID: ${item?._id}`}
+              status={`Status: ${item?.status}`}
+              name={`Name: ${
+                item?.qc_checker_id?.Engineer?.name?.firstName +
+                " " +
+                item?.qc_checker_id?.Engineer?.name?.lastName
+              }`}
               notes={`${item?.serial_number}`}
             />
           ))}
@@ -173,8 +181,12 @@ const ComplaintsServiceDetails = () => {
           complaintsSingleData?.RepairItem?.map((item, index) => (
             <ComplaintMiniCard
               key={index}
-              name={`Status: ${item?.status}`}
-              header={`ID: ${item?._id}`}
+              status={`Status: ${item?.status}`}
+              name={`Name: ${
+                item?.engineer?.Engineer?.name?.firstName +
+                " " +
+                item?.engineer?.Engineer?.name?.lastName
+              }`}
               notes={`${item?.serial_number}`}
             />
           ))}
