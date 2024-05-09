@@ -155,6 +155,7 @@ export type ComplaintMiniCardProps = {
   header?: string;
   name?: string | number;
   img?: string;
+  status?: string;
   notes?: string;
 };
 

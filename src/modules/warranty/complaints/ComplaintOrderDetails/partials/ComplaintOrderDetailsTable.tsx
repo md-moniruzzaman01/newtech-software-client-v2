@@ -68,11 +68,6 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
 
         <hr className="border-b border-shadeOfGray my-2" />
       </div>
-      {/* third row start here  */}
-      <div className="pt-5">
-        Create invoice by :{" "}
-        {complaintsSingleData?.customer?.contact_person || "Customer"}
-      </div>
     </div>
   );
 };

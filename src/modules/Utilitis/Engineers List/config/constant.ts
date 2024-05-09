@@ -9,7 +9,7 @@ export const headerForEngineersTable = [
 ];
 export const tableLayout = [
   "item?.id",
-  `${"item?.name?.firstName"} + " "+ ${"item?.name?.middleName"}+ " " + ${"item?.name?.lastName"}`,
+  `${"item?.name?.firstName"} + " " + ${"item?.name?.lastName"}`,
   "item?.designation",
   "item?.branch",
   "item?.email",
@@ -17,9 +17,5 @@ export const tableLayout = [
   "item?.createdAt?.toString().slice(0, 10)",
 ];
 
-
-export const fields =
-  "";
-export const keys = [
-  "searchTerm",
-];
+export const fields = "";
+export const keys = ["searchTerm"];
