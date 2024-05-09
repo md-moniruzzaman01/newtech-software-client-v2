@@ -16,7 +16,6 @@ const ComplaintsServicePayment = () => {
   const { id } = useParams();
   const [isEdit, setIsEdit] = useState(true);
 
-
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
   const token = getFromLocalStorage(authKey);
