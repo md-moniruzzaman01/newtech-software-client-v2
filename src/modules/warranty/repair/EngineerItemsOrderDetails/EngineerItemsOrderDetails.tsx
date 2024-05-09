@@ -20,6 +20,7 @@ const EngineerItemsOrderDetails = () => {
     id,
     token,
   });
+  console.log(data);
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
@@ -67,11 +68,15 @@ const EngineerItemsOrderDetails = () => {
           CardInformation={[
             {
               title: "Name",
-              value: data?.data?.repair?.customer?.contact_person,
+              value:
+                data?.data?.repair?.customer?.contact_person ||
+                data?.data?.repair?.Nonwarrentycustomer?.name,
             },
             {
               title: "Number",
-              value: data?.data?.repair?.customer?.contactNo,
+              value:
+                data?.data?.repair?.customer?.contactNo ||
+                data?.data?.repair?.Nonwarrentycustomer?.contact_number,
             },
           ]}
         />
