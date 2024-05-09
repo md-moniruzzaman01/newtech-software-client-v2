@@ -17,7 +17,7 @@ export const btnValue = [
   { label: "Cancel", value: "Cancel" },
   { label: "Reject", value: "Reject" },
   { label: "Required Parts", value: "Required Parts" },
-  { label: "Repair failed", value: "Repair failed" },
+  { label: "Repair Failed", value: "Repair failed" },
   { label: "Completed", value: "Completed" },
   { label: "Delivered", value: "Delivered" },
   { label: "Unpaid", value: "Unpaid" },

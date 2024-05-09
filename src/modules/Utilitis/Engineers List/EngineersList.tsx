@@ -4,7 +4,7 @@ import CommonTable from "../../../common/components/Common Table/CommonTable";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import {
   useDeleteEngineerMutation,
-  useGetEngineersQuery,
+  useGetEngineersListQuery,
 } from "../../../redux/features/api/engineers";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
@@ -35,7 +35,7 @@ const EngineersList = () => {
     isLoading,
     isError,
     error,
-  } = useGetEngineersQuery({ token, query });
+  } = useGetEngineersListQuery({ token, query });
 
   const [deleteEngineer] = useDeleteEngineerMutation();
 

@@ -47,12 +47,12 @@ const Recipe = () => {
     switch (containerNumber) {
       case 1:
         return (
-          <div className="max-w-4xl px-11 mx-auto" ref={double_page}>
+          <div className="max-w-4xl px-4 mx-auto" ref={double_page}>
             {complaints &&
               complaints?.map((complaint) => {
                 const { products, ...info } = complaint;
                 return (
-                  <div key={complaint?.id} className="max-w-4xl px-11 mx-auto">
+                  <div key={complaint?.id}>
                     <div>
                       <div className="recipe">
                         <RecipeComplaints
@@ -112,15 +112,15 @@ const Recipe = () => {
               complaints.map((complaint) => {
                 const { products, ...info } = complaint;
                 return (
-                  <div key={complaint?.id} className="max-w-4xl px-11 mx-auto">
+                  <div key={complaint?.id}>
                     <div>
-                      <div className="recipe">
+                      {/* <div className="recipe">
                         <RecipeComplaints
                           copy="Receive copy"
                           products={products}
                           info={info}
                         />
-                      </div>
+                      </div> */}
 
                       <div className="recipe">
                         <RecipeComplaints

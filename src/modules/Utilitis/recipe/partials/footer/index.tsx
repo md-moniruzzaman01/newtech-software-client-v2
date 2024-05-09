@@ -8,7 +8,7 @@ const FooterOfRecipe = () => {
                     Customer Signature
                 </h2>
                 <h2 className='w-72 border-t-2 border-black'>
-                    Authorized Signature()
+                    Authorized Signature
                 </h2>
             </div>
             <div className='mt-4'>

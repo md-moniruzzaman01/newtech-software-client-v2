@@ -41,7 +41,7 @@ const EngineerDashboard = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         <DashboardCard
-          link="/service/engineer-items"
+          link="/qc"
           title="QC Library"
           money={engineersData?.data?.QC_OR_Engineer_Library_for_service_Count}
           className="bg-lightShadeOfGreenishYellow"
@@ -49,7 +49,7 @@ const EngineerDashboard = () => {
         />
 
         <DashboardCard
-          link="/service/engineer-items"
+          link="/engineer-items"
           title="Engineer Library"
           money={engineersData?.data?.EngineerLibraryCountForWarranty}
           className="bg-lightSkyBlue"
@@ -57,7 +57,7 @@ const EngineerDashboard = () => {
         />
 
         <DashboardCard
-          link="/service-qa-items"
+          link="/qa-items"
           title="QA Library"
           money={engineersData?.data?.QaLibrary}
           className="bg-mintFrost"

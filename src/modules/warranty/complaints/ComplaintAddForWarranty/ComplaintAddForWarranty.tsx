@@ -73,10 +73,9 @@ const ComplaintAddForWarranty = () => {
 
   const brandId =
     brands?.length && brands?.find((item) => item?.value === brandValue);
-
   // redux
   // const [addComplaint, { isLoading }] = useComplaintAddMutation();
-  const query = `asp=${brandId?.id}`;
+  const query = `asp=${brandId?.id}&limit=50&sort=-partner_name`;
   const {
     data: partnersData,
     isLoading: partnerLoading,
@@ -299,7 +298,6 @@ const ComplaintAddForWarranty = () => {
                     <Input
                       defaultValue={`${partnerInfo ? partnerInfo?.email : ""}`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
-                      required
                       inputPlaceholder="Email"
                       inputName="email"
                       labelName="Email"
@@ -312,7 +310,6 @@ const ComplaintAddForWarranty = () => {
                         partnerInfo ? partnerInfo?.address : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
-                      required
                       inputName="address"
                       inputPlaceholder="Address"
                       labelName="Address"
