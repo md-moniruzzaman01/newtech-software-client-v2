@@ -24,6 +24,16 @@ const EngineerApi = baseApi.injectEndpoints({
     getEngineers: builder.query({
       query: ({ token, query }) => {
         return {
+          url: `/engineers?limit=50&${query}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
+    getEngineersList: builder.query({
+      query: ({ token, query }) => {
+        return {
           url: `/engineers?${query}`,
           headers: {
             authorization: token,
@@ -101,4 +111,5 @@ export const {
   useGetEngineersDataQuery,
   useGetEngineerDataForServiceQuery,
   useDeleteEngineerMutation,
+  useGetEngineersListQuery
 } = EngineerApi;

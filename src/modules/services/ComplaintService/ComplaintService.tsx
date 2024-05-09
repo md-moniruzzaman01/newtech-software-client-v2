@@ -189,7 +189,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                 <Input
                   defaultValue={`${partnerInfo ? partnerInfo?.email : ""}`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
-                  required
                   inputPlaceholder="Email"
                   inputName="email"
                   labelName="Email"
@@ -200,7 +199,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                 <Input
                   defaultValue={`${partnerInfo ? partnerInfo?.address : ""}`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
-                  required
                   inputName="address"
                   inputPlaceholder="Address"
                   labelName="Address"

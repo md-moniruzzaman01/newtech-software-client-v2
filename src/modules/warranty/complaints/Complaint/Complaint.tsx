@@ -153,6 +153,8 @@ const Complaint = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
+              btnLink="/recipe"
+              btnValue="Invoice"
               link="/complaints/order-details"
             />
           </div>
@@ -162,6 +164,7 @@ const Complaint = () => {
             currentPage={currentPage}
             totalItems={totalItems}
             limit={limit}
+            setCurrentPage={setCurrentPage}
           ></Pagination>
         </div>
       </div>

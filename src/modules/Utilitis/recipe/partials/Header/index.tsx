@@ -20,9 +20,9 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
 
   return (
     <div>
-      <div className="relative  font-primary text-black">
+      <div className="relative  font-primary text-black pt-2">
         <div className="absolute ">
-         <img src="../../../../../assets/NT-LOGO.png" height={300} width={300} alt="" />
+         <img src="/NT-LOGO.png" height={90} width={90} alt="LOGO" />
         </div>
         <div className=" text-center">
           <h1 className=" text-2xl font-bold text-[#2f368f] font-secondary">
@@ -89,14 +89,14 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
           <div className="w-3/12 space-y-1">
             <p>Name: </p>
             <p>contact no. : </p>
-            <p>Receiving date : </p>
+            <p>RD : </p>
             <p>TAT : </p>
           </div>
           <div className="space-y-1">
             <p className="text-primary">
               {" "}
-              {info?.customer?.company ? (
-                <span className="ml-2 ">{info?.customer?.company}</span>
+              {info?.customer?.contact_person ? (
+                <span className="ml-2 ">{info?.customer?.contact_person}</span>
               ) : (
                 <span className="ml-2">
                   {info?.Nonwarrentycustomer?.name}
@@ -105,9 +105,9 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
             </p>
             <p className="text-primary">
               {" "}
-              {info?.customer?.contact_number ? (
+              {info?.customer?.contactNo ? (
                 <span className="ml-2 ">
-                  {info?.customer?.contact_number}
+                  {info?.customer?.contactNo}
                 </span>
               ) : (
                 <span className="ml-2">
