@@ -31,7 +31,7 @@ const EngineerLibraryForService = () => {
   const [limit, setLimit] = useState(10);
 
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys,currentPage,limit);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
 
   const { data, isError, isLoading } = useGetServiceProductsForRepairQuery({
@@ -106,7 +106,7 @@ const EngineerLibraryForService = () => {
             productData
           />
 
-          <div className="absolute bottom-2 right-[50px]">
+          <div className="fixed bottom-2  right-5">
             <Pagination
               limit={limit}
               currentPage={currentPage}

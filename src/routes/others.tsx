@@ -1,8 +1,13 @@
-import OtherReport from "../modules/Finance/OtherReport/OtherReport";
+import WalkingCustomerForService from "../modules/Utilitis/Walking Customer for Service/WalkingCustomerForService";
+import WalkingCustomer from "../modules/Utilitis/Walking Customer/WalkingCustomer";
 
 export const others = [
   {
-    path: "/other-report",
-    element: <OtherReport />,
+    path: "/walking-customers",
+    element: <WalkingCustomer />,
+  },
+  {
+    path: "/service-walking-customers",
+    element: <WalkingCustomerForService />,
   },
 ];

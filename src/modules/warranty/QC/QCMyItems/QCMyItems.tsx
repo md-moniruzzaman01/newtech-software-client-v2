@@ -46,8 +46,6 @@ const QCMyItems = () => {
     return <ErrorShow error={error} />;
   }
 
- 
-
   return (
     <div className=" px-5">
       <Navbar name="QC My Library"></Navbar>
@@ -69,7 +67,7 @@ const QCMyItems = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}

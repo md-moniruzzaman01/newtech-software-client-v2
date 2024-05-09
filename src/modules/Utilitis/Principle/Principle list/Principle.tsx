@@ -1,10 +1,13 @@
-
 import { NavLink } from "react-router-dom";
 // internal
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Button from "../../../../common/components/Button";
 import TableStatus from "../../../../common/components/TableStatus/TableStatus";
-import { HeaderForPrincipleTable, PrincipleData, btnValues } from "./config/constants";
+import {
+  HeaderForPrincipleTable,
+  PrincipleData,
+  btnValues,
+} from "./config/constants";
 
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
@@ -15,17 +18,19 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 const Principle = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
 
-  const {data,isLoading,isError}=useGetPrinciplesQuery({})
+  const { data, isLoading, isError } = useGetPrinciplesQuery({});
   if (isLoading) {
-    return <LoadingPage />
+    return <LoadingPage />;
   }
   if (isError) {
-    return <div>
+    return (
       <div>
-        <h1>Somethings Wrong</h1>
-        <p>Please contact to Developer.</p>
+        <div>
+          <h1>Somethings Wrong</h1>
+          <p>Please contact to Developer.</p>
+        </div>
       </div>
-    </div>
+    );
   }
   return (
     <div className="px-5 relative h-full">
@@ -43,7 +48,7 @@ const Principle = () => {
           <TableStatus btnValues={btnValues} />
         </div>
         <div>
-        <CommonTable
+          <CommonTable
             headerData={HeaderForPrincipleTable}
             itemData={data?.data}
             dataLayout={PrincipleData}
@@ -52,11 +57,10 @@ const Principle = () => {
             checkedRows={checkedRows}
             checkbox
           />
-
         </div>
       </div>
 
-      <div className="absolute bottom-0 right-5">
+      <div className="fixed bottom-2  right-5">
         <Pagination></Pagination>
       </div>
     </div>

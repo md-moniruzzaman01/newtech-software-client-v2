@@ -12,7 +12,7 @@ import BillPendingWarrantyTable from "./partials/BillPendingWarrantyTable";
 
 const BillPendingWarranty = () => {
   const [billData, setBillData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
   const token = getFromLocalStorage(authKey);
@@ -24,8 +24,6 @@ const BillPendingWarranty = () => {
     token,
   });
 
-
-
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);
@@ -33,7 +31,7 @@ const BillPendingWarranty = () => {
       setCurrentPage(complaintsData?.meta?.page);
     }
   }, [complaintsData]);
-  
+
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
       setBillData(complaintsData?.data);
@@ -60,14 +58,14 @@ const BillPendingWarranty = () => {
             />
           </div>
         </div>
-          <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}
             totalItems={totalItems}
             setCurrentPage={setCurrentPage}
           />
-          </div>
+        </div>
       </div>
     </div>
   );

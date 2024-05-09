@@ -102,7 +102,7 @@ const CreateInvoice = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}

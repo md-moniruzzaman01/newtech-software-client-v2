@@ -36,7 +36,7 @@ const MyComplaintsService = () => {
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const warranty=false;
+  const warranty = false;
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -45,7 +45,7 @@ const MyComplaintsService = () => {
     id: user?.userId,
     query,
     token,
-    warranty
+    warranty,
   });
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const MyComplaintsService = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}

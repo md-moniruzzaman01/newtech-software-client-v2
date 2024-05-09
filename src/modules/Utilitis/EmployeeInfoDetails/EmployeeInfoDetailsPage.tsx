@@ -48,7 +48,7 @@ const EmployeeInfoDetailsPage = () => {
             <EmployeeDetailsTable
               HeaderData={DemoTableHeaderForCustomerDetails}
             />
-            <div className="absolute bottom-5 right-5">
+            <div className="fixed bottom-2  right-5">
               <Pagination></Pagination>
             </div>
           </div>

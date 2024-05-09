@@ -1,9 +1,11 @@
-
 import ComplaintDetailsCard from "../../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import UserProfile from "../../../../common/components/UserProfile/UserProfile";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { ComplaintDetails, DemoTableHeaderForCustomerDetails } from "../../../../shared/config/constaints";
+import {
+  ComplaintDetails,
+  DemoTableHeaderForCustomerDetails,
+} from "../../../../shared/config/constaints";
 import userImg from "../../../../assets/user.jpg";
 import CustomerDetailsTable from "./partials/CustomerDetailsTable";
 
@@ -46,7 +48,7 @@ const CustomerDetailsPage = () => {
             <CustomerDetailsTable
               HeaderData={DemoTableHeaderForCustomerDetails}
             />
-            <div className="absolute bottom-5 right-5">
+            <div className="fixed bottom-2  right-5">
               <Pagination></Pagination>
             </div>
           </div>

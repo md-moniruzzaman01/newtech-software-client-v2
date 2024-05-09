@@ -28,7 +28,7 @@ const QAItems = () => {
   const [engineers, setEngineers] = useState([]);
   // const [selectEngineer, setSelectEngineer] =
   //   useState<qaDateProps>(qaSelectData);
- 
+
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
@@ -110,7 +110,7 @@ const QAItems = () => {
             checkbox
             productData
           />
-          <div className="absolute bottom-2 right-[50px]">
+          <div className="fixed bottom-2  right-5">
             <Pagination
               limit={limit}
               currentPage={currentPage}

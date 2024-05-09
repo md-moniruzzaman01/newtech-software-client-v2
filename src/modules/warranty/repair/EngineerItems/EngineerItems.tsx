@@ -39,13 +39,8 @@ const EngineerAllRepairs = () => {
     isLoading: engineerLoading,
     error,
   } = useGetEngineersQuery({ token });
-  const [
-    assignEngineer,
-    {
-      isLoading: assignLoading,
-      isError: assignError,
-    },
-  ] = useAssignEngineerMutation();
+  const [assignEngineer, { isLoading: assignLoading, isError: assignError }] =
+    useAssignEngineerMutation();
 
   useEffect(() => {
     if (!engineerError && !engineerLoading) {
@@ -59,7 +54,6 @@ const EngineerAllRepairs = () => {
       repairIds: checkedRows,
     };
     assignEngineer({ fullData, token });
-   
   }
 
   if (isError || assignError) {
@@ -68,7 +62,7 @@ const EngineerAllRepairs = () => {
   if (isLoading || assignLoading) {
     return <LoadingPage />;
   }
- 
+
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
@@ -94,7 +88,7 @@ const EngineerAllRepairs = () => {
             checkbox
           />
 
-          <div className="absolute bottom-2 right-[50px]">
+          <div className="fixed bottom-2  right-5">
             <Pagination></Pagination>
           </div>
         </div>

@@ -49,16 +49,17 @@ const UserInfoSlice = baseApi.injectEndpoints({
       },
     }),
 
-    // getBillById: builder.query({
-    //   query: (params) => {
-    //     return {
-    //       url: `/bill/${params?.id}`,
-    //       headers: {
-    //         authorization: params?.token,
-    //       },
-    //     };
-    //   },
-    // }),
+    getWalkingCustomer: builder.query({
+      query: ({ token, query }) => {
+        console.log(`nw-customer?${query}`);
+        return {
+          url: `nw-customer?${query}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
 
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
@@ -81,4 +82,5 @@ export const {
   useGetAdminQuery,
   useUpdatePasswordMutation,
   useNormalUserUpdatePasswordMutation,
+  useGetWalkingCustomerQuery,
 } = UserInfoSlice;

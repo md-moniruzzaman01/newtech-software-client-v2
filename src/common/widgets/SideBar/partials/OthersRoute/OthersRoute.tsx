@@ -42,12 +42,6 @@ const OthersRoute = () => {
             <span>Category List</span>
           </div>
         </NavLink>
-        <NavLink to="/other-report">
-          <div className={routeStyle}>
-            <span>&#8618;</span>
-            <span>Report</span>
-          </div>
-        </NavLink>
       </section>
     </div>
   );

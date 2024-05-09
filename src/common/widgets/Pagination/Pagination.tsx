@@ -40,7 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex justify-between w-[35rem] ">
+    <div className="flex justify-between w-[35rem] bg-grayForBorder rounded-md p-2 ">
       <p className="mt-2">
         Total : <span>{totalItems}</span>
       </p>

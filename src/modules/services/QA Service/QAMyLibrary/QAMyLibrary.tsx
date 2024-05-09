@@ -64,7 +64,7 @@ const QCMyLibraryService = () => {
       repairIds: checkedRows,
     };
 
-     await qaReturnToLibrary({ token, fullData });
+    await qaReturnToLibrary({ token, fullData });
     if (returnToLibraryIsSuccess) {
       swal("Success", "Return to library is done", "success");
     }
@@ -103,7 +103,7 @@ const QCMyLibraryService = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}

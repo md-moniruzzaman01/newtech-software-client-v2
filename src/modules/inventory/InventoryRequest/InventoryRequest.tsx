@@ -51,7 +51,7 @@ const InventoryRequest = () => {
           dataLayout={tableLayout}
           link="/inventory/request-details"
         />
-        <div className="absolute bottom-0 right-5">
+        <div className="fixed bottom-2  right-5">
           <Pagination />
         </div>
       </div>

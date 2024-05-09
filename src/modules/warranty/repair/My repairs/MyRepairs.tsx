@@ -25,7 +25,7 @@ const MyRepairs = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetOldRepairsQuery({
-    id:user._id,
+    id: user._id,
     token,
     query,
   });
@@ -83,7 +83,7 @@ const MyRepairs = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}

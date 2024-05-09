@@ -60,6 +60,16 @@ const UsersRoute = () => {
             <span>Admin</span>
           </div>
         </NavLink>
+        <NavLink
+          to={`${
+            activeRoute ? "/walking-customers" : "/service-walking-customers"
+          }`}
+        >
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>Walking Customers</span>
+          </div>
+        </NavLink>
       </section>
     </div>
   );

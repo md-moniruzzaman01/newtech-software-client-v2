@@ -21,7 +21,7 @@ const EngineerAllRepairs = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetAllRepairsQuery({
-    id:user._id,
+    id: user._id,
     token,
   });
   useEffect(() => {
@@ -78,7 +78,7 @@ const EngineerAllRepairs = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}

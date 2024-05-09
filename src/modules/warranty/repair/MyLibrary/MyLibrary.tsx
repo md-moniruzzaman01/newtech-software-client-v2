@@ -31,7 +31,7 @@ const MyLibrary = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetRepairsQuery({
-    id:user._id,
+    id: user._id,
     query,
     token,
   });
@@ -89,7 +89,7 @@ const MyLibrary = () => {
             />
           </div>
         </div>
-        <div className="absolute bottom-2 right-[50px]">
+        <div className="fixed bottom-2  right-5">
           <Pagination
             limit={limit}
             currentPage={currentPage}
