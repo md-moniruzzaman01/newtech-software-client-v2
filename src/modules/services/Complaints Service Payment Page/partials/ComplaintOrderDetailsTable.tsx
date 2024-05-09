@@ -65,7 +65,7 @@ const ComplaintOrderDetailsTable = ({
           );
           if (existingIndex !== 1) {
             const UpdateDiscount = {
-              id: item.discount?.id,
+              id: item.discount.id,
               amount: item.discount.amount,
             };
             if (item.discount.type === "Discount") {
@@ -93,7 +93,6 @@ const ComplaintOrderDetailsTable = ({
   }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
 
   const handleSubmitPayment = async () => {
-    // const url = `${SERVER_URL}/bill/${id}`;
     const fullData = {
       discount,
       hiddenDiscount,
@@ -103,6 +102,7 @@ const ComplaintOrderDetailsTable = ({
     const result = await updateDiscount({ id, token, fullData });
     showSwal(result);
   };
+  console.log(billData);
 
   const updateData = hiddenDiscount.map((data: IDiscount) => data.amount);
   const totalHiddenDiscountDefault = updateData?.reduce(
@@ -114,6 +114,8 @@ const ComplaintOrderDetailsTable = ({
     (acc, curr) => acc + curr,
     0
   );
+
+  console.log(discount);
 
   const total =
     billSingleData &&
@@ -167,7 +169,7 @@ const ComplaintOrderDetailsTable = ({
                   }
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleDiscountChange(
-                      item?.discount?.id,
+                      item?.id,
                       Number(e.target.value),
                       discount,
                       setDiscount,
@@ -187,7 +189,7 @@ const ComplaintOrderDetailsTable = ({
                   }
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleHiddenDiscountChange(
-                      item?.discount?.id,
+                      item?.id,
                       Number(e.target.value),
                       hiddenDiscount,
                       setHiddenDiscount,
