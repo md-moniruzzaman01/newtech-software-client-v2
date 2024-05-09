@@ -18,7 +18,7 @@ const QAItemOrderDetails = () => {
     id,
     token,
   });
-
+  console.log(data);
   if (isLoading) {
     return <LoadingPage />;
   }

@@ -10,6 +10,7 @@ import { useGetQcByIdQuery } from "../../../../redux/features/api/qc";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
+import ComplaintMiniCard from "./partials/ComplaintMiniCard";
 
 const ComplaintOrderDetailsQC = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const ComplaintOrderDetailsQC = () => {
       token,
       id: qcData?.data?.repairId,
     });
-
+  console.log(complaintsData);
   if (gcIsLoading || complaintsIsLoading) {
     return <LoadingPage />;
   }
@@ -103,6 +104,35 @@ const ComplaintOrderDetailsQC = () => {
           </div>
           <ComplaintOrderStatusQC id={id} />
         </div>
+      </div>
+      <div className="grid grid-cols-5 mb-5 gap-5 overflow-x-auto">
+        {complaintsData?.data?.Qa?.length > 0 &&
+          complaintsData?.data?.Qa?.map((item, index) => (
+            <ComplaintMiniCard
+              key={index}
+              name={`Status: ${item?.status}`}
+              header={`ID: ${item?.qa_checker_id}`}
+              notes={`${item?.serial_number}`}
+            />
+          ))}
+        {complaintsData?.data?.Qc?.length > 0 &&
+          complaintsData?.data?.Qc?.map((item, index) => (
+            <ComplaintMiniCard
+              key={index}
+              name={`Status: ${item?.status}`}
+              header={`ID: ${item?.repairId}`}
+              notes={`${item?.serial_number}`}
+            />
+          ))}
+        {complaintsData?.data?.RepairItem?.length > 0 &&
+          complaintsData?.data?.RepairItem?.map((item, index) => (
+            <ComplaintMiniCard
+              key={index}
+              name={`Status: ${item?.status}`}
+              header={`ID: ${item?.repairId}`}
+              notes={`${item?.serial_number}`}
+            />
+          ))}
       </div>
     </div>
   );

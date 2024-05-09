@@ -30,7 +30,7 @@ const ComplaintOrderDetails = () => {
       setComplaintsSingleData(complaintsData?.data);
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
-
+  console.log(complaintsSingleData);
   if (complaintsLoading) {
     return <LoadingPage />;
   }
@@ -164,7 +164,7 @@ const ComplaintOrderDetails = () => {
             <ComplaintMiniCard
               key={index}
               name={`Status: ${item?.status}`}
-              header={`ID: ${item?._id}`}
+              header={`ID: ${item?.repairId}`}
               notes={`${item?.serial_number}`}
             />
           ))}
@@ -173,7 +173,7 @@ const ComplaintOrderDetails = () => {
             <ComplaintMiniCard
               key={index}
               name={`Status: ${item?.status}`}
-              header={`ID: ${item?._id}`}
+              header={`ID: ${item?.repairId}`}
               notes={`${item?.serial_number}`}
             />
           ))}

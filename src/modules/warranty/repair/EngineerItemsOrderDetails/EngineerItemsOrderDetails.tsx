@@ -20,7 +20,6 @@ const EngineerItemsOrderDetails = () => {
     id,
     token,
   });
-  console.log(data);
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
@@ -30,6 +29,7 @@ const EngineerItemsOrderDetails = () => {
         return <EngineerPartsReplace id={id} repairId={data?.data?.repairId} />;
     }
   }
+  console.log(data);
   if (isLoading) {
     return <LoadingPage />;
   }
