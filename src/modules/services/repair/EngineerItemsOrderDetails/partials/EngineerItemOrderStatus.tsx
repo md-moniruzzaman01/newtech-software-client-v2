@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../../common/components/Button";
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
@@ -24,16 +25,16 @@ const EngineerItemOrderStatus = () => {
       note,
     };
 
-    const result = await updateRepair({ id, fullData, token });
-
-    if ("data" in result) {
-      swal("Your data has been successfully Updated.", {
+    const result: any = await updateRepair({ id, fullData, token });
+    console.log(result);
+    if (result?.data?.success) {
+      swal(`${result?.data?.message}`, {
         icon: "success",
       });
       navigate("/service/engineer-my-library");
       form.reset();
-    } else if ("error" in result) {
-      swal("Something went wrong!", {
+    } else {
+      swal(`${result?.error?.data?.message}`, {
         icon: "error",
       });
     }

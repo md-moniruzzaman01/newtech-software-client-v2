@@ -34,7 +34,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [selectData, setSelectData] = useState<updateAddedItemProps | null>(
     null
   );
-  console.log(selectData);
   const [isLoadingSuggestion, setIsLoadingSuggestion] = useState(false);
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<partnerProps[]>([]);

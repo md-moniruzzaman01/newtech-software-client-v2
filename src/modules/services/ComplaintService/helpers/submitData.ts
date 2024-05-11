@@ -41,16 +41,16 @@ export const handleDataSubmit = async (
     })
       .then((res) => res.json())
       .then((result) => {
-        if (result?.data?.success) {
+        console.log("fullData", fullData);
+        console.log(result);
+        if (result?.success) {
           setAddedItem([]);
-          const dataIds = result?.data?.data?.map(
-            (item: { id: string }) => item?.id
-          );
+          const dataIds = result?.data?.map((item: { id: string }) => item?.id);
           dispatch(setIds(dataIds));
           setPartnerInfo(defaultPartnerValue);
           removeFromLocalStorage("addedItem");
           removeFromLocalStorage("customerInfo");
-          swal(`${result?.data?.message}`, {
+          swal(`${result?.message}`, {
             icon: "success",
           });
           if (isPaymentButton) {
