@@ -16,6 +16,7 @@ export const handleAddItem = (
   >
 ) => {
   event.preventDefault();
+
   const form = event.currentTarget; // Use currentTarget for the form element
   const name = (form.elements.namedItem("partner_name") as HTMLInputElement)
     .value;

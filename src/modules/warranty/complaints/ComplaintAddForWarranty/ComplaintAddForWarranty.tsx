@@ -174,6 +174,7 @@ const ComplaintAddForWarranty = () => {
       })
     ),
   };
+  console.log(selectData);
   const defaultPartnerInfo =
     partnerInfo && defaultPartner(partnerInfo, partners);
   const defaultPartnerName =
@@ -239,7 +240,9 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        partnerInfo ? partnerInfo?.partner_name : ""
+                        partnerInfo?.partner_name
+                          ? partnerInfo?.partner_name
+                          : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       onChange={(
@@ -284,7 +287,9 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        partnerInfo ? partnerInfo?.contact_number : ""
+                        partnerInfo?.contact_number
+                          ? partnerInfo?.contact_number
+                          : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       required
@@ -437,9 +442,15 @@ const ComplaintAddForWarranty = () => {
                 />
               </div>
               <div className="col-span-3  justify-end flex items-end pb-5">
-                <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
-                  Add {warrantyAddedItem?.length > 0 ? "More" : "Please"}
-                </Button>
+                {selectData ? (
+                  <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
+                    Save
+                  </Button>
+                ) : (
+                  <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
+                    Add {warrantyAddedItem?.length > 0 ? "More" : "Please"}
+                  </Button>
+                )}
               </div>
             </div>
           </form>

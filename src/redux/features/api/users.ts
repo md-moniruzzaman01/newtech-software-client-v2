@@ -14,11 +14,11 @@ const UserInfoSlice = baseApi.injectEndpoints({
       },
     }),
     getAdmin: builder.query({
-      query: (params) => {
+      query: ({ userId, token }) => {
         return {
-          url: `/admin/${params?.userId}`,
+          url: `/admin/${userId}`,
           headers: {
-            authorization: params?.token,
+            authorization: token,
           },
         };
       },

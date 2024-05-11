@@ -15,11 +15,9 @@ export const handleDataSubmit = async (
   createComplaints: any
 ) => {
   const token = getFromLocalStorage(authKey);
-  console.log(fullData);
   setIsLoading(true);
   const result = await createComplaints({ fullData, token });
-  console.log(result);
-  if ("data" in result) {
+  if (result?.data?.success) {
     setWarrantyAddedItem([]);
     setPartnerInfo({
       partner_id: "",
@@ -30,12 +28,12 @@ export const handleDataSubmit = async (
     removeFromLocalStorage("partnerInfo");
     removeFromLocalStorage("newCustomer");
     setIsNewPartner(false);
-    swal("Your data has been successfully submitted.", {
+    swal(`${result?.data?.message}`, {
       icon: "success",
     });
     setIsLoading(false);
-  } else if ("error" in result) {
-    swal("Something went wrong!", {
+  } else {
+    swal(`${result?.error?.data?.message}`, {
       icon: "error",
     });
     setIsLoading(false);

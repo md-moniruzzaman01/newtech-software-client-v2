@@ -34,7 +34,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   const [selectData, setSelectData] = useState<updateAddedItemProps | null>(
     null
   );
-
+  console.log(selectData);
   const [isLoadingSuggestion, setIsLoadingSuggestion] = useState(false);
   const [searchInput, setSearchInput] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<partnerProps[]>([]);
@@ -284,9 +284,15 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                   placeholder="Write Problem"
                 ></TextArea>
                 <div className="flex justify-end py-5">
-                  <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
-                    Add More
-                  </Button>
+                  {selectData ? (
+                    <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
+                      Save
+                    </Button>
+                  ) : (
+                    <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
+                      Add {addedItem?.length > 0 ? "More" : "Please"}
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

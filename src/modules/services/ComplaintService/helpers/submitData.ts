@@ -41,7 +41,7 @@ export const handleDataSubmit = async (
     })
       .then((res) => res.json())
       .then((result) => {
-        if ("data" in result) {
+        if (result?.data?.success) {
           setAddedItem([]);
           const dataIds = result?.data?.data?.map(
             (item: { id: string }) => item?.id
@@ -50,7 +50,7 @@ export const handleDataSubmit = async (
           setPartnerInfo(defaultPartnerValue);
           removeFromLocalStorage("addedItem");
           removeFromLocalStorage("customerInfo");
-          swal("Your data has been successfully submitted.", {
+          swal(`${result?.data?.message}`, {
             icon: "success",
           });
           if (isPaymentButton) {
@@ -79,7 +79,7 @@ export const handleDataSubmit = async (
             window.open(`/recipe/${result.data?.toString()}`, "Print recipe!");
           }
         } else if ("error" in result || "errorMessages" in result) {
-          swal("Something went wrong!", {
+          swal(`${result?.error?.data?.message}`, {
             icon: "error",
           });
         }
