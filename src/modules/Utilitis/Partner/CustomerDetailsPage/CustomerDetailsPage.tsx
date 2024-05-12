@@ -5,14 +5,29 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import {
   ComplaintDetails,
   DemoTableHeaderForCustomerDetails,
+  authKey,
 } from "../../../../shared/config/constaints";
 import userImg from "../../../../assets/user.jpg";
 import CustomerDetailsTable from "./partials/CustomerDetailsTable";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { useParams } from "react-router-dom";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { useGetPartnerByIdQuery } from "../../../../redux/features/api/Partner";
 
 const CustomerDetailsPage = () => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalItems, setTotalItems] = useState(50);
-  // const limit = 10;
+  const token = getFromLocalStorage(authKey);
+  const { id } = useParams();
+
+  const { data: partner, isLoading: engineerLoading } = useGetPartnerByIdQuery({
+    token,
+    id,
+  });
+
+  console.log(partner);
+
+  if (engineerLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5">
       <Navbar name="Partner Info Details" />

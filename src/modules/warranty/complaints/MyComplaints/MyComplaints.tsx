@@ -16,11 +16,12 @@ import {
 import { useGetMyComplaintQuery } from "../../../../redux/features/api/complaints";
 import { getUserInfo } from "../../../../services/auth.service";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MyComplaints = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 50;
+  const [limit, setLimit] = useState(10);
+  const [totalItems, setTotalItems] = useState(10);
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
@@ -32,6 +33,15 @@ const MyComplaints = () => {
     token,
     warranty,
   });
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      setTotalItems(data.meta.total);
+      setLimit(data.meta.limit);
+      setCurrentPage(data?.meta?.page);
+    }
+  }, [data, isError, isLoading]);
+
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -68,8 +78,8 @@ const MyComplaints = () => {
       <div className="fixed bottom-5 right-5">
         <Pagination
           limit={limit}
-          totalItems={data?.meta?.total}
-          currentPage={data?.meta?.page}
+          totalItems={totalItems}
+          currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
       </div>

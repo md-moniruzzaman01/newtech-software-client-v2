@@ -14,7 +14,7 @@ import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { useState } from "react";
 import {
-  useAddEngineerMutation,
+  useEditEngineerMutation,
   useGetEngineerByIdQuery,
 } from "../../../redux/features/api/engineers";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
@@ -33,7 +33,7 @@ const EngineerEditPage = () => {
   const [powerArr, setPowerArr] = useState([]);
   const [aspArr, setAspArr] = useState([]);
   const [skillArr, setSkillArr] = useState([]);
-  const [addEngineer, { isLoading }] = useAddEngineerMutation();
+  const [editEngineer, { isLoading }] = useEditEngineerMutation();
   const { data: mainCategories, isLoading: mainCategoryLoading } =
     useGetMainCategoryQuery({});
 
@@ -79,7 +79,7 @@ const EngineerEditPage = () => {
         profileImage: "img",
       },
     };
-    const result: any = await addEngineer({ fullData, token });
+    const result: any = await editEngineer({ fullData, token });
     if (result?.data?.success) {
       swal("success", `${result?.data?.message}`, "success");
       setPowerArr([]);
