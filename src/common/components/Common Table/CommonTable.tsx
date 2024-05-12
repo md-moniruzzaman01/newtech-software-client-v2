@@ -9,6 +9,7 @@ import {
 import { emptyData } from "../../../shared/config/constaints";
 import Button from "../Button";
 import { icons } from "../../../shared/libs/Icons";
+import { MdModeEdit } from "react-icons/md";
 
 interface CommonTableProps {
   headerData: string[];
@@ -23,6 +24,7 @@ interface CommonTableProps {
   btnValue?: string;
   deleteBtn?: boolean;
   deleteFn?: any;
+  editPageLink?: string;
 }
 
 // type TableData = Record<string, any>;
@@ -40,6 +42,7 @@ const CommonTable: FC<CommonTableProps> = ({
   btnValue,
   deleteBtn,
   deleteFn,
+  editPageLink,
 }) => {
   return (
     <>
@@ -143,6 +146,20 @@ const CommonTable: FC<CommonTableProps> = ({
                           }`}
                         >
                           <IoMdEye />
+                        </NavLink>
+                      </td>
+                    )}
+                    {editPageLink && (
+                      <td className="border">
+                        <NavLink
+                          className=" !text-black flex justify-center"
+                          to={`${editPageLink}/${
+                            productData
+                              ? item?.repair[item?.repair?.length - 1]?.id
+                              : item?.id
+                          }`}
+                        >
+                          <MdModeEdit />
                         </NavLink>
                       </td>
                     )}

@@ -31,6 +31,16 @@ const EngineerApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getEngineerById: builder.query({
+      query: ({ token, id }) => {
+        return {
+          url: `/engineers/${id}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
     getEngineersList: builder.query({
       query: ({ token, query }) => {
         return {
@@ -105,11 +115,12 @@ const EngineerApi = baseApi.injectEndpoints({
 
 export const {
   useAddEngineerMutation,
+  useGetEngineerByIdQuery,
   useGetEngineersQuery,
   useUpdateRepairStatusMutation,
   useRepairReturnToLibraryMutation,
   useGetEngineersDataQuery,
   useGetEngineerDataForServiceQuery,
   useDeleteEngineerMutation,
-  useGetEngineersListQuery
+  useGetEngineersListQuery,
 } = EngineerApi;

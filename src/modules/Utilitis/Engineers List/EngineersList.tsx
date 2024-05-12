@@ -96,6 +96,7 @@ const EngineersList = () => {
             itemData={engineers?.data}
             deleteBtn
             deleteFn={handleDelete}
+            editPageLink="/engineer-edit-page"
           />
         </div>
       </div>
