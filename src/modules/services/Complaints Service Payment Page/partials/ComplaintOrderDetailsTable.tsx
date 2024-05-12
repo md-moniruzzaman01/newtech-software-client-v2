@@ -102,7 +102,6 @@ const ComplaintOrderDetailsTable = ({
     const result = await updateDiscount({ id, token, fullData });
     showSwal(result);
   };
-  console.log(billData);
 
   const updateData = hiddenDiscount.map((data: IDiscount) => data.amount);
   const totalHiddenDiscountDefault = updateData?.reduce(
@@ -114,8 +113,6 @@ const ComplaintOrderDetailsTable = ({
     (acc, curr) => acc + curr,
     0
   );
-
-  console.log(discount);
 
   const total =
     billSingleData &&
@@ -348,6 +345,7 @@ const ComplaintOrderDetailsTable = ({
                   inputName="amount"
                   inputType="number"
                 />
+                <Input inputPlaceholder="NOte..." inputName="note" />
                 <Button loading={isLoading} primary className="w-full">
                   Submit
                 </Button>

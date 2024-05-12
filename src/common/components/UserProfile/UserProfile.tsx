@@ -8,6 +8,7 @@ interface userProfileProps {
   userDesignation?: string;
   userDepartment?: string;
   companyName?: string;
+  address?: string;
 }
 
 const UserProfile: React.FC<userProfileProps> = ({
@@ -18,6 +19,8 @@ const UserProfile: React.FC<userProfileProps> = ({
   userJoinedDate,
   userName,
   userPhone,
+  companyName,
+  address,
 }) => {
   return (
     <div className="bg-solidWhite min-w-[400px]  py-10">
@@ -40,15 +43,25 @@ const UserProfile: React.FC<userProfileProps> = ({
         {userName && <h2 className="text-xl font-medium">{userName}</h2>}
       </div>
       <div className="pl-10 pt-5 space-y-7">
+        <p>
+          {companyName && <span className="font-semibold">Company : </span>}
+          {companyName}
+        </p>
         {userPhone && (
           <p>
             <span className="font-semibold">Phone : </span> {userPhone}
           </p>
         )}
+
         <p>
           {userEmail && <span className="font-semibold">Email : </span>}
           {userEmail}
         </p>
+        <p>
+          {address && <span className="font-semibold">Address : </span>}
+          {address}
+        </p>
+
         <p>
           {userJoinedDate && (
             <span className="font-semibold">Joining Date : </span>

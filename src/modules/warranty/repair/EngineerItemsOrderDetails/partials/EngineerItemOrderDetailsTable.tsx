@@ -1,7 +1,6 @@
 const EngineerItemOrderDetailsTable = ({ data }) => {
-
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {/* header row start here  */}
       <div className="grid grid-cols-4 gap-5 text-center">
         <div className="">SL Number</div>
@@ -11,7 +10,7 @@ const EngineerItemOrderDetailsTable = ({ data }) => {
       </div>
       <hr className="border-b border-shadeOfGray my-2" />
 
-      <div className="text-center">
+      <div className="text-center text-xs">
         {/* second row start here  */}
         <div className="grid grid-cols-4  text-center">
           <div className="border py-2 border-gray-400">

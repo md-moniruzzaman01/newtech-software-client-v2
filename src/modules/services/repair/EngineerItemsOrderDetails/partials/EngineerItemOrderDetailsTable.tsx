@@ -13,7 +13,7 @@ const EngineerItemOrderDetailsTable = ({ product }: { product: any }) => {
       </div>
       <hr className="border-b border-shadeOfGray my-2" />
 
-      <div className="text-center">
+      <div className="text-center text-xs">
         {/* second row start here  */}
         <div className="grid grid-cols-6  text-center">
           <div className="border py-2 border-gray-400">

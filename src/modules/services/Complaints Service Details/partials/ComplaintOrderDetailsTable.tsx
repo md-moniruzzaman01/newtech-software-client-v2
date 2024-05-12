@@ -43,7 +43,7 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
             to={`/complaints-service-full-details/${complaintsSingleData?.id}`}
             className="border py-2 border-gray-400 !bg-transparent"
           >
-            <Button link className="text-sm">
+            <Button link className="!text-sm !font-normal">
               {complaintsSingleData?.order_number}
             </Button>
           </NavLink>

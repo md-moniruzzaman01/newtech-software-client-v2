@@ -19,10 +19,13 @@ export const handlePaymentSubmit = async (
     (form.elements.namedItem("amount") as HTMLInputElement)?.value || "0",
     10
   );
+  const note = (form.elements.namedItem("note") as HTMLInputElement).value;
 
   const url = `${SERVER_URL}/bill/payment/${id}`;
-  const fullData = { paymentamount };
-  setIsLoading(true);
+  const fullData = { paymentamount, note };
+  console.log("url", url);
+  console.log("fullData", fullData);
+  setIsLoading(false);
   await fetch(url, {
     method: "PATCH",
     headers: {

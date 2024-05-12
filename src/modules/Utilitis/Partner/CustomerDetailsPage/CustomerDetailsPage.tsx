@@ -7,7 +7,6 @@ import {
   DemoTableHeaderForCustomerDetails,
   authKey,
 } from "../../../../shared/config/constaints";
-import userImg from "../../../../assets/user.jpg";
 import CustomerDetailsTable from "./partials/CustomerDetailsTable";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useParams } from "react-router-dom";
@@ -18,14 +17,14 @@ const CustomerDetailsPage = () => {
   const token = getFromLocalStorage(authKey);
   const { id } = useParams();
 
-  const { data: partner, isLoading: engineerLoading } = useGetPartnerByIdQuery({
+  const { data: partner, isLoading: partnerLoading } = useGetPartnerByIdQuery({
     token,
     id,
   });
 
   console.log(partner);
 
-  if (engineerLoading) {
+  if (partnerLoading) {
     return <LoadingPage />;
   }
   return (
@@ -34,14 +33,14 @@ const CustomerDetailsPage = () => {
       <div className="grid grid-cols-3 gap-2 py-10">
         <div className="col-span-1">
           <UserProfile
-            userId="22334455"
-            userName="John Doe"
-            userEmail="johndoe123@gmail.com"
-            userDesignation="Manager"
-            companyName="Acer"
-            userImg={userImg}
-            userJoinedDate="01/02/2024"
-            userPhone={8801903994195}
+            userPhone={partner?.data?.contactNo}
+            companyName={partner?.data?.company}
+            userEmail={partner?.data?.email}
+            address={partner?.data?.address}
+            userId={partner?.data?.id}
+            userJoinedDate={partner?.data?.createdAt?.toString()?.slice(0, 10)}
+            userName={partner?.data?.contact_person}
+            userImg={partner?.data?.profileImage}
           />
         </div>
         <div className="col-span-2">

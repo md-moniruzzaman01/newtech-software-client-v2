@@ -40,9 +40,9 @@ const ComplaintOrderDetailsTable = ({ id }: { id: string | undefined }) => {
         <div className="grid grid-cols-7  text-center">
           <NavLink
             to={`/complaints/order-in-details/${complaintsSingleData?.id}`}
-            className="border py-2 border-gray-400 !bg-transparent"
+            className=" border py-2 border-gray-400 !bg-transparent"
           >
-            <Button link className="text-sm">
+            <Button link className="text-xs">
               {complaintsSingleData?.order_number}
             </Button>
           </NavLink>
