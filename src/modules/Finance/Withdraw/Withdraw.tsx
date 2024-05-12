@@ -80,7 +80,7 @@ const Withdraw = () => {
         const branchData = totalData?.data?.find(
           (data) => data.branch === user.branch
         );
-        setbranchAmount(branchData.total);
+        setbranchAmount(branchData?.total);
       } else {
         const branchData = totalData?.data?.find(
           (data) => data.branch === "05"

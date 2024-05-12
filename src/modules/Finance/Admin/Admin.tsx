@@ -1,13 +1,13 @@
 import Button from "../../../common/components/Button";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
-import Pagination from "../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../shared/config/constaints";
 import { NavLink } from "react-router-dom";
 import { TableHeaderForAdmin, tableLayout } from "./config/constants";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { useGetAdminQuery } from "../../../redux/features/api/users";
-import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../services/auth.service";
+import CommonTable from "../../../common/components/Common Table/CommonTable";
+import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 
 const Admin = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -15,8 +15,14 @@ const Admin = () => {
   // const limit = 10;
   const token = getFromLocalStorage(authKey);
   const { userId } = getUserInfo();
-  const { data: adminData } = useGetAdminQuery({ token, userId });
+  const { data: adminData, isLoading: adminLoading } = useGetAdminQuery({
+    token,
+    userId,
+  });
   console.log(adminData);
+  if (adminLoading) {
+    return <LoadingPage />;
+  }
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Admin Info" />
@@ -67,12 +73,8 @@ const Admin = () => {
         <CommonTable
           headerData={TableHeaderForAdmin}
           dataLayout={tableLayout}
-          itemData={adminData?.data}
+          itemData={[adminData?.data]}
         />
-      </div>
-
-      <div className="fixed bottom-2  right-5">
-        <Pagination></Pagination>
       </div>
     </div>
   );

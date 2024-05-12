@@ -76,77 +76,78 @@ const CommonTable: FC<CommonTableProps> = ({
               </tr>
             </thead>
             <tbody className="text-center text-sm">
-              {itemData.map((item, index) => (
-                <tr key={index}>
-                  {checkbox && (
-                    <td className="border">
-                      <label>
-                        <input
-                          type="checkbox"
-                          className="checkbox form-checkbox h-5 w-5 "
-                          checked={checkedRows.includes(
-                            !productData
-                              ? item?.id || item?._id
-                              : item?.repair[item?.repair?.length - 1]?.id
-                          )}
-                          onChange={() =>
-                            handleCheckboxChange(
+              {itemData?.length > 0 &&
+                itemData?.map((item, index) => (
+                  <tr key={index}>
+                    {checkbox && (
+                      <td className="border">
+                        <label>
+                          <input
+                            type="checkbox"
+                            className="checkbox form-checkbox h-5 w-5 "
+                            checked={checkedRows.includes(
                               !productData
                                 ? item?.id || item?._id
-                                : item?.repair[item?.repair?.length - 1]?.id,
-                              checkedRows,
-                              setCheckedRows
-                            )
-                          }
-                        />
-                      </label>
-                    </td>
-                  )}
+                                : item?.repair[item?.repair?.length - 1]?.id
+                            )}
+                            onChange={() =>
+                              handleCheckboxChange(
+                                !productData
+                                  ? item?.id || item?._id
+                                  : item?.repair[item?.repair?.length - 1]?.id,
+                                checkedRows,
+                                setCheckedRows
+                              )
+                            }
+                          />
+                        </label>
+                      </td>
+                    )}
 
-                  {dataLayout.map((layout, idx) => (
-                    <td key={idx} className="border">
-                      {eval(layout) || emptyData}
-                    </td>
-                  ))}
-                  {btnLink && (
-                    <td className="border">
-                      <NavLink
-                        className=" !text-black flex justify-center"
-                        target="_blank"
-                        to={`${btnLink}/${item?.id}`}
-                      >
-                        <Button primary mini className="!text-xs ">
-                          {btnValue}
-                        </Button>
-                      </NavLink>
-                    </td>
-                  )}
-                  {deleteBtn && (
-                    <td className="border">
-                      <div
-                        onClick={() => deleteFn(item?.id)}
-                        className="text-shadeOfRed text-xl  flex justify-center cursor-pointer"
-                      >
-                        {icons?.delete}
-                      </div>
-                    </td>
-                  )}
-                  {link && (
-                    <td className="border">
-                      <NavLink
-                        className=" !text-black flex justify-center"
-                        to={`${link}/${
-                          productData
-                            ? item?.repair[item?.repair?.length - 1]?.id
-                            : item?.id
-                        }`}
-                      >
-                        <IoMdEye />
-                      </NavLink>
-                    </td>
-                  )}
-                </tr>
-              ))}
+                    {dataLayout.map((layout, idx) => (
+                      <td key={idx} className="border">
+                        {eval(layout) || emptyData}
+                      </td>
+                    ))}
+                    {btnLink && (
+                      <td className="border">
+                        <NavLink
+                          className=" !text-black flex justify-center"
+                          target="_blank"
+                          to={`${btnLink}/${item?.id}`}
+                        >
+                          <Button primary mini className="!text-xs ">
+                            {btnValue}
+                          </Button>
+                        </NavLink>
+                      </td>
+                    )}
+                    {deleteBtn && (
+                      <td className="border">
+                        <div
+                          onClick={() => deleteFn(item?.id)}
+                          className="text-shadeOfRed text-xl  flex justify-center cursor-pointer"
+                        >
+                          {icons?.delete}
+                        </div>
+                      </td>
+                    )}
+                    {link && (
+                      <td className="border">
+                        <NavLink
+                          className=" !text-black flex justify-center"
+                          to={`${link}/${
+                            productData
+                              ? item?.repair[item?.repair?.length - 1]?.id
+                              : item?.id
+                          }`}
+                        >
+                          <IoMdEye />
+                        </NavLink>
+                      </td>
+                    )}
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
