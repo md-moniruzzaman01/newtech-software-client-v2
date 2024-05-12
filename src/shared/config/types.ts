@@ -141,6 +141,7 @@ export type SearchBarProps = {
   handleDelivery?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleReturn?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleCancel?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isMiddleBtn?: boolean;
   disabled?: boolean;
   handleBillGenerate?: () => void;

@@ -19,6 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   handleDelivery,
   handleDelete,
   handleReturn,
+  handleCancel,
   isMiddleBtn = false,
   disabled = false,
   checkedRows,
@@ -107,6 +108,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   danger
                 >
                   Delete
+                </Button>
+              )}
+              {handleCancel && (
+                <Button
+                  loading={isDeleteLoading}
+                  disabled={disabled}
+                  onClick={handleDelete}
+                  mini
+                  danger
+                >
+                  Cancel
                 </Button>
               )}
             </div>

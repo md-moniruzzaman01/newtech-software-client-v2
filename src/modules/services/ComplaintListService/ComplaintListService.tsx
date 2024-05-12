@@ -81,6 +81,9 @@ const ComplaintListService = () => {
   const handleReturn = () => {
     console.log(checkedRows);
   };
+  const handleCancel = () => {
+    console.log(checkedRows);
+  };
 
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
@@ -90,6 +93,7 @@ const ComplaintListService = () => {
       <Navbar name="Complaint Service" />
       <div className="pt-5">
         <SearchBar
+          handleCancel={handleCancel}
           isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}
           handleReturn={handleReturn}
