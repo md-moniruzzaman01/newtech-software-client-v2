@@ -127,9 +127,9 @@ const ComplaintOrderDetailsTable = ({
   return (
     <div className="w-full">
       <div>
-        <div className="grid grid-cols-7 gap-5 text-center">
+        <div className="grid grid-cols-8 gap-5 text-center text-sm font-semibold">
           <div>Order No</div>
-          <div>SL No</div>
+          <div className="col-span-2">SL No</div>
           <div>Problem</div>
           <div>Status</div>
           <div>Discount</div>
@@ -142,11 +142,14 @@ const ComplaintOrderDetailsTable = ({
           {/* second row start here  */}
           {billSingleData &&
             billSingleData?.repair?.map((item, index) => (
-              <div key={index} className="grid grid-cols-7  text-center">
+              <div
+                key={index}
+                className="grid grid-cols-8  text-center text-sm"
+              >
                 <div className="border py-2 border-grayForBorder">
                   {item?.order_number}
                 </div>
-                <div className="border py-2 border-grayForBorder">
+                <div className=" col-span-2 border py-2 border-grayForBorder">
                   {item?.products?.serial_number}
                 </div>
                 <div className="border py-2 border-grayForBorder">
@@ -345,7 +348,7 @@ const ComplaintOrderDetailsTable = ({
                   inputName="amount"
                   inputType="number"
                 />
-                <Input inputPlaceholder="NOte..." inputName="note" />
+                <Input inputPlaceholder="Note..." inputName="note" />
                 <Button loading={isLoading} primary className="w-full">
                   Submit
                 </Button>

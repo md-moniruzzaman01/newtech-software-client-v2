@@ -36,6 +36,14 @@ const OthersRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
+        <NavLink
+          to={`${activeRoute ? "/product-list" : "/product-list-service"}`}
+        >
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>Product List</span>
+          </div>
+        </NavLink>
         <NavLink to="/category">
           <div className={routeStyle}>
             <span>&#8618;</span>

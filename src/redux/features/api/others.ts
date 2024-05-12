@@ -82,6 +82,46 @@ const OthersApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["notifications"],
     }),
+    getProductsAll: builder.query({
+      query: ({ token, query }) => {
+        return {
+          url: `/product?${query}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [
+        "complaints",
+        "brand_category",
+        "category",
+        "repair",
+        "qc",
+        "qa",
+        "bill",
+        "notifications",
+      ],
+    }),
+    getProductsAllForService: builder.query({
+      query: ({ token, query }) => {
+        return {
+          url: `/product/services?${query}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [
+        "complaints",
+        "brand_category",
+        "category",
+        "repair",
+        "qc",
+        "qa",
+        "bill",
+        "notifications",
+      ],
+    }),
   }),
 });
 
@@ -93,4 +133,6 @@ export const {
   useGetNotificationQuery,
   useUpdateNotificationMutation,
   useMarkAsReadNotificationMutation,
+  useGetProductsAllQuery,
+  useGetProductsAllForServiceQuery,
 } = OthersApi;
