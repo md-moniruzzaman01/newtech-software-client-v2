@@ -1,5 +1,4 @@
-export const fields =
-  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer";
+export const fields = "";
 export const keys = [
   "brand_name",
   "branch",

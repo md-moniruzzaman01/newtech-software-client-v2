@@ -23,3 +23,13 @@ export const MyQCTableHeader = [
   "Qc CreatedAt",
   "Action",
 ];
+
+export const fields = "";
+export const keys = [
+  "brand_name",
+  "branch",
+  "sort",
+  "repair_status",
+  "searchTerm",
+  "category_name",
+];

@@ -31,7 +31,6 @@ const ComplaintsServiceDetails = () => {
       setComplaintsSingleData(complaintsData?.data);
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
-  console.log(complaintsData);
   if (complaintsLoading) {
     return <LoadingPage />;
   }
@@ -79,11 +78,15 @@ const ComplaintsServiceDetails = () => {
           CardInformation={[
             {
               title: "Name",
-              value: complaintsSingleData?.Nonwarrentycustomer?.name,
+              value:
+                complaintsSingleData?.Nonwarrentycustomer?.name ||
+                complaintsSingleData?.customer?.contact_person,
             },
             {
               title: "Number",
-              value: complaintsSingleData?.Nonwarrentycustomer?.contact_number,
+              value:
+                complaintsSingleData?.Nonwarrentycustomer?.contact_number ||
+                complaintsSingleData?.customer?.contactNo,
             },
           ]}
         />

@@ -72,7 +72,7 @@ export const serviceRepairsRoutes = [
     element: <EngineerItemsRepairDetails />,
   },
   { path: "/service/engineer-my-library", element: <ServiceMyLibrary /> },
-  { path: "/service/engineer-all-repairs", element: <EngineerAllRepairs /> },
+  { path: "/service-engineer-all-repairs", element: <EngineerAllRepairs /> },
   { path: "/service/engineer-my-repaired", element: <MyRepairs /> },
 ];
 

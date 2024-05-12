@@ -9,7 +9,7 @@ interface textAreaProps {
 
 const TextArea: React.FC<textAreaProps> = ({
   label,
-  placeholder,
+  placeholder = "Write here...",
   name,
   IsDisabled = false,
   defaultValue,

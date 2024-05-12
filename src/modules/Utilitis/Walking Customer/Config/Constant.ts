@@ -17,7 +17,7 @@ export const tableLayout = [
   "item?.email",
   "item?.address",
   "item?.status",
-  "item?.createdAt",
+  "item?.createdAt?.toString()?.slice(0,10)",
 ];
 
 export const fields = "";

@@ -1,15 +1,15 @@
 export const headerDataForCategory = [
   "#",
   "Name",
-  "Category Id",
+  "Category ID",
   "Charge",
   "Create Date",
 ];
 export const headerDataForCategoryWarranty = [
   "#",
   "Name",
-  "Category Id",
-  "Brand Id",
+  "Category ID",
+  "Brand ID",
   "Charge",
   "CID",
   "Swap",

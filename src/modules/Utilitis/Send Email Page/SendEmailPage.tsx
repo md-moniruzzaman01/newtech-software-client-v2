@@ -1,6 +1,7 @@
 import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
+import TextArea from "../../../common/components/TextArea/TextArea";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 
 const SendEmailPage = () => {
@@ -27,7 +28,7 @@ const SendEmailPage = () => {
           <form onSubmit={handleSubmit} className="space-y-3 py-5">
             <Input labelName="To" inputName="to" />
             <Input labelName="Subject" inputName="subject" />
-            <Input labelName="Body" inputName="body" />
+            <TextArea label="Body" name="body" />
             <div className="flex justify-center gap-20 items-center pt-8">
               <Button danger sizeClass="px-8 py-2">
                 Cancel

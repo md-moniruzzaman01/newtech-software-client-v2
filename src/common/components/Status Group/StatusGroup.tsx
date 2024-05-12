@@ -113,6 +113,7 @@ const StatusGroup: FC<statusGroupProps> = ({
       // Manually reset the DatePicker component
       setStartDate(null);
       setEndDate(null);
+      setCategory("");
       navigate("");
     }
   };

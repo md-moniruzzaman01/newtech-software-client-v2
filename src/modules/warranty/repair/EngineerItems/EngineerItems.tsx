@@ -25,6 +25,9 @@ import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const EngineerAllRepairs = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [engineers, setEngineers] = useState([]);
   const [searchParams] = useSearchParams();
@@ -40,6 +43,15 @@ const EngineerAllRepairs = () => {
     isLoading: engineerLoading,
     error,
   } = useGetEngineersQuery({ token });
+
+  useEffect(() => {
+    if (engineerData) {
+      setTotalItems(engineerData.meta.total);
+      setLimit(engineerData.meta.limit);
+      setCurrentPage(engineerData?.meta?.page);
+    }
+  }, [engineerData]);
+
   const [assignEngineer, { isLoading: assignLoading, isError: assignError }] =
     useAssignEngineerMutation();
 
@@ -91,7 +103,12 @@ const EngineerAllRepairs = () => {
           />
 
           <div className="fixed bottom-2  right-5">
-            <Pagination></Pagination>
+            <Pagination
+              limit={limit}
+              currentPage={currentPage}
+              totalItems={totalItems}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </div>
       </div>

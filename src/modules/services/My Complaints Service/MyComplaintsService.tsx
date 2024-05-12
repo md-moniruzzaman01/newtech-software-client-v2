@@ -33,7 +33,7 @@ const MyComplaintsService = () => {
   const [limit, setLimit] = useState(10);
   const [searchParams] = useSearchParams();
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const warranty = false;

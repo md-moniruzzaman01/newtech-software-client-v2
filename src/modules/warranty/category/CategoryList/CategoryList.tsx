@@ -20,20 +20,38 @@ import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 const CategoryList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
   const [activeRoute, setActiveRoute] = useState(true);
+
   const { data: categories, isLoading: categoriesLoading } =
     useGetServiceCategoryAllQuery({});
+
   const {
     data: categoriesForWarranty,
     isLoading: categoriesForWarrantyLoading,
   } = useGetCategoryAllQuery({});
+
   useEffect(() => {
     const activeRouteValue = getFromLocalStorage("activeRoute");
     if (activeRouteValue) {
       setActiveRoute(JSON.parse(activeRouteValue));
     }
   }, []);
-  console.log(categoriesForWarranty);
+
+  useEffect(() => {
+    if (categories) {
+      setTotalItems(categories.meta.total);
+      setLimit(categories.meta.limit);
+      setCurrentPage(categories?.meta?.page);
+    } else if (categoriesForWarranty) {
+      setTotalItems(categoriesForWarranty.meta.total);
+      setLimit(categoriesForWarranty.meta.limit);
+      setCurrentPage(categoriesForWarranty?.meta?.page);
+    }
+  }, [categories, categoriesForWarranty]);
+
   if (categoriesLoading || categoriesForWarrantyLoading) {
     return <LoadingPage />;
   }
@@ -74,8 +92,13 @@ const CategoryList = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 right-5">
-        <Pagination></Pagination>
+      <div className="fixed bottom-2 right-5">
+        <Pagination
+          limit={limit}
+          currentPage={currentPage}
+          totalItems={totalItems}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );

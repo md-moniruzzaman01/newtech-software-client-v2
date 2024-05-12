@@ -24,7 +24,6 @@ const EngineerDashboardForService = () => {
     token,
   });
 
-
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
       setBillData(complaintsData?.data);
@@ -94,7 +93,7 @@ const EngineerDashboardForService = () => {
             itemData={billData}
             headerData={EngineerDashboardTableHeader}
             dataLayout={tableLayout}
-            link="/complaints/order-details"
+            link="/complaints-service-details"
           />
         </div>
       </div>

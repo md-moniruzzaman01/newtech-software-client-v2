@@ -26,11 +26,11 @@ const ServiceApi = baseApi.injectEndpoints({
       providesTags: ["complaints"],
     }),
     getServicesForBill: builder.query({
-      query: (params) => {
+      query: ({ token, query }) => {
         return {
-          url: `complaints/services?billExists=true&${params?.query}`,
+          url: `complaints/services?billExists=true&${query}`,
           headers: {
-            authorization: params?.token,
+            authorization: token,
           },
         };
       },

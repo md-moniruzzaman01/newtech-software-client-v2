@@ -5,25 +5,34 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { CreateBillServiceTableHeader, tableLayout } from "./config/constants";
+import {
+  CreateBillServiceTableHeader,
+  fields,
+  keys,
+  tableLayout,
+} from "./config/constants";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useDispatch } from "react-redux";
 import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useGetServicesForBillQuery } from "../../../../redux/features/api/service";
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useCreateBillMutation } from "../../../../redux/features/api/bill";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const CreateInvoice = () => {
   const [billData, setBillData] = useState([]);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(10);
+
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const [createBill, { isLoading }] = useCreateBillMutation();
   const token = getFromLocalStorage(authKey);
@@ -33,6 +42,7 @@ const CreateInvoice = () => {
     isLoading: complaintsLoading,
   } = useGetServicesForBillQuery({
     token,
+    query,
   });
 
   useEffect(() => {

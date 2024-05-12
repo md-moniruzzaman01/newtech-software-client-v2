@@ -10,7 +10,9 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../../../../services/auth.service";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { MyQCTableHeader, tableLayout } from "./config/constants";
+import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { useSearchParams } from "react-router-dom";
 
 const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,11 +21,14 @@ const EngineerAllRepairs = () => {
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
+  const [searchParams] = useSearchParams();
   const token = getFromLocalStorage(authKey);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const user = getUserInfo();
   const { data, isError, isLoading } = useGetAllRepairsQuery({
     id: user._id,
     token,
+    query,
   });
   useEffect(() => {
     if (data) {

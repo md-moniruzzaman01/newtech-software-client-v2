@@ -58,11 +58,11 @@ const RepairApi = baseApi.injectEndpoints({
       providesTags: ["repair"],
     }),
     getAllRepairs: builder.query({
-      query: (params) => {
+      query: ({ token, query }) => {
         return {
-          url: `/repair/`,
+          url: `/repair?${query}`,
           headers: {
-            authorization: params?.token,
+            authorization: token,
           },
         };
       },
