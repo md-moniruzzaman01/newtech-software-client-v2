@@ -23,8 +23,7 @@ export const handlePaymentSubmit = async (
 
   const url = `${SERVER_URL}/bill/payment/${id}`;
   const fullData = { paymentamount, note };
-  console.log("url", url);
-  console.log("fullData", fullData);
+
   setIsLoading(false);
   await fetch(url, {
     method: "PATCH",
@@ -36,7 +35,6 @@ export const handlePaymentSubmit = async (
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (data?.success) {
         swal("success", "Payment successful", "success");
         navigate(`/service-invoice/${data?.data?.id}`);

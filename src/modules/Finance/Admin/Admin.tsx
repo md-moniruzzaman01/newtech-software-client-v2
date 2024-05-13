@@ -19,7 +19,6 @@ const Admin = () => {
     token,
     userId,
   });
-  console.log(adminData);
   if (adminLoading) {
     return <LoadingPage />;
   }

@@ -51,7 +51,6 @@ const UserInfoSlice = baseApi.injectEndpoints({
 
     getWalkingCustomer: builder.query({
       query: ({ token, query }) => {
-        console.log(`nw-customer?${query}`);
         return {
           url: `nw-customer?${query}`,
           headers: {

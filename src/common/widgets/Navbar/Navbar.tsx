@@ -4,7 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import NotificationIcon from "../../../shared/libs/custom icons/NotificationIcon";
 import SettingIcon from "../../../shared/libs/custom icons/SettingIcon";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import ProfileIcon from "../../../shared/libs/custom icons/ProfileIcon";
 import { getUserInfo, removeUserInfo } from "../../../services/auth.service";
@@ -29,6 +29,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [limit, setLimit] = useState(5);
   const token = getFromLocalStorage(authKey);
   const [updateNotification] = useUpdateNotificationMutation();
@@ -54,12 +55,10 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
     link: string,
     isRead: boolean
   ) => {
-    console.log(link);
     if (isRead) {
       navigate(`${link}`);
     } else {
       const result: any = await updateNotification({ id, token });
-      console.log(result);
       if (result?.data?.success) {
         navigate(`${result?.data?.link}`);
       } else {
@@ -76,8 +75,20 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
   return (
     <div>
       <div className="flex justify-between items-center  pt-[36px]">
-        <div>
-          <h1 className="text-2xl font-semibold">{name}</h1>
+        <div className="flex justify-between items-center font-semibold text-2xl">
+          <h1>{name},</h1>
+          {location.pathname === "/" && (
+            <h3 className=" ml-1   ">
+              {userAdminInfo?.data
+                ? userAdminInfo?.data?.name?.firstName +
+                  " " +
+                  userAdminInfo?.data?.name?.lastName
+                : userInfo?.data &&
+                  userInfo?.data?.name?.firstName +
+                    " " +
+                    userInfo?.data?.name?.lastName}
+            </h3>
+          )}
         </div>
         <div className="flex justify-center items-center gap-10">
           {/* notification icon */}

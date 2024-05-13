@@ -28,7 +28,6 @@ const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
 
     const result = await updateComplaintsStatus({ fullData, token, id });
     showSwal(result);
-    console.log("fullData:", fullData);
   };
 
   return (

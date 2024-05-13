@@ -30,7 +30,6 @@ const ComplaintOrderDetails = () => {
       setComplaintsSingleData(complaintsData?.data);
     }
   }, [complaintsData, complaintsError, complaintsLoading]);
-  console.log(complaintsSingleData);
   if (complaintsLoading) {
     return <LoadingPage />;
   }

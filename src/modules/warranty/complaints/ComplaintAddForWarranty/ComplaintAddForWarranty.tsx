@@ -15,7 +15,6 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Button from "../../../../common/components/Button";
 import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
-import SelectForPartner from "../../../../common/components/SelectForPartner/SelectForPartner";
 import TextArea from "../../../../common/components/TextArea/TextArea";
 
 import { defaultPartnerInfoStatic } from "./config/constants";
@@ -35,6 +34,7 @@ import {
   handleSuggestionClick,
 } from "../../../../shared/helpers/Suggestions";
 import { authKey, emptyData } from "../../../../shared/config/constaints";
+import SearchFilterInput from "../../../../common/components/Search Filter Input/SearchFilterInput";
 
 const ComplaintAddForWarranty = () => {
   const token = getFromLocalStorage(authKey);
@@ -73,9 +73,12 @@ const ComplaintAddForWarranty = () => {
 
   const brandId =
     brands?.length && brands?.find((item) => item?.value === brandValue);
+
   // redux
   // const [addComplaint, { isLoading }] = useComplaintAddMutation();
-  const query = `asp=${brandId?.id}&limit=50&sort=-partner_name`;
+  const query = `asp=${
+    brandId?.id || partnerInfo?.brand_name
+  }&limit=50&sort=-partner_name`;
   const {
     data: partnersData,
     isLoading: partnerLoading,
@@ -125,7 +128,6 @@ const ComplaintAddForWarranty = () => {
     mainCategoryError,
     mainCategoryLoading,
   ]);
-
   useEffect(() => {
     const storedAddedItem = getFromLocalStorage("warrantyAddedItem");
     const storedPartnerInfo = getFromLocalStorage("partnerInfo");
@@ -174,9 +176,9 @@ const ComplaintAddForWarranty = () => {
       })
     ),
   };
-  console.log(selectData);
+
   const defaultPartnerInfo =
-    partnerInfo && defaultPartner(partnerInfo, partners);
+    partnerInfo?.partner_id && defaultPartner(partnerInfo, partners);
   const defaultPartnerName =
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
@@ -343,7 +345,7 @@ const ComplaintAddForWarranty = () => {
 
                   {/* Partner Name  */}
                   <div>
-                    <SelectForPartner
+                    {/* <SelectForPartner
                       selectPartner={selectPartner}
                       setSelectPartner={setSelectPartner}
                       defaultValue={defaultPartnerName}
@@ -353,6 +355,17 @@ const ComplaintAddForWarranty = () => {
                       placeholder="Partner Name"
                       label="Partner Name"
                       Filter={partners}
+                    /> */}
+                    <SearchFilterInput
+                      required
+                      defaultValue={defaultPartnerName}
+                      isDisabled={warrantyAddedItem?.length > 0 ? true : false}
+                      options={partners}
+                      labelName="Partner Name"
+                      filterName="partner_id"
+                      setData={setSelectPartner}
+                      data={selectPartner}
+                      isMulti={false}
                     />
                   </div>
                   {/* Contact Number  */}

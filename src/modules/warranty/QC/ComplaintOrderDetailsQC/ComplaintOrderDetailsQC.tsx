@@ -25,7 +25,6 @@ const ComplaintOrderDetailsQC = () => {
       token,
       id: qcData?.data?.repairId,
     });
-  console.log(complaintsData);
   if (gcIsLoading || complaintsIsLoading) {
     return <LoadingPage />;
   }

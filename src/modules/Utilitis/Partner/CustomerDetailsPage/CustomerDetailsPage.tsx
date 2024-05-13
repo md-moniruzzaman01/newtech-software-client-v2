@@ -22,8 +22,6 @@ const CustomerDetailsPage = () => {
     id,
   });
 
-  console.log(partner);
-
   if (partnerLoading) {
     return <LoadingPage />;
   }

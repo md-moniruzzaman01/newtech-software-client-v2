@@ -25,7 +25,6 @@ import { TableBodyProps } from "./config/types";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 import swal from "sweetalert";
-import { getBranchName } from "../../../../shared/helpers/getBranchName";
 
 //internal
 
@@ -120,7 +119,6 @@ const Complaint = () => {
   const handleReturn = () => {
     console.log(checkedRows);
   };
-  console.log(getBranchName("03"));
   if (complaintsLoading) {
     return <LoadingPage />;
   }

@@ -45,7 +45,6 @@ const InvoiceList = () => {
     query,
   });
 
-  console.log(billData);
   const [deleteBill] = useDeleteBillMutation();
 
   useEffect(() => {

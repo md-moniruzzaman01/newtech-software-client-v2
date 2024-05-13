@@ -24,6 +24,7 @@ export const handleDataSubmit = async (
       contact_number: "",
       brand_name: "",
     });
+
     removeFromLocalStorage("warrantyAddedItem");
     removeFromLocalStorage("partnerInfo");
     removeFromLocalStorage("newCustomer");

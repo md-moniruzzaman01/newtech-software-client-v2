@@ -18,8 +18,6 @@ const MainCategoryPage = () => {
       value: category,
     };
 
-    console.log(mainCategory);
-
     try {
       await createMainCategory(mainCategory);
       swal("Success", "Main Category added successfully", "success");

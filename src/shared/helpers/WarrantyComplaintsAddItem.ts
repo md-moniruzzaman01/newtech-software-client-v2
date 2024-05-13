@@ -30,8 +30,7 @@ export const handleAddItem = (
   const partner_name = (
     form.elements.namedItem("partner_name") as HTMLInputElement
   )?.value;
-  const partner_id =
-    (form.elements.namedItem("partner_id") as HTMLInputElement)?.value || "";
+  const partner_id = selectPartner?._id;
   const contactNo = selectPartner?.contactNo;
   const contact_number = (
     form.elements.namedItem("contact_number") as HTMLInputElement
@@ -76,7 +75,6 @@ export const handleAddItem = (
     contactNo,
     brand_name,
   };
-
   if (isNewPartner) {
     setPartnerInfo(newCustomer);
     localStorage.setItem("newCustomer", JSON.stringify(newCustomer));

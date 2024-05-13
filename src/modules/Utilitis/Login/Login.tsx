@@ -38,7 +38,18 @@ const Login = () => {
           localStorage.setItem(authKey, data.data.accessToken);
           localStorage.setItem("refreshToken", data.data.accessToken);
           setToLocalStorage("activeRoute", "true");
-          swal("success", "Successfully Logged in");
+          swal(
+            "success",
+            `${data?.message}\n${
+              data?.data?.needsPasswordChange
+                ? "Password is weak. Please make it stronger."
+                : ""
+            }`
+          );
+
+          // if (data?.data?.needsPasswordChange) {
+          //   swal("success", "Password is weak. Please make it stronger.");
+          // }
           navigate("/");
         } else {
           swal("Error!", data.message, "error");

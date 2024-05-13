@@ -46,7 +46,6 @@ const CustomerAddOrEdit = () => {
       },
     };
     const result: any = await createPartner({ fullData, token });
-    console.log(result);
     if (result?.data?.success) {
       setBrandArr([]);
       swal("success", `${result?.data?.message}`, "success");
