@@ -52,7 +52,17 @@ const UserInfoSlice = baseApi.injectEndpoints({
     getWalkingCustomer: builder.query({
       query: ({ token, query }) => {
         return {
-          url: `nw-customer?${query}`,
+          url: `nw-customer?${query}&status=Walk%20in%20customer`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
+    getWalkingCustomerService: builder.query({
+      query: ({ token, query }) => {
+        return {
+          url: `nw-customer?${query}&status=Non%20warranty%20customer`,
           headers: {
             authorization: token,
           },
@@ -82,4 +92,5 @@ export const {
   useUpdatePasswordMutation,
   useNormalUserUpdatePasswordMutation,
   useGetWalkingCustomerQuery,
+  useGetWalkingCustomerServiceQuery,
 } = UserInfoSlice;

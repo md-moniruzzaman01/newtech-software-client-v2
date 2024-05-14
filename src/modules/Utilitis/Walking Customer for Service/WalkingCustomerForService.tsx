@@ -10,7 +10,7 @@ import {
   keys,
   tableLayout,
 } from "./Config/Constant";
-import { useGetWalkingCustomerQuery } from "../../../redux/features/api/users";
+import { useGetWalkingCustomerServiceQuery } from "../../../redux/features/api/users";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../shared/helpers/constructQuery";
@@ -27,7 +27,7 @@ const WalkingCustomerForService = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const { data: walkingCustomer, isLoading: customerLoading } =
-    useGetWalkingCustomerQuery({
+    useGetWalkingCustomerServiceQuery({
       token,
       query,
     });
