@@ -14,7 +14,7 @@ const BillPendingWarranty = () => {
   const [billData, setBillData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,

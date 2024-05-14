@@ -40,6 +40,7 @@ const Login = () => {
           setToLocalStorage("activeRoute", "true");
           swal(
             "success",
+
             `${data?.message}\n${
               data?.data?.needsPasswordChange
                 ? "Password is weak. Please make it stronger."
@@ -47,9 +48,6 @@ const Login = () => {
             }`
           );
 
-          // if (data?.data?.needsPasswordChange) {
-          //   swal("success", "Password is weak. Please make it stronger.");
-          // }
           navigate("/");
         } else {
           swal("Error!", data.message, "error");

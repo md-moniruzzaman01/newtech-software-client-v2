@@ -19,19 +19,19 @@ const Branch = () => {
   if (isLoading) {
     return <LoadingPage />;
   }
-
+  console.log(data);
   return (
     <div className="px-5">
-      <BranchHeader setSelectedBranch={setSelectedBranch} />
+      <BranchHeader setSelectedBranch={setSelectedBranch} defaultValue={id} />
 
       <div className="grid grid-cols-3 gap-2  pt-3 ">
         <BranchCard
           bgColor="primary"
           branchTitle="Total Delivered"
-          count={data?.data?.BillData?.[0]?.totalDelivered}
+          count={data?.data?.BillData?.[0]?.totalDelivered || 0}
           headerTitle="Bill Information"
           details="Total Pending"
-          price={data?.data?.BillData?.[0]?.totalPeinding}
+          price={data?.data?.BillData?.[0]?.totalPeinding || 0}
           link="/branch/repair-complete"
         />
 
@@ -41,18 +41,18 @@ const Branch = () => {
           headerTitle="Branch Information"
           count={
             data?.data?.RepairingComplaintmoneyInBranch?.[0]
-              ?.totalMoneyAvailable
+              ?.totalMoneyAvailable || 0
           }
           link="/branch/total-repairing"
         />
 
         <BranchCard
           bgColor="lightYellow"
-          branchTitle="Total Repaired"
+          branchTitle="Total Delivered"
           headerTitle="Repair Status"
-          count={data?.data?.repairStatusMetrics?.[0]?.count}
+          count={data?.data?.repairStatusMetrics?.[0]?.count || 0}
           details="Total Money"
-          price={data?.data?.repairStatusMetrics?.[0]?.totalMoney}
+          price={data?.data?.repairStatusMetrics?.[0]?.totalMoney || 0}
           link="/branch/total-repaired"
         />
 
@@ -61,8 +61,8 @@ const Branch = () => {
           branchTitle="Total Deposit"
           headerTitle="Transaction Details"
           details="Total Withdraw"
-          price={data?.data?.transactionData?.[0]?.totalWithdrawal}
-          count={data?.data?.transactionData?.[0]?.totalDeposit}
+          price={data?.data?.transactionData?.[0]?.totalWithdrawal || 0}
+          count={data?.data?.transactionData?.[0]?.totalDeposit || 0}
           link="/branch/available-money"
         ></BranchCard>
         <BranchCard

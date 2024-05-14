@@ -22,7 +22,7 @@ import { useSearchParams } from "react-router-dom";
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);

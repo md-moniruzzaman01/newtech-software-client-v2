@@ -3,7 +3,7 @@ import Button from "../../../../common/components/Button";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import { branches } from "../../../../shared/config/constaints";
 
-const BranchHeader = ({ setSelectedBranch }) => {
+const BranchHeader = ({ setSelectedBranch, defaultValue }) => {
   const handleBranchChange = (selectedBranch) => {
     setSelectedBranch(selectedBranch);
   };
@@ -18,6 +18,7 @@ const BranchHeader = ({ setSelectedBranch }) => {
         </NavLink>
         <div>
           <InputFilter
+            defaultValue={defaultValue}
             Filter={branches}
             onChange={handleBranchChange}
             inputName="branch"

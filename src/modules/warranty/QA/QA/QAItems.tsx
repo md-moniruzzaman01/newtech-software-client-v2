@@ -22,7 +22,7 @@ import { showSwal } from "../../../../shared/helpers/SwalShower";
 const QAItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [qaData, setQAData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);

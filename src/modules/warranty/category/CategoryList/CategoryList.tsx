@@ -22,7 +22,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 const CategoryList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
   const [activeRoute, setActiveRoute] = useState(true);
 
   const { data: categories, isLoading: categoriesLoading } =

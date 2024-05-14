@@ -34,7 +34,7 @@ const Complaint = () => {
   const [complaints, setComplaints] = useState<TableBodyProps[] | []>([]);
   const [activeRoute, setActiveRoute] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
   const [totalItems, setTotalItems] = useState(0);
   const [searchParams] = useSearchParams();
   const [checkedRows, setCheckedRows] = useState<string[]>([]);

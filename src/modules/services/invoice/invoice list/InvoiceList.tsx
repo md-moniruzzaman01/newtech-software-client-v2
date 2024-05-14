@@ -29,7 +29,7 @@ const InvoiceList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(50);
 
   const [searchParams] = useSearchParams();
 
