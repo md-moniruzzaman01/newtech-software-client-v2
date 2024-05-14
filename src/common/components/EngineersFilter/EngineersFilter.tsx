@@ -65,7 +65,6 @@ const EngineersFilter: React.FC<engineersFilterProps> = ({
               {(item?.name?.firstName ? item?.name?.firstName : "") +
                 " " +
                 (item?.name?.middleName ? item?.name?.middleName : "") +
-                (item?.name?.middleName ? item?.id : "") +
                 " " +
                 (item?.name?.lastName ? item?.name?.lastName : "")}
             </option>

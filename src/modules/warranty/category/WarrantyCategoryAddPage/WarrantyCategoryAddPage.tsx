@@ -16,13 +16,11 @@ import Button from "../../../../common/components/Button";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const WarrantyCategoryAddPage = () => {
-  const [charge, setCharge] = useState(0);
   const [activeRoute, setActiveRoute] = useState(false);
   const { data: mainCategory } = useGetMainCategoryQuery({});
   const { data: brands } = useGetBrandsQuery({});
   const [createCategory, { isLoading }] = useCreateCategoryMutation();
   const [createCategoryForService] = useCreateCategoryForServiceMutation();
-
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
     if (storedActiveRoute !== null) {
@@ -107,7 +105,6 @@ const WarrantyCategoryAddPage = () => {
                 inputName="category"
               />
               <Input
-                onChange={setCharge}
                 labelName="Basic Service Charge"
                 inputName="basic_service_charge"
                 inputType="number"

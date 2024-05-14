@@ -17,7 +17,7 @@ export const handleDataSubmit = async (
   const token = getFromLocalStorage(authKey);
   setIsLoading(true);
   const result = await createComplaints({ fullData, token });
-  console.log(result);
+  console.log(result.data?.data?.toString());
   if (result?.data?.success) {
     setWarrantyAddedItem([]);
     setPartnerInfo({
@@ -25,7 +25,7 @@ export const handleDataSubmit = async (
       contact_number: "",
       brand_name: "",
     });
-
+    window.open(`/recipe/${result.data?.data?.toString()}`);
     removeFromLocalStorage("warrantyAddedItem");
     removeFromLocalStorage("partnerInfo");
     removeFromLocalStorage("newCustomer");

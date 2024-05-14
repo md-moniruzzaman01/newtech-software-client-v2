@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface InputProps {
   labelName?: string;
   inputPlaceholder?: string;
@@ -7,7 +8,8 @@ interface InputProps {
   defaultValue?: string | number;
   required?: boolean;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: any;
+  minValue?: number | string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -18,6 +20,7 @@ const Input: React.FC<InputProps> = ({
   IsDisabled = false,
   defaultValue = "",
   required = false,
+  minValue,
   // value,
   onChange,
 }) => {
@@ -29,6 +32,7 @@ const Input: React.FC<InputProps> = ({
             <label className="text-lg font-semibold">{labelName}</label>
           </div>
           <input
+            min={minValue}
             required={required}
             onChange={onChange} // Added onChange event handler
             name={inputName}
