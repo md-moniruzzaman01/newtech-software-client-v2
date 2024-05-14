@@ -79,7 +79,7 @@ const Partner = () => {
       <Navbar name="Partner Info" />
 
       <div className="py-5">
-        <SearchBar link linkBtn="+ Add Partner" linkValue="/partner/add" />
+        <SearchBar link linkBtn="+ Add Partner" linkValue="/partner-add" />
       </div>
 
       {/* table start here  */}

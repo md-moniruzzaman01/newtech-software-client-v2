@@ -51,7 +51,7 @@ const CustomerAddOrEdit = () => {
       swal("success", `${result?.data?.message}`, "success");
       form.reset();
     } else {
-      swal("error", `Something went wrong`, "error"); // Show the error with swal
+      swal("error", `${result?.error?.data?.message}`, "error"); // Show the error with swal
     }
   };
   return (

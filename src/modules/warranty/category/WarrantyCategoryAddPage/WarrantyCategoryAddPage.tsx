@@ -19,7 +19,7 @@ const WarrantyCategoryAddPage = () => {
   const [activeRoute, setActiveRoute] = useState(false);
   const { data: mainCategory } = useGetMainCategoryQuery({});
   const { data: brands } = useGetBrandsQuery({});
-  const [createCategory] = useCreateCategoryMutation();
+  const [createCategory, { isLoading }] = useCreateCategoryMutation();
   const [createCategoryForService] = useCreateCategoryForServiceMutation();
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const WarrantyCategoryAddPage = () => {
               <Button onClick={handleFormReset} danger sizeClass="px-8 py-2">
                 Cancel
               </Button>
-              <Button primary sizeClass="px-8 py-2">
+              <Button loading={isLoading} primary sizeClass="px-8 py-2">
                 Save
               </Button>
             </div>

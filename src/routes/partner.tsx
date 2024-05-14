@@ -12,7 +12,7 @@ export const partners = [
     element: <CustomerDetailsPage />,
   },
   {
-    path: "/partner/add",
+    path: "/partner-add",
     element: <CustomerAddOrEdit />,
   },
 ];
