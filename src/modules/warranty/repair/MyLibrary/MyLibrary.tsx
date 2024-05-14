@@ -4,7 +4,10 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { useGetRepairsQuery } from "../../../../redux/features/api/repair";
+import {
+  useGetRepairsQuery,
+  useRepairWarrantyReturnToLibraryMutation,
+} from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
@@ -18,6 +21,8 @@ import {
 } from "./config/constants";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../../services/auth.service";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const MyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,11 +35,15 @@ const MyLibrary = () => {
   const query = constructQuery(searchParams, fields, keys);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetRepairsQuery({
+  const [repairWarrantyReturnToLibrary, { isLoading: returnLoading }] =
+    useRepairWarrantyReturnToLibraryMutation();
+  const { data, isError, isLoading, error } = useGetRepairsQuery({
     id: user._id,
     query,
     token,
   });
+  const fullData = { repairIds: checkedRows };
+
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -47,16 +56,13 @@ const MyLibrary = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
-  const handleDeleteData = () => {
-    console.log(checkedRows);
-  };
-  const handleReturnData = () => {
-    console.log(checkedRows);
+  const handleReturnData = async () => {
+    const result = await repairWarrantyReturnToLibrary({ token, fullData });
+    console.log(result);
+    showSwal(result);
   };
 
   return (
@@ -70,8 +76,8 @@ const MyLibrary = () => {
           <div>
             <StatusGroup
               isSelected={checkedRows?.length <= 0}
+              isReturnLoading={returnLoading}
               handleReturnData={handleReturnData}
-              handleDeleteData={handleDeleteData}
               isButton
               dltBtnValue="Delete"
               returnBtnValue="Return to the Engineer Library"

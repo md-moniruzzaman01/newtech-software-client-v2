@@ -80,6 +80,19 @@ const RepairApi = baseApi.injectEndpoints({
       },
       providesTags: ["repair"],
     }),
+
+    repairWarrantyReturnToLibrary: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: `/repair/return-to-library`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["repair", "qa"],
+    }),
+
     getRepairById: builder.query({
       query: (params) => {
         return {
@@ -103,4 +116,5 @@ export const {
   useGetRepairByIdQuery,
   useGetServiceProductsForRepairQuery,
   useGetOldRepairsForServiceQuery,
+  useRepairWarrantyReturnToLibraryMutation,
 } = RepairApi;
