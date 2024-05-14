@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { decodedToken } from "../shared/helpers/jwt";
 import {
   getFromLocalStorage,
@@ -38,4 +39,18 @@ export const getNewAccessToken = async () => {
   //   headers: { "Content-Type": "application/json" },
   //   withCredentials: true,
   // });
+};
+
+export const isUserAdmin = (): any => {
+  const authToken = getFromLocalStorage(authKey);
+  if (authToken) {
+    const decodedData = decodedToken(authToken);
+    if (decodedData?.role === "admin") {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return "";
+  }
 };

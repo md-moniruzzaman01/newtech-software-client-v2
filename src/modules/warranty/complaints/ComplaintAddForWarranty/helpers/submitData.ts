@@ -17,6 +17,7 @@ export const handleDataSubmit = async (
   const token = getFromLocalStorage(authKey);
   setIsLoading(true);
   const result = await createComplaints({ fullData, token });
+  console.log(result);
   if (result?.data?.success) {
     setWarrantyAddedItem([]);
     setPartnerInfo({

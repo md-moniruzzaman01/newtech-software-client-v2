@@ -13,13 +13,20 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import {
+  useDeleteCategoryForServiceMutation,
+  useDeleteCategoryForWarrantyMutation,
   useGetCategoryAllQuery,
   useGetServiceCategoryAllQuery,
 } from "../../../../redux/features/api/Category";
 import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { authKey } from "../../../../shared/config/constaints";
+import swal from "sweetalert";
+import { isUserAdmin } from "../../../../services/auth.service";
 
 const CategoryList = () => {
+  const token = getFromLocalStorage(authKey);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
@@ -27,11 +34,13 @@ const CategoryList = () => {
 
   const { data: categories, isLoading: categoriesLoading } =
     useGetServiceCategoryAllQuery({});
-
   const {
     data: categoriesForWarranty,
     isLoading: categoriesForWarrantyLoading,
   } = useGetCategoryAllQuery({});
+
+  const [deleteWarrantyCategory] = useDeleteCategoryForWarrantyMutation();
+  const [deleteServiceCategory] = useDeleteCategoryForServiceMutation();
 
   useEffect(() => {
     const activeRouteValue = getFromLocalStorage("activeRoute");
@@ -41,16 +50,51 @@ const CategoryList = () => {
   }, []);
 
   useEffect(() => {
-    if (categories) {
-      setTotalItems(categories.meta.total);
-      setLimit(categories.meta.limit);
+    if (!activeRoute) {
+      setTotalItems(categories?.meta?.total);
+      setLimit(categories?.meta?.limit);
       setCurrentPage(categories?.meta?.page);
-    } else if (categoriesForWarranty) {
-      setTotalItems(categoriesForWarranty.meta.total);
-      setLimit(categoriesForWarranty.meta.limit);
+    } else if (activeRoute) {
+      setTotalItems(categoriesForWarranty?.meta?.total);
+      setLimit(categoriesForWarranty?.meta?.limit);
       setCurrentPage(categoriesForWarranty?.meta?.page);
     }
-  }, [categories, categoriesForWarranty]);
+  }, [activeRoute, categoriesForWarranty, categories]);
+
+  const deleteForWarrantyCategory = async (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this category !",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result = await deleteWarrantyCategory({ id, token });
+        console.log(result);
+        showSwal(result);
+      } else {
+        swal("Your category  is safe!");
+      }
+    });
+  };
+  const deleteForServiceCategory = async (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this category !",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result = await deleteServiceCategory({ id, token });
+        console.log(result);
+        showSwal(result);
+      } else {
+        swal("Your category  is safe!");
+      }
+    });
+  };
 
   if (categoriesLoading || categoriesForWarrantyLoading) {
     return <LoadingPage />;
@@ -79,6 +123,13 @@ const CategoryList = () => {
         </div>
         <div>
           <CommonTable
+            deleteBtn={isUserAdmin()}
+            deleteFn={
+              isUserAdmin() &&
+              (activeRoute
+                ? deleteForWarrantyCategory
+                : deleteForServiceCategory)
+            }
             itemData={
               activeRoute ? categoriesForWarranty?.data : categories?.data
             }

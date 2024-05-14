@@ -70,7 +70,8 @@ const ComplaintAddForWarranty = () => {
   const mainCategoryId =
     mainCategories?.length &&
     mainCategories?.find((item) => item?.value === mainCategoryValue);
-
+  console.log("categories", categories);
+  console.log("MainCategories", mainCategories);
   const brandId =
     brands?.length && brands?.find((item) => item?.value === brandValue);
 

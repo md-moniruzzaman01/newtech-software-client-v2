@@ -16,6 +16,7 @@ import Button from "../../../../common/components/Button";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const WarrantyCategoryAddPage = () => {
+  const [charge, setCharge] = useState(0);
   const [activeRoute, setActiveRoute] = useState(false);
   const { data: mainCategory } = useGetMainCategoryQuery({});
   const { data: brands } = useGetBrandsQuery({});
@@ -106,6 +107,7 @@ const WarrantyCategoryAddPage = () => {
                 inputName="category"
               />
               <Input
+                onChange={setCharge}
                 labelName="Basic Service Charge"
                 inputName="basic_service_charge"
                 inputType="number"

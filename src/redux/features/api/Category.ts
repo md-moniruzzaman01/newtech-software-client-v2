@@ -46,6 +46,17 @@ const CategoryApi = baseApi.injectEndpoints({
       },
     }),
 
+    deleteCategoryForWarranty: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/brand/category/${id}`,
+        method: "DELETE",
+        headers: {
+          authorization: token,
+        },
+      }),
+      invalidatesTags: ["category"],
+    }),
+
     getServiceCategory: builder.query({
       query: ({ mainCategoryId }) => `/category?category=${mainCategoryId?.id}`,
       providesTags: ["brand_category"],
@@ -54,6 +65,18 @@ const CategoryApi = baseApi.injectEndpoints({
       query: () => `/category`,
       providesTags: ["brand_category"],
     }),
+
+    deleteCategoryForService: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/category/${id}`,
+        method: "DELETE",
+        headers: {
+          authorization: token,
+        },
+      }),
+      invalidatesTags: ["category"],
+    }),
+
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
     //     url: `/posts/${postId}`,
@@ -79,4 +102,6 @@ export const {
   useCreateCategoryForServiceMutation,
   useGetServiceCategoryAllQuery,
   useGetCategoryAllQuery,
+  useDeleteCategoryForServiceMutation,
+  useDeleteCategoryForWarrantyMutation,
 } = CategoryApi;
