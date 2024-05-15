@@ -15,7 +15,7 @@ const BranchForService = () => {
   const id = selectBranch?.id || user?.branch || "05";
 
   const { data } = useGetBranchesForServiceQuery({ id, token });
-  console.log("data", data);
+
   return (
     <div className="px-5">
       <BranchHeader setSelectedBranch={setSelectedBranch} defaultValue={id} />

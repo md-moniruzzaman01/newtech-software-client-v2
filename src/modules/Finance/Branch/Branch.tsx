@@ -19,7 +19,6 @@ const Branch = () => {
   if (isLoading) {
     return <LoadingPage />;
   }
-  console.log(data);
   return (
     <div className="px-5">
       <BranchHeader setSelectedBranch={setSelectedBranch} defaultValue={id} />

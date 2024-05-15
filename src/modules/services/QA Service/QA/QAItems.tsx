@@ -28,7 +28,7 @@ const QAItemsService = () => {
   const [engineers, setEngineers] = useState([]);
 
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
