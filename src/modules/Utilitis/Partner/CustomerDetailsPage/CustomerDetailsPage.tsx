@@ -12,18 +12,28 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useParams } from "react-router-dom";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useGetPartnerByIdQuery } from "../../../../redux/features/api/Partner";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const CustomerDetailsPage = () => {
   const token = getFromLocalStorage(authKey);
   const { id } = useParams();
 
-  const { data: partner, isLoading: partnerLoading } = useGetPartnerByIdQuery({
+  const {
+    data: partner,
+    isLoading: partnerLoading,
+    isError,
+    error,
+  } = useGetPartnerByIdQuery({
     token,
     id,
   });
 
   if (partnerLoading) {
     return <LoadingPage />;
+  }
+
+  if (isError) {
+    return <ErrorShow error={error} />;
   }
   return (
     <div className="px-5">

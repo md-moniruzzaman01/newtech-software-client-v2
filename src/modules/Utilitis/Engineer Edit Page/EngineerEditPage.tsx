@@ -18,10 +18,11 @@ import {
   useGetEngineerByIdQuery,
 } from "../../../redux/features/api/engineers";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import swal from "sweetalert";
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
 import { useGetMainCategoryQuery } from "../../../redux/features/api/Category";
 import { useParams } from "react-router-dom";
+import { showSwal } from "../../../shared/helpers/SwalShower";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const EngineerEditPage = () => {
   const token = getFromLocalStorage(authKey);
@@ -34,8 +35,12 @@ const EngineerEditPage = () => {
   const [aspArr, setAspArr] = useState([]);
   const [skillArr, setSkillArr] = useState([]);
   const [editEngineer, { isLoading }] = useEditEngineerMutation();
-  const { data: mainCategories, isLoading: mainCategoryLoading } =
-    useGetMainCategoryQuery({});
+  const {
+    data: mainCategories,
+    isLoading: mainCategoryLoading,
+    isError,
+    error,
+  } = useGetMainCategoryQuery({});
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,18 +83,20 @@ const EngineerEditPage = () => {
       },
     };
     const result: any = await editEngineer({ fullData, token });
-    if (result?.data?.success) {
-      swal("success", `${result?.data?.message}`, "success");
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
       setPowerArr([]);
       setSkillArr([]);
       form.reset();
-    } else {
-      swal("error", `Something went wrong`, "error"); // Show the error with swal
     }
   };
 
   if (brandIsLoading || mainCategoryLoading || engineerLoading) {
     return <LoadingPage />;
+  }
+
+  if (isError) {
+    return <ErrorShow error={error} />;
   }
   return (
     <div className="px-5">

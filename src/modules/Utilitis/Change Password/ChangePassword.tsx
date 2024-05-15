@@ -37,8 +37,8 @@ const ChangePassword = () => {
     };
 
     const result: any = await updatePassword({ id, fullData, token });
-    showSwal(result);
-    if (result?.data?.success) {
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
       form?.reset();
     }
   };

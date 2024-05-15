@@ -15,9 +15,10 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { useState } from "react";
 import { useAddEngineerMutation } from "../../../redux/features/api/engineers";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import swal from "sweetalert";
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
 import { useGetMainCategoryQuery } from "../../../redux/features/api/Category";
+import { showSwal } from "../../../shared/helpers/SwalShower";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const EngineerAdd = () => {
   const { data: brand, isLoading: brandIsLoading } = useGetBrandsQuery({});
@@ -25,8 +26,12 @@ const EngineerAdd = () => {
   const [aspArr, setAspArr] = useState([]);
   const [skillArr, setSkillArr] = useState([]);
   const [addEngineer, { isLoading }] = useAddEngineerMutation();
-  const { data: mainCategories, isLoading: mainCategoryLoading } =
-    useGetMainCategoryQuery({});
+  const {
+    data: mainCategories,
+    isLoading: mainCategoryLoading,
+    isError: mainCategoryIsError,
+    error: mainCategoryError,
+  } = useGetMainCategoryQuery({});
   const token = getFromLocalStorage(authKey);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,19 +75,22 @@ const EngineerAdd = () => {
       },
     };
     const result: any = await addEngineer({ fullData, token });
-    if (result?.data?.success) {
-      swal("success", `${result?.data?.message}`, "success");
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
       setPowerArr([]);
       setSkillArr([]);
       form.reset();
-    } else {
-      swal("error", `Something went wrong`, "error"); // Show the error with swal
     }
   };
 
   if (brandIsLoading && mainCategoryLoading) {
     return <LoadingPage />;
   }
+
+  if (mainCategoryIsError) {
+    return <ErrorShow error={mainCategoryError} />;
+  }
+
   return (
     <div className="px-5">
       <Navbar name="Engineer Add" />

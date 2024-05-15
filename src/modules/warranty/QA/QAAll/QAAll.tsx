@@ -14,6 +14,7 @@ import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useGetOldQasQuery } from "../../../../redux/features/api/qa";
 import { getUserInfo } from "../../../../services/auth.service";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCMyItems = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -25,7 +26,7 @@ const QCMyItems = () => {
 
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetOldQasQuery({
+  const { data, isError, isLoading, error } = useGetOldQasQuery({
     id: user._id,
     token,
     query,
@@ -43,9 +44,7 @@ const QCMyItems = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   return (

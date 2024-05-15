@@ -9,12 +9,17 @@ import { authKey } from "../../../../shared/config/constaints";
 import { useState } from "react";
 import SearchFilterInput from "../../../../common/components/Search Filter Input/SearchFilterInput";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const CustomerAddOrEdit = () => {
   const [brandArr, setBrandArr] = useState([]);
   const token = getFromLocalStorage(authKey);
   const [createPartner, { isLoading }] = useCreatePartnerMutation();
-  const { data: brands } = useGetBrandsQuery({});
+  const {
+    data: brands,
+    isError: brandIsError,
+    error: brandError,
+  } = useGetBrandsQuery({});
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
@@ -52,6 +57,10 @@ const CustomerAddOrEdit = () => {
       form.reset();
     }
   };
+
+  if (brandIsError) {
+    return <ErrorShow error={brandError} />;
+  }
   return (
     <div className="px-5">
       <Navbar name="Partner Info" />

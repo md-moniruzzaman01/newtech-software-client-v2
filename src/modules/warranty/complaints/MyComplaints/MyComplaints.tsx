@@ -17,6 +17,7 @@ import { useGetMyComplaintQuery } from "../../../../redux/features/api/complaint
 import { getUserInfo } from "../../../../services/auth.service";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useEffect, useState } from "react";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const MyComplaints = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +28,7 @@ const MyComplaints = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const warranty = true;
-  const { data, isError, isLoading } = useGetMyComplaintQuery({
+  const { data, isError, isLoading, error } = useGetMyComplaintQuery({
     id: user?.userId,
     query,
     token,
@@ -46,14 +47,7 @@ const MyComplaints = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    return (
-      <div>
-        <div>
-          <h1>Somethings Wrong</h1>
-          <p>Please contact to Developer.</p>
-        </div>
-      </div>
-    );
+    return <ErrorShow error={error} />;
   }
 
   return (

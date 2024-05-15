@@ -25,6 +25,7 @@ import { TableBodyProps } from "./config/types";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 import swal from "sweetalert";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 //internal
 
@@ -43,7 +44,8 @@ const Complaint = () => {
 
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
+    error: complaintsError,
     isLoading: complaintsLoading,
   } = useGetComplaintsQuery({
     query,
@@ -61,13 +63,13 @@ const Complaint = () => {
     if (storedActiveRoute) {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setComplaints(complaintsData?.data);
       setTotalItems(complaintsData.meta.total);
       setLimit(complaintsData.meta.limit);
       setCurrentPage(complaintsData?.meta?.page);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [complaintsData, complaintsLoading, complaintsIsError]);
   useEffect(() => {
     if (searchParams?.get("repair_status")) {
       setIsActiveBtn(searchParams?.get("repair_status"));
@@ -119,6 +121,11 @@ const Complaint = () => {
   const handleReturn = () => {
     console.log(checkedRows);
   };
+
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
+  }
+
   if (complaintsLoading) {
     return <LoadingPage />;
   }

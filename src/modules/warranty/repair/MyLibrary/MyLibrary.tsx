@@ -32,7 +32,7 @@ const MyLibrary = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const [repairWarrantyReturnToLibrary, { isLoading: returnLoading }] =
@@ -62,7 +62,7 @@ const MyLibrary = () => {
 
   const handleReturnData = async () => {
     const result = await repairWarrantyReturnToLibrary({ token, fullData });
-    console.log(result);
+
     showSwal(result);
   };
 

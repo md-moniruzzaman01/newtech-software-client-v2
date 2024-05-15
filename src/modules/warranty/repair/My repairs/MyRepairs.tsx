@@ -12,6 +12,7 @@ import { MyRepairHeader, fields, keys, tableLayout } from "./config/constants";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { getUserInfo } from "../../../../services/auth.service";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +25,7 @@ const MyRepairs = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetOldRepairsQuery({
+  const { data, isError, isLoading, error } = useGetOldRepairsQuery({
     id: user._id,
     token,
     query,
@@ -41,9 +42,7 @@ const MyRepairs = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   const handleDeleteData = () => {

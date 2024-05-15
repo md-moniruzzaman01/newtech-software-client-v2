@@ -12,6 +12,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps } from "./config/types";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const ComplaintOrderDetails = () => {
   const { id } = useParams();
@@ -22,16 +23,21 @@ const ComplaintOrderDetails = () => {
 
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetComplaintByIdQuery({ id, token });
   useEffect(() => {
-    if (!complaintsError && !complaintsLoading) {
+    if (!complaintsIsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);
     }
-  }, [complaintsData, complaintsError, complaintsLoading]);
+  }, [complaintsData, complaintsIsError, complaintsLoading]);
+
   if (complaintsLoading) {
     return <LoadingPage />;
+  }
+  if (complaintsError) {
+    return <ErrorShow error={complaintsError} />;
   }
   return (
     <div className="px-5">

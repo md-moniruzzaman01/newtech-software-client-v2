@@ -39,13 +39,12 @@ import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const ComplaintAddForWarranty = () => {
   const token = getFromLocalStorage(authKey);
-  const [createComplaints] = useComplaintAddMutation();
+  const [createComplaints, { isLoading }] = useComplaintAddMutation();
 
   // other state
   const [warrantyAddedItem, setWarrantyAddedItem] = useState<
     warrantyUpdateAddedItemProps[]
   >([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [isLoadingSuggestion, setIsLoadingSuggestion] = useState(false);
 
   const [selectPartner, setSelectPartner] = useState<PartnerProps | null>(null);
@@ -483,7 +482,6 @@ const ComplaintAddForWarranty = () => {
                 className="w-full"
                 onClick={() =>
                   handleDataSubmit(
-                    setIsLoading,
                     fullData,
                     setWarrantyAddedItem,
                     setPartnerInfo,

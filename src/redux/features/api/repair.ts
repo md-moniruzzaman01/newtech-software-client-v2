@@ -16,7 +16,7 @@ const RepairApi = baseApi.injectEndpoints({
     getProductsForRepair: builder.query({
       query: (params) => {
         return {
-          url: `/product?repair_status=QC%20Ok&${params?.query}`,
+          url: `/product?repair_status=QC%20Ok&repair_status=Return%20to%20library&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

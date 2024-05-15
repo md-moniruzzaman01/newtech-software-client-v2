@@ -15,6 +15,8 @@ import {
 } from "./config/constant";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useEffect, useState } from "react";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 
 const ComplaintBuffers = () => {
   const token = getFromLocalStorage(authKey);
@@ -28,6 +30,7 @@ const ComplaintBuffers = () => {
     data: buffers,
     isLoading,
     isError,
+    error,
   } = useGetBuffersQuery({ token, query });
 
   useEffect(() => {
@@ -37,6 +40,14 @@ const ComplaintBuffers = () => {
       setCurrentPage(buffers?.meta?.page);
     }
   }, [isLoading, isError, buffers]);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
   return (
     <div className=" px-5">
       <Navbar name="Buffers"></Navbar>

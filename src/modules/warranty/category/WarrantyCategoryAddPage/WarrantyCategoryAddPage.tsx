@@ -16,12 +16,17 @@ import Button from "../../../../common/components/Button";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const WarrantyCategoryAddPage = () => {
   const token = getFromLocalStorage(authKey);
   const [activeRoute, setActiveRoute] = useState(false);
-  const { data: mainCategory } = useGetMainCategoryQuery({});
-  const { data: brands } = useGetBrandsQuery({});
+  const { data: mainCategory, isError, error } = useGetMainCategoryQuery({});
+  const {
+    data: brands,
+    isError: brandsIsError,
+    error: brandsError,
+  } = useGetBrandsQuery({});
   const [createCategory, { isLoading }] = useCreateCategoryMutation();
   const [createCategoryForService, { isLoading: categoryLoading }] =
     useCreateCategoryForServiceMutation();
@@ -86,6 +91,10 @@ const WarrantyCategoryAddPage = () => {
 
     showSwal(result);
   };
+
+  if (isError || brandsIsError) {
+    return <ErrorShow error={error || brandsError} />;
+  }
 
   return (
     <div>

@@ -20,6 +20,7 @@ import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 import swal from "sweetalert";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const Partner = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,9 +30,10 @@ const Partner = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
 
-  const [deletePartner] = useDeletePartnerMutation();
+  const [deletePartner, { isLoading: partnerDeleteLoading }] =
+    useDeletePartnerMutation();
 
-  const { data, isError, isLoading } = useGetPartnersQuery({
+  const { data, isError, isLoading, error } = useGetPartnersQuery({
     token,
     query,
   });
@@ -61,18 +63,11 @@ const Partner = () => {
     });
   };
 
-  if (isLoading) {
+  if (isLoading || partnerDeleteLoading) {
     return <LoadingPage />;
   }
   if (isError) {
-    return (
-      <div>
-        <div>
-          <h1>Somethings Wrong</h1>
-          <p>Please contact to Developer.</p>
-        </div>
-      </div>
-    );
+    return <ErrorShow error={error} />;
   }
   return (
     <div className="px-5 relative h-full">

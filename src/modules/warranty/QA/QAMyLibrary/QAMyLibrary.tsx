@@ -15,6 +15,7 @@ import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { getUserInfo } from "../../../../services/auth.service";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useGetMyQasQuery } from "../../../../redux/features/api/qa";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -27,7 +28,7 @@ const QCMyLibrary = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetMyQasQuery({
+  const { data, isError, isLoading, error } = useGetMyQasQuery({
     id: user._id,
     token,
     query,
@@ -43,9 +44,7 @@ const QCMyLibrary = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   const handleDeleteData = () => {

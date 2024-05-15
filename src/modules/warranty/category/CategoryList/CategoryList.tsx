@@ -24,6 +24,7 @@ import { showSwal } from "../../../../shared/helpers/SwalShower";
 import { authKey } from "../../../../shared/config/constaints";
 import swal from "sweetalert";
 import { isUserAdmin } from "../../../../services/auth.service";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const CategoryList = () => {
   const token = getFromLocalStorage(authKey);
@@ -32,11 +33,17 @@ const CategoryList = () => {
   const [limit, setLimit] = useState(50);
   const [activeRoute, setActiveRoute] = useState(true);
 
-  const { data: categories, isLoading: categoriesLoading } =
-    useGetServiceCategoryAllQuery({});
+  const {
+    data: categories,
+    isLoading: categoriesLoading,
+    isError,
+    error,
+  } = useGetServiceCategoryAllQuery({});
   const {
     data: categoriesForWarranty,
     isLoading: categoriesForWarrantyLoading,
+    isError: categoriesForWarrantyIsError,
+    error: categoriesForWarrantyError,
   } = useGetCategoryAllQuery({});
 
   const [deleteWarrantyCategory] = useDeleteCategoryForWarrantyMutation();
@@ -71,7 +78,7 @@ const CategoryList = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         const result = await deleteWarrantyCategory({ id, token });
-        console.log(result);
+
         showSwal(result);
       } else {
         swal("Your category  is safe!");
@@ -88,7 +95,7 @@ const CategoryList = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         const result = await deleteServiceCategory({ id, token });
-        console.log(result);
+
         showSwal(result);
       } else {
         swal("Your category  is safe!");
@@ -99,6 +106,11 @@ const CategoryList = () => {
   if (categoriesLoading || categoriesForWarrantyLoading) {
     return <LoadingPage />;
   }
+
+  if (isError || categoriesForWarrantyIsError) {
+    return <ErrorShow error={categoriesForWarrantyError || error} />;
+  }
+
   return (
     <div className="px-5 relative h-full">
       <Navbar name="Category List" />

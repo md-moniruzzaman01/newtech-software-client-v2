@@ -1,22 +1,11 @@
-
 export const btnValues = [
   { label: "Active", value: "Active" },
   { label: "Deactivated", value: "Deactivated" },
 ];
 
-export const PrincipleData=[
-    "item?.id",
-  
-]
+export const PrincipleData = ["item?.id"];
 
-export const HeaderForPrincipleTable = [
-    "ID",
-    "Name",
-    "Action"
-  ];
+export const HeaderForPrincipleTable = ["ID", "Name", "Action"];
 
-  export const keys = [
-    "Name",
-    "search",
-  ];
-  export const fields =""
+export const keys = ["Name", "searchTerm"];
+export const fields = "";

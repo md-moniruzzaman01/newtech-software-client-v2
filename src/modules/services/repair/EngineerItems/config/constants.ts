@@ -20,7 +20,7 @@ export const keys = [
   "brand_name",
   "sort",
   "repair-status",
-  "search",
+  "searchTerm",
   "category_name",
   "searchTerm",
 ];

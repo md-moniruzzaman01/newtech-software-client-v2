@@ -11,6 +11,7 @@ import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const ProductList = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -21,11 +22,10 @@ const ProductList = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const token = getFromLocalStorage(authKey);
-  const { data, isError, isLoading } = useGetProductsAllQuery({
+  const { data, isError, isLoading, error } = useGetProductsAllQuery({
     token,
     query,
   });
-  console.log(data);
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -38,9 +38,7 @@ const ProductList = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   return (

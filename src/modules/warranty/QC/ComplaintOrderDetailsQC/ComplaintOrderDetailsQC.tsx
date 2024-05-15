@@ -11,11 +11,17 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useGetComplaintByIdQuery } from "../../../../redux/features/api/complaints";
 import ComplaintMiniCard from "./partials/ComplaintMiniCard";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const ComplaintOrderDetailsQC = () => {
   const { id } = useParams();
   const token = getFromLocalStorage(authKey);
-  const { data: qcData, isLoading: gcIsLoading } = useGetQcByIdQuery({
+  const {
+    data: qcData,
+    isLoading: gcIsLoading,
+    error: qcError,
+    isError: qcIsError,
+  } = useGetQcByIdQuery({
     token,
     id,
   });
@@ -27,6 +33,10 @@ const ComplaintOrderDetailsQC = () => {
     });
   if (gcIsLoading || complaintsIsLoading) {
     return <LoadingPage />;
+  }
+
+  if (qcIsError) {
+    return <ErrorShow error={qcError} />;
   }
   return (
     <div className="px-5">

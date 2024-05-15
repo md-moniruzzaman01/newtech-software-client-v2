@@ -27,9 +27,10 @@ const EngineerItemOrderStatus = () => {
     };
 
     const result: any = await updateRepairStatus({ id, fullData, token });
-    showSwal(result);
-
-    form.reset();
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
+      form.reset();
+    }
   };
 
   return (

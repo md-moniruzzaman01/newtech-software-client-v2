@@ -8,6 +8,7 @@ import { useCreatePartsRequestMutation } from "../../../../../redux/features/api
 import { shedAndSplit } from "../../../../../shared/helpers/removeShedAndSplit";
 import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
 import LoadingPage from "../../../../../common/components/LoadingPage/LoadingPage";
+import { showSwal } from "../../../../../shared/helpers/SwalShower";
 
 const EngineerPartsReplace = ({
   id,
@@ -17,7 +18,7 @@ const EngineerPartsReplace = ({
   repairId: string;
 }) => {
   const token = getFromLocalStorage(authKey);
-  const [createPartsRequest, { isLoading, isSuccess, isError, error }] =
+  const [createPartsRequest, { isLoading, isError, error }] =
     useCreatePartsRequestMutation();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,8 +29,9 @@ const EngineerPartsReplace = ({
     const parts = shedAndSplit(partname);
 
     const fullData = { parts, note, repairItemId: id };
-    createPartsRequest({ fullData, token, id: repairId });
-    if (isSuccess) {
+    const result = createPartsRequest({ fullData, token, id: repairId });
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
       form.reset();
     }
   };

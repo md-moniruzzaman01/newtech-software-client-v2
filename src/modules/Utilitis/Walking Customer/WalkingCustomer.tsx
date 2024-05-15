@@ -15,6 +15,7 @@ import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../shared/helpers/constructQuery";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const WalkingCustomer = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,11 +27,15 @@ const WalkingCustomer = () => {
 
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
-  const { data: walkingCustomer, isLoading: customerLoading } =
-    useGetWalkingCustomerQuery({
-      token,
-      query,
-    });
+  const {
+    data: walkingCustomer,
+    isLoading: customerLoading,
+    isError,
+    error,
+  } = useGetWalkingCustomerQuery({
+    token,
+    query,
+  });
 
   useEffect(() => {
     if (walkingCustomer?.success) {
@@ -42,6 +47,10 @@ const WalkingCustomer = () => {
 
   if (customerLoading) {
     return <LoadingPage />;
+  }
+
+  if (isError) {
+    return <ErrorShow error={error} />;
   }
 
   return (

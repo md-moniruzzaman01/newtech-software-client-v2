@@ -46,7 +46,7 @@ const CommonTable: FC<CommonTableProps> = ({
 }) => {
   return (
     <>
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center w-full pb-14">
         <div className="overflow-x-auto w-full ">
           <table className="table text-center w-full border border-collapse border-gray-800">
             {/* head */}

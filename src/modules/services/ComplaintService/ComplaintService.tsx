@@ -24,6 +24,7 @@ import {
   handleSuggestionClick,
 } from "../../../shared/helpers/Suggestions";
 import { partnerProps } from "../../../shared/config/types";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 1;
 const ComplaintService: React.FC<ComplaintServiceProps> = () => {
@@ -54,14 +55,16 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
   const {
     data: mainCategoryData,
-    isError: mainCategoryError,
+    isError: mainCategoryIsError,
     isLoading: mainCategoryLoading,
+    error: mainCategoryError,
   } = useGetMainCategoryQuery({});
 
   const {
     data: categoryData,
-    isError: categoryError,
+    isError: categoryIsError,
     isLoading: categoryLoading,
+    error: categoryError,
   } = useGetServiceCategoryQuery({ mainCategoryId });
 
   useEffect(() => {
@@ -93,21 +96,26 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   }, [searchInput]);
 
   useEffect(() => {
-    if (!categoryLoading && !categoryError) {
+    if (!categoryLoading && !categoryIsError) {
       setCategories(categoryData?.data);
     }
 
-    if (!mainCategoryLoading && !mainCategoryError) {
+    if (!mainCategoryLoading && !mainCategoryIsError) {
       setMainCategories(mainCategoryData?.data);
     }
   }, [
     categoryData,
-    categoryError,
+    categoryIsError,
     categoryLoading,
     mainCategoryData,
-    mainCategoryError,
+    mainCategoryIsError,
     mainCategoryLoading,
   ]);
+
+  if (categoryIsError || mainCategoryIsError) {
+    return <ErrorShow error={categoryError || mainCategoryError} />;
+  }
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>

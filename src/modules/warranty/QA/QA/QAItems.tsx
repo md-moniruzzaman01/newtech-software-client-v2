@@ -15,9 +15,9 @@ import {
   useCreateQAMutation,
   useGetQAProductsQuery,
 } from "../../../../redux/features/api/qa";
-import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QAItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,22 +30,24 @@ const QAItems = () => {
   //   useState<qaDateProps>(qaSelectData);
 
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetQAProductsQuery({
     query,
     token,
   });
   const {
     data: engineerData,
-    isError: engineerError,
+    isError: engineerIsError,
     isLoading: engineerLoading,
+    error: engineerError,
   } = useGetEngineersQuery({ token });
-  const [createQA, { isLoading, isError, isSuccess }] = useCreateQAMutation();
+  const [createQA, { isLoading }] = useCreateQAMutation();
 
   const handleSubmit = async (id: string) => {
     const fullData = {
@@ -57,33 +59,29 @@ const QAItems = () => {
   };
 
   useEffect(() => {
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setQAData(complaintsData?.data);
       setTotalItems(complaintsData.meta.total);
       setLimit(complaintsData.meta.limit);
       setCurrentPage(complaintsData?.meta?.page);
     }
-    if (!engineerError && !engineerLoading) {
+    if (!engineerIsError && !engineerLoading) {
       setEngineers(engineerData?.data);
     }
   }, [
     complaintsData,
     complaintsLoading,
-    complaintsError,
-    engineerError,
+    complaintsIsError,
+    engineerIsError,
     engineerLoading,
     engineerData,
   ]);
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
-  if (isSuccess) {
-    swal("Your data has been updated successfully.", {
-      icon: "success",
-    });
-  }
-  if (isError) {
-    swal("Error!", "something is wrong", "error");
+
+  if (complaintsIsError || engineerIsError) {
+    return <ErrorShow error={complaintsError || engineerError} />;
   }
 
   return (

@@ -1,15 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { authKey } from "../../../shared/config/constaints";
 import { removeUserInfo } from "../../../services/auth.service";
+import swal from "sweetalert";
 
 const ErrorShow = ({ error }) => {
   const navigate = useNavigate();
   if (!error || !error.data) {
     return null; // If error object or data is missing, return null
   }
+
   if (error?.status === 403 || error.status === 401 || error.status === 404) {
     removeUserInfo(authKey);
-    navigate("/login");
+    swal({
+      title: "Error",
+      text: error?.data.message || "Unknown error occurred",
+      icon: "error",
+    }).then(() => {
+      navigate("/login");
+    });
   }
 
   return (

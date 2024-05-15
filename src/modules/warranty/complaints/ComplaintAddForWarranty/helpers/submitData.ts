@@ -1,13 +1,12 @@
-import swal from "sweetalert";
 import {
   getFromLocalStorage,
   removeFromLocalStorage,
 } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
+import { showSwal } from "../../../../../shared/helpers/SwalShower";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const handleDataSubmit = async (
-  setIsLoading: any,
   fullData: any,
   setWarrantyAddedItem: any,
   setPartnerInfo: any,
@@ -15,10 +14,10 @@ export const handleDataSubmit = async (
   createComplaints: any
 ) => {
   const token = getFromLocalStorage(authKey);
-  setIsLoading(true);
+
   const result = await createComplaints({ fullData, token });
-  console.log(result.data?.data?.toString());
-  if (result?.data?.success) {
+  const swalIsTrue = showSwal(result);
+  if (swalIsTrue) {
     setWarrantyAddedItem([]);
     setPartnerInfo({
       partner_id: "",
@@ -30,14 +29,5 @@ export const handleDataSubmit = async (
     removeFromLocalStorage("partnerInfo");
     removeFromLocalStorage("newCustomer");
     setIsNewPartner(false);
-    swal(`${result?.data?.message}`, {
-      icon: "success",
-    });
-    setIsLoading(false);
-  } else {
-    swal(`${result?.error?.data?.message}`, {
-      icon: "error",
-    });
-    setIsLoading(false);
   }
 };

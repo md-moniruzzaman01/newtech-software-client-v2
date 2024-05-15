@@ -22,6 +22,7 @@ import {
 } from "../../../../redux/features/api/complaints";
 import swal from "sweetalert";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const ComplaintsDelivered = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -33,10 +34,11 @@ const ComplaintsDelivered = () => {
   const token = getFromLocalStorage(authKey);
   const [updateDeliveryComplaints, { isLoading: deliveryStatusLoading }] =
     useUpdateComplaintsStatusDeliveryMutation();
-  const { data, isError, isLoading } = useGetReadyForDelivaryComplaintsQuery({
-    query,
-    token,
-  });
+  const { data, isError, isLoading, error } =
+    useGetReadyForDelivaryComplaintsQuery({
+      query,
+      token,
+    });
 
   const fullData = checkedRows;
 
@@ -50,8 +52,8 @@ const ComplaintsDelivered = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         const result: any = await updateDeliveryComplaints({ token, fullData });
-        showSwal(result);
-        if (result?.data.success) {
+        const swalIsTrue = showSwal(result);
+        if (swalIsTrue) {
           setCheckedRows([]);
         }
       } else {
@@ -64,14 +66,7 @@ const ComplaintsDelivered = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    return (
-      <div>
-        <div>
-          <h1>Somethings Wrong</h1>
-          <p>Please contact to Developer.</p>
-        </div>
-      </div>
-    );
+    return <ErrorShow error={error} />;
   }
   return (
     <div className=" px-5">

@@ -16,6 +16,7 @@ import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const Inventory = () => {
   const token = getFromLocalStorage(authKey);
@@ -24,18 +25,24 @@ const Inventory = () => {
   const {
     data: inventory,
     isLoading: inventoryLoading,
-    isError: inventoryError,
+    isError: inventoryIsError,
+    error: inventoryError,
   } = useGetInventoryPartsQuery({ token, query });
 
   useEffect(() => {
-    if (!inventoryError && !inventoryLoading) {
+    if (!inventoryIsError && !inventoryLoading) {
       setInventoryData(inventory?.data);
     }
-  }, [inventoryError, inventoryLoading, inventory]);
+  }, [inventoryIsError, inventoryLoading, inventory]);
 
   if (inventoryLoading) {
     return <LoadingPage />;
   }
+
+  if (inventoryIsError) {
+    return <ErrorShow error={inventoryError} />;
+  }
+
   return (
     <div className="px-5">
       <Navbar name="Inventory" />

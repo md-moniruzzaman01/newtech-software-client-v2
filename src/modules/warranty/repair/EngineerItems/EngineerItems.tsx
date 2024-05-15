@@ -31,9 +31,14 @@ const EngineerAllRepairs = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [engineers, setEngineers] = useState([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
-  const { data, isError, isLoading } = useGetProductsForRepairQuery({
+  const {
+    data,
+    isError,
+    isLoading,
+    error: productRepairError,
+  } = useGetProductsForRepairQuery({
     query,
     token,
   });
@@ -52,8 +57,10 @@ const EngineerAllRepairs = () => {
     }
   }, [engineerData]);
 
-  const [assignEngineer, { isLoading: assignLoading, isError: assignError }] =
-    useAssignEngineerMutation();
+  const [
+    assignEngineer,
+    { isLoading: assignLoading, isError: assignIsError, error: assignError },
+  ] = useAssignEngineerMutation();
 
   useEffect(() => {
     if (!engineerError && !engineerLoading) {
@@ -70,8 +77,8 @@ const EngineerAllRepairs = () => {
     showSwal(result);
   };
 
-  if (isError || assignError) {
-    return <ErrorShow error={error} />;
+  if (isError || assignIsError || engineerError) {
+    return <ErrorShow error={error || productRepairError || assignError} />;
   }
   if (isLoading || assignLoading) {
     return <LoadingPage />;

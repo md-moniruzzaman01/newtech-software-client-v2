@@ -15,9 +15,9 @@ import {
 } from "../../../../redux/features/api/qc";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
-import swal from "sweetalert";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const Qc = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +32,7 @@ const Qc = () => {
 
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
   } = useGetProductsQuery({
     query,
@@ -43,8 +43,7 @@ const Qc = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQC, { isLoading, isError, isSuccess, error }] =
-    useCreateQCMutation();
+  const [createQC, { isLoading, isError, error }] = useCreateQCMutation();
 
   function handleSubmit(id: string, user: string) {
     const fullData = {
@@ -52,11 +51,12 @@ const Qc = () => {
       user_name: user,
       repairIds: checkedRows,
     };
-    createQC({ fullData, token });
+    const result = createQC({ fullData, token });
+    showSwal(result);
   }
 
   useEffect(() => {
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setQCData(complaintsData?.data);
       setTotalItems(complaintsData.meta.total);
       setLimit(complaintsData.meta.limit);
@@ -68,7 +68,7 @@ const Qc = () => {
   }, [
     complaintsData,
     complaintsLoading,
-    complaintsError,
+    complaintsIsError,
     engineerError,
     engineerLoading,
     engineerData,
@@ -77,11 +77,7 @@ const Qc = () => {
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
   }
-  if (isSuccess) {
-    swal("Your data has been updated successfully.", {
-      icon: "success",
-    });
-  }
+
   if (isError) {
     return <ErrorShow error={error} />;
   }

@@ -8,6 +8,7 @@ import { useGetAdminQuery } from "../../../redux/features/api/users";
 import { getUserInfo } from "../../../services/auth.service";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const Admin = () => {
   // const [currentPage, setCurrentPage] = useState(1);
@@ -15,12 +16,21 @@ const Admin = () => {
   // const limit = 10;
   const token = getFromLocalStorage(authKey);
   const { userId } = getUserInfo();
-  const { data: adminData, isLoading: adminLoading } = useGetAdminQuery({
+  const {
+    data: adminData,
+    isLoading: adminLoading,
+    isError,
+    error,
+  } = useGetAdminQuery({
     token,
     userId,
   });
   if (adminLoading) {
     return <LoadingPage />;
+  }
+
+  if (isError) {
+    return <ErrorShow error={error} />;
   }
   return (
     <div className="px-5 relative h-full">
