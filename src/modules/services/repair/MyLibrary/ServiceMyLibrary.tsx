@@ -19,7 +19,7 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 import { getUserInfo } from "../../../../services/auth.service";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { useRepairReturnToLibraryMutation } from "../../../../redux/features/api/engineers";
-import swal from "sweetalert";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 
 const ServiceMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,15 +32,8 @@ const ServiceMyLibrary = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const [
-    returnToLibrary,
-    {
-      isLoading: returnToLibraryIsLoading,
-      isSuccess: returnToLibraryIsSuccess,
-      isError: returnToLibraryIsError,
-      error: returnToLibraryError,
-    },
-  ] = useRepairReturnToLibraryMutation();
+  const [returnToLibrary, { isLoading: returnToLibraryIsLoading }] =
+    useRepairReturnToLibraryMutation();
   const { data, isError, isLoading, error } = useGetRepairsForServiceQuery({
     id: user._id,
     query,
@@ -58,8 +51,6 @@ const ServiceMyLibrary = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
     return <ErrorShow error={error} />;
   }
 
@@ -67,14 +58,8 @@ const ServiceMyLibrary = () => {
     const fullData = {
       repairIds: checkedRows,
     };
-    await returnToLibrary({ token, fullData });
-
-    if (returnToLibraryIsSuccess) {
-      swal("Success", "Return to library is done", "success");
-    }
-    if (returnToLibraryIsError) {
-      swal("Error", `${returnToLibraryError}`, "error");
-    }
+    const result = await returnToLibrary({ token, fullData });
+    showSwal(result);
   };
   return (
     <div className=" px-5">

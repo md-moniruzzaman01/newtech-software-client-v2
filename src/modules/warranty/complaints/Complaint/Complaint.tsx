@@ -23,7 +23,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { TableBodyProps } from "./config/types";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import swal from "sweetalert";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 

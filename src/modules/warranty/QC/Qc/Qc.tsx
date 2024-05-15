@@ -17,7 +17,7 @@ import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 
 const Qc = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +34,7 @@ const Qc = () => {
     data: complaintsData,
     isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetProductsQuery({
     query,
     token,
@@ -43,17 +44,17 @@ const Qc = () => {
     isError: engineerError,
     isLoading: engineerLoading,
   } = useGetEngineersQuery({ token });
-  const [createQC, { isLoading, isError, error }] = useCreateQCMutation();
+  const [createQC, { isLoading }] = useCreateQCMutation();
 
-  function handleSubmit(id: string, user: string) {
+  const handleSubmit = async (id: string, user: string) => {
     const fullData = {
       qc_checker_id: id,
       user_name: user,
       repairIds: checkedRows,
     };
-    const result = createQC({ fullData, token });
+    const result = await createQC({ fullData, token });
     showSwal(result);
-  }
+  };
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsIsError) {
@@ -78,8 +79,8 @@ const Qc = () => {
     return <LoadingPage />;
   }
 
-  if (isError) {
-    return <ErrorShow error={error} />;
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
   }
 
   return (

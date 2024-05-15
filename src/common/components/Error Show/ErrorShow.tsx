@@ -9,7 +9,7 @@ const ErrorShow = ({ error }) => {
     return null; // If error object or data is missing, return null
   }
 
-  if (error?.status === 403 || error.status === 401 || error.status === 404) {
+  if (error?.status === 403 || error.status === 401) {
     removeUserInfo(authKey);
     swal({
       title: "Error",

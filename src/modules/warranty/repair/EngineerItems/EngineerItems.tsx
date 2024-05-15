@@ -22,7 +22,7 @@ import {
 } from "../../../../redux/features/api/repair";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 
 const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);

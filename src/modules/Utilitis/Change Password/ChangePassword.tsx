@@ -5,7 +5,7 @@ import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/He
 import Input from "../../../common/components/Input";
 import { useUpdatePasswordMutation } from "../../../redux/features/api/users";
 import { authKey } from "../../../shared/config/constaints";
-import { showSwal } from "../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 

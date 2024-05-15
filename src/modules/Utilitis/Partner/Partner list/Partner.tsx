@@ -18,7 +18,7 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import swal from "sweetalert";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 

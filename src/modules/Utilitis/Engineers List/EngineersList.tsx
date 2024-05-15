@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { constructQuery } from "../../../shared/helpers/constructQuery";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import swal from "sweetalert";
-import { showSwal } from "../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 
 const EngineersList = () => {
   const [currentPage, setCurrentPage] = useState(1);

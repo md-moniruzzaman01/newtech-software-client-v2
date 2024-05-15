@@ -8,9 +8,11 @@ import { repairStatus } from "../config/constants";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
 import { useUpdateStatusQCMutation } from "../../../../../redux/features/api/qc";
-import { showSwal } from "../../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../../shared/helpers/SwalShower.ts";
+import { useNavigate } from "react-router-dom";
 
 const ComplaintOrderStatusQC = ({ id }: { id: string | undefined }) => {
+  const navigate = useNavigate();
   const [qcStatusValue, setQcStatusValue] = useState("");
   const [updateStatusQC, { isLoading }] = useUpdateStatusQCMutation();
   const token = getFromLocalStorage(authKey);
@@ -31,9 +33,11 @@ const ComplaintOrderStatusQC = ({ id }: { id: string | undefined }) => {
       qcImage: [],
     };
     const result: any = await updateStatusQC({ fullData, token, id });
-    showSwal(result);
-
-    form.reset();
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
+      form.reset();
+      navigate("/qc-my-library");
+    }
   };
   return (
     <div className="space-y-2">

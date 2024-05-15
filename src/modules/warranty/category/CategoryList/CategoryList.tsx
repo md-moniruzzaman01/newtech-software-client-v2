@@ -20,7 +20,7 @@ import {
 } from "../../../../redux/features/api/Category";
 import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import { authKey } from "../../../../shared/config/constaints";
 import swal from "sweetalert";
 import { isUserAdmin } from "../../../../services/auth.service";

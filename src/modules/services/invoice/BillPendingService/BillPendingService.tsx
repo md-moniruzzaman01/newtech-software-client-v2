@@ -9,6 +9,7 @@ import { BillTableHeader, tableLayout } from "./config/constant";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useGetPendingBillsQuery } from "../../../../redux/features/api/bill";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const BillPendingService = () => {
   const [billData, setBillData] = useState([]);
@@ -18,8 +19,9 @@ const BillPendingService = () => {
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetPendingBillsQuery({
     token,
   });
@@ -33,14 +35,19 @@ const BillPendingService = () => {
   }, [complaintsData]);
 
   useEffect(() => {
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setBillData(complaintsData?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [complaintsData, complaintsLoading, complaintsIsError]);
 
   if (complaintsLoading) {
     return <LoadingPage />;
   }
+
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
+  }
+
   return (
     <div className=" px-5">
       <Navbar name="Service Bill Pending" />

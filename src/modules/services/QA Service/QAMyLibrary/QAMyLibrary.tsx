@@ -18,7 +18,7 @@ import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import swal from "sweetalert";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 
 const QCMyLibraryService = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -26,15 +26,8 @@ const QCMyLibraryService = () => {
   const [limit, setLimit] = useState(50);
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
-  const [
-    qaReturnToLibrary,
-    {
-      isSuccess: returnToLibraryIsSuccess,
-      isError: returnToLibraryIsError,
-      error: returnToLibraryError,
-      isLoading: returnToLibraryLoading,
-    },
-  ] = useQaReturnToLibraryMutation();
+  const [qaReturnToLibrary, { isLoading: returnToLibraryLoading }] =
+    useQaReturnToLibraryMutation();
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
@@ -49,29 +42,24 @@ const QCMyLibraryService = () => {
       setLimit(data.meta.limit);
       setCurrentPage(data?.meta?.page);
     }
-  }, []);
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-  if (isError) {
-    console.error(isError);
-
-    return <ErrorShow error={error}></ErrorShow>;
-  }
+  }, [data]);
 
   const handleReturnData = async () => {
     const fullData = {
       repairIds: checkedRows,
     };
 
-    await qaReturnToLibrary({ token, fullData });
-    if (returnToLibraryIsSuccess) {
-      swal("Success", "Return to library is done", "success");
-    }
-    if (returnToLibraryIsError) {
-      swal("Error", `${returnToLibraryError}`, "error");
-    }
+    const result = await qaReturnToLibrary({ token, fullData });
+    showSwal(result);
   };
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
 
   return (
     <div className=" px-5">

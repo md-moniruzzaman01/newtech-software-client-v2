@@ -8,7 +8,7 @@ import { useCreatePartsRequestMutation } from "../../../../../redux/features/api
 import { shedAndSplit } from "../../../../../shared/helpers/removeShedAndSplit";
 import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
 import LoadingPage from "../../../../../common/components/LoadingPage/LoadingPage";
-import { showSwal } from "../../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../../shared/helpers/SwalShower.ts";
 
 const EngineerPartsReplace = ({
   id,

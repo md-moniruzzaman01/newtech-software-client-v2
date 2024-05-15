@@ -21,7 +21,7 @@ import {
   useMarkAsReadNotificationMutation,
   useUpdateNotificationMutation,
 } from "../../../redux/features/api/others";
-import { showSwal } from "../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 
 interface NavbarProps {
   name?: string;

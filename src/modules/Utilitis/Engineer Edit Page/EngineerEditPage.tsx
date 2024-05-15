@@ -21,7 +21,7 @@ import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import InputFilter from "../../../common/components/InputFilter/InputFilter";
 import { useGetMainCategoryQuery } from "../../../redux/features/api/Category";
 import { useParams } from "react-router-dom";
-import { showSwal } from "../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const EngineerEditPage = () => {

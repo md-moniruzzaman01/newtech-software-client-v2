@@ -8,7 +8,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import { useState } from "react";
 import SearchFilterInput from "../../../../common/components/Search Filter Input/SearchFilterInput";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const CustomerAddOrEdit = () => {

@@ -50,7 +50,7 @@ const QAApi = baseApi.injectEndpoints({
     getMyQas: builder.query({
       query: (params) => {
         return {
-          url: `/qa/my-library?status=QA&status=Return to Qa library&${params?.query}`,
+          url: `/qa/my-library?status=QA&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -61,18 +61,18 @@ const QAApi = baseApi.injectEndpoints({
     getQAProducts: builder.query({
       query: (params) => {
         return {
-          url: `/product?repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&${params?.query}`,
+          url: `/product?repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&repair_status=Return%20to%20Qa%20library${params?.query}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
-      providesTags: ["complaints"],
+      providesTags: ["complaints", "qa"],
     }),
     getQAProductsForService: builder.query({
       query: (params) => {
         return {
-          url: `/product/services?repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&${params?.query}`,
+          url: `/product/services?repair_status=Not%20Repairable&repair_status=Repaired&repair_status=Repair%20Difficulty&repair_status=Return%20to%20Qa%20library&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -100,7 +100,7 @@ const QAApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
-      invalidatesTags: ["complaints"],
+      invalidatesTags: ["complaints", "qa"],
     }),
   }),
 });

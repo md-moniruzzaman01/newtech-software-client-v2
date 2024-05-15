@@ -22,6 +22,7 @@ import Pagination from "../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../services/auth.service";
 import { useGetMyComplaintQuery } from "../../../redux/features/api/complaints";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 //internal
 
@@ -39,8 +40,9 @@ const MyComplaintsService = () => {
   const warranty = false;
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetMyComplaintQuery({
     id: user?.userId,
     query,
@@ -61,10 +63,10 @@ const MyComplaintsService = () => {
     if (storedActiveRoute) {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setComplaints(complaintsData?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [complaintsData, complaintsLoading, complaintsIsError]);
 
   const handleDelivery = () => {
     console.log(checkedRows);
@@ -78,6 +80,10 @@ const MyComplaintsService = () => {
 
   if (complaintsLoading) {
     return <LoadingPage />;
+  }
+
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
   }
 
   return (

@@ -13,6 +13,7 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +26,7 @@ const EngineerAllRepairs = () => {
   const token = getFromLocalStorage(authKey);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetAllRepairsQuery({
+  const { data, isError, isLoading, error } = useGetAllRepairsQuery({
     id: user._id,
     token,
     query,
@@ -42,9 +43,7 @@ const EngineerAllRepairs = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   const handleDeleteData = () => {

@@ -13,6 +13,7 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useGetQasQuery } from "../../../../redux/features/api/qa";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCMyItemsService = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -24,7 +25,7 @@ const QCMyItemsService = () => {
 
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading } = useGetQasQuery({
+  const { data, isError, isLoading, error } = useGetQasQuery({
     id,
     token,
     query,
@@ -35,15 +36,13 @@ const QCMyItemsService = () => {
       setLimit(data.meta.limit);
       setCurrentPage(data?.meta?.page);
     }
-  }, []);
+  }, [data]);
 
   if (isLoading) {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   return (

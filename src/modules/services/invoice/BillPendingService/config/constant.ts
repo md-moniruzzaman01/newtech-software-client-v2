@@ -6,7 +6,6 @@ export const BillTableHeader = [
   "Status",
   "Created Date",
   "Action",
-  "Action",
 ];
 
 export const tableLayout = [

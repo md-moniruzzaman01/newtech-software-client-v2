@@ -14,6 +14,7 @@ import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/
 import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
 import { useGetServicesByIdQuery } from "../../../redux/features/api/service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const ComplaintsServiceDetails = () => {
   const { id } = useParams();
@@ -23,17 +24,24 @@ const ComplaintsServiceDetails = () => {
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetServicesByIdQuery({ id, token });
   useEffect(() => {
-    if (!complaintsError && !complaintsLoading) {
+    if (!complaintsIsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);
     }
-  }, [complaintsData, complaintsError, complaintsLoading]);
+  }, [complaintsData, complaintsIsError, complaintsLoading]);
+
   if (complaintsLoading) {
     return <LoadingPage />;
   }
+
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
+  }
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />

@@ -21,7 +21,7 @@ import {
 } from "./config/constants";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../../services/auth.service";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const MyLibrary = () => {

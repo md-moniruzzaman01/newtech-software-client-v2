@@ -26,7 +26,6 @@ const ProductListForService = () => {
     token,
     query,
   });
-  console.log(data);
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);

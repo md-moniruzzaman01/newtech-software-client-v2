@@ -6,7 +6,7 @@ import { ComplaintsOrderStatusProps } from "../config/types";
 import { useUpdateComplaintsStatusMutation } from "../../../../../redux/features/api/complaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
-import { showSwal } from "../../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../../shared/helpers/SwalShower.ts";
 
 const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
   isEdit = true,

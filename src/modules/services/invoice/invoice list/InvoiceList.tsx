@@ -21,7 +21,7 @@ import {
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
 import ConditionalBtnInSearch from "./partials/conditionalBtnInSearch/ConditionalBtnInSearch";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import swal from "sweetalert";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 

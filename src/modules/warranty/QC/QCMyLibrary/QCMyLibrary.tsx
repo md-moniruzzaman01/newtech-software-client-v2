@@ -15,10 +15,10 @@ import {
 } from "../../../../redux/features/api/qc";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../../services/auth.service";
-import swal from "sweetalert";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,15 +27,8 @@ const QCMyLibrary = () => {
   const [checkedRows, setCheckedRows] = useState<
     { repair_id: string; qc_id: string }[]
   >([]);
-  const [
-    qcReturnToLibrary,
-    {
-      isError: returnToLibraryIsError,
-      error: returnToLibraryError,
-      isLoading: returnToLibraryLoading,
-      isSuccess: returnToLibraryIsSuccess,
-    },
-  ] = useQcReturnToLibraryMutation();
+  const [qcReturnToLibrary, { isLoading: returnToLibraryLoading }] =
+    useQcReturnToLibraryMutation();
   const [searchParams] = useSearchParams();
   const token = getFromLocalStorage(authKey);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
@@ -64,14 +57,8 @@ const QCMyLibrary = () => {
     const fullData = {
       repairIds: checkedRows,
     };
-    await qcReturnToLibrary({ token, fullData });
-
-    if (returnToLibraryIsSuccess) {
-      swal("Success", "Return to library is done", "success");
-    }
-    if (returnToLibraryIsError) {
-      swal("Error", `${returnToLibraryError}`, "error");
-    }
+    const result = await qcReturnToLibrary({ token, fullData });
+    showSwal(result);
   };
 
   return (

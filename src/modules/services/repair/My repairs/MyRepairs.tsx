@@ -11,6 +11,7 @@ import { getUserInfo } from "../../../../services/auth.service";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { MyRepairTableHeader, tableLayout } from "./config/constants";
 import { useGetOldRepairsForServiceQuery } from "../../../../redux/features/api/repair";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,7 @@ const MyRepairs = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetOldRepairsForServiceQuery({
+  const { data, isError, isLoading, error } = useGetOldRepairsForServiceQuery({
     id: user._id,
     token,
   });
@@ -37,9 +38,7 @@ const MyRepairs = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   const handleDeleteData = () => {

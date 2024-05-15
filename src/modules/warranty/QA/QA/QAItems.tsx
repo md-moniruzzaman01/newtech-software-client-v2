@@ -16,7 +16,7 @@ import {
   useGetQAProductsQuery,
 } from "../../../../redux/features/api/qa";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QAItems = () => {

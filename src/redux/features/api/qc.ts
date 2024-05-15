@@ -65,13 +65,13 @@ const QCApi = baseApi.injectEndpoints({
     getProducts: builder.query({
       query: (params) => {
         return {
-          url: `/product?warranty=true&repair_status=Received&${params?.query}`,
+          url: `/product?warranty=true&repair_status=Received&repair_status=Return%20to%20Qc%20library&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
-      providesTags: ["complaints"],
+      providesTags: ["complaints", "repair", "qc"],
     }),
     qcReturnToLibrary: builder.mutation({
       query: ({ fullData, token }) => ({
@@ -82,7 +82,7 @@ const QCApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
-      invalidatesTags: ["repair", "qa"],
+      invalidatesTags: ["repair", "qc"],
     }),
   }),
 });

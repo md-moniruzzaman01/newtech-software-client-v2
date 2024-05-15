@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../../common/components/Button";
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import TextArea from "../../../../../common/components/TextArea/TextArea";
@@ -8,10 +8,11 @@ import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage
 import { authKey } from "../../../../../shared/config/constaints";
 
 import { useUpdateRepairStatusMutation } from "../../../../../redux/features/api/engineers";
-import { showSwal } from "../../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../../shared/helpers/SwalShower.ts";
 
 const EngineerItemOrderStatus = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [updateRepairStatus, { isLoading }] = useUpdateRepairStatusMutation();
   const token = getFromLocalStorage(authKey);
@@ -29,6 +30,7 @@ const EngineerItemOrderStatus = () => {
     const result: any = await updateRepairStatus({ id, fullData, token });
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
+      navigate("/engineer-my-library");
       form.reset();
     }
   };

@@ -13,7 +13,7 @@ import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import { handleFormReset } from "../../../../common/widgets/FormResetFunction/FormResetFunction";
 import Button from "../../../../common/components/Button";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
@@ -21,12 +21,16 @@ import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 const WarrantyCategoryAddPage = () => {
   const token = getFromLocalStorage(authKey);
   const [activeRoute, setActiveRoute] = useState(false);
-  const { data: mainCategory, isError, error } = useGetMainCategoryQuery({});
+  const {
+    data: mainCategory,
+    isError,
+    error,
+  } = useGetMainCategoryQuery({ token });
   const {
     data: brands,
     isError: brandsIsError,
     error: brandsError,
-  } = useGetBrandsQuery({});
+  } = useGetBrandsQuery({ token });
   const [createCategory, { isLoading }] = useCreateCategoryMutation();
   const [createCategoryForService, { isLoading: categoryLoading }] =
     useCreateCategoryForServiceMutation();
@@ -89,7 +93,10 @@ const WarrantyCategoryAddPage = () => {
       ? await createCategory({ addCategory, token })
       : await createCategoryForService({ addCategory, token });
 
-    showSwal(result);
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
+      form?.reset();
+    }
   };
 
   if (isError || brandsIsError) {

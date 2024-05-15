@@ -16,10 +16,11 @@ import { useDispatch } from "react-redux";
 import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useGetServicesForBillQuery } from "../../../../redux/features/api/service";
-import swal from "sweetalert";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useCreateBillMutation } from "../../../../redux/features/api/bill";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 
 const CreateInvoice = () => {
   const [billData, setBillData] = useState([]);
@@ -38,8 +39,9 @@ const CreateInvoice = () => {
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetServicesForBillQuery({
     token,
     query,
@@ -54,14 +56,14 @@ const CreateInvoice = () => {
   }, [complaintsData]);
 
   useEffect(() => {
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setBillData(complaintsData?.data);
     }
     dispatch(setIds(checkedRows));
   }, [
     complaintsData,
     complaintsLoading,
-    complaintsError,
+    complaintsIsError,
     checkedRows,
     dispatch,
   ]);
@@ -73,16 +75,18 @@ const CreateInvoice = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result: any = await createBill({ fullData, token });
-
-    if (result?.data?.success) {
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
       navigate(`/complaints-service-payments/${result?.data?.data[0]?.id}`);
-    } else {
-      swal("Error", `${result?.error?.data?.message}`, "error");
     }
   };
 
   if (complaintsLoading) {
     return <LoadingPage />;
+  }
+
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
   }
 
   return (

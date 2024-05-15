@@ -20,7 +20,7 @@ import {
   handlePaymentSubmit,
 } from "../Helpers/hanlePaymentService";
 import { useNavigate } from "react-router-dom";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 
 const ComplaintOrderDetailsTable = ({
   id,

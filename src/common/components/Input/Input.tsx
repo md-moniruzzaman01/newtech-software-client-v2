@@ -41,6 +41,7 @@ const Input: React.FC<InputProps> = ({
             placeholder={inputPlaceholder}
             defaultValue={defaultValue}
             className="border-2 w-full rounded-sm  py-2 pl-2"
+            step={`${inputType === "number" && "any"}`}
           />
         </div>
       </div>

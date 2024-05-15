@@ -23,6 +23,8 @@ import {
   useGetServicesQuery,
 } from "../../../redux/features/api/service";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 //internal
 
@@ -39,8 +41,9 @@ const ComplaintListService = () => {
   const token = getFromLocalStorage(authKey);
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetServicesQuery({
     query,
     token,
@@ -66,17 +69,17 @@ const ComplaintListService = () => {
     if (storedActiveRoute) {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setComplaints(complaintsData?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [complaintsData, complaintsLoading, complaintsIsError]);
 
   const handleDelete = () => {
-    console.log(checkedRows);
     const fullData = {
       repairIds: checkedRows,
     };
-    deleteComplaints({ token, fullData });
+    const result = deleteComplaints({ token, fullData });
+    showSwal(result);
   };
   const handleReturn = () => {
     console.log(checkedRows);
@@ -87,6 +90,10 @@ const ComplaintListService = () => {
 
   if (complaintsLoading || isLoading) {
     return <LoadingPage />;
+  }
+
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
   }
   return (
     <div className=" px-5">

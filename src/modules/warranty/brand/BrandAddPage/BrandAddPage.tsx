@@ -5,7 +5,7 @@ import { handleFormReset } from "../../../../common/widgets/FormResetFunction/Fo
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import { useCreateBrandMutation } from "../../../../redux/features/api/Brand";
 import { authKey } from "../../../../shared/config/constaints";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 const BrandAddPage = () => {

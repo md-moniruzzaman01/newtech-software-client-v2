@@ -22,6 +22,7 @@ import {
 } from "../../../../redux/features/api/repair";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 
 const EngineerLibraryForService = () => {
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
@@ -34,29 +35,25 @@ const EngineerLibraryForService = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
 
-  const { data, isError, isLoading } = useGetServiceProductsForRepairQuery({
-    query,
-    token,
-  });
+  const { data, isError, isLoading, error } =
+    useGetServiceProductsForRepairQuery({
+      query,
+      token,
+    });
   const {
     data: engineerData,
-    isError: engineerError,
+    isError: engineerIsError,
     isLoading: engineerLoading,
+    error: engineerError,
   } = useGetEngineersQuery({ token });
-  const [
-    assignEngineer,
-    {
-      isLoading: assignLoading,
-      isError: assignError,
-      error: assignErrorObject,
-    },
-  ] = useAssignEngineerMutation();
+  const [assignEngineer, { isLoading: assignLoading }] =
+    useAssignEngineerMutation();
 
   useEffect(() => {
-    if (!engineerError && !engineerLoading) {
+    if (!engineerIsError && !engineerLoading) {
       setEngineers(engineerData?.data);
     }
-  }, [engineerError, engineerLoading, engineerData]);
+  }, [engineerIsError, engineerLoading, engineerData]);
 
   useEffect(() => {
     if (data) {
@@ -66,15 +63,16 @@ const EngineerLibraryForService = () => {
     }
   }, [data]);
 
-  function handleSubmit(id: string) {
+  const handleSubmit = async (id: string) => {
     const fullData = {
       engineerId: id,
       repairIds: checkedRows,
     };
-    assignEngineer({ fullData, token });
-  }
-  if (isError || assignError) {
-    <ErrorShow error={assignErrorObject} />;
+    const result = await assignEngineer({ fullData, token });
+    showSwal(result);
+  };
+  if (isError || engineerIsError) {
+    <ErrorShow error={error || engineerError} />;
   }
 
   if (isLoading || assignLoading) {

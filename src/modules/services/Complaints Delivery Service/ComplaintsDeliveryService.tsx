@@ -21,6 +21,8 @@ import Pagination from "../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { useCreateBillMutation } from "../../../redux/features/api/bill";
 import swal from "sweetalert";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 //internal
 
@@ -38,8 +40,9 @@ const ComplaintsDeliveryService = () => {
 
   const {
     data: complaintsData,
-    isError: complaintsError,
+    isError: complaintsIsError,
     isLoading: complaintsLoading,
+    error: complaintsError,
   } = useGetReadyForDelivaryServicesQuery({
     query,
     token,
@@ -54,10 +57,10 @@ const ComplaintsDeliveryService = () => {
   }, [complaintsData]);
 
   useEffect(() => {
-    if (!complaintsLoading && !complaintsError) {
+    if (!complaintsLoading && !complaintsIsError) {
       setComplaints(complaintsData?.data);
     }
-  }, [complaintsData, complaintsLoading, complaintsError]);
+  }, [complaintsData, complaintsLoading, complaintsIsError]);
 
   const handleDelivery = () => {
     console.log(checkedRows);
@@ -75,10 +78,10 @@ const ComplaintsDeliveryService = () => {
       complaintIds: checkedRows,
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result: any = await createBill({ fullData, token });
+    const swalIsTrue = showSwal(result);
 
-    if (result?.data?.success) {
+    if (swalIsTrue) {
       navigate(`/complaints-service-payments/${result?.data?.data[0]?.id}`);
     } else {
       swal("Error", `${result?.error?.data?.message}`, "error");
@@ -87,6 +90,10 @@ const ComplaintsDeliveryService = () => {
 
   if (complaintsLoading) {
     return <LoadingPage />;
+  }
+
+  if (complaintsIsError) {
+    return <ErrorShow error={complaintsError} />;
   }
 
   return (

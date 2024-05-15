@@ -21,7 +21,7 @@ import {
   useUpdateComplaintsStatusDeliveryMutation,
 } from "../../../../redux/features/api/complaints";
 import swal from "sweetalert";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const ComplaintsDelivered = () => {

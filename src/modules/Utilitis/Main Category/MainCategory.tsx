@@ -4,7 +4,7 @@ import Input from "../../../common/components/Input";
 import { handleFormReset } from "../../../common/widgets/FormResetFunction/FormResetFunction";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { useCreateMainCategoryMutation } from "../../../redux/features/api/Category";
-import { showSwal } from "../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 

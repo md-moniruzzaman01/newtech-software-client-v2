@@ -3,7 +3,7 @@ import {
   removeFromLocalStorage,
 } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
-import { showSwal } from "../../../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../../../shared/helpers/SwalShower.ts";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const handleDataSubmit = async (

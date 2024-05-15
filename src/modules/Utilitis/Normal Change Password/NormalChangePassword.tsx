@@ -5,7 +5,7 @@ import Input from "../../../common/components/Input";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { useNormalUserUpdatePasswordMutation } from "../../../redux/features/api/users";
 import { authKey } from "../../../shared/config/constaints";
-import { showSwal } from "../../../shared/helpers/SwalShower";
+import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 
 const NormalChangePassword = () => {
