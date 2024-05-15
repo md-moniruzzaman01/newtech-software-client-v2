@@ -3,21 +3,21 @@ import { baseApi } from "../../api/apiSlice";
 const OthersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getChartData: builder.query({
-      query: (params) => {
+      query: ({ token }) => {
         return {
           url: "/complaints/chart",
           headers: {
-            authorization: params?.token,
+            authorization: token,
           },
         };
       },
     }),
     getCardData: builder.query({
-      query: (params) => {
+      query: ({ token }) => {
         return {
           url: "/complaints/card",
           headers: {
-            authorization: params?.token,
+            authorization: token,
           },
         };
       },

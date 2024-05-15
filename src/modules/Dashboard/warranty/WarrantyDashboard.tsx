@@ -16,6 +16,7 @@ import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { useGetCardDataQuery } from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
 import { icons } from "../../../shared/libs/Icons";
+import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const WarrantyDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -41,7 +42,7 @@ const WarrantyDashboard = () => {
   } = useGetComplaintsQuery({
     token,
   });
-  const { data, isError, isLoading } = useGetCardDataQuery({
+  const { data, isError, isLoading, error } = useGetCardDataQuery({
     token,
   });
 
@@ -60,6 +61,10 @@ const WarrantyDashboard = () => {
     isLoading,
     data,
   ]);
+
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
 
   if (complaintsLoading) {
     return <LoadingPage />;
