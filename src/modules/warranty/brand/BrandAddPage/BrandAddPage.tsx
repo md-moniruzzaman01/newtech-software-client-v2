@@ -4,9 +4,12 @@ import Input from "../../../../common/components/Input";
 import { handleFormReset } from "../../../../common/widgets/FormResetFunction/FormResetFunction";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import { useCreateBrandMutation } from "../../../../redux/features/api/Brand";
+import { authKey } from "../../../../shared/config/constaints";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 const BrandAddPage = () => {
+  const token = getFromLocalStorage(authKey);
   const [createBrand, { isLoading }] = useCreateBrandMutation();
 
   const handleAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,9 +21,11 @@ const BrandAddPage = () => {
       value: brand.toUpperCase(),
     };
 
-    const result = await createBrand(brandData);
-    showSwal(result);
-    form.reset();
+    const result = await createBrand({ brandData, token });
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
+      form.reset();
+    }
   };
 
   return (

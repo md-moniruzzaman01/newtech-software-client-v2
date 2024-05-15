@@ -4,14 +4,23 @@ const BrandApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // brand section
     createBrand: builder.mutation({
-      query: (brand) => ({
+      query: ({ brandData, token }) => ({
         url: "/brand",
         method: "POST",
-        body: brand,
+        headers: {
+          authorization: token,
+        },
+        body: brandData,
       }),
     }),
     getBrands: builder.query({
-      query: () => "/brand",
+      query: ({ token }) => ({
+        url: "/brand",
+
+        headers: {
+          authorization: token,
+        },
+      }),
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({

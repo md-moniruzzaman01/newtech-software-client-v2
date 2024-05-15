@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const loading = false;
-  const user = true;
   const navigate = useNavigate();
 
   const userLoggedIn = isLoggedIn();
@@ -20,11 +19,10 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     setIsLoading(true);
   }, [location, isLoading]);
 
-
   if (loading) {
     return <LoadingPage />;
   }
-  if (user) {
+  if (userLoggedIn) {
     return children;
   }
   return <Navigate state={location.pathname} to="/login"></Navigate>;

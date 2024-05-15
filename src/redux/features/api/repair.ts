@@ -72,7 +72,19 @@ const RepairApi = baseApi.injectEndpoints({
     getRepairs: builder.query({
       query: (params) => {
         return {
-          url: `/repair/my-library/${params?.id}?status=Engineer%20Is%20working&${params?.query}`,
+          url: `/repair/my-library/${params?.id}?warranty=true&status=Engineer%20Is%20working&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["repair"],
+    }),
+
+    getRepairsForService: builder.query({
+      query: (params) => {
+        return {
+          url: `/repair/my-library/${params?.id}?warranty=false&status=Engineer%20Is%20working&${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -117,4 +129,5 @@ export const {
   useGetServiceProductsForRepairQuery,
   useGetOldRepairsForServiceQuery,
   useRepairWarrantyReturnToLibraryMutation,
+  useGetRepairsForServiceQuery,
 } = RepairApi;

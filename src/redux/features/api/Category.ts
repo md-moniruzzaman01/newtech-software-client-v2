@@ -36,21 +36,32 @@ const CategoryApi = baseApi.injectEndpoints({
       }),
     }),
     getMainCategory: builder.query({
-      query: () => "/main/category",
+      query: ({ token }) => ({
+        url: "/main/category",
+        headers: {
+          authorization: token,
+        },
+      }),
       providesTags: ["brand_category"],
     }),
 
     getCategory: builder.query({
-      query: ({ mainCategoryId, brandId }) => {
+      query: ({ mainCategoryId, brandId, token }) => {
         return {
           url: `/brand/category?category=${mainCategoryId?.id}&brand=${brandId?.id}`,
+          headers: {
+            authorization: token,
+          },
         };
       },
     }),
     getCategoryAll: builder.query({
-      query: () => {
+      query: ({ token }) => {
         return {
           url: `/brand/category`,
+          headers: {
+            authorization: token,
+          },
         };
       },
     }),
@@ -67,11 +78,21 @@ const CategoryApi = baseApi.injectEndpoints({
     }),
 
     getServiceCategory: builder.query({
-      query: ({ mainCategoryId }) => `/category?category=${mainCategoryId?.id}`,
+      query: ({ mainCategoryId, token }) => ({
+        url: `/category?category=${mainCategoryId?.id}`,
+        headers: {
+          authorization: token,
+        },
+      }),
       providesTags: ["brand_category"],
     }),
     getServiceCategoryAll: builder.query({
-      query: () => `/category`,
+      query: ({ token }) => ({
+        url: `/category`,
+        headers: {
+          authorization: token,
+        },
+      }),
       providesTags: ["brand_category"],
     }),
 

@@ -31,7 +31,7 @@ const EngineerItemOrderStatus = () => {
       swal(`${result?.data?.message}`, {
         icon: "success",
       });
-      navigate("/service/engineer-my-library");
+      navigate("/service-engineer-my-library");
       form.reset();
     } else {
       swal(`${result?.error?.data?.message}`, {

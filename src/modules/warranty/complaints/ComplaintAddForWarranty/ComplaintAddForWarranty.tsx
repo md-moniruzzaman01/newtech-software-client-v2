@@ -35,6 +35,7 @@ import {
 } from "../../../../shared/helpers/Suggestions";
 import { authKey, emptyData } from "../../../../shared/config/constaints";
 import SearchFilterInput from "../../../../common/components/Search Filter Input/SearchFilterInput";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const ComplaintAddForWarranty = () => {
   const token = getFromLocalStorage(authKey);
@@ -82,33 +83,36 @@ const ComplaintAddForWarranty = () => {
   const {
     data: partnersData,
     isLoading: partnerLoading,
-    isError: partnerError,
+    isError: partnerIsError,
+    error: partnerError,
   } = useGetPartnersQuery({ token, query });
   const {
     data: brandData,
-    isError: brandsError,
+    isError: brandsIsError,
+    error: brandsError,
     isLoading: brandsLoading,
-  } = useGetBrandsQuery({});
+  } = useGetBrandsQuery({ token });
   const {
     data: categoryData,
-    isError: categoryError,
+    isError: categoryIsError,
+    error: categoryError,
     isLoading: categoryLoading,
-  } = useGetCategoryQuery({ mainCategoryId, brandId });
+  } = useGetCategoryQuery({ mainCategoryId, brandId, token });
 
   const {
     data: mainCategoryData,
     isError: mainCategoryError,
     isLoading: mainCategoryLoading,
-  } = useGetMainCategoryQuery({});
+  } = useGetMainCategoryQuery({ token });
 
   useEffect(() => {
-    if (!partnerLoading && !partnerError) {
+    if (!partnerLoading && !partnerIsError) {
       setPartners(partnersData?.data);
     }
-    if (!brandsError && !brandsLoading) {
+    if (!brandsIsError && !brandsLoading) {
       setBrands(brandData?.data);
     }
-    if (!categoryLoading && !categoryError) {
+    if (!categoryLoading && !categoryIsError) {
       setCategories(categoryData?.data);
     }
     if (!mainCategoryLoading && !mainCategoryError) {
@@ -116,13 +120,13 @@ const ComplaintAddForWarranty = () => {
     }
   }, [
     partnerLoading,
-    partnerError,
+    partnerIsError,
     partnersData,
     brandData,
-    brandsError,
+    brandsIsError,
     brandsLoading,
     categoryData,
-    categoryError,
+    categoryIsError,
     categoryLoading,
     mainCategoryData,
     mainCategoryError,
@@ -182,6 +186,10 @@ const ComplaintAddForWarranty = () => {
   const defaultPartnerName =
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
+
+  if (partnerIsError || categoryIsError || brandsIsError) {
+    return <ErrorShow error={partnerError || categoryError || brandsError} />;
+  }
 
   return (
     <div className="px-5">

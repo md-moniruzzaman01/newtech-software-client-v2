@@ -52,7 +52,7 @@ const EngineerRoute = () => {
           to={
             activeRoute
               ? "/engineer-my-repaired"
-              : "/service/engineer-my-repaired"
+              : "/service-engineer-my-repaired"
           }
         >
           <div className={routeStyle}>
@@ -61,7 +61,7 @@ const EngineerRoute = () => {
           </div>
         </NavLink>
         <NavLink
-          to={activeRoute ? "/engineer-items" : "/service/engineer-items"}
+          to={activeRoute ? "/engineer-items" : "/service-engineer-items"}
         >
           <div className={routeStyle}>
             <span>&#8618;</span>
@@ -73,7 +73,7 @@ const EngineerRoute = () => {
           to={
             activeRoute
               ? "/engineer-my-library"
-              : "/service/engineer-my-library"
+              : "/service-engineer-my-library"
           }
         >
           <div className={routeStyle}>

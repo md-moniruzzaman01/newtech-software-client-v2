@@ -4,7 +4,7 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { useGetRepairsQuery } from "../../../../redux/features/api/repair";
+import { useGetRepairsForServiceQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ const ServiceMyLibrary = () => {
       error: returnToLibraryError,
     },
   ] = useRepairReturnToLibraryMutation();
-  const { data, isError, isLoading, error } = useGetRepairsQuery({
+  const { data, isError, isLoading, error } = useGetRepairsForServiceQuery({
     id: user._id,
     query,
     token,
@@ -102,7 +102,7 @@ const ServiceMyLibrary = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
-              link="/service/engineer-items/order-details"
+              link="/service-engineer-items/order-details"
             ></CommonTable>
           </div>
         </div>

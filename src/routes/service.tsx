@@ -65,15 +65,15 @@ export const ServiceQARoute = [
 ];
 
 export const serviceRepairsRoutes = [
-  { path: "service/engineer-items", element: <EngineerLibraryForService /> },
+  { path: "/service-engineer-items", element: <EngineerLibraryForService /> },
 
   {
-    path: "/service/engineer-items/order-details/:id",
+    path: "/service-engineer-items/order-details/:id",
     element: <EngineerItemsRepairDetails />,
   },
-  { path: "/service/engineer-my-library", element: <ServiceMyLibrary /> },
+  { path: "/service-engineer-my-library", element: <ServiceMyLibrary /> },
   { path: "/service-engineer-all-repairs", element: <EngineerAllRepairs /> },
-  { path: "/service/engineer-my-repaired", element: <MyRepairs /> },
+  { path: "/service-engineer-my-repaired", element: <MyRepairs /> },
 ];
 
 export const serviceInvoicesRoutes = [

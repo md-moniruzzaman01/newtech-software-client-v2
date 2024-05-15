@@ -40,7 +40,7 @@ const EngineerDashboardForService = () => {
       </div>
       <div className="grid grid-cols-4 gap-3">
         <DashboardCard
-          link="/service/engineer-items"
+          link="/service-engineer-items"
           title="Engineer Library"
           money={engineersData?.data?.QC_OR_Engineer_Library_for_service_Count}
           className="bg-lightShadeOfGreenishYellow"

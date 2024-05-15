@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router-dom";
+import { authKey } from "../../../shared/config/constaints";
+import { removeUserInfo } from "../../../services/auth.service";
+
 const ErrorShow = ({ error }) => {
+  const navigate = useNavigate();
   if (!error || !error.data) {
     return null; // If error object or data is missing, return null
   }
-  console.log(error);
+  if (error?.status === 403 || error.status === 401 || error.status === 404) {
+    removeUserInfo(authKey);
+    navigate("/login");
+  }
+
   return (
     <div>
       <h1>
