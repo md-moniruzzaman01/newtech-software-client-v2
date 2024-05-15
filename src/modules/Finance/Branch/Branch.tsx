@@ -50,9 +50,9 @@ const Branch = () => {
           bgColor="lightYellow"
           branchTitle="Total Delivered"
           headerTitle="Repair Status"
-          count={data?.data?.repairStatusMetrics?.[0]?.count || 0}
+          count={data?.data?.repairStatusMetrics?.[3]?.count || 0}
           details="Total Money"
-          price={data?.data?.repairStatusMetrics?.[0]?.totalMoney || 0}
+          price={data?.data?.repairStatusMetrics?.[3]?.totalMoney || 0}
           link="/branch/total-repaired"
         />
 
