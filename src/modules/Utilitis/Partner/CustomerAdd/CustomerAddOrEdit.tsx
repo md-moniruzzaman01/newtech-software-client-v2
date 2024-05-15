@@ -6,9 +6,9 @@ import Button from "../../../../common/components/Button";
 import { useCreatePartnerMutation } from "../../../../redux/features/api/Partner";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import swal from "sweetalert";
 import { useState } from "react";
 import SearchFilterInput from "../../../../common/components/Search Filter Input/SearchFilterInput";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const CustomerAddOrEdit = () => {
   const [brandArr, setBrandArr] = useState([]);
@@ -46,12 +46,10 @@ const CustomerAddOrEdit = () => {
       },
     };
     const result: any = await createPartner({ fullData, token });
-    if (result?.data?.success) {
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
       setBrandArr([]);
-      swal("success", `${result?.data?.message}`, "success");
       form.reset();
-    } else {
-      swal("error", `${result?.error?.data?.message}`, "error"); // Show the error with swal
     }
   };
   return (

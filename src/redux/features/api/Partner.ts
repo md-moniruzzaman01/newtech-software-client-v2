@@ -22,6 +22,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["partners"],
     }),
 
     deletePartner: builder.mutation({
@@ -32,6 +33,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
           authorization: token,
         },
       }),
+      invalidatesTags: ["partners"],
     }),
     getPartnerById: builder.query({
       query: ({ id, token }) => ({
@@ -40,6 +42,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
           authorization: token,
         },
       }),
+      providesTags: ["partners"],
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({
