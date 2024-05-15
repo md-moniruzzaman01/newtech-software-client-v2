@@ -1,12 +1,15 @@
-import swal from "sweetalert";
 import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
 import { handleFormReset } from "../../../common/widgets/FormResetFunction/FormResetFunction";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { useCreateMainCategoryMutation } from "../../../redux/features/api/Category";
+import { showSwal } from "../../../shared/helpers/SwalShower";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { authKey } from "../../../shared/config/constaints";
 
 const MainCategoryPage = () => {
+  const token = getFromLocalStorage(authKey);
   const [createMainCategory, { isLoading }] = useCreateMainCategoryMutation();
   const handleAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,13 +21,9 @@ const MainCategoryPage = () => {
       value: category,
     };
 
-    try {
-      await createMainCategory(mainCategory);
-      swal("Success", "Main Category added successfully", "success");
-      form.reset();
-    } catch (error) {
-      swal("Error", "Error adding brand:", error);
-    }
+    const result = await createMainCategory({ mainCategory, token });
+    // form.reset();
+    showSwal(result);
   };
 
   return (

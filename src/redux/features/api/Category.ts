@@ -4,26 +4,35 @@ const CategoryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // category section
     createMainCategory: builder.mutation({
-      query: (mainCategory) => ({
+      query: ({ mainCategory, token }) => ({
         url: "/main/category",
         method: "POST",
+        headers: {
+          authorization: token,
+        },
         body: mainCategory,
       }),
       invalidatesTags: ["brand_category"],
     }),
     createCategory: builder.mutation({
-      query: (category) => ({
+      query: ({ addCategory, token }) => ({
         url: "/brand/category",
         method: "POST",
-        body: category,
+        headers: {
+          authorization: token,
+        },
+        body: addCategory,
       }),
       invalidatesTags: ["category"],
     }),
     createCategoryForService: builder.mutation({
-      query: (category) => ({
+      query: ({ addCategory, token }) => ({
         url: "/category",
         method: "POST",
-        body: category,
+        headers: {
+          authorization: token,
+        },
+        body: addCategory,
       }),
     }),
     getMainCategory: builder.query({

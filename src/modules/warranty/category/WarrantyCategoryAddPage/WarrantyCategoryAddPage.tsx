@@ -14,13 +14,17 @@ import InputFilter from "../../../../common/components/InputFilter/InputFilter";
 import { handleFormReset } from "../../../../common/widgets/FormResetFunction/FormResetFunction";
 import Button from "../../../../common/components/Button";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
 
 const WarrantyCategoryAddPage = () => {
+  const token = getFromLocalStorage(authKey);
   const [activeRoute, setActiveRoute] = useState(false);
   const { data: mainCategory } = useGetMainCategoryQuery({});
   const { data: brands } = useGetBrandsQuery({});
   const [createCategory, { isLoading }] = useCreateCategoryMutation();
-  const [createCategoryForService] = useCreateCategoryForServiceMutation();
+  const [createCategoryForService, { isLoading: categoryLoading }] =
+    useCreateCategoryForServiceMutation();
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
     if (storedActiveRoute !== null) {
@@ -74,11 +78,11 @@ const WarrantyCategoryAddPage = () => {
       basic_service_charge,
     };
 
-    const dataToUse = activeRoute ? warrantyData : serviceData;
+    const addCategory = activeRoute ? warrantyData : serviceData;
 
     const result: any = activeRoute
-      ? await createCategory(dataToUse)
-      : await createCategoryForService(dataToUse);
+      ? await createCategory({ addCategory, token })
+      : await createCategoryForService({ addCategory, token });
 
     showSwal(result);
   };
@@ -137,7 +141,11 @@ const WarrantyCategoryAddPage = () => {
               <Button onClick={handleFormReset} danger sizeClass="px-8 py-2">
                 Cancel
               </Button>
-              <Button loading={isLoading} primary sizeClass="px-8 py-2">
+              <Button
+                loading={isLoading || categoryLoading}
+                primary
+                sizeClass="px-8 py-2"
+              >
                 Save
               </Button>
             </div>
