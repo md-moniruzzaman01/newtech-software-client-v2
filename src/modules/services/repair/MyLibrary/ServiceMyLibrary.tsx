@@ -29,7 +29,7 @@ const ServiceMyLibrary = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const [

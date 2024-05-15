@@ -28,6 +28,7 @@ export const handleDataSubmit = async (
     setRedirectToPayment(false);
   }
   const token = getFromLocalStorage(authKey);
+
   try {
     setloading(true);
     const url = SERVER_URL + "/complaints/create-service";
@@ -51,11 +52,14 @@ export const handleDataSubmit = async (
           swal(`${result?.message}`, {
             icon: "success",
           });
+
           if (isPaymentButton) {
             const fullData = {
               complaintIds: result?.data,
             };
+
             const url = SERVER_URL + "/bill/create";
+
             fetch(url, {
               method: "POST",
               headers: {
@@ -73,6 +77,7 @@ export const handleDataSubmit = async (
                 }
               });
           }
+
           if (!isPaymentButton) {
             window.open(`/recipe/${result.data?.toString()}`, "Print recipe!");
           }
