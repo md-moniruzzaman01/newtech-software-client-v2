@@ -30,9 +30,9 @@ export type SearchParams = {
 };
 
 export const complaintsTableHeader = [
-  "Order ID",
-  "Model No.",
+  "Complaints ID",
   "S/N No.",
+  "Model No.",
   "Customer Name",
   "category",
   "Brand",

@@ -50,12 +50,12 @@ const EngineerAllRepairs = () => {
   } = useGetEngineersQuery({ token });
 
   useEffect(() => {
-    if (engineerData) {
-      setTotalItems(engineerData.meta.total);
-      setLimit(engineerData.meta.limit);
-      setCurrentPage(engineerData?.meta?.page);
+    if (data) {
+      setTotalItems(data.meta.total);
+      setLimit(data.meta.limit);
+      setCurrentPage(data?.meta?.page);
     }
-  }, [engineerData]);
+  }, [data]);
 
   const [
     assignEngineer,
