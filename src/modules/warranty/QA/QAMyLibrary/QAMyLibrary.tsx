@@ -14,8 +14,12 @@ import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { getUserInfo } from "../../../../services/auth.service";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { useGetMyQasQuery } from "../../../../redux/features/api/qa";
+import {
+  useGetMyQasQuery,
+  useQaReturnToLibraryMutation,
+} from "../../../../redux/features/api/qa";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const QCMyLibrary = () => {
   const [currentPage, setCurrentPage] = useState(1); // Initialize currentPage to 1
@@ -28,11 +32,18 @@ const QCMyLibrary = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
+  const [returnToLibrary, { isLoading: returnToLibraryIsLoading }] =
+    useQaReturnToLibraryMutation();
   const { data, isError, isLoading, error } = useGetMyQasQuery({
     id: user._id,
     token,
     query,
   });
+
+  const fullData = {
+    repairIds: checkedRows,
+  };
+
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -47,11 +58,9 @@ const QCMyLibrary = () => {
     return <ErrorShow error={error} />;
   }
 
-  const handleDeleteData = () => {
-    console.log(checkedRows);
-  };
-  const handleReturnData = () => {
-    console.log(checkedRows);
+  const handleReturnData = async () => {
+    const result = await returnToLibrary({ token, fullData });
+    showSwal(result);
   };
   return (
     <div className=" px-5">
@@ -65,10 +74,10 @@ const QCMyLibrary = () => {
             <StatusGroup
               isSelected={checkedRows?.length <= 0}
               handleReturnData={handleReturnData}
-              handleDeleteData={handleDeleteData}
+              isReturnLoading={returnToLibraryIsLoading}
               isButton
               dltBtnValue="Delete"
-              returnBtnValue="Return to the QC Library"
+              returnBtnValue="Return to the QA Library"
             />
           </div>
           <div className="pt-5">
