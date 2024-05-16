@@ -44,9 +44,17 @@ const SideBar = () => {
 
   useEffect(() => {
     if (activeRoute === true && location.pathname === "/services") {
-      navigate("/");
+      if (user?.role === "admin") {
+        navigate("/");
+      } else {
+        navigate("/engineer-dashboard");
+      }
     } else if (activeRoute === false && location.pathname === "/") {
-      navigate("/services");
+      if (user?.role === "admin") {
+        navigate("/services");
+      } else {
+        navigate("/service-engineer-dashboard");
+      }
     }
   }, [navigate, activeRoute]);
 

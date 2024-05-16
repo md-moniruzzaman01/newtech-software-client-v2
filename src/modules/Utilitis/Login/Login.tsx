@@ -1,19 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../../common/components/Button";
 import Input from "../../../common/components/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { authKey } from "../../../shared/config/constaints";
-import { setToLocalStorage } from "../../../shared/helpers/local_storage";
+import {
+  getFromLocalStorage,
+  setToLocalStorage,
+} from "../../../shared/helpers/local_storage";
 import { SERVER_URL } from "../../../shared/config/secret";
 import Modal from "../../../common/components/Modal/Modal";
+import { getUserInfo } from "../../../services/auth.service";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [activeRoute, setActiveRoute] = useState(true);
+
   const [isOpen, setIsOpen] = useState(false);
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const activeRouteValue = getFromLocalStorage("activeRoute");
+    if (activeRouteValue) {
+      setActiveRoute(JSON.parse(activeRouteValue));
+    }
+  }, [activeRoute]);
 
   const data = {
     id,
@@ -38,6 +51,7 @@ const Login = () => {
           localStorage.setItem(authKey, data.data.accessToken);
           localStorage.setItem("refreshToken", data.data.accessToken);
           setToLocalStorage("activeRoute", "true");
+          const user = getUserInfo();
           swal(
             "success",
 
@@ -47,15 +61,25 @@ const Login = () => {
                 : ""
             }`
           );
-
-          navigate("/");
+          if (activeRoute === true) {
+            if (user?.role === "admin") {
+              navigate("/");
+            } else {
+              navigate("/engineer-dashboard");
+            }
+          } else if (activeRoute === false) {
+            if (user?.role === "admin") {
+              navigate("/services");
+            } else {
+              navigate("/service-engineer-dashboard");
+            }
+          }
         } else {
           swal("Error!", data.message, "error");
           navigate("/login");
         }
       })
       .catch((error) => {
-        console.error("Fetch error:", error);
         swal("Error!", error.message, "error");
       });
     setIsLoading(false);
