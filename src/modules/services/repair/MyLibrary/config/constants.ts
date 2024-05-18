@@ -13,12 +13,11 @@ export const keys = [
   "searchTerm",
   "category_name",
 ];
-export const fields =""
-
+export const fields = "";
 
 export const RepairLibraryTableHeader = [
-  "Order ID",
-  "Model No.",
+  "Repair ID",
+  "Order No.",
   "S/N No.",
   "status",
   "Action",

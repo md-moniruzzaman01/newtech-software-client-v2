@@ -46,7 +46,7 @@ const ServiceMyLibrary = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);
-
+  console.log(data);
   if (isLoading) {
     return <LoadingPage />;
   }

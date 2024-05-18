@@ -84,7 +84,7 @@ const RepairApi = baseApi.injectEndpoints({
     getRepairsForService: builder.query({
       query: (params) => {
         return {
-          url: `/repair/my-library/${params?.id}?warranty=false&status=Engineer%20Is%20working&${params?.query}`,
+          url: `/repair/my-library/${params?.id}?warranty=false&status=Engineer%20Is%20working&status=Return%20to%20engineer&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const EngineerItemOrderDetailsTable = ({ product }: { product: any }) => {
+  console.log(product);
   return (
     <div className="w-full">
       {/* header row start here  */}
@@ -39,20 +40,27 @@ const EngineerItemOrderDetailsTable = ({ product }: { product: any }) => {
         <hr className="border-b border-shadeOfGray my-2" />
 
         {/* fourth row start here  */}
-        <div className="grid grid-cols-4  text-start">
-          <div className="border-l py-2 border-y border-gray-400 col-span-2 pl-[60px]">
-            Materials Replacement: <span> Yes </span>/{" "}
-            <span className=" text-green-600"> No</span>
-          </div>
-          <div className="border-t border-b border-gray-400"></div>
-          <div className="border py-2 border-gray-400 text-center">
-            Status : N/A
-          </div>
-        </div>
-
-        <div>
-          <hr className="border-b border-shadeOfGray my-2" />
-        </div>
+        {product?.repair?.partrequest?.length > 0 &&
+          product?.repair?.partrequest?.map((item, index) => (
+            <div key={index}>
+              <div className="grid grid-cols-4  text-start">
+                <div className="border-l py-2 border-y border-gray-400  pl-[60px]">
+                  Parts: {item?.parts?.toString()}
+                </div>
+                <div className="border-t border-b border-l border-gray-400 py-2 text-center">
+                  {" "}
+                  Note: {item?.note}
+                </div>
+                <div className="border py-2 border-gray-400 text-center">
+                  Status : {item?.status}
+                </div>
+                <div className="border py-2 border-gray-400 text-center">
+                  Created : {item?.createdAt?.toString()?.slice(0, 10)}
+                </div>
+              </div>
+              <hr className="border-b border-shadeOfGray my-2" />
+            </div>
+          ))}
       </div>
     </div>
   );

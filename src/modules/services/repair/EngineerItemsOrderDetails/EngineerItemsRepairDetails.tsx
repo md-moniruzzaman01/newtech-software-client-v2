@@ -21,6 +21,7 @@ const EngineerItemsRepairDetails = () => {
     id,
     token,
   });
+
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:
