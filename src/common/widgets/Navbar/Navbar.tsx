@@ -76,8 +76,11 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
     <div>
       <div className="flex justify-between items-center  pt-[36px]">
         <div className="flex justify-between items-center font-semibold text-2xl">
-          <h1>{name},</h1>
-          {location.pathname === "/" && (
+          <h1>{name}</h1>
+          {(location.pathname === "/" ||
+            location.pathname === "/services" ||
+            location.pathname === "/engineer-dashboard" ||
+            location.pathname === "/services-engineer-dashboard") && (
             <h3 className=" ml-1   ">
               {userAdminInfo?.data
                 ? userAdminInfo?.data?.name?.firstName +

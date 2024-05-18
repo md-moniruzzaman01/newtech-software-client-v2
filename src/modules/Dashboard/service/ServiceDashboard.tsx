@@ -41,7 +41,7 @@ const ServiceDashboard = () => {
   } = useGetComplaintsQuery({
     token,
   });
-  const { data, isError, isLoading,error } = useGetCardDataForServiceQuery({
+  const { data, isError, isLoading, error } = useGetCardDataForServiceQuery({
     token,
   });
 
@@ -50,7 +50,6 @@ const ServiceDashboard = () => {
       setBillData(complaintsData?.data);
     }
     if (!isError && !isLoading) {
-  
       setCardData(data?.data);
     }
   }, [
@@ -66,12 +65,12 @@ const ServiceDashboard = () => {
     return <LoadingPage />;
   }
   if (isError) {
-    return <ErrorShow error={error}/>
+    return <ErrorShow error={error} />;
   }
   return (
     <div className="px-5">
       <div className="pb-5">
-        <Navbar name="Welcome" />
+        <Navbar name="Welcome," />
       </div>
 
       <div className="grid grid-cols-4 gap-3">

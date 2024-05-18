@@ -72,7 +72,7 @@ const WarrantyDashboard = () => {
   return (
     <div className="px-5">
       <div className="pb-5">
-        <Navbar name="Welcome" />
+        <Navbar name="Welcome," />
       </div>
       <div className="grid grid-cols-4 gap-3">
         <DashboardCard
