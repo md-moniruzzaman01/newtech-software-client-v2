@@ -44,6 +44,8 @@ const QCMyLibraryService = () => {
     }
   }, [data]);
 
+  console.log(data);
+
   const handleReturnData = async () => {
     const fullData = {
       repairIds: checkedRows,
@@ -76,7 +78,7 @@ const QCMyLibraryService = () => {
               handleReturnData={handleReturnData}
               isButton
               dltBtnValue="Delete"
-              returnBtnValue="Return to the QC Library"
+              returnBtnValue="Return to the QA Library"
             />
           </div>
           <div className="pt-5">
