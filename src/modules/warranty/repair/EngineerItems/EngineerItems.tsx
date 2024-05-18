@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import {
+  getFromLocalStorage,
+  setToLocalStorage,
+} from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -23,6 +27,8 @@ import {
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
+import { useGetBrandsQuery } from "../../../../redux/features/api/Brand.ts";
+import SelectForOnchange from "../../../../common/components/SelectForOnchange/SelectForOnchange.tsx";
 
 const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,9 +36,18 @@ const EngineerAllRepairs = () => {
   const [limit, setLimit] = useState(50);
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [engineers, setEngineers] = useState([]);
+  const [asp, setAsp] = useState("");
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
+  const {
+    data: brands,
+    isLoading: brandsLoading,
+    isError: brandsIsError,
+    error: brandsError,
+  } = useGetBrandsQuery({
+    token,
+  });
   const {
     data,
     isError,
@@ -42,6 +57,7 @@ const EngineerAllRepairs = () => {
     query,
     token,
   });
+
   const {
     data: engineerData,
     isError: engineerError,
@@ -50,10 +66,14 @@ const EngineerAllRepairs = () => {
   } = useGetEngineersQuery({ token });
 
   useEffect(() => {
+    const storedAsp = getFromLocalStorage("engineerAspForWarranty");
     if (data) {
       setTotalItems(data.meta.total);
       setLimit(data.meta.limit);
       setCurrentPage(data?.meta?.page);
+    }
+    if (storedAsp) {
+      setAsp(storedAsp);
     }
   }, [data]);
 
@@ -63,10 +83,15 @@ const EngineerAllRepairs = () => {
   ] = useAssignEngineerMutation();
 
   useEffect(() => {
-    if (!engineerError && !engineerLoading) {
+    if (asp) {
+      const engineersByAsp = engineerData?.data?.filter((item) =>
+        item?.asp?.includes(asp)
+      );
+      setEngineers(engineersByAsp);
+    } else if (!engineerError && !engineerLoading) {
       setEngineers(engineerData?.data);
     }
-  }, [engineerError, engineerLoading, engineerData]);
+  }, [engineerError, engineerLoading, engineerData, asp]);
 
   const handleSubmit = async (id: string) => {
     const fullData = {
@@ -77,17 +102,33 @@ const EngineerAllRepairs = () => {
     showSwal(result);
   };
 
-  if (isError || assignIsError || engineerError) {
-    return <ErrorShow error={error || productRepairError || assignError} />;
+  const handleAsp = (selectedAsp: any) => {
+    setToLocalStorage("engineerAspForWarranty", selectedAsp?.target?.value);
+    setAsp(selectedAsp?.target?.value);
+  };
+
+  if (isError || assignIsError || engineerError || brandsIsError) {
+    return (
+      <ErrorShow
+        error={error || productRepairError || assignError || brandsError}
+      />
+    );
   }
-  if (isLoading || assignLoading) {
+  if (isLoading || assignLoading || brandsLoading) {
     return <LoadingPage />;
   }
 
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
-      <div className="py-5">
+      <div className="py-5 relative">
+        <div className=" absolute right-60 w-1/12">
+          <SelectForOnchange
+            defaultValue={asp}
+            Filter={brands?.data}
+            onChange={handleAsp}
+          />
+        </div>
         <SearchBar
           dropdownPlaceHolder="Assign to Engineer"
           isDropdown

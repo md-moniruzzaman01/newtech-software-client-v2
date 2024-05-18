@@ -15,7 +15,10 @@ import {
   useGetAdminQuery,
   useGetUserQuery,
 } from "../../../redux/features/api/users";
-import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+} from "../../../shared/helpers/local_storage";
 import {
   useGetNotificationQuery,
   useMarkAsReadNotificationMutation,
@@ -38,6 +41,9 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
     navigate("/login");
     swal("success", "Successfully logged out");
     removeUserInfo(authKey);
+    removeFromLocalStorage("engineerAspForService");
+    removeFromLocalStorage("engineerAspForWarranty");
+    removeFromLocalStorage("activeRoute");
   };
   const { userId, _id: id, role } = getUserInfo();
   const { data: userInfo } = useGetUserQuery({
