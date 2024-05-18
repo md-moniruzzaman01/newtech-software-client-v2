@@ -57,8 +57,8 @@ const EngineerLibraryForService = () => {
 
   useEffect(() => {
     if (data) {
-      setTotalItems(data.meta.total);
-      setLimit(data.meta.limit);
+      setTotalItems(data?.meta.total);
+      setLimit(data?.meta.limit);
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);

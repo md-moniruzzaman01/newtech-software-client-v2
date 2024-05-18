@@ -18,6 +18,7 @@ const QAItemServiceOrderDetails = () => {
     id,
     token,
   });
+  console.log(qaData);
   if (isLoading) {
     return <LoadingPage />;
   }

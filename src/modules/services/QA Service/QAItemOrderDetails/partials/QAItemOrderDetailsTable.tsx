@@ -5,9 +5,10 @@ const QAItemOrderDetailsTable = ({ data }: any) => {
   return (
     <div className="w-full ">
       {/* header row start here  */}
-      <div className="grid grid-cols-4 gap-5 text-center">
+      <div className="grid grid-cols-5 gap-5 text-center">
         <div className="">Order Number</div>
         <div className="">SL Number</div>
+        <div className="">Model Number</div>
         <div className="">Category</div>
         <div className="">Brand</div>
       </div>
@@ -15,12 +16,15 @@ const QAItemOrderDetailsTable = ({ data }: any) => {
 
       <div className="text-center text-xs">
         {/* second row start here  */}
-        <div className="grid grid-cols-4  text-center">
+        <div className="grid grid-cols-5  text-center">
           <div className="border py-2 border-gray-400">
             {data?.repair?.order_number || emptyData}
           </div>
           <div className="border py-2 border-gray-400">
             {data?.serial_number || emptyData}
+          </div>
+          <div className="border py-2 border-gray-400">
+            {data?.repair?.products?.model_number || emptyData}
           </div>
           <div className="border py-2 border-gray-400">
             {data?.repair?.category_name || emptyData}

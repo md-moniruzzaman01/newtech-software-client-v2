@@ -8,6 +8,7 @@ export const baseApi = createApi({
   }),
   tagTypes: [
     "complaints",
+    "products",
     "brand_category",
     "category",
     "repair",

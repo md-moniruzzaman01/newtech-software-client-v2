@@ -12,7 +12,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
-      invalidatesTags: ["complaints"],
+      invalidatesTags: ["complaints", "products"],
     }),
     updateComplaintsStatusDelivery: builder.mutation({
       query: ({ fullData, token }) => ({
