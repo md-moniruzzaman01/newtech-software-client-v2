@@ -150,6 +150,7 @@ export type SearchBarProps = {
   isDeliveryLoading?: boolean;
   isReturnLoading?: boolean;
   isDeleteLoading?: boolean;
+  isCancelLoading?: boolean;
 };
 
 export type ComplaintMiniCardProps = {

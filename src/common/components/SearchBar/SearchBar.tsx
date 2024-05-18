@@ -29,6 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   isDeliveryLoading = false,
   isReturnLoading = false,
   isDeleteLoading = false,
+  isCancelLoading = false,
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -112,9 +113,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
               )}
               {handleCancel && (
                 <Button
-                  loading={isDeleteLoading}
+                  loading={isCancelLoading}
                   disabled={disabled}
-                  onClick={handleDelete}
+                  onClick={handleCancel}
                   mini
                   danger
                 >

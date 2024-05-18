@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
+  useCancelComplaintsMutation,
   useDeleteComplaintsMutation,
   useGetComplaintsQuery,
   useUpdateComplaintsStatusDeliveryMutation,
@@ -54,6 +55,8 @@ const Complaint = () => {
 
   const [updateDeliveryComplaints, { isLoading: deliveryStatusLoading }] =
     useUpdateComplaintsStatusDeliveryMutation();
+  const [cancelComplaints, { isLoading: cancelLoading }] =
+    useCancelComplaintsMutation();
 
   const [deleteComplaints, { isLoading: deleteLoading }] =
     useDeleteComplaintsMutation();
@@ -99,6 +102,28 @@ const Complaint = () => {
       }
     });
   };
+
+  const handleCancel = async () => {
+    const fullData = checkedRows;
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this all complaints details!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result: any = await cancelComplaints({ token, fullData });
+        showSwal(result);
+        if (result?.data.success) {
+          setCheckedRows([]);
+        }
+      } else {
+        swal("Your all complaints details is safe!");
+      }
+    });
+  };
+
   const handleDelete = async () => {
     swal({
       title: "Are you sure?",
@@ -118,9 +143,6 @@ const Complaint = () => {
       }
     });
   };
-  const handleReturn = () => {
-    console.log(checkedRows);
-  };
 
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
@@ -138,7 +160,8 @@ const Complaint = () => {
           disabled={checkedRows?.length <= 0}
           handleDelivery={handleDelivery}
           isDeliveryLoading={deliveryStatusLoading}
-          handleReturn={handleReturn}
+          isCancelLoading={cancelLoading}
+          handleCancel={handleCancel}
           handleDelete={handleDelete}
           isDeleteLoading={deleteLoading}
           isMiddleBtn

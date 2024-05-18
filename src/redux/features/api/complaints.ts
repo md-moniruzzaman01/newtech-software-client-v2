@@ -47,6 +47,17 @@ const ComplaintsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["complaints"],
     }),
+    CancelComplaints: builder.mutation({
+      query: ({ fullData, token }) => ({
+        url: "/complaints/cancel",
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: { repairIds: fullData },
+      }),
+      invalidatesTags: ["complaints"],
+    }),
     getComplaints: builder.query({
       query: (params) => {
         return {
@@ -130,4 +141,5 @@ export const {
   useDeleteComplaintsMutation,
   useUpdateComplaintsStatusDeliveryMutation,
   useUpdateComplaintsStatusMutation,
+  useCancelComplaintsMutation,
 } = ComplaintsApi;

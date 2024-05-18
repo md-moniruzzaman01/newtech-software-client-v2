@@ -25,6 +25,8 @@ import {
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import swal from "sweetalert";
+import { useCancelComplaintsMutation } from "../../../redux/features/api/complaints.ts";
 
 //internal
 
@@ -49,6 +51,8 @@ const ComplaintListService = () => {
     token,
   });
   const [deleteComplaints, { isLoading }] = useDeleteComplaintsMutation();
+  const [cancelComplaints, { isLoading: cancelLoading }] =
+    useCancelComplaintsMutation();
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);
@@ -74,21 +78,51 @@ const ComplaintListService = () => {
     }
   }, [complaintsData, complaintsLoading, complaintsIsError]);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const fullData = {
       repairIds: checkedRows,
     };
-    const result = deleteComplaints({ token, fullData });
-    showSwal(result);
-  };
-  const handleReturn = () => {
-    console.log(checkedRows);
-  };
-  const handleCancel = () => {
-    console.log(checkedRows);
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this all complaints details!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result: any = await deleteComplaints({ token, fullData });
+        showSwal(result);
+        if (result?.data.success) {
+          setCheckedRows([]);
+        }
+      } else {
+        swal("Your all complaints details is safe!");
+      }
+    });
   };
 
-  if (complaintsLoading || isLoading) {
+  const handleCancel = async () => {
+    const fullData = checkedRows;
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this all complaints details!",
+      icon: "warning",
+      buttons: ["Cancel", "OK"], // Set button labels
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        const result: any = await cancelComplaints({ token, fullData });
+        showSwal(result);
+        if (result?.data.success) {
+          setCheckedRows([]);
+        }
+      } else {
+        swal("Your all complaints details is safe!");
+      }
+    });
+  };
+
+  if (complaintsLoading) {
     return <LoadingPage />;
   }
 
@@ -100,11 +134,12 @@ const ComplaintListService = () => {
       <Navbar name="Complaint Service" />
       <div className="pt-5">
         <SearchBar
+          isDeleteLoading={isLoading}
           handleCancel={handleCancel}
           isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}
-          handleReturn={handleReturn}
           handleDelete={handleDelete}
+          isCancelLoading={cancelLoading}
           isMiddleBtn
           linkValue={`${
             activeRoute ? "/add-warranty-complaint" : "/add-complaint"
