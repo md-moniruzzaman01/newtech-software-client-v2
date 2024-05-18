@@ -28,7 +28,7 @@ const BillApi = baseApi.injectEndpoints({
     getPendingBills: builder.query({
       query: (params) => {
         return {
-          url: `/bill?status=pending&${params?.query}`,
+          url: `/bill?status=pending&status=Delivered%20Without%20Payment&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

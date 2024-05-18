@@ -328,7 +328,7 @@ const ComplaintOrderDetailsTable = ({
               }
               primary
             >
-              Completed & waiting for bill
+              Completed Without Payment
             </Button>
 
             <Modal

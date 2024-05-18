@@ -4,8 +4,8 @@ export const keys = ["branch", "sort", "status", "searchTerm"];
 export const btnValue = [
   { label: "pending", value: "pending" },
   {
-    label: "Delivered & waiting for bill",
-    value: "completed & waiting for bill",
+    label: "Delivered Without Payment",
+    value: "Delivered Without Payment",
   },
   { label: "completed", value: "completed" },
   { label: "canceled", value: "canceled" },

@@ -19,7 +19,7 @@ const ConditionalBtnInSearch = () => {
           </Button>
         </div>
       ) : (
-        searchValue === "completed & waiting for bill" && (
+        searchValue === "Delivered Without Payment" && (
           <div className="space-x-2">
             <Button primary mini>
               Completed

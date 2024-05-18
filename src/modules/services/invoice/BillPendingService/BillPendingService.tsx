@@ -26,6 +26,8 @@ const BillPendingService = () => {
     token,
   });
 
+  console.log(complaintsData);
+
   useEffect(() => {
     if (complaintsData) {
       setTotalItems(complaintsData.meta.total);
