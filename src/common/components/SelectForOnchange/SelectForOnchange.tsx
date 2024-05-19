@@ -6,10 +6,10 @@ interface InputFilterProps {
   isDisabled?: boolean;
   placeholder?: string;
   className?: string;
-  defaultValue?: string;
   required?: boolean;
   inputName?: string;
   value?: string;
+  valueAll?: boolean;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
 
@@ -21,8 +21,9 @@ const SelectForOnchange: React.FC<InputFilterProps> = ({
   className,
   required = false,
   inputName,
-  defaultValue = "",
   onChange,
+  valueAll = false,
+  value = "",
 }) => {
   return (
     <div className={`${label && "space-y-1"}`}>
@@ -32,12 +33,14 @@ const SelectForOnchange: React.FC<InputFilterProps> = ({
         required={required}
         disabled={isDisabled}
         className={`${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
-        defaultValue={defaultValue}
+        value={value}
         onChange={onChange}
       >
         <option value={""} disabled>
           {placeholder}
         </option>
+
+        {valueAll && <option value={""}>All</option>}
         {Filter?.map((item, i) => (
           <option key={i} value={item.id}>
             {item.value}

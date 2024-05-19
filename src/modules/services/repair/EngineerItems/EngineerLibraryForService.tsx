@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import {
   getFromLocalStorage,
+  removeFromLocalStorage,
   setToLocalStorage,
 } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
@@ -99,7 +100,11 @@ const EngineerLibraryForService = () => {
   };
 
   const handleAsp = (selectedAsp: any) => {
-    setToLocalStorage("engineerAspForWarranty", selectedAsp?.target?.value);
+    if (selectedAsp?.target?.value) {
+      setToLocalStorage("engineerAspForService", selectedAsp?.target?.value);
+    } else {
+      removeFromLocalStorage("engineerAspForService");
+    }
     setAsp(selectedAsp?.target?.value);
   };
 
@@ -115,9 +120,11 @@ const EngineerLibraryForService = () => {
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
       <div className="py-5 relative">
-        <div className=" absolute right-60 w-1/12">
+        <div className=" absolute right-60 w-2/12">
           <SelectForOnchange
-            defaultValue={asp}
+            placeholder="Filter By ASP"
+            valueAll
+            value={asp}
             Filter={brands?.data}
             onChange={handleAsp}
           />
