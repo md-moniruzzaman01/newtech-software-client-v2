@@ -43,8 +43,6 @@ const Recipe = () => {
     }
   }, [id, token]);
 
-  console.log(complaints);
-
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:

@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-
-
 const HeaderOfRecipe = ({ copy, info }: any) => {
   const received_date = info?.received_date || new Date();
   const TaT_date = info?.turnaround_time || new Date();
@@ -22,7 +20,7 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
     <div>
       <div className="relative  font-primary text-black pt-2">
         <div className="absolute ">
-         <img src="/NT-LOGO.png" height={90} width={90} alt="LOGO" />
+          <img src="/NT-LOGO.png" height={90} width={90} alt="LOGO" />
         </div>
         <div className=" text-center">
           <h1 className=" text-2xl font-bold text-[#2f368f] font-secondary">
@@ -32,27 +30,39 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
           <div className="text-sm">
             {/* <p>{order?.branch}</p> */}
             {info?.branch === "02" && (
-              <p>
-                Suite-1406, Level-14, Multiplan Center{" "}
-                <span>69-71 New Elephant Road, Dhaka-1205</span>
-              </p>
+              <div>
+                <p>Contact No: 01407071146</p>
+                <p>
+                  Suite-1406, Level-14, Multiplan Center
+                  <span>69-71 New Elephant Road, Dhaka-1205</span>
+                </p>
+              </div>
             )}
             {info?.branch === "01" && (
-              <p>
-                House-03, Road-07, Block-F <span>Banani, Dhaka-1213</span>
-              </p>
+              <div>
+                <p>Contact No: +880241082640</p>
+                <p>
+                  House-03, Road-07, Block-F <span>Banani, Dhaka-1213</span>
+                </p>
+              </div>
             )}
             {info?.branch === "03" && (
-              <p>
-                510, Level-4 (5th Floor), West World Shopping City
-                <span>Jallarpara, Zindabazar, Sylhet-3100</span>
-              </p>
+              <div>
+                <p>Email: service@newtechbd.com</p>
+                <p>
+                  510, Level-4 (5th Floor), West World Shopping City
+                  <span>Jallarpara, Zindabazar, Sylhet-3100</span>
+                </p>
+              </div>
             )}
             {info?.branch === "04" && (
-              <p>
-                M. Court (Old), Bashar Square (5/FL){" "}
-                <span>108 Agrabad C/A, Chattagram-4100</span>
-              </p>
+              <div>
+                <p>Contact No: +880312513286, 2513287</p>
+                <p>
+                  M. Court (Old), Bashar Square (5/FL){" "}
+                  <span>108 Agrabad C/A, Chattagram-4100</span>
+                </p>
+              </div>
             )}
             {info?.branch === "05" && (
               <p>
@@ -75,13 +85,11 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
             <p>Complaint ID : </p>
 
             <p>Status : </p>
-           
           </div>
           <div className="space-y-1">
             <p className="text-primary">{info?.order_number}</p>
 
             <p>{info?.warranty ? "Warranty" : "NON warranty "}</p>
-          
           </div>
         </div>
 
@@ -98,17 +106,13 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
               {info?.customer?.contact_person ? (
                 <span className="ml-2 ">{info?.customer?.contact_person}</span>
               ) : (
-                <span className="ml-2">
-                  {info?.Nonwarrentycustomer?.name}
-                </span>
+                <span className="ml-2">{info?.Nonwarrentycustomer?.name}</span>
               )}
             </p>
             <p className="text-primary">
               {" "}
               {info?.customer?.contactNo ? (
-                <span className="ml-2 ">
-                  {info?.customer?.contactNo}
-                </span>
+                <span className="ml-2 ">{info?.customer?.contactNo}</span>
               ) : (
                 <span className="ml-2">
                   {info?.Nonwarrentycustomer?.contact_number}

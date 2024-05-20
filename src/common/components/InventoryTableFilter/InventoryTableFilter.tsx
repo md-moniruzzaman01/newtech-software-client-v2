@@ -1,6 +1,6 @@
-import { FilterOptions } from "../../../shared/config/constaints";
+// import { FilterOptions } from "../../../shared/config/constaints";
 import { InventoryTableFilterProps } from "../../../shared/config/types";
-import InputFilter from "../InputFilter/InputFilter";
+// import InputFilter from "../InputFilter/InputFilter";
 
 const InventoryTableFilter: React.FC<InventoryTableFilterProps> = ({
   header,
@@ -12,7 +12,7 @@ const InventoryTableFilter: React.FC<InventoryTableFilterProps> = ({
         <hr className="w-52 border-t-2" />
       </div>
 
-      <div className="grid grid-cols-4 gap-2">
+      {/* <div className="grid grid-cols-4 gap-2">
         <InputFilter
           className="h-10 w-32"
           placeholder="Monitor"
@@ -33,7 +33,7 @@ const InventoryTableFilter: React.FC<InventoryTableFilterProps> = ({
           placeholder="To date"
           Filter={FilterOptions}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

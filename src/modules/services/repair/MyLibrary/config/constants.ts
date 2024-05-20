@@ -19,6 +19,7 @@ export const RepairLibraryTableHeader = [
   "Repair ID",
   "Order No.",
   "S/N No.",
+  "Engineer ID",
   "status",
   "Action",
 ];
@@ -27,6 +28,7 @@ export const tableLayout = [
   "item.id",
   "item.repair?.order_number",
   "item.serial_number",
+  "item?.engineer?.id",
   "item.status",
   "item.createdAt?.toString()?.slice(0,10)",
 ];

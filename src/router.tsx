@@ -66,5 +66,5 @@ export const router = createBrowserRouter([
     ],
   },
   ...login,
-  {path: "/recipe/:id",element: <Recipe />},
+  { path: "/recipe/:id", element: <Recipe /> },
 ]);

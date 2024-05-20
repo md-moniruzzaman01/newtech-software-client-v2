@@ -1,27 +1,43 @@
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 
 import InventoryStatusGroup from "../../../common/components/InventoryStatusGroup/InventoryStatusGroup";
-import InventoryRequestStatusGroup from "../InventoryApprove/partials/InventoryApproveStatusGroup";
+// import InventoryRequestStatusGroup from "../InventoryApprove/partials/InventoryApproveStatusGroup";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import InventoryTableFilter from "../../../common/components/InventoryTableFilter/InventoryTableFilter";
 import { TableHeaderForInventory } from "../Inventory/config/constants";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { useEffect, useState } from "react";
-import { useGetInventoryPartsQuery } from "../../../redux/features/api/inventory";
+import { useGetInventoryPartsAllQuery } from "../../../redux/features/api/inventory";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
-import { query, tableLayout } from "./config/constants";
+import { fields, keys, tableLayout } from "./config/constants";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../shared/helpers/constructQuery";
 
 const InventoryRequest = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [searchParams] = useSearchParams();
   const token = getFromLocalStorage(authKey);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
+
   const [inventoryData, setInventoryData] = useState([]);
 
   const {
     data: inventory,
     isLoading: inventoryLoading,
     isError: inventoryError,
-  } = useGetInventoryPartsQuery({ token, query });
+  } = useGetInventoryPartsAllQuery({ token, query });
+
+  useEffect(() => {
+    if (inventory) {
+      setTotalItems(inventory.meta.total);
+      setLimit(inventory.meta.limit);
+      setCurrentPage(inventory?.meta?.page);
+    }
+  }, [inventory]);
 
   useEffect(() => {
     if (!inventoryError && !inventoryLoading) {
@@ -41,9 +57,9 @@ const InventoryRequest = () => {
 
       <div className="bg-solidWhite py-2 px-2">
         <InventoryTableFilter header="Inventory Request" />
-        <div className="pb-3">
+        {/* <div className="pb-3">
           <InventoryRequestStatusGroup />
-        </div>
+        </div> */}
 
         <CommonTable
           headerData={TableHeaderForInventory}
@@ -52,7 +68,12 @@ const InventoryRequest = () => {
           link="/inventory/request-details"
         />
         <div className="fixed bottom-2  right-5">
-          <Pagination />
+          <Pagination
+            currentPage={currentPage}
+            limit={limit}
+            setCurrentPage={setCurrentPage}
+            totalItems={totalItems}
+          />
         </div>
       </div>
     </div>

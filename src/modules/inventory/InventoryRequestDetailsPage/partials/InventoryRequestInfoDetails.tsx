@@ -24,6 +24,8 @@ const InventoryRequestInfoDetails: React.FC<
               {itemData?.createdAt?.toString()?.slice(0, 10)}
             </td>
             <td className="py-3">{itemData?.parts?.toString()}</td>
+            <td className="py-3">{itemData?.serial_number}</td>
+
             <td className="py-3">{itemData?.id}</td>
             <td className="py-3">{itemData?.repair?.brand_name}</td>
             <td className="py-3">{itemData?.repairItem?.id}</td>

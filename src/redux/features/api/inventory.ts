@@ -32,9 +32,29 @@ const InventoryApi = baseApi.injectEndpoints({
     getInventoryParts: builder.query({
       query: (params) => {
         return {
-          url: `/parts?${params?.query}`,
+          url: `/parts?status=pending&${params?.query}`,
           headers: {
             authorization: params?.token,
+          },
+        };
+      },
+    }),
+    getInventoryPartsAll: builder.query({
+      query: ({ token, query }) => {
+        return {
+          url: `/parts?${query}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+    }),
+    getInventoryPartsApprove: builder.query({
+      query: ({ token, query }) => {
+        return {
+          url: `/parts?status=Approve&${query}`,
+          headers: {
+            authorization: token,
           },
         };
       },
@@ -59,6 +79,8 @@ const InventoryApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useGetInventoryPartsApproveQuery,
+  useGetInventoryPartsAllQuery,
   useGetInventoryPartsQuery,
   usePostInventoryPartsMutation,
   useGetInventoryPartsByIdQuery,

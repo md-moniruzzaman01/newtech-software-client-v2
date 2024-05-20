@@ -10,8 +10,6 @@ export const TableHeaderForInventory = [
   "Action",
 ];
 
-export const query = "status=Approve";
-
 export const tableLayout = [
   "item?.id",
   "item?.user?.id",
@@ -21,4 +19,14 @@ export const tableLayout = [
   "item?.status",
   "item?.createdAt?.toString()?.slice(0,10)",
   "item?.note",
+];
+
+export const fields = "";
+export const keys = [
+  "brand_name",
+  "branch",
+  "sort",
+  "repair_status",
+  "searchTerm",
+  "category_name",
 ];

@@ -25,18 +25,22 @@ const InventoryRequestDetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [amount, setamount] = useState(0);
   const token = getFromLocalStorage(authKey);
-  const [inventoryApprove, { isLoading, isError, error }] = useInventoryApproveMutation();
-  const [inventoryReject,{ isLoading:isLoadingReject, isError:isErrorReject, error:errorReject }] = useInventoryRejectMutation();
+  const [inventoryApprove, { isLoading, isError, error }] =
+    useInventoryApproveMutation();
+  const [
+    inventoryReject,
+    { isLoading: isLoadingReject, isError: isErrorReject, error: errorReject },
+  ] = useInventoryRejectMutation();
   const [inventoryData, setInventoryData] = useState<ResponseData>();
   const { id } = useParams();
   const {
     data: inventory,
     isError: isInventoryError,
     isLoading: inventoryLoading,
-    error: inventoryError
+    error: inventoryError,
   } = useGetInventoryPartsByIdQuery({ id });
 
-
+  console.log(inventory);
   useEffect(() => {
     if (!isLoading && !isError) {
       setInventoryData(inventory?.data);
@@ -62,7 +66,7 @@ const InventoryRequestDetailsPage = () => {
     const fullData = {
       status: "reject",
     };
-    const result: any =await inventoryReject({ id, token, fullData });
+    const result: any = await inventoryReject({ id, token, fullData });
     if (result?.data?.success) {
       swal("Success", `${result?.data?.message}`, "success");
     } else {
@@ -75,15 +79,14 @@ const InventoryRequestDetailsPage = () => {
   }
 
   if (isError) {
-    return <ErrorShow error={error} />
+    return <ErrorShow error={error} />;
   }
   if (isInventoryError) {
-    return <ErrorShow error={inventoryError} />
+    return <ErrorShow error={inventoryError} />;
   }
   if (isErrorReject) {
-    return <ErrorShow error={errorReject} />
+    return <ErrorShow error={errorReject} />;
   }
-
 
   return (
     <div className="px-5">
