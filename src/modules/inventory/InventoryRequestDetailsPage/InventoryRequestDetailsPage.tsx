@@ -20,6 +20,7 @@ import { ResponseData } from "./config/types";
 import Modal from "../../../common/components/Modal/Modal";
 import Input from "../../../common/components/Input";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import { showSwal } from "../../../shared/helpers/SwalShower";
 
 const InventoryRequestDetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,6 @@ const InventoryRequestDetailsPage = () => {
     error: inventoryError,
   } = useGetInventoryPartsByIdQuery({ id });
 
-  console.log(inventory);
   useEffect(() => {
     if (!isLoading && !isError) {
       setInventoryData(inventory?.data);
@@ -56,10 +56,9 @@ const InventoryRequestDetailsPage = () => {
       status: "Approve",
     };
     const result: any = await inventoryApprove({ id, token, fullData });
-    if (result?.data?.success) {
-      swal("Success", `${result?.data?.message}`, "success");
-    } else {
-      swal("Error", `${result?.error?.data?.message}`, "error");
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
+      setIsOpen(false);
     }
   };
   const handleInventoryReject = async () => {
