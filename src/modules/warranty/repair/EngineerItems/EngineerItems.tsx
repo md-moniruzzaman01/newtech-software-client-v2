@@ -100,7 +100,10 @@ const EngineerAllRepairs = () => {
       repairIds: checkedRows,
     };
     const result = await assignEngineer({ fullData, token });
-    showSwal(result);
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
+      setCheckedRows([]);
+    }
   };
 
   const handleAsp = (selectedAsp: any) => {

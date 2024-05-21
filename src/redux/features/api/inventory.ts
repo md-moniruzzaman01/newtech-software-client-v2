@@ -8,6 +8,7 @@ const InventoryApi = baseApi.injectEndpoints({
         method: "POST",
         body: brand,
       }),
+      invalidatesTags: ["inventory"],
     }),
     inventoryApprove: builder.mutation({
       query: ({ id, token, fullData }) => ({
@@ -18,6 +19,7 @@ const InventoryApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
+      invalidatesTags: ["inventory"],
     }),
     inventoryReject: builder.mutation({
       query: ({ id, token, fullData }) => ({
@@ -28,6 +30,7 @@ const InventoryApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
+      invalidatesTags: ["inventory"],
     }),
     getInventoryParts: builder.query({
       query: (params) => {
@@ -38,6 +41,7 @@ const InventoryApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["inventory"],
     }),
     getInventoryPartsAll: builder.query({
       query: ({ token, query }) => {
@@ -48,6 +52,8 @@ const InventoryApi = baseApi.injectEndpoints({
           },
         };
       },
+
+      providesTags: ["inventory"],
     }),
     getInventoryPartsApprove: builder.query({
       query: ({ token, query }) => {
@@ -58,9 +64,19 @@ const InventoryApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["inventory"],
     }),
     getInventoryPartsById: builder.query({
-      query: ({ id }) => `/parts/${id}`,
+      query: ({ id, token }) => {
+        return {
+          url: `/parts/${id}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+
+      providesTags: ["inventory"],
     }),
     // updatePost: builder.mutation({
     //   query: ({ postId, updatedPost }) => ({

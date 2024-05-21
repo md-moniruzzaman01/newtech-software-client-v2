@@ -3,7 +3,7 @@ import { baseApi } from "../../api/apiSlice";
 const PartsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createPartsRequest: builder.mutation({
-      query: ({ fullData, token,id }) => ({
+      query: ({ fullData, token, id }) => ({
         url: `/parts/create-request/${id}`,
         method: "POST",
         headers: {
@@ -11,6 +11,7 @@ const PartsApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
+      invalidatesTags: ["repair"],
     }),
     getpartsRequests: builder.query({
       query: (params) => {
@@ -21,6 +22,7 @@ const PartsApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["repair"],
     }),
     // createPartsRequest: builder.mutation({
     //   query: ({ id, fullData, token }) => ({
@@ -37,12 +39,13 @@ const PartsApi = baseApi.injectEndpoints({
         url: `/parts/${postId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["repair"],
     }),
   }),
 });
 
 export const {
-useCreatePartsRequestMutation,
-useDeletePartsRequestsMutation,
-useGetpartsRequestsQuery
+  useCreatePartsRequestMutation,
+  useDeletePartsRequestsMutation,
+  useGetpartsRequestsQuery,
 } = PartsApi;

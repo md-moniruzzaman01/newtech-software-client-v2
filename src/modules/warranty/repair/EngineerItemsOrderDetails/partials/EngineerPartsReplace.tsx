@@ -7,8 +7,8 @@ import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage
 import { useCreatePartsRequestMutation } from "../../../../../redux/features/api/parts";
 import { shedAndSplit } from "../../../../../shared/helpers/removeShedAndSplit";
 import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
-import LoadingPage from "../../../../../common/components/LoadingPage/LoadingPage";
 import { showSwal } from "../../../../../shared/helpers/SwalShower.ts";
+import { useNavigate } from "react-router-dom";
 
 const EngineerPartsReplace = ({
   id,
@@ -20,6 +20,7 @@ const EngineerPartsReplace = ({
   const token = getFromLocalStorage(authKey);
   const [createPartsRequest, { isLoading, isError, error }] =
     useCreatePartsRequestMutation();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,15 +34,13 @@ const EngineerPartsReplace = ({
     const result = await createPartsRequest({ fullData, token, id });
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
+      navigate("/engineer-my-library");
       form.reset();
     }
   };
 
   if (isError) {
     return <ErrorShow error={error} />;
-  }
-  if (isLoading) {
-    return <LoadingPage />;
   }
 
   return (
@@ -60,7 +59,9 @@ const EngineerPartsReplace = ({
           /> */}
 
         <TextArea label="Note" name="note" placeholder="write your note" />
-        <Button primary>Submit</Button>
+        <Button loading={isLoading} primary>
+          Submit
+        </Button>
       </form>
     </div>
   );

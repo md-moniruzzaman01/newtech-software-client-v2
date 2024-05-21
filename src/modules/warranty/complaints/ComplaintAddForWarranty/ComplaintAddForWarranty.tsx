@@ -310,7 +310,9 @@ const ComplaintAddForWarranty = () => {
                   {/* Email  */}
                   <div>
                     <Input
-                      defaultValue={`${partnerInfo ? partnerInfo?.email : ""}`}
+                      defaultValue={`${
+                        partnerInfo?.email ? partnerInfo?.email : ""
+                      }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       inputPlaceholder="Email"
                       inputName="email"
@@ -321,7 +323,7 @@ const ComplaintAddForWarranty = () => {
                   <div>
                     <Input
                       defaultValue={`${
-                        partnerInfo ? partnerInfo?.address : ""
+                        partnerInfo?.address ? partnerInfo?.address : ""
                       }`}
                       IsDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       inputName="address"

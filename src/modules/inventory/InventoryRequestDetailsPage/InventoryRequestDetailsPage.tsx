@@ -4,7 +4,7 @@ import Navbar from "../../../common/widgets/Navbar/Navbar";
 import { RxCross2 } from "react-icons/rx";
 import InventoryRequestInfoDetails from "./partials/InventoryRequestInfoDetails";
 import Button from "../../../common/components/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetInventoryPartsByIdQuery,
   useInventoryApproveMutation,
@@ -25,6 +25,7 @@ import { showSwal } from "../../../shared/helpers/SwalShower";
 const InventoryRequestDetailsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [amount, setamount] = useState(0);
+  const navigate = useNavigate();
   const token = getFromLocalStorage(authKey);
   const [inventoryApprove, { isLoading, isError, error }] =
     useInventoryApproveMutation();
@@ -39,7 +40,7 @@ const InventoryRequestDetailsPage = () => {
     isError: isInventoryError,
     isLoading: inventoryLoading,
     error: inventoryError,
-  } = useGetInventoryPartsByIdQuery({ id });
+  } = useGetInventoryPartsByIdQuery({ id, token });
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -59,6 +60,7 @@ const InventoryRequestDetailsPage = () => {
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
       setIsOpen(false);
+      navigate("/inventory");
     }
   };
   const handleInventoryReject = async () => {

@@ -22,7 +22,7 @@ const RepairApi = baseApi.injectEndpoints({
           },
         };
       },
-      providesTags: ["repair"],
+      providesTags: ["repair", "qc"],
     }),
     getServiceProductsForRepair: builder.query({
       query: (params) => {

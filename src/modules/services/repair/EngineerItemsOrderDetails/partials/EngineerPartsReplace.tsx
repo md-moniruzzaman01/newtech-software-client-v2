@@ -7,6 +7,7 @@ import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage
 import { useCreatePartsRequestMutation } from "../../../../../redux/features/api/parts";
 
 import { showSwal } from "../../../../../shared/helpers/SwalShower";
+import { useNavigate } from "react-router-dom";
 
 const EngineerPartsReplace = ({
   id,
@@ -15,6 +16,7 @@ const EngineerPartsReplace = ({
   id: string;
   repairItemId: string;
 }) => {
+  const navigate = useNavigate();
   const token = getFromLocalStorage(authKey);
   const [createPartsRequest, { isLoading }] = useCreatePartsRequestMutation();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +31,7 @@ const EngineerPartsReplace = ({
     const result = await createPartsRequest({ fullData, token, id });
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
+      navigate("/service-engineer-my-library");
       form.reset();
     }
   };

@@ -53,9 +53,9 @@ const EngineerItemOrderDetailsTable = ({ data }) => {
             </div>
           ))}
 
-        <div>
+        {/* <div>
           <hr className="border-b border-shadeOfGray my-2" />
-        </div>
+        </div> */}
       </div>
       {/* <div className="absolute bottom-3">QC by: Johnson Doe</div> */}
     </div>

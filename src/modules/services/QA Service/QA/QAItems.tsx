@@ -53,7 +53,10 @@ const QAItemsService = () => {
       repairIds: checkedRows,
     };
     const result = await createQA({ fullData, token });
-    showSwal(result);
+    const swalIsTrue = showSwal(result);
+    if (swalIsTrue) {
+      setCheckedRows([]);
+    }
   };
   useEffect(() => {
     if (!complaintsLoading && !complaintsIsError) {

@@ -7,7 +7,7 @@ import { engineerStatus } from "../config/constants";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../../shared/config/constaints";
 import { useUpdateRepairStatusMutation } from "../../../../../redux/features/api/engineers";
-import swal from "sweetalert";
+import { showSwal } from "../../../../../shared/helpers/SwalShower";
 
 const EngineerItemOrderStatus = () => {
   const { id } = useParams();
@@ -26,17 +26,12 @@ const EngineerItemOrderStatus = () => {
     };
 
     const result: any = await updateRepair({ id, fullData, token });
-    console.log(result);
-    if (result?.data?.success) {
-      swal(`${result?.data?.message}`, {
-        icon: "success",
-      });
+    const swalIsTrue = showSwal(result);
+
+    if (swalIsTrue) {
       navigate("/service-engineer-my-library");
+
       form.reset();
-    } else {
-      swal(`${result?.error?.data?.message}`, {
-        icon: "error",
-      });
     }
   };
 
