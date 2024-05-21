@@ -45,13 +45,6 @@ const MyRepairs = () => {
     return <ErrorShow error={error} />;
   }
 
-  const handleDeleteData = () => {
-    console.log(checkedRows);
-  };
-  const handleReturnData = () => {
-    console.log(checkedRows);
-  };
-
   return (
     <div className=" px-5">
       <Navbar name="My Repaired"></Navbar>
@@ -61,14 +54,7 @@ const MyRepairs = () => {
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <div>
-            <StatusGroup
-              isSelected={checkedRows?.length <= 0}
-              handleReturnData={handleReturnData}
-              handleDeleteData={handleDeleteData}
-              isButton
-              dltBtnValue="Delete"
-              returnBtnValue="Return to the QC Library"
-            />
+            <StatusGroup />
           </div>
           <div className="pt-5">
             <CommonTable
