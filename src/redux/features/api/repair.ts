@@ -38,7 +38,7 @@ const RepairApi = baseApi.injectEndpoints({
     getOldRepairs: builder.query({
       query: (params) => {
         return {
-          url: `/repair/my-library/${params?.id}?warranty=true&${params?.query}`,
+          url: `/repair/my-library/${params?.id}?warranty=true&repair_status=Repair%20Difficulty&repair_status=Leak%20material&repair_status=Repaired&repair_status=Not%20Repairable&repair_status=Reject&repair_status=CN&repair_status=CID&repair_status=NTF${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -49,7 +49,7 @@ const RepairApi = baseApi.injectEndpoints({
     getOldRepairsForService: builder.query({
       query: (params) => {
         return {
-          url: `/repair/my-library/${params?.id}?warranty=false&${params?.query}`,
+          url: `/repair/my-library/${params?.id}?warranty=false&repair_status=Repair%20Difficulty&repair_status=Leak%20material&repair_status=Repaired&repair_status=Not%20Repairable&repair_status=Reject&repair_status=CN&repair_status=CID&repair_status=NTF$${params?.query}`,
           headers: {
             authorization: params?.token,
           },

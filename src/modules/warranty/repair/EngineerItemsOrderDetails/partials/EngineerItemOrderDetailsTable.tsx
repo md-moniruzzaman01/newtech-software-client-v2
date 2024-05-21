@@ -30,27 +30,28 @@ const EngineerItemOrderDetailsTable = ({ data }) => {
 
         <hr className="border-b border-shadeOfGray my-2" />
 
-        {/* third row start here  */}
-        {/* <div className="grid grid-cols-4  text-start">
-          <div className="border-l py-2 border-y border-gray-400 col-span-2 pl-[60px]">
-            Consulting
-          </div>
-          <div className="border-t border-b border-gray-400"></div>
-          <div className="border py-2 border-gray-400 text-center">
-            Status : Diagnosis
-          </div>
-        </div>
-        <hr className="border-b border-shadeOfGray my-2" /> */}
         {/* fourth row start here  */}
-        <div className="grid grid-cols-4  text-start">
-          <div className="border-l py-2 border-y border-gray-400 col-span-2 pl-[60px]">
-            Materials Replacement: Yes / No
-          </div>
-          <div className="border-t border-b border-gray-400"></div>
-          <div className="border py-2 border-gray-400 text-center">
-            Status : Diagnosis
-          </div>
-        </div>
+        {data?.repair?.partrequest?.length > 0 &&
+          data?.repair?.partrequest?.map((item, index) => (
+            <div key={index}>
+              <div className="grid grid-cols-4  text-start">
+                <div className="border-l py-2 border-y border-gray-400  pl-[60px]">
+                  Parts: {item?.parts?.toString()}
+                </div>
+                <div className="border-t border-b border-l border-gray-400 py-2 text-center">
+                  {" "}
+                  Note: {item?.note}
+                </div>
+                <div className="border py-2 border-gray-400 text-center">
+                  Status : {item?.status}
+                </div>
+                <div className="border py-2 border-gray-400 text-center">
+                  Created : {item?.createdAt?.toString()?.slice(0, 10)}
+                </div>
+              </div>
+              <hr className="border-b border-shadeOfGray my-2" />
+            </div>
+          ))}
 
         <div>
           <hr className="border-b border-shadeOfGray my-2" />

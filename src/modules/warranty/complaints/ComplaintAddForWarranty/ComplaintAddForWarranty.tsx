@@ -446,19 +446,19 @@ const ComplaintAddForWarranty = () => {
               {/* Remark  */}
               <div>
                 <Input
-                  defaultValue={`${selectData ? selectData?.attachments : ""}`}
-                  required
-                  inputName="remark"
-                  labelName="Remark"
+                  defaultValue={`${selectData ? selectData?.problems : ""}`}
+                  inputName="problems"
+                  labelName="Problems"
+                  inputPlaceholder="Write here..."
                 ></Input>
               </div>
               {/* Problem  */}
               <div className="col-span-3">
                 <TextArea
-                  defaultValue={`${selectData ? selectData?.problems : ""}`}
-                  name="problems"
-                  label="Problems"
-                  placeholder="Write here..."
+                  defaultValue={`${selectData ? selectData?.attachments : ""}`}
+                  required
+                  name="remark"
+                  label="Remark"
                 />
               </div>
               <div className="col-span-3  justify-end flex items-end pb-5">

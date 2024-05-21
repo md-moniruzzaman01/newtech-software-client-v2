@@ -48,7 +48,7 @@ const QCMyItems = () => {
 
   return (
     <div className=" px-5">
-      <Navbar name="QC My Library"></Navbar>
+      <Navbar name="My QC Items"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -63,7 +63,6 @@ const QCMyItems = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
-              link="/qc/order-details"
             />
           </div>
         </div>

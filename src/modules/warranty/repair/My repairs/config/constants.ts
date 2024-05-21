@@ -12,7 +12,6 @@ export const MyRepairHeader = [
   "S/N No.",
   "Status",
   "Qc CreatedAt",
-  "Action",
 ];
 
 export const tableLayout = [

@@ -85,20 +85,24 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
             <p>Complaint ID : </p>
 
             <p>Status : </p>
+            {info?.warranty === true && <p>TAT: </p>}
           </div>
           <div className="space-y-1">
             <p className="text-primary">{info?.order_number}</p>
 
             <p>{info?.warranty ? "Warranty" : "NON warranty "}</p>
+            {info?.warranty === true && (
+              <p className="text-red-600">{turnaround_time}</p>
+            )}
           </div>
         </div>
-
         <div className="flex w-7/12 justify-end items-end">
           <div className="w-3/12 space-y-1">
             <p>Name: </p>
-            <p>contact no. : </p>
+            {info?.warranty === true && <p>Company: </p>}
+            <p>Contact no: </p>
             <p>RD : </p>
-            <p>TAT : </p>
+            {info?.warranty === false && <p>TAT : </p>}
           </div>
           <div className="space-y-1">
             <p className="text-primary">
@@ -107,6 +111,12 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
                 <span className="ml-2 ">{info?.customer?.contact_person}</span>
               ) : (
                 <span className="ml-2">{info?.Nonwarrentycustomer?.name}</span>
+              )}
+            </p>
+            <p className="text-primary">
+              {" "}
+              {info?.warranty && (
+                <span className="ml-2 ">{info?.customer?.company || ""}</span>
               )}
             </p>
             <p className="text-primary">
@@ -120,7 +130,9 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
               )}
             </p>
             <p>{receivedDate}</p>
-            <p className="text-red-600">{turnaround_time}</p>
+            {info?.warranty === false && (
+              <p className="text-red-600">{turnaround_time}</p>
+            )}
           </div>
         </div>
       </section>

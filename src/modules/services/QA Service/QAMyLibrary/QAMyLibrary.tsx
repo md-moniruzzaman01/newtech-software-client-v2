@@ -44,8 +44,6 @@ const QCMyLibraryService = () => {
     }
   }, [data]);
 
-  console.log(data);
-
   const handleReturnData = async () => {
     const fullData = {
       repairIds: checkedRows,
@@ -65,7 +63,7 @@ const QCMyLibraryService = () => {
 
   return (
     <div className=" px-5">
-      <Navbar name="Service My QA Library"></Navbar>
+      <Navbar name="Service My QA Items"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -83,7 +81,6 @@ const QCMyLibraryService = () => {
           </div>
           <div className="pt-5">
             <CommonTable
-              link="/service/qa-items/order-details"
               headerData={MyQCTableHeader}
               itemData={data?.data}
               checkbox

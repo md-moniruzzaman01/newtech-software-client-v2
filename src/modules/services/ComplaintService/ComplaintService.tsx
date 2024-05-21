@@ -272,24 +272,24 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
                 ></Input>
               </div>
 
-              {/* attachments  */}
+              {/* Problems  */}
               <div className="col-span-2">
                 <Input
-                  defaultValue={`${selectData ? selectData?.attachments : ""}`}
-                  inputName="attachments"
-                  inputPlaceholder="Remark"
-                  labelName="Remark"
+                  defaultValue={`${selectData ? selectData?.problems : ""}`}
+                  inputName="problem"
+                  labelName="Problem"
+                  inputPlaceholder="Write Problem"
                 ></Input>
               </div>
 
-              {/* Problem  */}
+              {/* attachment  */}
               <div className="col-span-3">
                 <TextArea
-                  defaultValue={`${selectData ? selectData?.problems : ""}`}
-                  name="problem"
-                  label="Write Problem"
-                  placeholder="Write Problem"
-                ></TextArea>
+                  defaultValue={`${selectData ? selectData?.attachments : ""}`}
+                  name="attachments"
+                  placeholder="Remark"
+                  label="Remark"
+                />
                 <div className="flex justify-end py-5">
                   {selectData ? (
                     <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">

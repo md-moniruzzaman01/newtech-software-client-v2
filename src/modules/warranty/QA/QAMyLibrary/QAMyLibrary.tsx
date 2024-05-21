@@ -64,7 +64,7 @@ const QCMyLibrary = () => {
   };
   return (
     <div className=" px-5">
-      <Navbar name="My QA Library"></Navbar>
+      <Navbar name="My QA Items"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -87,7 +87,6 @@ const QCMyLibrary = () => {
               itemData={data?.data}
               checkbox
               checkedRows={checkedRows}
-              link="/qa-items/order-details"
               setCheckedRows={setCheckedRows}
             />
           </div>

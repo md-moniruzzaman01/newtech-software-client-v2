@@ -26,7 +26,9 @@ const EngineerItemsOrderDetails = () => {
         return <EngineerItemOrderStatus />;
 
       case 2:
-        return <EngineerPartsReplace id={id} repairId={data?.data?.repairId} />;
+        return (
+          <EngineerPartsReplace id={data?.data?.repairId} repairItemId={id} />
+        );
     }
   }
   if (isLoading) {

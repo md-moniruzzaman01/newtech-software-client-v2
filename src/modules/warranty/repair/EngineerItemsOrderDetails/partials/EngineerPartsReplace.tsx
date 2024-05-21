@@ -12,15 +12,16 @@ import { showSwal } from "../../../../../shared/helpers/SwalShower.ts";
 
 const EngineerPartsReplace = ({
   id,
-  repairId,
+  repairItemId,
 }: {
   id: string;
-  repairId: string;
+  repairItemId: string;
 }) => {
   const token = getFromLocalStorage(authKey);
   const [createPartsRequest, { isLoading, isError, error }] =
     useCreatePartsRequestMutation();
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const partname = (form.elements.namedItem("parts") as HTMLInputElement)
@@ -28,13 +29,14 @@ const EngineerPartsReplace = ({
     const note = (form.elements.namedItem("note") as HTMLInputElement).value;
     const parts = shedAndSplit(partname);
 
-    const fullData = { parts, note, repairItemId: id };
-    const result = createPartsRequest({ fullData, token, id: repairId });
+    const fullData = { parts, note, repairItemId };
+    const result = await createPartsRequest({ fullData, token, id });
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
       form.reset();
     }
   };
+
   if (isError) {
     return <ErrorShow error={error} />;
   }

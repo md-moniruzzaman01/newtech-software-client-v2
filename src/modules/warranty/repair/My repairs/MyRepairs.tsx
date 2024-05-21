@@ -72,7 +72,6 @@ const MyRepairs = () => {
           </div>
           <div className="pt-5">
             <CommonTable
-              link="/engineer-items/order-details"
               itemData={data?.data}
               headerData={MyRepairHeader}
               dataLayout={tableLayout}
