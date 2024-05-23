@@ -22,8 +22,10 @@ const MainCategoryPage = () => {
     };
 
     const result = await createMainCategory({ mainCategory, token });
-    // form.reset();
-    showSwal(result);
+    const swalIstrue = showSwal(result);
+    if (swalIstrue) {
+      form.reset();
+    }
   };
 
   return (

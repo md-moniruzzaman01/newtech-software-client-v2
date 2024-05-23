@@ -93,8 +93,8 @@ const Complaint = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         const result: any = await updateDeliveryComplaints({ token, fullData });
-        showSwal(result);
-        if (result?.data.success) {
+        const swalIstrue = showSwal(result);
+        if (swalIstrue) {
           setCheckedRows([]);
         }
       } else {
@@ -114,8 +114,8 @@ const Complaint = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         const result: any = await cancelComplaints({ token, fullData });
-        showSwal(result);
-        if (result?.data.success) {
+        const swalIstrue = showSwal(result);
+        if (swalIstrue) {
           setCheckedRows([]);
         }
       } else {
@@ -134,8 +134,8 @@ const Complaint = () => {
     }).then(async (willDelete) => {
       if (willDelete) {
         const result: any = await deleteComplaints({ token, fullData });
-        showSwal(result);
-        if (result?.data.success) {
+        const swalIstrue = showSwal(result);
+        if (swalIstrue) {
           setCheckedRows([]);
         }
       } else {

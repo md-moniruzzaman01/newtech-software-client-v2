@@ -78,8 +78,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <div className="flex items-center gap-2 ">
           {isMiddleBtn && (
             <div className="flex gap-2">
-              {/* isMiddleBtnActive === "Completed" && */}
-              {handleDelivery && (
+              {isMiddleBtnActive === "Completed" && handleDelivery && (
                 <Button
                   disabled={disabled}
                   mini
@@ -90,7 +89,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   Delivery
                 </Button>
               )}
-              {isMiddleBtnActive === "Pending" && (
+              {isMiddleBtnActive === "Pending" && handleReturn && (
                 <Button
                   disabled={disabled}
                   loading={isReturnLoading}
