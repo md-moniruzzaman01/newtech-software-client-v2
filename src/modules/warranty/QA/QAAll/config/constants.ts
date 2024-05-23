@@ -4,8 +4,6 @@ export const QATableHeader = [
   "Engineer Name",
   "Status",
   "Qc CreatedAt",
-
-  "Action",
 ];
 
 export const tableLayout = [

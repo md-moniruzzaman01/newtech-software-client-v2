@@ -88,6 +88,7 @@ const QCMyLibrary = () => {
               checkbox
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
+              link="/qa-items/order-details"
             />
           </div>
         </div>

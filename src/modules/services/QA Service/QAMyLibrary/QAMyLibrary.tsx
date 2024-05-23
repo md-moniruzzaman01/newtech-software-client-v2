@@ -87,6 +87,7 @@ const QCMyLibraryService = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               dataLayout={tableLayout}
+              link="/service/qa-items/order-details"
             />
           </div>
         </div>

@@ -12,7 +12,6 @@ export const tableLayout = [
   "item?.serial_number",
   "item?.status",
   "item?.createdAt?.toString().slice(0, 10)",
-  "item?.repair?.received_date?.toString().slice(0, 10)",
 ];
 
 export const MyQCTableHeader = [
@@ -21,7 +20,6 @@ export const MyQCTableHeader = [
   "S/N No",
   "Status",
   "Qc CreatedAt",
-  "Action",
 ];
 
 export const fields = "";

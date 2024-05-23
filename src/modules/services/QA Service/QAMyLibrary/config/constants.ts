@@ -6,6 +6,7 @@ export const MyQCTableHeader = [
   "Status",
   "Qc CreatedAt",
   "RD",
+  "Action",
 ];
 
 export const qcSelectData = { id: "", user: "" };

@@ -75,7 +75,6 @@ const EngineerAllRepairs = () => {
               itemData={data?.data}
               headerData={MyQCTableHeader}
               dataLayout={tableLayout}
-              link="/engineer-items/order-details"
               checkbox
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
