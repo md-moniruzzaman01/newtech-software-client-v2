@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Pagination.css";
 import { Dispatch, SetStateAction } from "react";
 
@@ -10,12 +10,18 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  currentPage = 1,
+  currentPage,
   totalItems = 0,
   limit = 10,
   setCurrentPage,
 }) => {
   const numberOfPages = Math.ceil(totalItems / limit) || 0;
+
+  useEffect(() => {
+    if (currentPage > numberOfPages) {
+      setCurrentPage(1);
+    }
+  }, [currentPage, numberOfPages, setCurrentPage]);
 
   const handleItemsPerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedPage = parseInt(e.target.value);

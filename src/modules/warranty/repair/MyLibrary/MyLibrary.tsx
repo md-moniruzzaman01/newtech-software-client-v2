@@ -25,7 +25,7 @@ import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const MyLibrary = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
   const [checkedRows, setCheckedRows] = useState<
