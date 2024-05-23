@@ -62,7 +62,7 @@ const ComplaintBuffers = () => {
               itemData={buffers?.data}
               headerData={complaintsTableHeader}
               dataLayout={tableLayout}
-              link="/complaints/order-details"
+              // link="/complaints/order-details"
             />
           </div>
         </div>

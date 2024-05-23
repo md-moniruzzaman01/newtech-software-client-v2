@@ -1,18 +1,17 @@
 export const tableLayout = [
-  "item?.id",
-  "item?.order_number",
-  "item?.products?.serial_number",
-  "item?.products?.model_number",
-  "item?.customer?.contact_person || item?.Nonwarrentycustomer?.name || 'N/A'",
+  "item?.model_number",
+  "item?.serial_number",
+  "item?.category_name",
+  "item?.branch",
   "item?.brand_name",
-  "item?.Qc?.length",
-  "item?.Qa?.length",
+  "item?.repair_count",
+  "item?.problems",
   "item?.repair_status",
   "item?.received_date?.toString()?.slice(0,10)",
 ];
 
 export const fields =
-  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer";
+  "attachments, branch, brand_name, category_name, createdAt, model_number, problems, received_date, repair_count, repair_status, serial_number";
 export const keys = [
   "brand_name",
   "branch",
@@ -25,15 +24,13 @@ export const keys = [
 ];
 
 export const complaintsTableHeader = [
-  "ID",
-  "Order No",
-  "S/N No.",
   "Model No",
-  "Customer Name",
+  "Serial No",
+  "Category",
+  "Branch",
   "Brand",
-  "QC",
-  "QA",
+  "RC",
+  "Problems",
   "Status",
   "RD",
-  "Action",
 ];

@@ -114,7 +114,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
     getBuffers: builder.query({
       query: (params) => {
         return {
-          url: `/complaints?repair_status=Buffer&${params?.query}`,
+          url: `/product?repair_status=Buffer&repair_status=Repair%20Difficulty&repair_status=Not%20Repairable&repair_status=Leak%20material&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

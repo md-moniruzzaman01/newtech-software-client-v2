@@ -89,7 +89,7 @@ const QAItems = () => {
 
   return (
     <div className="px-5">
-      <Navbar name={"QA Items"} />
+      <Navbar name={"QA Library"} />
       <div className="py-5">
         <SearchBar
           dropdownPlaceHolder="Assign to QA"

@@ -78,7 +78,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
         <div className="flex items-center gap-2 ">
           {isMiddleBtn && (
             <div className="flex gap-2">
-              {isMiddleBtnActive === "Completed" && handleDelivery && (
+              {/* isMiddleBtnActive === "Completed" && */}
+              {handleDelivery && (
                 <Button
                   disabled={disabled}
                   mini
