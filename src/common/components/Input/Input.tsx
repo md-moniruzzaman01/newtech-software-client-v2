@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface InputProps {
   labelName?: string;
+  className?: string;
   inputPlaceholder?: string;
   inputType?: string;
   inputName?: string;
@@ -14,6 +15,7 @@ interface InputProps {
 
 const Input: React.FC<InputProps> = ({
   labelName,
+  className,
   inputPlaceholder = "Write here...",
   inputType = "text",
   inputName,
@@ -40,7 +42,7 @@ const Input: React.FC<InputProps> = ({
             disabled={IsDisabled}
             placeholder={inputPlaceholder}
             defaultValue={defaultValue}
-            className="border-2 w-full rounded-sm  py-2 pl-2"
+            className={`${className} border-2 w-full rounded-sm  py-2 pl-2`}
             step={`${inputType === "number" && "any"}`}
           />
         </div>

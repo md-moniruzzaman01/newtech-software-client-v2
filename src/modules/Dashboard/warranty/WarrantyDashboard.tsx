@@ -17,6 +17,7 @@ import { useGetCardDataQuery } from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
 import { icons } from "../../../shared/libs/Icons";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const WarrantyDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -69,12 +70,21 @@ const WarrantyDashboard = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
+  console.log(CardData);
   return (
     <div className="px-5">
       <div className="pb-5">
         <Navbar name="Welcome," />
       </div>
       <div className="grid grid-cols-4 gap-3">
+        <TotalCard
+          data={[
+            { label: "Total Complaints", value: 200 },
+            { label: "Total Product", value: 200 },
+            { label: "Total Repairs", value: 200 },
+          ]}
+          className="bg-mintFrost"
+        />
         <DashboardCard
           link="/complaints?repair_status=Pending"
           title="Pending"
@@ -90,7 +100,7 @@ const WarrantyDashboard = () => {
           icon={<DeliveryIcon />}
         />
         <DashboardCard
-          link="/complaints?repair_status=In-Progress"
+          link="/complaints?repair_status=In+Progress"
           title="In Progress"
           money={`${CardData?.InProgressCount}`}
           className="bg-creamyPeach"
@@ -107,7 +117,7 @@ const WarrantyDashboard = () => {
         <DashboardCard
           link="/complaints?repair_status=buffer"
           title="Buffer"
-          money={`${CardData?.BufferCounts}`}
+          money={`${CardData?.BufferCount}`}
           className="bg-LightLavender"
           icon={<BufferIcon />}
         />

@@ -307,6 +307,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
           <div className="flex justify-center  py-7">
             <div className="flex gap-20">
               <Button
+                animationLength={addedItem?.length}
                 loading={!redirectToPayment && loading}
                 onClick={() =>
                   handleDataSubmit(

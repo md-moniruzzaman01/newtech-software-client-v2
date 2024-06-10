@@ -42,6 +42,7 @@ export const handleDataSubmit = async (
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result?.message);
         if (result?.success) {
           setAddedItem([]);
           const dataIds = result?.data?.map((item: { id: string }) => item?.id);
@@ -82,7 +83,7 @@ export const handleDataSubmit = async (
             window.open(`/recipe/${result.data?.toString()}`, "Print recipe!");
           }
         } else if ("error" in result || "errorMessages" in result) {
-          swal(`${result?.error?.data?.message}`, {
+          swal(`${result?.message}`, {
             icon: "error",
           });
         }

@@ -1,3 +1,4 @@
+import swal from "sweetalert";
 import { partnerProps } from "../../../../shared/config/types";
 import { updateAddedItemProps } from "../config/types";
 
@@ -80,11 +81,15 @@ export const handleAddItem = (
   } else {
     updatedAddedItem = [...addedItem, data];
   }
+  if (updatedAddedItem?.length > 25) {
+    swal("warning", "You can't select more than 25 items", "warning");
+  } else {
+    setAddedItem(updatedAddedItem);
 
-  setAddedItem(updatedAddedItem);
+    localStorage.setItem("addedItem", JSON.stringify(updatedAddedItem));
+    localStorage.setItem("customerInfo", JSON.stringify(partner));
+  }
 
-  localStorage.setItem("addedItem", JSON.stringify(updatedAddedItem));
-  localStorage.setItem("customerInfo", JSON.stringify(partner));
   form.reset();
 };
 

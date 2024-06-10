@@ -15,7 +15,6 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Button from "../../../../common/components/Button";
 import Input from "../../../../common/components/Input";
 import InputFilter from "../../../../common/components/InputFilter/InputFilter";
-import TextArea from "../../../../common/components/TextArea/TextArea";
 
 import { defaultPartnerInfoStatic } from "./config/constants";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
@@ -456,11 +455,12 @@ const ComplaintAddForWarranty = () => {
               </div>
               {/* Problem  */}
               <div className="col-span-3">
-                <TextArea
+                <Input
+                  className="pb-7"
                   defaultValue={`${selectData ? selectData?.attachments : ""}`}
                   required
-                  name="remark"
-                  label="Remark"
+                  inputName="remark"
+                  labelName="Remark"
                 />
               </div>
               <div className="col-span-3  justify-end flex items-end pb-5">
@@ -479,6 +479,7 @@ const ComplaintAddForWarranty = () => {
           <div className="flex justify-center  pt-7 pb-5">
             <div className="w-1/2">
               <Button
+                animationLength={warrantyAddedItem?.length}
                 disabled={warrantyAddedItem?.length <= 0}
                 loading={isLoading}
                 className="w-full"

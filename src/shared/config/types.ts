@@ -24,6 +24,7 @@ export type ButtonProps = {
   small?: boolean;
   link?: boolean;
   transparent?: boolean;
+  animationLength?: number;
 };
 
 export type InventoryTableFilterProps = {

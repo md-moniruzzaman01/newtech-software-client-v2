@@ -11,11 +11,11 @@ export const keys = [
 
 export const btnValue = [
   { label: "Pending", value: "Pending" },
-  { label: "In%20Progress", value: "In Progress" },
+  { label: "In Progress", value: "In Progress" },
   { label: "Cancel", value: "Cancel" },
   { label: "Reject", value: "Reject" },
   { label: "Required Parts", value: "Required Parts" },
-  { label: "Repair%20failed", value: "Repair failed" },
+  { label: "Repair failed", value: "Repair failed" },
   { label: "Completed", value: "Completed" },
   { label: "Delivered", value: "Delivered" },
   { label: "Unpaid", value: "Unpaid" },

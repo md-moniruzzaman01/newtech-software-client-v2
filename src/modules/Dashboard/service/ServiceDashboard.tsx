@@ -16,6 +16,7 @@ import { useGetCardDataForServiceQuery } from "../../../redux/features/api/other
 import Chart from "./partials/chart";
 import { icons } from "../../../shared/libs/Icons";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const ServiceDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -74,6 +75,14 @@ const ServiceDashboard = () => {
       </div>
 
       <div className="grid grid-cols-4 gap-3">
+        <TotalCard
+          data={[
+            { label: "Total Complaints", value: 200 },
+            { label: "Total Product", value: 200 },
+            { label: "Total Repairs", value: 200 },
+          ]}
+          className="bg-mintFrost"
+        />
         <DashboardCard
           link="/complaints-service?repair_status=Pending"
           title="Pending"
@@ -89,7 +98,7 @@ const ServiceDashboard = () => {
           icon={<DeliveryIcon />}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=In-Progress"
+          link="/complaints-service?repair_status=In+Progress"
           title="In Progress"
           money={`${CardData?.InProgressCount}`}
           className="bg-creamyPeach"
@@ -112,7 +121,7 @@ const ServiceDashboard = () => {
           icon={icons?.unPaid}
         />
         <DashboardCard
-          link="/complaints-service?repair_status=repair failed"
+          link="/complaints-service?repair_status=Repair+failed"
           title="Repair Failed"
           money={`${CardData?.repairfailedCount}`}
           className="bg-LightLavender"
