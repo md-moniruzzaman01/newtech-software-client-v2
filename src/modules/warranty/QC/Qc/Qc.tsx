@@ -27,7 +27,7 @@ const Qc = () => {
   const [qcData, setQCData] = useState<QATableBodyProps[] | []>([]);
   const [engineers, setEngineers] = useState([]);
   const [searchParams] = useSearchParams();
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
 
   const {

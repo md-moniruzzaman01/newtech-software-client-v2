@@ -57,6 +57,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setQuery("searchTerm", route);
     setActiveRoute(route);
   };
+
   return (
     <div>
       <div className="flex justify-between items-center">

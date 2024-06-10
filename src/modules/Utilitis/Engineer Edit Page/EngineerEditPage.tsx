@@ -82,7 +82,8 @@ const EngineerEditPage = () => {
         profileImage: "img",
       },
     };
-    const result: any = await editEngineer({ fullData, token });
+    const result: any = await editEngineer({ fullData, token, id });
+    console.log(result);
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
       setPowerArr([]);

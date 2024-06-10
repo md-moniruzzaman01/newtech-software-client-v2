@@ -42,13 +42,14 @@ const EngineerApi = baseApi.injectEndpoints({
       },
     }),
     editEngineer: builder.mutation({
-      query: ({ token, id }) => {
+      query: ({ fullData, token, id }) => {
         return {
           url: `/engineers/${id}`,
           method: "PATCH",
           headers: {
             authorization: token,
           },
+          body: fullData,
         };
       },
     }),

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Pagination.css";
 import { Dispatch, SetStateAction } from "react";
 
@@ -10,89 +10,136 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
+  currentPage = 1,
   totalItems = 0,
   limit = 10,
   setCurrentPage,
 }) => {
+  const [inputValue, setInputValue] = useState<string | number>(currentPage);
   const numberOfPages = Math.ceil(totalItems / limit) || 0;
 
   useEffect(() => {
     if (currentPage > numberOfPages) {
-      setCurrentPage(1);
+      setCurrentPage?.(1);
     }
   }, [currentPage, numberOfPages, setCurrentPage]);
 
-  const handleItemsPerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedPage = parseInt(e.target.value);
+  useEffect(() => {
+    setInputValue(currentPage);
+  }, [currentPage]);
 
-    if (setCurrentPage && selectedPage <= numberOfPages && selectedPage >= 0) {
-      setCurrentPage(selectedPage);
-    } else {
-      setCurrentPage(numberOfPages);
+  const handleItemsPerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value === "" ? "" : parseInt(e.target.value, 10);
+    setInputValue(value);
+
+    if (
+      setCurrentPage &&
+      typeof value === "number" &&
+      value <= numberOfPages &&
+      value >= 1
+    ) {
+      setCurrentPage(value);
+    }
+  };
+
+  const handleBlur = () => {
+    if (inputValue === "") {
+      setInputValue(currentPage);
+    } else if (typeof inputValue === "number") {
+      if (inputValue < 1) {
+        setInputValue(1);
+        setCurrentPage?.(1);
+      } else if (inputValue > numberOfPages) {
+        setInputValue(numberOfPages);
+        setCurrentPage?.(numberOfPages);
+      }
     }
   };
 
   const handlePrevPage = () => {
-    if (setCurrentPage && currentPage && currentPage > 1) {
+    if (setCurrentPage && currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
   const handleNextPage = () => {
-    if (setCurrentPage && currentPage && currentPage < numberOfPages) {
+    if (setCurrentPage && currentPage < numberOfPages) {
       setCurrentPage(currentPage + 1);
     }
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+
+    if (numberOfPages <= 5) {
+      for (let i = 1; i <= numberOfPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) {
+          pageNumbers.push(i);
+        }
+        pageNumbers.push("...");
+        pageNumbers.push(numberOfPages);
+      } else if (currentPage > numberOfPages - 3) {
+        pageNumbers.push(1);
+        pageNumbers.push("...");
+        for (let i = numberOfPages - 3; i <= numberOfPages; i++) {
+          pageNumbers.push(i);
+        }
+      } else {
+        pageNumbers.push(1);
+        pageNumbers.push("...");
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+          pageNumbers.push(i);
+        }
+        pageNumbers.push("...");
+        pageNumbers.push(numberOfPages);
+      }
+    }
+
+    return pageNumbers.map((page, index) =>
+      typeof page === "number" ? (
+        <button
+          className={currentPage === page ? "selected" : undefined}
+          onClick={() => setCurrentPage?.(page)}
+          key={index}
+        >
+          {page}
+        </button>
+      ) : (
+        <button key={index} disabled>
+          {page}
+        </button>
+      )
+    );
   };
 
   return (
     <div className="flex justify-between w-[35rem] bg-grayForBorder rounded-md p-2 ">
       <p className="mt-2">
-        Total : <span>{totalItems}</span>
+        Total: <span>{totalItems}</span>
       </p>
 
       <div className="pagination">
-        <button onClick={handlePrevPage}>Prev</button>
-        {numberOfPages &&
-          Array?.from({ length: numberOfPages })?.map((_, index) => {
-            const page = index + 1;
-            if (
-              page === 1 ||
-              page === numberOfPages ||
-              page === currentPage ||
-              (page >= currentPage - 2 && page <= currentPage + 2) ||
-              (currentPage >= 5 && page === 2) ||
-              (currentPage <= numberOfPages - 4 && page === numberOfPages - 1)
-            ) {
-              return (
-                <button
-                  className={currentPage === page ? "selected" : undefined}
-                  onClick={() => setCurrentPage && setCurrentPage(page)}
-                  key={page}
-                >
-                  {page}
-                </button>
-              );
-            } else if (
-              (page === currentPage - 3 && currentPage > 4) ||
-              (page === currentPage + 3 && currentPage < numberOfPages - 3)
-            ) {
-              return (
-                <button key={page} disabled>
-                  ...
-                </button>
-              );
-            }
-            return null;
-          })}
-        <button onClick={handleNextPage}>Next</button>
-        {/* Select dropdown for page selection */}
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Prev
+        </button>
+        {renderPageNumbers()}
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === numberOfPages}
+        >
+          Next
+        </button>
         <input
           type="number"
-          defaultValue={currentPage}
+          value={inputValue}
           onChange={handleItemsPerPage}
+          onBlur={handleBlur}
           name="changePage"
-          className=" w-14 py-1 border rounded-md text-center ml-4 border-grayForBorder"
+          className="w-14 py-1 border rounded-md text-center ml-4 border-grayForBorder"
           min="1"
           max={numberOfPages}
         />
