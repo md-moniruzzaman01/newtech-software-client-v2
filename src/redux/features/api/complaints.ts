@@ -80,6 +80,16 @@ const ComplaintsApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getProductById: builder.query({
+      query: (params) => {
+        return {
+          url: `/product/${params?.id}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
     getMyComplaint: builder.query({
       query: (params) => {
         return {
@@ -132,6 +142,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
 
 export const {
   useComplaintAddMutation,
+  useGetProductByIdQuery,
   useGetComplaintsQuery,
   useGetComplaintByIdQuery,
   useGetMyComplaintQuery,

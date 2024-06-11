@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const EngineerItemOrderDetailsTable = ({ product }: { product: any }) => {
-  console.log(product);
   return (
     <div className="w-full">
       {/* header row start here  */}

@@ -10,7 +10,7 @@ export const QCTableHeader = [
 export const tableLayout = [
   "item.id",
   "item?.repairId",
-  "item.serial_number",
+  "item?.serial_number",
   "item.rma",
   "item?.status",
   "item.createdAt?.toString()?.slice(0,10)",

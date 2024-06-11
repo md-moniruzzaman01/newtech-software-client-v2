@@ -160,6 +160,8 @@ export type ComplaintMiniCardProps = {
   img?: string;
   status?: string;
   notes?: string;
+  date?: string;
+  note?: string;
 };
 
 export type InventoryRequestDetailsCardProps = {

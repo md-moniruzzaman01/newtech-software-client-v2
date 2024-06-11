@@ -40,7 +40,7 @@ const ProductList = () => {
   if (isError) {
     return <ErrorShow error={error} />;
   }
-
+  console.log(data?.data);
   return (
     <div className=" px-5">
       <Navbar name="Product" />
@@ -58,6 +58,7 @@ const ProductList = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
+              link="/product-list/details"
             />
           </div>
         </div>

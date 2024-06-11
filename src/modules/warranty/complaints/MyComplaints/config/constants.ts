@@ -10,8 +10,8 @@ export const keys = [
 
 export const complaintsTableHeader = [
   "Order ID",
-  "Model No.",
   "S/N No.",
+  "Model No.",
   "Customer Name",
   "category",
   "Brand",

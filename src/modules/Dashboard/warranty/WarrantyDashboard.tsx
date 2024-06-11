@@ -17,7 +17,8 @@ import { useGetCardDataQuery } from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
 import { icons } from "../../../shared/libs/Icons";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
-import TotalCard from "../../../common/components/TotalCard/TotalCard";
+import FullBox from "../../../shared/libs/custom icons/FullBox";
+// import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const WarrantyDashboard = () => {
   const [billData, setBillData] = useState([]);
@@ -33,6 +34,7 @@ const WarrantyDashboard = () => {
     CompletedCount: 0,
     CancelCount: 0,
     repairfailedCount: 0,
+    TotalComplaintsCount: 0,
   });
 
   const token = getFromLocalStorage(authKey);
@@ -70,20 +72,26 @@ const WarrantyDashboard = () => {
   if (complaintsLoading) {
     return <LoadingPage />;
   }
-  console.log(CardData);
   return (
     <div className="px-5">
       <div className="pb-5">
         <Navbar name="Welcome," />
       </div>
       <div className="grid grid-cols-4 gap-3">
-        <TotalCard
+        {/* <TotalCard
           data={[
             { label: "Total Complaints", value: 200 },
             { label: "Total Product", value: 200 },
             { label: "Total Repairs", value: 200 },
           ]}
           className="bg-mintFrost"
+        /> */}
+        <DashboardCard
+          link="/complaints?repair_status=Pending"
+          title="Total Complaints"
+          money={`${CardData?.TotalComplaintsCount}`}
+          className="bg-LightLavender"
+          icon={<FullBox />}
         />
         <DashboardCard
           link="/complaints?repair_status=Pending"

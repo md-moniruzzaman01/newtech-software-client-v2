@@ -17,8 +17,8 @@ export const fields = "";
 
 export const MyEngineerLibraryHeader = [
   "ID",
-  "Order ID",
   "S/N No.",
+  "Order ID",
   "Engineer ID",
   "Status",
   "Qc CreatedAt",
@@ -27,8 +27,8 @@ export const MyEngineerLibraryHeader = [
 
 export const tableLayout = [
   "item?.id",
-  "item?.repairId",
   "item?.serial_number",
+  "item?.repairId",
   "item?.engineer?.id",
   "item?.status",
   " item?.createdAt?.toString()?.substring(0, 10)",

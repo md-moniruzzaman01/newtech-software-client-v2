@@ -108,14 +108,29 @@ const CommonTable: FC<CommonTableProps> = ({
                     )}
 
                     {dataLayout.map((layout, idx) => (
-                      <td key={idx} className="border">
-                        {eval(layout) || emptyData}
+                      <td key={idx} className="border ">
+                        {(layout === "item?.products?.serial_number" ||
+                          layout === "item?.serial_number") &&
+                        link ? (
+                          <NavLink
+                            className="text-solidBlack hover:underline hover:text-shadeOfGray"
+                            to={`${link}/${
+                              productData
+                                ? item?.repair[item?.repair?.length - 1]?.id
+                                : item?.id || item?._id
+                            }`}
+                          >
+                            {eval(layout)}
+                          </NavLink>
+                        ) : (
+                          eval(layout) || emptyData
+                        )}
                       </td>
                     ))}
                     {btnLink && (
                       <td className="border">
                         <NavLink
-                          className=" !text-black flex justify-center"
+                          className="!text-black flex justify-center"
                           target="_blank"
                           to={`${btnLink}/${item?.id}`}
                         >
@@ -142,7 +157,7 @@ const CommonTable: FC<CommonTableProps> = ({
                           to={`${link}/${
                             productData
                               ? item?.repair[item?.repair?.length - 1]?.id
-                              : item?.id
+                              : item?.id || item?._id
                           }`}
                         >
                           <IoMdEye />

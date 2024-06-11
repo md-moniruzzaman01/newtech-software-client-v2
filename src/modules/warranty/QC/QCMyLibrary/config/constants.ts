@@ -1,7 +1,7 @@
 export const MyQCTableHeader = [
   "ID",
-  "complaints ID",
   "S/N No.",
+  "complaints ID",
   "Engineer",
   "Status",
   "Qc CreatedAt",
@@ -21,8 +21,8 @@ export const keys = [
 
 export const tableLayout = [
   "item.id",
+  "item?.serial_number",
   "item?.repairId",
-  "item.serial_number",
   `${"item?.qc_checker_id?.Engineer?.name?.firstName"} +" " + ${"item?.qc_checker_id?.Engineer?.name?.lastName"}`,
   "item?.status",
   "item.createdAt?.toString()?.slice(0,10)",

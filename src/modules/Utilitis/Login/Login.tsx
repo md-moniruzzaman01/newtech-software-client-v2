@@ -52,15 +52,27 @@ const Login = () => {
           localStorage.setItem("refreshToken", data.data.accessToken);
           setToLocalStorage("activeRoute", "true");
           const user = getUserInfo();
-          swal(
-            "success",
 
-            `${data?.message}\n${
-              data?.data?.needsPasswordChange
-                ? "Password is weak. Please make it stronger."
-                : ""
-            }`
-          );
+          if (data?.data?.needsPasswordChange) {
+            swal({
+              title: "Login Successful",
+              text: "You need to change your password. Would you like to proceed?",
+              icon: "success",
+              buttons: ["Later", "Change Password"],
+              dangerMode: true,
+            }).then((willChange) => {
+              if (willChange) {
+                navigate("/user-change-password");
+              }
+            });
+          } else {
+            swal({
+              title: "Success",
+              text: `${data?.message}`,
+              icon: "success",
+            });
+          }
+
           if (activeRoute === true) {
             if (user?.role === "admin") {
               navigate("/");

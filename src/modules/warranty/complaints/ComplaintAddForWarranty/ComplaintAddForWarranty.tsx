@@ -66,12 +66,18 @@ const ComplaintAddForWarranty = () => {
   const [mainCategoryValue, setMainCategoryValue] = useState("");
   const [categoryValue, setCategoryValue] = useState("");
 
+  // console.log("category", categories);
+  // console.log("maincategory", mainCategoryValue);
+
   const mainCategoryId =
     mainCategories?.length &&
     mainCategories?.find((item) => item?.value === mainCategoryValue);
 
   const brandId =
-    brands?.length && brands?.find((item) => item?.value === brandValue);
+    brands?.length &&
+    brands?.find(
+      (item) => item?.value === brandValue || partnerInfo?.brandValue
+    );
 
   // redux
   // const [addComplaint, { isLoading }] = useComplaintAddMutation();
@@ -139,6 +145,7 @@ const ComplaintAddForWarranty = () => {
     }
     if (storedPartnerInfo) {
       setPartnerInfo(JSON.parse(storedPartnerInfo));
+
       setIsNewPartner(false);
     }
     if (storedNewCustomer) {

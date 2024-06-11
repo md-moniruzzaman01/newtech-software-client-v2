@@ -20,7 +20,7 @@ export const keys = [
 ];
 
 export const tableLayout = [
-  "item.serial_number",
+  "item?.serial_number",
   "item?.model_number",
   "item?.category_name",
   "item?.problems?.toString()",
