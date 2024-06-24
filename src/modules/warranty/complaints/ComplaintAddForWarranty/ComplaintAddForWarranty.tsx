@@ -66,17 +66,15 @@ const ComplaintAddForWarranty = () => {
   const [mainCategoryValue, setMainCategoryValue] = useState("");
   const [categoryValue, setCategoryValue] = useState("");
 
-  // console.log("category", categories);
-  // console.log("maincategory", mainCategoryValue);
-
   const mainCategoryId =
     mainCategories?.length &&
     mainCategories?.find((item) => item?.value === mainCategoryValue);
 
   const brandId =
     brands?.length &&
-    brands?.find(
-      (item) => item?.value === brandValue || partnerInfo?.brandValue
+    brands.find(
+      (item) =>
+        item?.value === brandValue || item?.id === partnerInfo?.brand_name
     );
 
   // redux
@@ -192,6 +190,10 @@ const ComplaintAddForWarranty = () => {
     defaultPartnerInfo &&
     `${defaultPartnerInfo?.contact_person} (${defaultPartnerInfo?.company})`;
 
+  const defaultBrandForNewCustomer =
+    brands?.length &&
+    brands?.find((brand) => brand?.id === partnerInfo?.brand_name);
+
   if (partnerIsError || categoryIsError || brandsIsError) {
     return <ErrorShow error={partnerError || categoryError || brandsError} />;
   }
@@ -199,7 +201,7 @@ const ComplaintAddForWarranty = () => {
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
-      <div className="grid grid-cols-[auto,320px] gap-1  mt-10 ">
+      <div className="grid grid-cols-[auto,320px] gap-1  mt-10">
         <div className="py-5  rounded-md bg-[#FBFBFB] px-5 relative">
           <div className=" absolute right-5 top-5">
             <Button
@@ -239,9 +241,8 @@ const ComplaintAddForWarranty = () => {
                       isDisabled={warrantyAddedItem?.length > 0 ? true : false}
                       Filter={brands}
                       defaultValue={
-                        partnerInfo && partnerInfo.brand_name
-                          ? partnerInfo.brand_name
-                          : ""
+                        defaultBrandForNewCustomer?.value &&
+                        defaultBrandForNewCustomer?.value
                       }
                       required
                       inputName="brand_name_for_new"

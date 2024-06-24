@@ -6,8 +6,9 @@ export const defaultPartner = (
 ): PartnerProps | "" => {
   if (partnerInfo?.partner_id && partners) {
     const defaultPartner = partners.find(
-      (partner) => partner.id === partnerInfo.partner_id
+      (partner) => partner._id === partnerInfo.partner_id
     );
+
     if (defaultPartner) {
       return defaultPartner;
     } else {

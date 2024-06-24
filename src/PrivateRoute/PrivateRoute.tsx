@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const loading = false;
   const navigate = useNavigate();
-
   const userLoggedIn = isLoggedIn();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);

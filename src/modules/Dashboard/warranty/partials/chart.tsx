@@ -14,6 +14,8 @@ import { useGetChartDataQuery } from "../../../../redux/features/api/others";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { labels } from "../config/constants";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 ChartJS.register(
   CategoryScale,
@@ -28,18 +30,19 @@ const Chart = () => {
   const [chartData, setChartData] = useState([]);
   const token = getFromLocalStorage(authKey);
   const {
-    data: Chart,
+    data: ChartData,
     isError: ChartsError,
     isLoading: ChartsLoading,
+    error,
   } = useGetChartDataQuery({
     token,
   });
 
   useEffect(() => {
     if (!ChartsLoading && !ChartsError) {
-      setChartData(Chart?.result);
+      setChartData(ChartData?.data);
     }
-  }, [ChartsError, ChartsLoading, Chart]);
+  }, [ChartsError, ChartsLoading, ChartData]);
 
   const options = {
     responsive: true,
@@ -70,37 +73,45 @@ const Chart = () => {
       {
         label: "QC passed",
         data: chartData?.map((data) => data?.Product_QC_OK),
-        backgroundColor: "rgba(4, 120, 87, 1)",
+        backgroundColor: "rgba(40, 167, 69, 1)", // Green
       },
       {
         label: "Product repair difficulty",
         data: chartData?.map((data) => data?.Product_Repair_Difficulty),
-        backgroundColor: "#fff3a8",
+        backgroundColor: "#FFD700", // Gold
       },
       {
         label: "Product Not Repairable",
         data: chartData?.map((data) => data?.Product_Not_Repairable),
-        backgroundColor: "#000000",
+        backgroundColor: "#333333", // Dark Gray
       },
       {
         label: "Product Repaired",
         data: chartData?.map((data) => data?.Product_Repaired),
-        backgroundColor: "#007a3d",
+        backgroundColor: "#5BC0DE", // Light Blue
       },
       {
-        label: "Product QC Failded",
+        label: "Product QC Failed",
         data: chartData?.map((data) => data?.Product_QC_Failed),
-        backgroundColor: "#e28c05",
+        backgroundColor: "#FFA500", // Orange
       },
       {
-        label: "Product Cancal",
+        label: "Product Cancel",
         data: chartData?.map(
           (data) => data?.Product_Cancel + data?.Product_Reject
         ),
-        backgroundColor: "#ae0c0c",
+        backgroundColor: "#D9534F", // Dark Red
       },
     ],
   };
+
+  if (ChartsLoading) {
+    return <LoadingPage />;
+  }
+
+  if (ChartsError) {
+    return <ErrorShow error={error} />;
+  }
 
   return (
     <>

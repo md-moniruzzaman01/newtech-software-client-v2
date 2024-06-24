@@ -130,6 +130,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["repair"],
     }),
     // deletePost: builder.mutation({
     //   query: (postId) => ({a

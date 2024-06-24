@@ -20,6 +20,9 @@ import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 
 const ComplaintBuffers = () => {
   const token = getFromLocalStorage(authKey);
+  const [checkedRows, setCheckedRows] = useState<
+    { repair_id: string; qc_id: string }[]
+  >([]);
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -41,6 +44,13 @@ const ComplaintBuffers = () => {
     }
   }, [isLoading, isError, buffers]);
 
+  const handleReturnToCN = async () => {
+    console.log(checkedRows);
+  };
+  const handleReturnData = async () => {
+    console.log(checkedRows);
+  };
+
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -48,6 +58,7 @@ const ComplaintBuffers = () => {
   if (isError) {
     return <ErrorShow error={error} />;
   }
+
   return (
     <div className=" px-5">
       <Navbar name="Buffers"></Navbar>
@@ -56,12 +67,24 @@ const ComplaintBuffers = () => {
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={[]} />
+          <StatusGroup
+            btnGroupValue={[]}
+            isSelected={checkedRows?.length <= 0}
+            handleReturnToCN={handleReturnToCN}
+            handleReturnData={handleReturnData}
+            // isReturnLoading={returnToLibraryIsLoading}
+            isButton
+            returnBtnValue="Return to the Engineer"
+            returnCNBtnValue="CN"
+          />
           <div className="pt-5">
             <CommonTable
               itemData={buffers?.data}
               headerData={complaintsTableHeader}
               dataLayout={tableLayout}
+              checkbox
+              checkedRows={checkedRows}
+              setCheckedRows={setCheckedRows}
               // link="/complaints/order-details"
             />
           </div>
