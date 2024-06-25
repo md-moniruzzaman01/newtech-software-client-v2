@@ -55,7 +55,7 @@ const ServiceInvoicePage = () => {
           </div>
           {/* subject here  */}
           <div className="flex justify-between gap-5  py-10">
-            <div className="font-sans text-base leading-6 w-1/2">
+            <div className="font-sans text-base leading-6 w-1/2 ">
               <div className="mb-1">
                 <strong>INVOICE: </strong>
                 {billData?.data?.id}
@@ -77,7 +77,7 @@ const ServiceInvoicePage = () => {
                 {billData?.data?.updatedAt?.toString()?.slice(0, 10)}
               </div>
             </div>
-            <div className="space-y-1  w-1/2">
+            <div className="space-y-1  ">
               <p>
                 <strong>Customer: </strong>
                 {billData?.data?.customer?.name}
