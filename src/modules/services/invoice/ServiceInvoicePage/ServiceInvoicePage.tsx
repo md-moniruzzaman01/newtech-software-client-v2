@@ -22,6 +22,8 @@ const ServiceInvoicePage = () => {
     id,
     token,
   });
+
+  console.log(billData);
   const { userId } = getUserInfo();
   const { data: fullUserInfo, isLoading: userIsLoading } = useGetUserQuery({
     token,
@@ -31,7 +33,6 @@ const ServiceInvoicePage = () => {
     userId,
     token,
   });
-
 
   if (userIsLoading || billDataLoading || adminIsLoading) {
     return <LoadingPage />;
@@ -53,35 +54,50 @@ const ServiceInvoicePage = () => {
             </div>
           </div>
           {/* subject here  */}
-          <div className="flex justify-between  py-10">
-            <div className="font-sans text-base leading-6">
+          <div className="flex justify-between gap-5  py-10">
+            <div className="font-sans text-base leading-6 w-1/2">
               <div className="mb-1">
-                <strong className="font-bold">INVOICE: </strong>
+                <strong>INVOICE: </strong>
                 {billData?.data?.id}
               </div>
               <div className="mb-1">
-                <strong className="font-bold">Invoice Status: </strong>
+                <strong>Invoice Status: </strong>
                 {billData?.data?.status}
               </div>
               <div className="mb-1">
-                <strong className="font-bold">Payment Status: </strong>
+                <strong>Payment Status: </strong>
                 {billData?.data?.due > 0 ? "Unpaid" : "Paid"}
               </div>
               <div className="mb-1">
-                <strong className="font-bold">Issued: </strong>
+                <strong>Issued: </strong>
                 {billData?.data?.createdAt?.toString()?.slice(0, 10)}
               </div>
               <div className="mb-1">
-                <strong className="font-bold">Updated date: </strong>
+                <strong>Updated date: </strong>
                 {billData?.data?.updatedAt?.toString()?.slice(0, 10)}
               </div>
             </div>
-            {/* <div>
-            <p className="mb-1">FIROZ</p>
-            <p className="mb-1">admin@tasktechnology.net</p>
-            <p className="mb-1">1256835202</p>
-            <p className="mb-1">NEC GROUP</p>
-          </div> */}
+            <div className="space-y-1  w-1/2">
+              <p>
+                <strong>Customer: </strong>
+                {billData?.data?.customer?.name}
+              </p>
+              <p>
+                <strong>
+                  Brand
+                  {billData?.data?.customer?.brand_name?.length > 0 ? "s" : ""}:
+                </strong>{" "}
+                {billData?.data?.customer?.brand_name?.join(", ")}
+              </p>
+              <p>
+                <strong>Contact: </strong>
+                {billData?.data?.customer?.contact_number}
+              </p>
+              <p>
+                <strong>Address: </strong>
+                {billData?.data?.customer?.address}
+              </p>
+            </div>
           </div>
         </div>
 
@@ -124,20 +140,17 @@ const ServiceInvoicePage = () => {
           <div className="flex justify-end ">
             <div className="font-sans text-base leading-6">
               <div>
-                <strong className="font-bold">Total Paid:</strong>{" "}
-                {billData?.data?.total_paid}
+                <strong>Total Paid:</strong> {billData?.data?.total_paid}
                 <span> BDT</span>
               </div>
               <div>
-                <strong className="font-bold">Due:</strong>{" "}
-                {billData?.data?.due}
+                <strong>Due:</strong> {billData?.data?.due}
               </div>
               {/* <div>
-              <strong className="font-bold">Discount:</strong> 0.00%
+              <strong >Discount:</strong> 0.00%
             </div> */}
               <div>
-                <strong className="font-bold">Total Amount:</strong>{" "}
-                {billData?.data?.total_amount}
+                <strong>Total Amount:</strong> {billData?.data?.total_amount}
                 <span> BDT</span>
               </div>
             </div>
