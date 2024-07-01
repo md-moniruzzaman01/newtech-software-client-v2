@@ -14,9 +14,9 @@ export const MyRepairTableHeader = [
   "Category",
   "Brand",
   "Status",
-  "Create Date",
-  "Updated Date",
   "Note",
+  "Updated Date",
+  "Created Date",
 ];
 
 export const tableLayout = [

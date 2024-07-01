@@ -43,6 +43,7 @@ const EngineerPartsReplace = ({
           label="Parts Name"
           name="parts"
           placeholder="write your parts name"
+          required
         />
 
         <TextArea label="Note" name="note" placeholder="write your note" />

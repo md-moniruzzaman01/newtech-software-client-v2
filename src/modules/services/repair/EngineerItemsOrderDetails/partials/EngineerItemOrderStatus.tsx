@@ -43,6 +43,7 @@ const EngineerItemOrderStatus = () => {
           label="Engineer status :"
           Filter={engineerStatus}
           inputName="status"
+          required
         />
         {/* <InputFilter
         placeholder="No Replacement"

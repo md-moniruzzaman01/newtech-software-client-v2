@@ -40,6 +40,8 @@ const ComplaintOrderDetails = () => {
     return <ErrorShow error={complaintsError} />;
   }
 
+  console.log(complaintsSingleData);
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
@@ -180,6 +182,7 @@ const ComplaintOrderDetails = () => {
                 item?.qc_checker_id?.Engineer?.name?.lastName
               }`}
               notes={`${item?.serial_number}`}
+              date={item?.createdAt?.toString().slice(0, 10)}
             />
           ))}
         {complaintsSingleData?.RepairItem?.length > 0 &&
