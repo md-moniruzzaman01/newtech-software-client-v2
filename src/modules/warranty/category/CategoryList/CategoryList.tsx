@@ -151,6 +151,7 @@ const CategoryList = () => {
                 ? headerDataForCategoryWarranty
                 : headerDataForCategory
             }
+            editPageLink="/category-edit"
           />
         </div>
       </div>

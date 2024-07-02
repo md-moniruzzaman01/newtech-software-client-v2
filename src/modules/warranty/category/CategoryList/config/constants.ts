@@ -16,6 +16,8 @@ export const headerDataForCategoryWarranty = [
   "CN",
   "NTF",
   "Create Date",
+  "Action",
+  "Action",
 ];
 
 export const tableLayout = [

@@ -2,15 +2,11 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaCodeBranch } from "react-icons/fa";
 import { FiMonitor } from "react-icons/fi";
-// import { FaRegCircleUser } from "react-icons/fa6";
-// import { IoIosPeople } from "react-icons/io";
-// import { MdEditNote } from "react-icons/md";
+
 import "./SideBar.css";
 import Button from "../../components/Button";
 import { useEffect, useState } from "react";
-// import { MdCategory } from "react-icons/md";
-// import { SiBrandfolder } from "react-icons/si";
-// import { MdAdminPanelSettings } from "react-icons/md";
+
 import ComplaintsRoute from "./partials/ComplaintsRoute/ComplaintsRoute";
 import QCRoute from "./partials/QCRoute/QCRoute";
 import EngineerRoute from "./partials/EngineerRoute/EngineerRoute";
@@ -89,7 +85,7 @@ const SideBar = () => {
       } w-[256px]`}
     >
       <div className="w-full text-center pt-[38px]">
-        <h1 className="text-solidWhite font-bold text-[32px] my-0">Newtech</h1>
+        <h1 className="text-solidWhite font-bold text-[32px] my-0">NEWTECH</h1>
         <div className="flex justify-center items-center gap-5 h-20 ">
           <Button
             disabled={activeRoute}
