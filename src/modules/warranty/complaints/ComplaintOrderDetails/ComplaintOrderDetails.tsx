@@ -18,7 +18,7 @@ const ComplaintOrderDetails = () => {
   const { id } = useParams();
   const [complaintsSingleData, setComplaintsSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
-  const [isEdit, setIsEdit] = useState(true);
+  // const [isEdit, setIsEdit] = useState(true);
   const token = getFromLocalStorage(authKey);
 
   const {
@@ -39,8 +39,6 @@ const ComplaintOrderDetails = () => {
   if (complaintsError) {
     return <ErrorShow error={complaintsError} />;
   }
-
-  console.log(complaintsSingleData);
 
   return (
     <div className="px-5">
@@ -137,7 +135,7 @@ const ComplaintOrderDetails = () => {
           <ComplaintOrderDetailsTable id={id} />
         </div>
 
-        <div className=" bg-solidWhite px-5 py-5">
+        {/* <div className=" bg-solidWhite px-5 py-5">
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Status Order</h2>
             <div
@@ -148,13 +146,13 @@ const ComplaintOrderDetails = () => {
               <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
             </div>
           </div>
-          {/* <ComplaintOrderStatus
+          <ComplaintOrderStatus
             id={id}
             isEdit={isEdit}
             defaultOrderStatus="Select Status"
             defaultRepairStatus={complaintsSingleData?.repair_status}
-          /> */}
-        </div>
+          />
+        </div> */}
       </div>
 
       <div className="grid grid-cols-5 mb-5 gap-5 overflow-x-auto">

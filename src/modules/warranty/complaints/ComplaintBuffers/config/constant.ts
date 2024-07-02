@@ -33,4 +33,5 @@ export const complaintsTableHeader = [
   "Problems",
   "Status",
   "RD",
+  "Action",
 ];

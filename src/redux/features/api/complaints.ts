@@ -14,6 +14,17 @@ const ComplaintsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["complaints", "products"],
     }),
+    complaintEdit: builder.mutation({
+      query: ({ fullData, token, id }) => ({
+        url: `/product/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["complaints", "products"],
+    }),
     updateComplaintsStatusDelivery: builder.mutation({
       query: ({ fullData, token }) => ({
         url: "/complaints/delivered",
@@ -79,6 +90,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["complaints", "products"],
     }),
     getProductById: builder.query({
       query: (params) => {
@@ -154,4 +166,5 @@ export const {
   useUpdateComplaintsStatusDeliveryMutation,
   useUpdateComplaintsStatusMutation,
   useCancelComplaintsMutation,
+  useComplaintEditMutation,
 } = ComplaintsApi;

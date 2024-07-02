@@ -44,12 +44,9 @@ const ComplaintBuffers = () => {
     }
   }, [isLoading, isError, buffers]);
 
-  const handleReturnToCN = async () => {
-    console.log(checkedRows);
-  };
-  const handleReturnData = async () => {
-    console.log(checkedRows);
-  };
+  // const handleReturnData = async (id) => {
+  //   console.log(id);
+  // };
 
   if (isLoading) {
     return <LoadingPage />;
@@ -70,9 +67,6 @@ const ComplaintBuffers = () => {
           <StatusGroup
             btnGroupValue={[]}
             isSelected={checkedRows?.length <= 0}
-            handleReturnToCN={handleReturnToCN}
-            handleReturnData={handleReturnData}
-            // isReturnLoading={returnToLibraryIsLoading}
             isButton
             returnBtnValue="Return to the Engineer"
             returnCNBtnValue="CN"
@@ -85,6 +79,7 @@ const ComplaintBuffers = () => {
               checkbox
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
+
               // link="/complaints/order-details"
             />
           </div>

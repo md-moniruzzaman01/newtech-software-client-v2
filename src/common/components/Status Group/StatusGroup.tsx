@@ -20,16 +20,13 @@ const StatusGroup: FC<statusGroupProps> = ({
   btnGroupValue,
   handleDeleteData,
   handleReturnData,
-  handleReturnToCN,
   isSelected = false,
   isButton = false,
   status = false,
   dltBtnValue = "Delete",
   returnBtnValue = "Return",
-  returnCNBtnValue = "Return",
   isDeleteLoading = false,
   isReturnLoading = false,
-  isReturnCNLoading = false,
 }) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -136,18 +133,7 @@ const StatusGroup: FC<statusGroupProps> = ({
               {returnBtnValue}
             </Button>
           )}
-          {handleReturnToCN && (
-            <Button
-              loading={isReturnCNLoading}
-              mini
-              className="mr-2"
-              disabled={isSelected}
-              primary
-              onClick={handleReturnToCN}
-            >
-              {returnCNBtnValue}
-            </Button>
-          )}
+
           {handleDeleteData && (
             <Button
               loading={isDeleteLoading}
