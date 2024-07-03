@@ -61,7 +61,6 @@ const EngineerAllRepairs = () => {
               isSelected={checkedRows?.length <= 0}
               handleReturnData={handleReturnData}
               handleDeleteData={handleDeleteData}
-              isButton
               dltBtnValue="Delete"
               returnBtnValue="Return to the QC Library"
             />

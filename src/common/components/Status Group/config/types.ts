@@ -9,7 +9,6 @@ export type statusGroupProps = {
   handleReturnData?: any;
   handleReturnToCN?: any;
   isSelected?: boolean;
-  isButton?: boolean;
   status?: boolean;
   dltBtnValue?: string;
   returnBtnValue?: string;
@@ -17,4 +16,5 @@ export type statusGroupProps = {
   isReturnLoading?: boolean;
   isDeleteLoading?: boolean;
   isReturnCNLoading?: boolean;
+  isDisabledCNBtn?: boolean;
 };

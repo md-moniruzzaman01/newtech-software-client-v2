@@ -79,7 +79,6 @@ const MyLibrary = () => {
               isSelected={checkedRows?.length <= 0}
               isReturnLoading={returnLoading}
               handleReturnData={handleReturnData}
-              isButton
               dltBtnValue="Delete"
               returnBtnValue="Return to the Engineer Library"
             />

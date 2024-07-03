@@ -136,13 +136,28 @@ const ComplaintsApi = baseApi.injectEndpoints({
     getBuffers: builder.query({
       query: (params) => {
         return {
-          url: `/product?repair_status=Buffer&repair_status=Repair%20Difficulty&repair_status=Not%20Repairable&repair_status=Leak%20material&${params?.query}`,
+          url: `/product/buffer?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
         };
       },
       providesTags: ["repair"],
+    }),
+
+    updateBuffers: builder.mutation({
+      query: ({ fullData, token }) => {
+        console.log(fullData);
+        return {
+          url: "/complaints/update",
+          method: "PATCH",
+          headers: {
+            authorization: token,
+          },
+          body: fullData,
+        };
+      },
+      invalidatesTags: ["complaints", "repair"],
     }),
     // deletePost: builder.mutation({
     //   query: (postId) => ({a
@@ -167,4 +182,5 @@ export const {
   useUpdateComplaintsStatusMutation,
   useCancelComplaintsMutation,
   useComplaintEditMutation,
+  useUpdateBuffersMutation,
 } = ComplaintsApi;

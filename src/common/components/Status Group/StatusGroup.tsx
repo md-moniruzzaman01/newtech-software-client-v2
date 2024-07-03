@@ -21,12 +21,15 @@ const StatusGroup: FC<statusGroupProps> = ({
   handleDeleteData,
   handleReturnData,
   isSelected = false,
-  isButton = false,
   status = false,
   dltBtnValue = "Delete",
   returnBtnValue = "Return",
   isDeleteLoading = false,
   isReturnLoading = false,
+  isReturnCNLoading = false,
+  handleReturnToCN,
+  returnCNBtnValue,
+  isDisabledCNBtn = false,
 }) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -119,36 +122,46 @@ const StatusGroup: FC<statusGroupProps> = ({
   };
   return (
     <div className="flex justify-between items-center  ">
-      {isButton ? (
-        <div>
-          {handleReturnData && (
-            <Button
-              loading={isReturnLoading}
-              mini
-              className="mr-2"
-              disabled={isSelected}
-              primary
-              onClick={handleReturnData}
-            >
-              {returnBtnValue}
-            </Button>
-          )}
-
-          {handleDeleteData && (
-            <Button
-              loading={isDeleteLoading}
-              mini
-              disabled={isSelected}
-              danger
-              onClick={handleDeleteData}
-            >
-              {dltBtnValue}
-            </Button>
-          )}
-        </div>
-      ) : (
+      <div className="space-y-2">
         <TableStatus btnValues={btnGroupValue || []} status={status} />
-      )}
+        {handleReturnData && (
+          <Button
+            loading={isReturnLoading}
+            mini
+            className="mr-2"
+            disabled={isSelected}
+            primary
+            onClick={handleReturnData}
+          >
+            {returnBtnValue}
+          </Button>
+        )}
+        {handleReturnToCN && (
+          <Button
+            loading={isReturnCNLoading}
+            mini
+            className="mr-2"
+            disabled={isSelected || isDisabledCNBtn}
+            primary
+            onClick={handleReturnToCN}
+          >
+            {returnCNBtnValue}
+          </Button>
+        )}
+
+        {handleDeleteData && (
+          <Button
+            loading={isDeleteLoading}
+            mini
+            disabled={isSelected}
+            danger
+            onClick={handleDeleteData}
+          >
+            {dltBtnValue}
+          </Button>
+        )}
+      </div>
+
       <div>
         <div className="w-full">
           <Menu as="div" className="relative inline-block text-left">

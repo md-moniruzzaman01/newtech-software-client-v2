@@ -74,7 +74,6 @@ const QCMyLibraryService = () => {
               isReturnLoading={returnToLibraryLoading}
               isSelected={checkedRows?.length <= 0}
               handleReturnData={handleReturnData}
-              isButton
               dltBtnValue="Delete"
               returnBtnValue="Return to the QA Library"
             />
