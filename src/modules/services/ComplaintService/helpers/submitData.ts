@@ -42,7 +42,6 @@ export const handleDataSubmit = async (
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result?.message);
         if (result?.success) {
           setAddedItem([]);
           const dataIds = result?.data?.map((item: { id: string }) => item?.id);

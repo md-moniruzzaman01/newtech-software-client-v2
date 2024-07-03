@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 //internal
 import {
-  useCreateCategoryForServiceMutation,
+  useEditCategoryForServiceMutation,
   useEditCategoryMutation,
   useGetCategoryByIdQuery,
   useGetMainCategoryQuery,
+  useGetServiceCategoryByIdQuery,
 } from "../../../../redux/features/api/Category.ts";
 import { useGetBrandsQuery } from "../../../../redux/features/api/Brand.ts";
 import Navbar from "../../../../common/widgets/Navbar/Navbar.tsx";
@@ -28,7 +29,19 @@ const WarrantyCategoryEditPage = () => {
 
   const [activeRoute, setActiveRoute] = useState(false);
   //redux
-  const { data, isLoading: categoryByIdLoading } = useGetCategoryByIdQuery({
+  const {
+    data: warrantyData,
+    isLoading: warrantyDataLoading,
+    isError: warrantyError,
+  } = useGetCategoryByIdQuery({
+    token,
+    id,
+  });
+  const {
+    data: serviceData,
+    isLoading: serviceDataLoading,
+    isError: serviceError,
+  } = useGetServiceCategoryByIdQuery({
     token,
     id,
   });
@@ -38,14 +51,17 @@ const WarrantyCategoryEditPage = () => {
     isError,
     error,
   } = useGetMainCategoryQuery({ token });
+
+  const data = activeRoute ? warrantyData : serviceData;
+
   const {
     data: brands,
     isError: brandsIsError,
     error: brandsError,
   } = useGetBrandsQuery({ token });
-  const [createCategory, { isLoading }] = useEditCategoryMutation();
-  const [createCategoryForService, { isLoading: categoryLoading }] =
-    useCreateCategoryForServiceMutation();
+  const [editCategoryForWarranty, { isLoading }] = useEditCategoryMutation();
+  const [editCategoryForService, { isLoading: categoryLoading }] =
+    useEditCategoryForServiceMutation();
 
   useEffect(() => {
     const storedActiveRoute = localStorage.getItem("activeRoute");
@@ -53,10 +69,6 @@ const WarrantyCategoryEditPage = () => {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
   }, []);
-
-  const defaultCategory = mainCategory?.data?.find(
-    (category) => category?.id === data?.data?.category
-  );
 
   const handleAddCategory = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,11 +117,9 @@ const WarrantyCategoryEditPage = () => {
     };
 
     const editCategory = activeRoute ? warrantyData : serviceData;
-    console.log(editCategory);
     const result: any = activeRoute
-      ? await createCategory({ editCategory, token, id })
-      : await createCategoryForService({ editCategory, token });
-    console.log(result);
+      ? await editCategoryForWarranty({ editCategory, token, id })
+      : await editCategoryForService({ editCategory, token, id });
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
       navigate("/category");
@@ -117,11 +127,11 @@ const WarrantyCategoryEditPage = () => {
     }
   };
 
-  if (isError || brandsIsError) {
+  if (isError || brandsIsError || warrantyError || serviceError || isError) {
     return <ErrorShow error={error || brandsError} />;
   }
 
-  if (categoryByIdLoading) {
+  if (warrantyDataLoading || serviceDataLoading) {
     return <LoadingPage />;
   }
 
@@ -148,7 +158,7 @@ const WarrantyCategoryEditPage = () => {
               />
               <InputFilter
                 required
-                defaultValue={defaultCategory?.value}
+                defaultValue={data?.data?.category}
                 Filter={mainCategory?.data}
                 placeholder="Select Category"
                 label="Category"
@@ -163,6 +173,7 @@ const WarrantyCategoryEditPage = () => {
               {activeRoute && (
                 <>
                   <InputFilter
+                    required
                     defaultValue={data?.data?.brand}
                     placeholder="Select Brands"
                     Filter={brands?.data}

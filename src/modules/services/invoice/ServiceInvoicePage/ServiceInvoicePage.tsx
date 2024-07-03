@@ -23,7 +23,6 @@ const ServiceInvoicePage = () => {
     token,
   });
 
-  console.log(billData);
   const { userId } = getUserInfo();
   const { data: fullUserInfo, isLoading: userIsLoading } = useGetUserQuery({
     token,

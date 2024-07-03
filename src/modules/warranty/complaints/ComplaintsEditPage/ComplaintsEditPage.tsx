@@ -26,8 +26,6 @@ const ComplaintsEditPage = () => {
   //redux
   const [editComplaints, { isLoading }] = useComplaintEditMutation();
 
-  // console.log(complaintsSingleData);
-
   const {
     data: complaintsData,
     isError: complaintsError,
@@ -101,7 +99,6 @@ const ComplaintsEditPage = () => {
     if (isSwalTrue) {
       navigate(`/complaints/order-details/${id}`);
     }
-    console.log(result);
     // form.reset();
   };
 

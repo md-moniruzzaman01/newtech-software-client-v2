@@ -38,13 +38,13 @@ const CategoryList = () => {
     isLoading: categoriesLoading,
     isError,
     error,
-  } = useGetServiceCategoryAllQuery({});
+  } = useGetServiceCategoryAllQuery({ token });
   const {
     data: categoriesForWarranty,
     isLoading: categoriesForWarrantyLoading,
     isError: categoriesForWarrantyIsError,
     error: categoriesForWarrantyError,
-  } = useGetCategoryAllQuery({});
+  } = useGetCategoryAllQuery({ token });
 
   const [deleteWarrantyCategory] = useDeleteCategoryForWarrantyMutation();
   const [deleteServiceCategory] = useDeleteCategoryForServiceMutation();
