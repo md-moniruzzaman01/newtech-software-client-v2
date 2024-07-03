@@ -32,6 +32,9 @@ export type ComplaintsOrderDetailsProps = {
     name?: string;
     contact_number?: string;
     contactNo?: string;
+    email?: string;
+    address?: string;
+    company?: string;
   };
   Qa: any[]; // Assuming any type for now
   Qc: any[]; // Assuming any type for now
@@ -40,7 +43,13 @@ export type ComplaintsOrderDetailsProps = {
   brand_name: string;
   category_name: string;
   createdAt: string; // Assuming ISO date string format
-  customer: { contact_person?: string; contactNo?: string };
+  customer: {
+    contact_person?: string;
+    contactNo?: string;
+    email?: string;
+    address?: string;
+    company?: string;
+  };
   customer_contact_number: string;
   due: number;
   id: string;
