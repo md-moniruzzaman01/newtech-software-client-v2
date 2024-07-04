@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import Button from "../../../common/components/Button";
 import Input from "../../../common/components/Input";
@@ -44,6 +45,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     useState<partnerProps>(defaultPartnerValue);
   const [redirectToPayment, setRedirectToPayment] = useState(false);
   const [loading, setloading] = useState(false);
+  const [defaultCategory, setDefaultCategory] = useState<any>();
 
   const dispatch = useDispatch();
 
@@ -51,7 +53,11 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
 
   const mainCategoryId =
     mainCategories?.length &&
-    mainCategories?.find((item) => item?.value === mainCategoryValue);
+    mainCategories?.find(
+      (item) =>
+        item?.value === mainCategoryValue ||
+        item.value === selectData?.category_name
+    );
 
   const {
     data: mainCategoryData,
@@ -112,10 +118,18 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     mainCategoryLoading,
   ]);
 
+  useEffect(() => {
+    if (selectData) {
+      const defaultCategory =
+        categories?.length &&
+        categories?.find((item) => item?.id === selectData?.category);
+      setDefaultCategory(defaultCategory);
+    }
+  }, [selectData, categories]);
+
   if (categoryIsError || mainCategoryIsError) {
     return <ErrorShow error={categoryError || mainCategoryError} />;
   }
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -238,9 +252,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               {/* category  */}
               <div>
                 <InputFilter
-                  defaultValue={`${
-                    selectData ? selectData?.categoryValue : ""
-                  }`}
+                  defaultValue={`${selectData ? defaultCategory?.value : ""}`}
                   required
                   inputName="category"
                   placeholder="Category"

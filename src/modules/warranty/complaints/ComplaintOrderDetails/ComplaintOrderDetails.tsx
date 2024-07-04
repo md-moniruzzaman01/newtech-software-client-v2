@@ -13,12 +13,14 @@ import { useEffect, useState } from "react";
 import { ComplaintsOrderDetailsProps } from "./config/types";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import ComplaintOrderStatus from "./partials/ComplaintOrderStatus";
+import { isUserAdmin } from "../../../../services/auth.service";
 
 const ComplaintOrderDetails = () => {
   const { id } = useParams();
   const [complaintsSingleData, setComplaintsSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
-  // const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(true);
   const token = getFromLocalStorage(authKey);
 
   const {
@@ -120,7 +122,11 @@ const ComplaintOrderDetails = () => {
           ]}
         />
 
-        <div className="col-span-2 bg-solidWhite px-5 py-5">
+        <div
+          className={`${
+            isUserAdmin() ? "col-span-2" : "col-span-3"
+          } bg-solidWhite px-5 py-5`}
+        >
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
             <div>
@@ -135,24 +141,26 @@ const ComplaintOrderDetails = () => {
           <ComplaintOrderDetailsTable id={id} />
         </div>
 
-        {/* <div className=" bg-solidWhite px-5 py-5">
-          <div className="flex justify-between items-center  py-2 ">
-            <h2 className="text-2xl font-semibold">Status Order</h2>
-            <div
-              className={`cursor-pointer hover:text-shadeOfRed ${
-                !isEdit && "text-shadeOfRed"
-              }`}
-            >
-              <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
+        {isUserAdmin() && (
+          <div className=" bg-solidWhite px-5 py-5">
+            <div className="flex justify-between items-center  py-2 ">
+              <h2 className="text-2xl font-semibold">Status Order</h2>
+              <div
+                className={`cursor-pointer hover:text-shadeOfRed ${
+                  !isEdit && "text-shadeOfRed"
+                }`}
+              >
+                <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
+              </div>
             </div>
+            <ComplaintOrderStatus
+              id={id}
+              isEdit={isEdit}
+              defaultOrderStatus={complaintsSingleData?.repair_status}
+              // defaultRepairStatus={}
+            />
           </div>
-          <ComplaintOrderStatus
-            id={id}
-            isEdit={isEdit}
-            defaultOrderStatus="Select Status"
-            defaultRepairStatus={complaintsSingleData?.repair_status}
-          />
-        </div> */}
+        )}
       </div>
 
       <div className="grid grid-cols-5 mb-5 gap-5 overflow-x-auto">

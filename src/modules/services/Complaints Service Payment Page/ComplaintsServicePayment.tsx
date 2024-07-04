@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { ComplaintsOrderDetailsProps } from "./config/types";
 import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { authKey } from "../../../shared/config/constaints";
+import { authKey, emptyData } from "../../../shared/config/constaints";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import ComplaintHeaderCard from "../../../common/components/ComplaintHeaderCard/ComplaintHeaderCard";
 import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCard/ComplaintDetailsCard";
@@ -34,7 +34,7 @@ const ComplaintsServicePayment = () => {
   if (BillLoading) {
     return <LoadingPage />;
   }
-
+  console.log(billSingleData);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Service Payments"} />
@@ -52,15 +52,13 @@ const ComplaintsServicePayment = () => {
         />
         <ComplaintHeaderCard
           headerDetails={
-            billSingleData?.generatedby?.Engineer?.name?.firstName +
-            " " +
-            billSingleData?.generatedby?.Engineer?.name?.lastName
+            billSingleData?.generatedby?.Engineer?.name?.firstName || emptyData
           }
           bgColor="primary"
           headerTitle="Name"
         />
         <ComplaintHeaderCard
-          headerDetails={billSingleData?.generatedby?.Engineer?.id}
+          headerDetails={billSingleData?.generatedby?.Engineer?.id || emptyData}
           bgColor="primary"
           headerTitle="Engineer ID"
         />
@@ -87,10 +85,9 @@ const ComplaintsServicePayment = () => {
             {
               title: "Name",
               value: `${
-                billSingleData?.generatedby?.Engineer?.name?.firstName || ""
-              }  ${
-                billSingleData?.generatedby?.Engineer?.name?.lastName || ""
-              }`,
+                billSingleData?.generatedby?.Engineer?.name?.firstName ||
+                emptyData
+              }  `,
             },
           ]}
         />

@@ -45,6 +45,7 @@ const CategoryApi = baseApi.injectEndpoints({
         },
         body: addCategory,
       }),
+      invalidatesTags: ["category"],
     }),
     editCategoryForService: builder.mutation({
       query: ({ editCategory, token, id }) => ({

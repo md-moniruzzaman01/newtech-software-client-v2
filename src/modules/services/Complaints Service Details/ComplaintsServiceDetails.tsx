@@ -15,6 +15,7 @@ import ComplaintDetailsCard from "../../../common/components/ComplaintDetailsCar
 import { useGetServicesByIdQuery } from "../../../redux/features/api/service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import { isUserAdmin } from "../../../services/auth.service";
 
 const ComplaintsServiceDetails = () => {
   const { id } = useParams();
@@ -126,7 +127,11 @@ const ComplaintsServiceDetails = () => {
           ]}
         />
 
-        <div className="col-span-2 bg-solidWhite px-5 py-5">
+        <div
+          className={`${
+            isUserAdmin() ? "col-span-2" : "col-span-3"
+          } bg-solidWhite px-5 py-5`}
+        >
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
             <div>
@@ -141,24 +146,26 @@ const ComplaintsServiceDetails = () => {
           <ComplaintOrderDetailsTable id={id} />
         </div>
 
-        <div className=" bg-solidWhite px-5 py-5">
-          <div className="flex justify-between items-center  py-2 ">
-            <h2 className="text-2xl font-semibold">Status Order</h2>
-            <div
-              className={`cursor-pointer hover:text-shadeOfRed ${
-                !isEdit && "text-shadeOfRed"
-              }`}
-            >
-              <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
+        {isUserAdmin() && (
+          <div className=" bg-solidWhite px-5 py-5">
+            <div className="flex justify-between items-center  py-2 ">
+              <h2 className="text-2xl font-semibold">Status Order</h2>
+              <div
+                className={`cursor-pointer hover:text-shadeOfRed ${
+                  !isEdit && "text-shadeOfRed"
+                }`}
+              >
+                <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
+              </div>
             </div>
+            <ComplaintOrderStatus
+              isEdit={isEdit}
+              branch={complaintsSingleData?.branch}
+              defaultOrderStatus={complaintsSingleData?.repair_status}
+              // defaultRepairStatus={complaintsSingleData?.repair_status}
+            />
           </div>
-          <ComplaintOrderStatus
-            isEdit={isEdit}
-            branch={complaintsSingleData?.branch}
-            defaultOrderStatus="Select Status"
-            defaultRepairStatus={complaintsSingleData?.repair_status}
-          />
-        </div>
+        )}
       </div>
 
       <div className="grid grid-cols-5 mb-5 gap-5">
