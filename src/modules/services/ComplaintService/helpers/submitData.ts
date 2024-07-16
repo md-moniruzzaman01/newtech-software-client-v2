@@ -7,7 +7,7 @@ import {
 } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import { updateAddedItemProps } from "../config/types";
-import { SERVER_URL } from "../../../../shared/config/secret";
+import { SERVER_URL } from "../../../../shared/config/secret.ts";
 import { partnerProps } from "../../../../shared/config/types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

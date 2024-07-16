@@ -11,5 +11,6 @@ export type updateAddedItemProps = {
   category_name?: string;
   category: string;
   categoryValue?: string;
+  isWindowsInstallations?: boolean;
+  isSSDOrHDDFullFormat?: boolean;
 };
-

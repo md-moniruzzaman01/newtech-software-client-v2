@@ -12,6 +12,9 @@ export type warrantyUpdateAddedItemProps = {
   category_name?: string;
   categoryValue?: string | undefined;
   mainCategoryValue?: string | undefined;
+  isWindowsInstallations?: boolean;
+  isSSDOrHDDFullFormat?: boolean;
+  isDoa?: boolean;
 };
 
 export type warrantyPartnerProps = {

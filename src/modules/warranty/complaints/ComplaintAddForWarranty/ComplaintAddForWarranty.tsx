@@ -183,7 +183,6 @@ const ComplaintAddForWarranty = () => {
       })
     ),
   };
-
   const defaultPartnerInfo =
     partnerInfo?.partner_id && defaultPartner(partnerInfo, partners);
   const defaultPartnerName =
@@ -461,6 +460,7 @@ const ComplaintAddForWarranty = () => {
                   inputPlaceholder="Write here..."
                 ></Input>
               </div>
+
               {/* Problem  */}
               <div className="col-span-3">
                 <Input
@@ -471,6 +471,57 @@ const ComplaintAddForWarranty = () => {
                   labelName="Remark"
                 />
               </div>
+              {/* isWindowsInstallation  */}
+              <div>
+                <label
+                  className="pr-2 flex items-center space-x-2"
+                  htmlFor="isWindowsInstallation"
+                >
+                  <span>Is Windows Installation?</span>
+                  <input
+                    defaultChecked={
+                      selectData?.isWindowsInstallations ? true : false
+                    }
+                    className="w-5 h-5"
+                    type="checkbox"
+                    name="isWindowsInstallations"
+                  />
+                </label>
+              </div>
+              {/* is SSD/HDD full Format  */}
+              <div>
+                <label
+                  className="pr-2 flex items-center space-x-2"
+                  htmlFor="isSSDOrHDDFullFormat"
+                >
+                  <span>Is SSD/HDD full format?</span>
+                  <input
+                    defaultChecked={
+                      selectData?.isSSDOrHDDFullFormat ? true : false
+                    }
+                    className="w-5 h-5"
+                    type="checkbox"
+                    name="isSSDOrHDDFullFormat"
+                  />
+                </label>
+              </div>
+
+              {/* is doa  */}
+              <div>
+                <label
+                  className="pr-2 flex items-center space-x-2"
+                  htmlFor="isDoa"
+                >
+                  <span>Is DOA?</span>
+                  <input
+                    defaultChecked={selectData?.isDoa ? true : false}
+                    className="w-5 h-5"
+                    type="checkbox"
+                    name="isDoa"
+                  />
+                </label>
+              </div>
+
               <div className="col-span-3  justify-end flex items-end pb-5">
                 {selectData ? (
                   <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">

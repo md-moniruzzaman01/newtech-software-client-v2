@@ -38,7 +38,6 @@ const ComplaintBuffers = () => {
 
   const params = new URLSearchParams(window.location.search);
   const status = params.get("repair_status");
-  console.log(status);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   // redux

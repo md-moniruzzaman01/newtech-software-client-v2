@@ -8,7 +8,7 @@ import {
   getFromLocalStorage,
   setToLocalStorage,
 } from "../../../shared/helpers/local_storage";
-import { SERVER_URL } from "../../../shared/config/secret";
+import { SERVER_URL } from "../../../shared/config/secret.ts";
 import Modal from "../../../common/components/Modal/Modal";
 import { getUserInfo } from "../../../services/auth.service";
 

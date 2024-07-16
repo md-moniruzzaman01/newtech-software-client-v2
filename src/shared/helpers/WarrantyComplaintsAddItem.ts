@@ -62,6 +62,21 @@ export const handleAddItem = (
 
   const problems = (form.elements.namedItem("problems") as HTMLInputElement)
     .value;
+
+  const isWindowsInstallations = (
+    form.elements.namedItem("isWindowsInstallations") as HTMLInputElement
+  )?.checked
+    ? true
+    : false;
+  const isSSDOrHDDFullFormat = (
+    form.elements.namedItem("isSSDOrHDDFullFormat") as HTMLInputElement
+  )?.checked
+    ? true
+    : false;
+  const isDoa = (form.elements.namedItem("isDoa") as HTMLInputElement)?.checked
+    ? true
+    : false;
+
   const newCustomer = {
     partner_name,
     contact_number,
@@ -92,10 +107,11 @@ export const handleAddItem = (
     problems,
     category,
     category_name: mainCategoryValue,
-
     categoryValue,
+    isWindowsInstallations,
+    isSSDOrHDDFullFormat,
+    isDoa,
   };
-
   let updatedAddedItem: warrantyUpdateAddedItemProps[];
 
   if (!Array.isArray(warrantyAddedItem)) {

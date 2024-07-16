@@ -1,4 +1,4 @@
-import { SERVER_URL } from './../../../../../shared/config/secret';
+import { SERVER_URL } from "../../../../../shared/config/secret.ts";
 import swal from "sweetalert";
 import {
   getFromLocalStorage,
@@ -24,13 +24,10 @@ export const handleUpdateComplaintsData = async (
     },
     body: JSON.stringify(fullData),
   };
-const url= SERVER_URL + "/complaints/create"
+  const url = SERVER_URL + "/complaints/create";
   try {
     setIsLoading(true);
-    const response = await fetch(
-      url,
-      options
-    );
+    const response = await fetch(url, options);
 
     if (!response.ok) {
       throw new Error("Failed to add complaint");

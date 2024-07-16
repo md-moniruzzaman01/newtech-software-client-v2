@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import swal from "sweetalert";
 import { authKey } from "../../../../shared/config/constaints";
-import { SERVER_URL } from "../../../../shared/config/secret";
+import { SERVER_URL } from "../../../../shared/config/secret.ts";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 export const handlePaymentSubmit = async (

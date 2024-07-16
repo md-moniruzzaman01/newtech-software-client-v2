@@ -5,7 +5,7 @@ import "./config/style.css";
 import Button from "../../../common/components/Button";
 import { useParams } from "react-router-dom";
 import RecipeComplaints from "./partials/RecipeComplaints";
-import { SERVER_URL } from "../../../shared/config/secret";
+import { SERVER_URL } from "../../../shared/config/secret.ts";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 

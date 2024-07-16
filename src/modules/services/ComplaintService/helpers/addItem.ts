@@ -46,6 +46,16 @@ export const handleAddItem = (
 
   const problems = (form.elements.namedItem("problem") as HTMLInputElement)
     .value;
+  const isWindowsInstallations = (
+    form.elements.namedItem("isWindowsInstallations") as HTMLInputElement
+  )?.checked
+    ? true
+    : false;
+  const isSSDOrHDDFullFormat = (
+    form.elements.namedItem("isSSDOrHDDFullFormat") as HTMLInputElement
+  )?.checked
+    ? true
+    : false;
 
   const partner = {
     name,
@@ -64,6 +74,8 @@ export const handleAddItem = (
     problems,
     category,
     category_name: mainCategoryValue,
+    isWindowsInstallations,
+    isSSDOrHDDFullFormat,
   };
 
   let updatedAddedItem: updateAddedItemProps[];

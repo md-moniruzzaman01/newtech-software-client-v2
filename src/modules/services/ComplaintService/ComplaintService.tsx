@@ -95,6 +95,8 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     addedItem,
   };
 
+  console.log(addedItem);
+
   useEffect(() => {
     if (searchInput) {
       fetchData(searchInput, false, setIsLoadingSuggestion, setSuggestions);
@@ -285,7 +287,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               </div>
 
               {/* Problems  */}
-              <div className="col-span-2">
+              <div className="col-span-3">
                 <Input
                   defaultValue={`${selectData ? selectData?.problems : ""}`}
                   inputName="problem"
@@ -295,28 +297,62 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               </div>
 
               {/* attachment  */}
-              <div className="col-span-3">
+              <div className="col-span-4">
                 <TextArea
                   defaultValue={`${selectData ? selectData?.attachments : ""}`}
                   name="attachments"
                   placeholder="Remark"
                   label="Remark"
                 />
-                <div className="flex justify-end py-5">
-                  {selectData ? (
-                    <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
-                      Save
-                    </Button>
-                  ) : (
-                    <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
-                      Add {addedItem?.length > 0 ? "More" : "Please"}
-                    </Button>
-                  )}
-                </div>
+              </div>
+              {/* isWindowsInstallation  */}
+              <div className="col-span-2">
+                <label
+                  className="pr-2 flex items-center space-x-2"
+                  htmlFor="isWindowsInstallation"
+                >
+                  <span>Is Windows Installation?</span>
+                  <input
+                    defaultChecked={
+                      selectData?.isWindowsInstallations ? true : false
+                    }
+                    className="w-5 h-5"
+                    type="checkbox"
+                    name="isWindowsInstallations"
+                  />
+                </label>
+              </div>
+              {/* is SSD/HDD full Format  */}
+              <div className="col-span-2">
+                <label
+                  className="pr-2 flex items-center space-x-2"
+                  htmlFor="isSSDOrHDDFullFormat"
+                >
+                  <span>Is SSD/HDD full format?</span>
+                  <input
+                    defaultChecked={
+                      selectData?.isSSDOrHDDFullFormat ? true : false
+                    }
+                    className="w-5 h-5"
+                    type="checkbox"
+                    name="isSSDOrHDDFullFormat"
+                  />
+                </label>
+              </div>
+              <div className="flex justify-end col-span-4">
+                {selectData ? (
+                  <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
+                    Save
+                  </Button>
+                ) : (
+                  <Button className="!text-solidBlack rounded-sm  !bg-[#D9D9D9]">
+                    Add {addedItem?.length > 0 ? "More" : "Please"}
+                  </Button>
+                )}
               </div>
             </div>
           </form>
-          <div className="flex justify-center  py-7">
+          <div className="flex justify-center  py-10">
             <div className="flex gap-20">
               <Button
                 animationLength={addedItem?.length}
