@@ -122,6 +122,30 @@ const OthersApi = baseApi.injectEndpoints({
         "notifications",
       ],
     }),
+
+    getDashboardReciever: builder.query({
+      query: ({ token }) => {
+        return {
+          url: `/complaints/receiver`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
+
+    getDashboardEngineerData: builder.query({
+      query: ({ token }) => {
+        return {
+          url: "/repair/engineer-data",
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
   }),
 });
 
@@ -135,4 +159,6 @@ export const {
   useMarkAsReadNotificationMutation,
   useGetProductsAllQuery,
   useGetProductsAllForServiceQuery,
+  useGetDashboardRecieverQuery,
+  useGetDashboardEngineerDataQuery,
 } = OthersApi;

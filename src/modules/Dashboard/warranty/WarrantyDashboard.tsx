@@ -11,13 +11,17 @@ import { authKey } from "../../../shared/config/constaints";
 import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import { AdminDashboardTableHeader, tableLayout } from "./config/constants";
-import BranchChart from "../../../common/components/BranchChart/BranchChart";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
-import { useGetCardDataQuery } from "../../../redux/features/api/others";
+import {
+  useGetCardDataQuery,
+  useGetDashboardEngineerDataQuery,
+  useGetDashboardRecieverQuery,
+} from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
 import { icons } from "../../../shared/libs/Icons";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 import FullBox from "../../../shared/libs/custom icons/FullBox";
+import DashboardEngineerCard from "../../../common/components/Dashboard Engineer Card/DashboardEngineerCard";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const WarrantyDashboard = () => {
@@ -48,6 +52,10 @@ const WarrantyDashboard = () => {
   const { data, isError, isLoading, error } = useGetCardDataQuery({
     token,
   });
+  const { data: recieverData } = useGetDashboardRecieverQuery({ token });
+  const { data: engineerData } = useGetDashboardEngineerDataQuery({ token });
+  console.log("Engineer Data", engineerData);
+  console.log("reciever", recieverData);
 
   useEffect(() => {
     if (!complaintsLoading && !complaintsError) {
@@ -144,21 +152,33 @@ const WarrantyDashboard = () => {
           icon={icons?.failed}
         />
       </div>
+
       <div className="grid grid-cols-3 py-5 gap-5">
-        <div className="col-span-2  w-full bg-solidWhite  rounded-md ">
+        <div className="col-span-2 w-full bg-solidWhite rounded-md">
           <div className="pb-5 px-5">
             <Chart />
           </div>
         </div>
-        <div className="col-span-1">
-          <div className="w-full ">
-            <BranchChart
-              link="/branch/order-count"
-              status={[{ label: "Recieved", value: 50 }]}
-            />
+        <div className="col-span-1 ">
+          <div className="bg-solidWhite">
+            <h2 className="text-lg font-semibold px-5 pt-5">
+              Engineer Details
+            </h2>
+            <hr className="border-grayForBorder border-2 mt-2 mr-5" />
+          </div>
+          <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
+            {engineerData?.data?.map((data, index) => (
+              <DashboardEngineerCard
+                key={index}
+                engineer={data.engineer}
+                statusCounts={data.statusCounts}
+                totalWorked={data.totalWorked}
+              />
+            ))}
           </div>
         </div>
       </div>
+
       <div className="bg-solidWhite my-5 p-5 rounded-md">
         <h1 className="font-medium text-xl">Order History</h1>
 
