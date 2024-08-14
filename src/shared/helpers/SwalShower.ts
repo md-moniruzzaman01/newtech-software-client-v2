@@ -4,7 +4,13 @@ import { authKey } from "../config/constaints";
 
 export const showSwal = (result) => {
   if (result?.data?.success) {
-    swal("Success", result.data.message, "success");
+    swal({
+      title: "Success",
+      text: result.data.message,
+      icon: "success",
+      timer: 3000,
+    });
+
     return true;
   } else {
     const errorStatus = result?.error?.status;
