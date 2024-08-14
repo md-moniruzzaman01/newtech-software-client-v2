@@ -144,9 +144,9 @@ const Complaint = () => {
     });
   };
 
-  const handleReturn = () => {
-    console.log(checkedRows);
-  };
+  // const handleReturn = () => {
+  //   console.log(checkedRows);
+  // };
 
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
@@ -160,7 +160,7 @@ const Complaint = () => {
       <Navbar name="Complaint"></Navbar>
       <div className="pt-5">
         <SearchBar
-          handleReturn={handleReturn}
+          // handleReturn={handleReturn}
           isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}
           handleDelivery={handleDelivery}

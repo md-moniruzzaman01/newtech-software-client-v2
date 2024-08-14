@@ -90,18 +90,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   Delivery
                 </Button>
               )}
-              {(isMiddleBtnActive === "Pending" || "Repair failed") &&
-                handleReturn && (
-                  <Button
-                    disabled={disabled}
-                    loading={isReturnLoading}
-                    onClick={handleReturn}
-                    mini
-                    primary
-                  >
-                    Return
-                  </Button>
-                )}
+              {isMiddleBtnActive === "Pending" && handleReturn && (
+                <Button
+                  disabled={disabled}
+                  loading={isReturnLoading}
+                  onClick={handleReturn}
+                  mini
+                  primary
+                >
+                  Return
+                </Button>
+              )}
 
               {handleDelete && user?.role === "admin" && (
                 <Button
