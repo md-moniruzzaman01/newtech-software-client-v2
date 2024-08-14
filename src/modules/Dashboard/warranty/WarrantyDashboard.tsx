@@ -8,12 +8,10 @@ import PendingIcon from "../../../shared/libs/custom icons/PendingIcon";
 
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
-import { useGetComplaintsQuery } from "../../../redux/features/api/complaints";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
-import { AdminDashboardTableHeader, tableLayout } from "./config/constants";
-import CommonTable from "../../../common/components/Common Table/CommonTable";
 import {
   useGetCardDataQuery,
+  useGetDashboardCustomerDataQuery,
   useGetDashboardEngineerDataQuery,
   useGetDashboardRecieverQuery,
 } from "../../../redux/features/api/others";
@@ -22,10 +20,11 @@ import { icons } from "../../../shared/libs/Icons";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 import FullBox from "../../../shared/libs/custom icons/FullBox";
 import DashboardEngineerCard from "../../../common/components/Dashboard Engineer Card/DashboardEngineerCard";
+import DashboardCustomerCard from "../../../common/components/Dashboard Customer Card/DashboardCustomerCard";
+import DashboardRecieverCard from "../../../common/components/Dashboard Reciever Card/DashboardRecieverCard";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const WarrantyDashboard = () => {
-  const [billData, setBillData] = useState([]);
   const [CardData, setCardData] = useState({
     pendingCount: 0,
     InProgressCount: 0,
@@ -42,42 +41,28 @@ const WarrantyDashboard = () => {
   });
 
   const token = getFromLocalStorage(authKey);
-  const {
-    data: complaintsData,
-    isError: complaintsError,
-    isLoading: complaintsLoading,
-  } = useGetComplaintsQuery({
-    token,
-  });
+
   const { data, isError, isLoading, error } = useGetCardDataQuery({
     token,
   });
   const { data: recieverData } = useGetDashboardRecieverQuery({ token });
   const { data: engineerData } = useGetDashboardEngineerDataQuery({ token });
+  const { data: customerData } = useGetDashboardCustomerDataQuery({ token });
   console.log("Engineer Data", engineerData);
   console.log("reciever", recieverData);
+  console.log("Customer Data", customerData);
 
   useEffect(() => {
-    if (!complaintsLoading && !complaintsError) {
-      setBillData(complaintsData?.data);
-    }
     if (!isError && !isLoading) {
       setCardData(data?.data);
     }
-  }, [
-    complaintsData,
-    complaintsLoading,
-    complaintsError,
-    isError,
-    isLoading,
-    data,
-  ]);
+  }, [isError, isLoading, data]);
 
   if (isError) {
     return <ErrorShow error={error} />;
   }
 
-  if (complaintsLoading) {
+  if (isLoading) {
     return <LoadingPage />;
   }
   return (
@@ -153,14 +138,14 @@ const WarrantyDashboard = () => {
         />
       </div>
 
-      <div className="grid grid-cols-3 py-5 gap-5">
+      <div className="grid grid-cols-3 py-5 gap-3">
         <div className="col-span-2 w-full bg-solidWhite rounded-md">
           <div className="pb-5 px-5">
             <Chart />
           </div>
         </div>
-        <div className="col-span-1 ">
-          <div className="bg-solidWhite">
+        <div className="col-span-1 bg-solidWhite rounded-md">
+          <div>
             <h2 className="text-lg font-semibold px-5 pt-5">
               Engineer Details
             </h2>
@@ -177,17 +162,33 @@ const WarrantyDashboard = () => {
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="bg-solidWhite my-5 p-5 rounded-md">
-        <h1 className="font-medium text-xl">Order History</h1>
+        <div className="col-span-1 bg-solidWhite rounded-md">
+          <div>
+            <h2 className="text-lg font-semibold px-5 pt-5">
+              Customer Details
+            </h2>
+            <hr className="border-grayForBorder border-2 mt-2 mr-5" />
+          </div>
+          <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
+            {customerData?.data?.map((data, index) => (
+              <DashboardCustomerCard key={index} customer={data} />
+            ))}
+          </div>
+        </div>
 
-        <div className="pt-5">
-          <CommonTable
-            itemData={billData}
-            headerData={AdminDashboardTableHeader}
-            dataLayout={tableLayout}
-          />
+        <div className="col-span-1 bg-solidWhite rounded-md">
+          <div>
+            <h2 className="text-lg font-semibold px-5 pt-5">
+              Reciever Details
+            </h2>
+            <hr className="border-grayForBorder border-2 mt-2 mr-5" />
+          </div>
+          <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
+            {recieverData?.data?.map((data, index) => (
+              <DashboardRecieverCard key={index} data={data} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

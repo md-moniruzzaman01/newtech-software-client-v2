@@ -31,14 +31,16 @@ const DashboardEngineerCard: FC<DashboardEngineerCardProps> = ({
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   return (
-    <div className="shadow-md rounded-md mb-5">
+    <div className="shadow-md rounded-md mb-5 mt-2 mx-2">
       <div
-        className="p-5 flex justify-between gap-2 items-center bg-solidWhite rounded-t-md cursor-pointer"
+        className="p-5 flex justify-between gap-2 items-center bg-solidWhite rounded-t-md cursor-pointer mt-2"
         onClick={toggleDropdown}
       >
-        <div className="text-sm font-medium">
-          {engineer.name.firstName} {engineer.name.lastName}
-          <p>{engineer.email}</p>
+        <div className="text-sm">
+          <p className="font-medium">
+            {engineer.name.firstName} {engineer.name.lastName}
+          </p>
+          <p className="text-xs">{engineer.email}</p>
         </div>
         <div className="flex items-center space-x-5">
           <div className="text-xs text-gray-600">

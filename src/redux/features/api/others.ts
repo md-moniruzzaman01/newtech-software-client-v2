@@ -146,6 +146,18 @@ const OthersApi = baseApi.injectEndpoints({
       },
       providesTags: [],
     }),
+
+    getDashboardCustomerData: builder.query({
+      query: ({ token }) => {
+        return {
+          url: "/complaints/customer",
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
   }),
 });
 
@@ -161,4 +173,5 @@ export const {
   useGetProductsAllForServiceQuery,
   useGetDashboardRecieverQuery,
   useGetDashboardEngineerDataQuery,
+  useGetDashboardCustomerDataQuery,
 } = OthersApi;
