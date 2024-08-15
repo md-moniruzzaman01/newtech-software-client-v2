@@ -159,7 +159,6 @@ const ComplaintsApi = baseApi.injectEndpoints({
 
     updateBuffers: builder.mutation({
       query: ({ fullData, token }) => {
-        console.log(fullData);
         return {
           url: "/complaints/update",
           method: "PATCH",

@@ -45,12 +45,12 @@ const WarrantyDashboard = () => {
   const { data, isError, isLoading, error } = useGetCardDataQuery({
     token,
   });
-  const { data: recieverData } = useGetDashboardRecieverQuery({ token });
-  const { data: engineerData } = useGetDashboardEngineerDataQuery({ token });
-  const { data: customerData } = useGetDashboardCustomerDataQuery({ token });
-  console.log("Engineer Data", engineerData);
-  console.log("reciever", recieverData);
-  console.log("Customer Data", customerData);
+  const { data: recieverData, isLoading: recieverLoading } =
+    useGetDashboardRecieverQuery({ token });
+  const { data: engineerData, isLoading: engineerLoading } =
+    useGetDashboardEngineerDataQuery({ token });
+  const { data: customerData, isLoading: customerLoading } =
+    useGetDashboardCustomerDataQuery({ token });
 
   useEffect(() => {
     if (!isError && !isLoading) {
@@ -62,7 +62,7 @@ const WarrantyDashboard = () => {
     return <ErrorShow error={error} />;
   }
 
-  if (isLoading) {
+  if (isLoading || recieverLoading || engineerLoading || customerLoading) {
     return <LoadingPage />;
   }
   return (
@@ -151,7 +151,7 @@ const WarrantyDashboard = () => {
             </h2>
             <hr className="border-grayForBorder border-2 mt-2 mr-5" />
           </div>
-          <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
+          <div className="w-full h-[calc(100vh-360px)] overflow-y-auto overflow-x-hidden">
             {engineerData?.data?.length > 0 ? (
               engineerData?.data?.map((data, index) => (
                 <DashboardEngineerCard

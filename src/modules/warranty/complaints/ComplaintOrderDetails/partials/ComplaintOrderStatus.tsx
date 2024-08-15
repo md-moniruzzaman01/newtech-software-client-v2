@@ -29,8 +29,6 @@ const ComplaintOrderStatus: React.FC<ComplaintsOrderStatusProps> = ({
       status: selectedOrderStatus,
     };
 
-    console.log(fullData);
-
     const result = await updateComplaintsStatus({ fullData, token, id });
     const isSwalTrue = showSwal(result);
     if (isSwalTrue) {

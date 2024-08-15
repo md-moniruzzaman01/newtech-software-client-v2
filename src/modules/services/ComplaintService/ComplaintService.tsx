@@ -95,8 +95,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
     addedItem,
   };
 
-  console.log(addedItem);
-
   useEffect(() => {
     if (searchInput) {
       fetchData(searchInput, false, setIsLoadingSuggestion, setSuggestions);

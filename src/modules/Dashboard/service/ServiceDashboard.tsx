@@ -46,23 +46,23 @@ const ServiceDashboard = () => {
     token,
   });
 
-  const { data: recieverData } = useGetDashboardRecieverServiceQuery({ token });
-  const { data: engineerData } = useGetDashboardEngineerServiceDataQuery({
-    token,
-  });
-  const { data: customerData } = useGetDashboardCustomerServiceDataQuery({
-    token,
-  });
-  console.log("Engineer Data", engineerData);
-  console.log("reciever", recieverData);
-  console.log("Customer Data", customerData);
+  const { data: recieverData, isLoading: recieverLoading } =
+    useGetDashboardRecieverServiceQuery({ token });
+  const { data: engineerData, isLoading: engineerLoading } =
+    useGetDashboardEngineerServiceDataQuery({
+      token,
+    });
+  const { data: customerData, isLoading: customerLoading } =
+    useGetDashboardCustomerServiceDataQuery({
+      token,
+    });
 
   useEffect(() => {
     if (!isError && !isLoading) {
       setCardData(data?.data);
     }
   }, [data, isLoading, isError]);
-  if (isLoading) {
+  if (isLoading || recieverLoading || engineerLoading || customerLoading) {
     return <LoadingPage />;
   }
   if (isError) {
@@ -148,7 +148,7 @@ const ServiceDashboard = () => {
             </h2>
             <hr className="border-grayForBorder border-2 mt-2 mr-5" />
           </div>
-          <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
+          <div className="w-full h-[calc(100vh-360px)] overflow-y-auto overflow-x-hidden">
             {engineerData?.data?.length > 0 ? (
               engineerData?.data?.map((data, index) => (
                 <DashboardEngineerCard

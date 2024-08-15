@@ -14,8 +14,8 @@ import { useGetChartDataQuery } from "../../../../redux/features/api/others";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { labels } from "../config/constants";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import ComponentLoading from "../../../../common/components/Component Loading/ComponentLoading";
 
 ChartJS.register(
   CategoryScale,
@@ -106,7 +106,7 @@ const Chart = () => {
   };
 
   if (ChartsLoading) {
-    return <LoadingPage />;
+    return <ComponentLoading className="min-h-96" height="100" width="100" />;
   }
 
   if (ChartsError) {
