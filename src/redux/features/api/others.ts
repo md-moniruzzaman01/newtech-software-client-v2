@@ -135,6 +135,18 @@ const OthersApi = baseApi.injectEndpoints({
       providesTags: [],
     }),
 
+    getDashboardRecieverService: builder.query({
+      query: ({ token }) => {
+        return {
+          url: `/complaints/receiver/services`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
+
     getDashboardEngineerData: builder.query({
       query: ({ token }) => {
         return {
@@ -147,10 +159,34 @@ const OthersApi = baseApi.injectEndpoints({
       providesTags: [],
     }),
 
+    getDashboardEngineerServiceData: builder.query({
+      query: ({ token }) => {
+        return {
+          url: "/repair/engineer-data/services",
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
+
     getDashboardCustomerData: builder.query({
       query: ({ token }) => {
         return {
           url: "/complaints/customer",
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
+
+    getDashboardCustomerServiceData: builder.query({
+      query: ({ token }) => {
+        return {
+          url: "/complaints/customer/service",
           headers: {
             authorization: token,
           },
@@ -174,4 +210,7 @@ export const {
   useGetDashboardRecieverQuery,
   useGetDashboardEngineerDataQuery,
   useGetDashboardCustomerDataQuery,
+  useGetDashboardCustomerServiceDataQuery,
+  useGetDashboardEngineerServiceDataQuery,
+  useGetDashboardRecieverServiceQuery,
 } = OthersApi;

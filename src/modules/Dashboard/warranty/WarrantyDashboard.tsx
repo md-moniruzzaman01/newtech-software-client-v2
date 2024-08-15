@@ -7,7 +7,7 @@ import InProgress from "../../../shared/libs/custom icons/InProgress";
 import PendingIcon from "../../../shared/libs/custom icons/PendingIcon";
 
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { authKey } from "../../../shared/config/constaints";
+import { authKey, emptyData } from "../../../shared/config/constaints";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import {
   useGetCardDataQuery,
@@ -152,14 +152,20 @@ const WarrantyDashboard = () => {
             <hr className="border-grayForBorder border-2 mt-2 mr-5" />
           </div>
           <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
-            {engineerData?.data?.map((data, index) => (
-              <DashboardEngineerCard
-                key={index}
-                engineer={data.engineer}
-                statusCounts={data.statusCounts}
-                totalWorked={data.totalWorked}
-              />
-            ))}
+            {engineerData?.data?.length > 0 ? (
+              engineerData?.data?.map((data, index) => (
+                <DashboardEngineerCard
+                  key={index}
+                  engineer={data.engineer}
+                  statusCounts={data.statusCounts}
+                  totalWorked={data.totalWorked}
+                />
+              ))
+            ) : (
+              <span className="flex justify-center items-center h-full">
+                {emptyData}
+              </span>
+            )}
           </div>
         </div>
 
@@ -171,9 +177,15 @@ const WarrantyDashboard = () => {
             <hr className="border-grayForBorder border-2 mt-2 mr-5" />
           </div>
           <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
-            {customerData?.data?.map((data, index) => (
-              <DashboardCustomerCard key={index} customer={data} />
-            ))}
+            {customerData?.data?.length > 0 ? (
+              customerData?.data?.map((data, index) => (
+                <DashboardCustomerCard key={index} customer={data} />
+              ))
+            ) : (
+              <span className="flex justify-center items-center h-full">
+                {emptyData}
+              </span>
+            )}
           </div>
         </div>
 
@@ -185,9 +197,15 @@ const WarrantyDashboard = () => {
             <hr className="border-grayForBorder border-2 mt-2 mr-5" />
           </div>
           <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
-            {recieverData?.data?.map((data, index) => (
-              <DashboardRecieverCard key={index} data={data} />
-            ))}
+            {recieverData?.data?.length > 0 ? (
+              recieverData?.data?.map((data, index) => (
+                <DashboardRecieverCard key={index} data={data} />
+              ))
+            ) : (
+              <span className="flex justify-center items-center h-full">
+                {emptyData}
+              </span>
+            )}
           </div>
         </div>
       </div>
