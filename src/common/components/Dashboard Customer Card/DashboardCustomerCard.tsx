@@ -29,7 +29,7 @@ const DashboardCustomerCard: FC<DashboardCustomerCardProps> = ({
   return (
     <div
       onClick={toggleDropdown}
-      className={` bg-white mx-2 shadow-md rounded-md p-4 transition-all duration-300 ease-in-out mb-2 cursor-pointer mt-2`}
+      className={`relative bg-solidWhite mx-2 shadow-md rounded-md p-4 transition-all duration-300 ease-in-out mb-4 cursor-pointer mt-2`}
     >
       <div className="flex items-center justify-between gap-3">
         <div>
@@ -41,9 +41,9 @@ const DashboardCustomerCard: FC<DashboardCustomerCardProps> = ({
         <p className="text-[10px] text-gray-600 font-semibold">
           Products: {customer.totalProducts}
         </p>
-        <div className="flex items-center">
+        <div className="absolute -right-2 -top-2">
           <div className="bg-blue-100 text-blue-600 py-1 px-2 rounded-full text-[10px] font-semibold">
-            {customer.statusCounts.length} Statuses
+            {customer.statusCounts.length}
           </div>
         </div>
       </div>
