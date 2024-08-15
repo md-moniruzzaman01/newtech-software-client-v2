@@ -29,6 +29,7 @@ const ComplaintsServiceDetails = () => {
     isLoading: complaintsLoading,
     error: complaintsError,
   } = useGetServicesByIdQuery({ id, token });
+
   useEffect(() => {
     if (!complaintsIsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);
@@ -67,13 +68,7 @@ const ComplaintsServiceDetails = () => {
           bgColor="primary"
           headerTitle="Category Name"
         />
-        {/* <ComplaintHeaderCard
-          headerDetails={
-            complaintsSingleData?.Nonwarrentycustomer_contact_number
-          }
-          bgColor="primary"
-          headerTitle="Number"
-        /> */}
+
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.repair_status}
           bgColor="primary"
@@ -162,26 +157,12 @@ const ComplaintsServiceDetails = () => {
               isEdit={isEdit}
               branch={complaintsSingleData?.branch}
               defaultOrderStatus={complaintsSingleData?.repair_status}
-              // defaultRepairStatus={complaintsSingleData?.repair_status}
             />
           </div>
         )}
       </div>
 
       <div className="grid grid-cols-5 mb-5 gap-5">
-        {complaintsSingleData?.Qa?.length > 0 &&
-          complaintsSingleData?.Qa?.map((item, index) => (
-            <ComplaintMiniCard
-              key={index}
-              status={`Status: ${item?.status}`}
-              name={`Name: ${
-                item?.qa_checker_id?.Engineer?.name?.firstName +
-                " " +
-                item?.qa_checker_id?.Engineer?.name?.lastName
-              }`}
-              notes={`${item?.serial_number}`}
-            />
-          ))}
         {complaintsSingleData?.Qc?.length > 0 &&
           complaintsSingleData?.Qc?.map((item, index) => (
             <ComplaintMiniCard
@@ -195,6 +176,20 @@ const ComplaintsServiceDetails = () => {
               notes={`${item?.serial_number}`}
             />
           ))}
+        {complaintsSingleData?.Qa?.length > 0 &&
+          complaintsSingleData?.Qa?.map((item, index) => (
+            <ComplaintMiniCard
+              key={index}
+              status={`Status: ${item?.status}`}
+              name={`Name: ${
+                item?.qa_checker_id?.Engineer?.name?.firstName +
+                " " +
+                item?.qa_checker_id?.Engineer?.name?.lastName
+              }`}
+              notes={`${item?.serial_number}`}
+            />
+          ))}
+
         {complaintsSingleData?.RepairItem?.length > 0 &&
           complaintsSingleData?.RepairItem?.map((item, index) => (
             <ComplaintMiniCard
