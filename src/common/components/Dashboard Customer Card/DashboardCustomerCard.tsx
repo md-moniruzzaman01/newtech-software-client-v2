@@ -29,7 +29,7 @@ const DashboardCustomerCard: FC<DashboardCustomerCardProps> = ({
   return (
     <div
       onClick={toggleDropdown}
-      className={`relative bg-solidWhite mx-2 shadow-md rounded-md p-4 transition-all duration-300 ease-in-out mb-4 cursor-pointer mt-2`}
+      className={`relative bg-solidWhite mx-2 shadow-md rounded-md p-4 transition-all duration-300 ease-in-out mb-4 cursor-pointer mt-4`}
     >
       <div className="flex items-center justify-between gap-3">
         <div>

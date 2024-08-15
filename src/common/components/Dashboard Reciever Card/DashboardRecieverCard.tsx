@@ -26,7 +26,7 @@ const DashboardRecieverCard: FC<DashboardRepairCardProps> = ({ data }) => {
   return (
     <div
       onClick={toggleDropdown}
-      className={`relative bg-white mx-2 shadow-md rounded-md mb-6 p-4 transition-all duration-300 ease-in-out cursor-pointer mt-2`}
+      className={`relative bg-white mx-2 shadow-md rounded-md mb-4 p-4 transition-all duration-300 ease-in-out cursor-pointer mt-4`}
     >
       <div className="flex items-center justify-between ">
         <div>
@@ -35,9 +35,9 @@ const DashboardRecieverCard: FC<DashboardRepairCardProps> = ({ data }) => {
         <p className="text-[10px] text-gray-600">
           Repairs: {data.totalRepairs}
         </p>
-        <div className="flex items-center">
+        <div className="absolute -right-2 -top-2">
           <div className="bg-blue-100 text-blue-600 py-1 px-2 rounded-full text-[10px] font-semibold">
-            {data.statusCounts.length} Statuses
+            {data.statusCounts.length}
           </div>
         </div>
       </div>
