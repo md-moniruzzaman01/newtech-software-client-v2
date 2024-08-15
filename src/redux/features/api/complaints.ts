@@ -145,6 +145,18 @@ const ComplaintsApi = baseApi.injectEndpoints({
       providesTags: ["repair"],
     }),
 
+    getLeakMaterial: builder.query({
+      query: (params) => {
+        return {
+          url: `/product?repair_status=Leak material&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["repair"],
+    }),
+
     updateBuffers: builder.mutation({
       query: ({ fullData, token }) => {
         console.log(fullData);
@@ -183,4 +195,5 @@ export const {
   useCancelComplaintsMutation,
   useComplaintEditMutation,
   useUpdateBuffersMutation,
+  useGetLeakMaterialQuery,
 } = ComplaintsApi;

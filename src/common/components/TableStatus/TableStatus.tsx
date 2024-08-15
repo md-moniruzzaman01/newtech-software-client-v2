@@ -12,10 +12,18 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues, status }) => {
   useEffect(() => {
     if (!status) {
       const repairStatus = params.get("repair_status");
-      setActiveRoute(repairStatus);
+      if (repairStatus) {
+        setActiveRoute(repairStatus);
+      } else {
+        setActiveRoute("");
+      }
     } else {
       const status = params.get("status");
-      setActiveRoute(status);
+      if (status) {
+        setActiveRoute(status);
+      } else {
+        setActiveRoute("");
+      }
     }
   }, [status]);
 

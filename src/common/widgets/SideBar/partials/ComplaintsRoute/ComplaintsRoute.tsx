@@ -80,6 +80,15 @@ const ComplaintsRoute = () => {
             </div>
           </NavLink>
         )}
+
+        {activeRoute && (
+          <NavLink to="/leak-material">
+            <div className={routeStyle}>
+              <span>&#8618;</span>
+              <span>Leak Material</span>
+            </div>
+          </NavLink>
+        )}
       </section>
     </div>
   );

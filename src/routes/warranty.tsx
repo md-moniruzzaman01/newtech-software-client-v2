@@ -26,6 +26,7 @@ import BillPendingWarranty from "../modules/warranty/BillWarranty/BillPendingWar
 import CreateABillWarranty from "../modules/warranty/BillWarranty/CreateABillWarranty/CreateABillWarranty";
 import ComplaintsInDetails from "../modules/warranty/complaints/Complains In Details/ComplaintsInDetails";
 import EngineerItemsOrderDetails from "../modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
+import LeakMaterial from "../modules/warranty/complaints/Leak Metarial/LeakMaterial";
 
 export const warrantyComplaintsRoutes = [
   { path: "/", element: <WarrantyDashboard /> },
@@ -34,6 +35,7 @@ export const warrantyComplaintsRoutes = [
   { path: "/complaints", element: <Complaint /> },
   { path: "/my-complaints", element: <MyComplaints /> },
   { path: "/buffers", element: <ComplaintBuffers /> },
+  { path: "/leak-material", element: <LeakMaterial /> },
   { path: "/complaints-delivered", element: <ComplaintsDelivered /> },
   { path: "/complaints/order-details/:id", element: <ComplaintOrderDetails /> },
   {
