@@ -116,7 +116,7 @@ const WarrantyDashboard = () => {
           icon={icons?.delivered}
         />
         <DashboardCard
-          link="/complaints?repair_status=buffer"
+          link="/buffers"
           title="Buffer"
           money={`${CardData?.BufferCount}`}
           className="bg-LightLavender"

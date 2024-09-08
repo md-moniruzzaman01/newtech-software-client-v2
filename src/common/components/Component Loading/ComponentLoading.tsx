@@ -27,20 +27,20 @@ const ComponentLoading: React.FC<ComponentLoadingProps> = ({
           fy=".3125"
           gradientTransform="scale(1.5)"
         >
-          <stop offset="0" stop-color="#2D98FF"></stop>
-          <stop offset=".3" stop-color="#2D98FF" stop-opacity=".9"></stop>
-          <stop offset=".6" stop-color="#2D98FF" stop-opacity=".6"></stop>
-          <stop offset=".8" stop-color="#2D98FF" stop-opacity=".3"></stop>
-          <stop offset="1" stop-color="#2D98FF" stop-opacity="0"></stop>
+          <stop offset="0" stopColor="#2D98FF"></stop>
+          <stop offset=".3" stopColor="#2D98FF" stopOpacity=".9"></stop>
+          <stop offset=".6" stopColor="#2D98FF" stopOpacity=".6"></stop>
+          <stop offset=".8" stopColor="#2D98FF" stopOpacity=".3"></stop>
+          <stop offset="1" stopColor="#2D98FF" stopOpacity="0"></stop>
         </radialGradient>
         <circle
           transform-origin="center"
           fill="none"
           stroke="url(#a11)"
-          stroke-width="10"
-          stroke-linecap="round"
-          stroke-dasharray="200 1000"
-          stroke-dashoffset="0"
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeDasharray="200 1000"
+          strokeDashoffset="0"
           cx="100"
           cy="100"
           r="70"
@@ -61,8 +61,8 @@ const ComponentLoading: React.FC<ComponentLoadingProps> = ({
           fill="none"
           opacity=".2"
           stroke="#2D98FF"
-          stroke-width="10"
-          stroke-linecap="round"
+          strokeWidth="10"
+          strokeLinecap="round"
           cx="100"
           cy="100"
           r="70"
