@@ -36,6 +36,12 @@ const QARoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
+        <NavLink to={`${activeRoute ? "/qa-all-items" : "/service-qa-items"}`}>
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>QA All</span>
+          </div>
+        </NavLink>
         <NavLink to={`${activeRoute ? "/qa-items" : "/service-qa-items"}`}>
           <div className={routeStyle}>
             <span>&#8618;</span>

@@ -36,7 +36,13 @@ const QCRoute = () => {
         )}
       </button>
       <section className={`pl-5`} {...getCollapseProps()}>
-      <NavLink to="/qc">
+        <NavLink to="/qc-all">
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>QC All</span>
+          </div>
+        </NavLink>
+        <NavLink to="/qc">
           <div className={routeStyle}>
             <span>&#8618;</span>
             <span>QC Library</span>

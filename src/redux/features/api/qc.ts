@@ -62,6 +62,17 @@ const QCApi = baseApi.injectEndpoints({
       providesTags: ["qc"],
     }),
 
+    getAllProducts: builder.query({
+      query: (params) => {
+        return {
+          url: `/product?warranty=true&&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["complaints", "repair", "qc"],
+    }),
     getProducts: builder.query({
       query: (params) => {
         return {
@@ -95,4 +106,5 @@ export const {
   useUpdateStatusQCMutation,
   useGetQcByIdQuery,
   useQcReturnToLibraryMutation,
+  useGetAllProductsQuery,
 } = QCApi;

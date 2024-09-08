@@ -49,7 +49,7 @@ const QCMyItems = () => {
 
   return (
     <div className=" px-5">
-      <Navbar name="QA All"></Navbar>
+      <Navbar name="My QA Items"></Navbar>
       <div className="pt-5">
         <SearchBar />
       </div>

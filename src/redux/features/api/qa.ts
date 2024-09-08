@@ -25,6 +25,17 @@ const QAApi = baseApi.injectEndpoints({
       invalidatesTags: ["complaints", "qa"],
     }),
 
+    getAllQA: builder.query({
+      query: (params) => {
+        return {
+          url: `/qa`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["qa"],
+    }),
     getOldQas: builder.query({
       query: (params) => {
         return {
@@ -115,4 +126,5 @@ export const {
   useUpdateStatusQAMutation,
   useQaReturnToLibraryMutation,
   useGetMyQasQuery,
+  useGetAllQAQuery,
 } = QAApi;

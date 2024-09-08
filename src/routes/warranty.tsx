@@ -27,6 +27,8 @@ import CreateABillWarranty from "../modules/warranty/BillWarranty/CreateABillWar
 import ComplaintsInDetails from "../modules/warranty/complaints/Complains In Details/ComplaintsInDetails";
 import EngineerItemsOrderDetails from "../modules/warranty/repair/EngineerItemsOrderDetails/EngineerItemsOrderDetails";
 import LeakMaterial from "../modules/warranty/complaints/Leak Metarial/LeakMaterial";
+import QCAll from "../modules/warranty/QC/QC All/QCAll";
+import AllQAData from "../modules/warranty/QA/All QA Data/AllQAData";
 
 export const warrantyComplaintsRoutes = [
   { path: "/", element: <WarrantyDashboard /> },
@@ -47,12 +49,14 @@ export const warrantyComplaintsRoutes = [
 
 export const warrantyQcsRoutes = [
   { path: "/qc", element: <Qc /> },
+  { path: "/qc-all", element: <QCAll /> },
   { path: "/qc-my-library", element: <QCMyLibrary /> },
   { path: "/qc-my-items", element: <QCMyItems /> },
   { path: "/qc/order-details/:id", element: <ComplaintOrderDetailsQC /> },
 ];
 
 export const warrantyQasRoutes = [
+  { path: "/qa-all-items", element: <AllQAData /> },
   { path: "/qa-items", element: <QAItems /> },
   { path: "/qa-my-library", element: <QAMyLibray /> },
   { path: "/qa-all", element: <QAAll /> },
