@@ -6,6 +6,9 @@ export const headerForEngineersTable = [
   "Email",
   "Contact Number",
   "Created Date",
+  "Action",
+  "Action",
+  "Action",
 ];
 export const tableLayout = [
   "item?.id",

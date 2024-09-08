@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
 import Modal from "../Modal/Modal";
+import { NavLink } from "react-router-dom";
+import Button from "../Button";
 
 interface StatusCount {
   status: string;
@@ -29,9 +31,11 @@ const DashboardRecieverCard: FC<DashboardRepairCardProps> = ({ data }) => {
       className={`relative bg-white mx-2 shadow-md rounded-md mb-4 p-4 transition-all duration-300 ease-in-out cursor-pointer mt-4`}
     >
       <div className="flex items-center justify-between ">
-        <div>
-          <h2 className="text-sm font-semibold">{data.receiver}</h2>
-        </div>
+        <NavLink to={`/engineers-list/engineer-details/${data?.receiver}`}>
+          <Button link>
+            <h2 className="text-sm font-semibold">{data.receiver}</h2>
+          </Button>
+        </NavLink>
         <p className="text-[10px] text-gray-600">
           Repairs: {data.totalRepairs}
         </p>

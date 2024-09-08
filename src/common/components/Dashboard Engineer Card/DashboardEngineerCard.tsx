@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
 import Modal from "../Modal/Modal"; // Ensure you have this Modal component
+import Button from "../Button";
+import { NavLink } from "react-router-dom";
 
 interface SingleStatus {
   status: string;
@@ -37,9 +39,13 @@ const DashboardEngineerCard: FC<DashboardEngineerCardProps> = ({
     >
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-sm font-semibold">
-            {engineer.name.firstName} {engineer.name.lastName}
-          </h2>
+          <NavLink to={`/engineers-list/engineer-details/${""}`}>
+            <Button link>
+              <h2 className="text-sm font-semibold">
+                {engineer.name.firstName} {engineer.name.lastName}
+              </h2>
+            </Button>
+          </NavLink>
           <p className="text-gray-600 text-[10px]">{engineer.email}</p>
         </div>
         <p className="text-[10px] text-gray-600 font-semibold">

@@ -17,6 +17,7 @@ export const HeaderForCustomerTable = [
   "Address",
   "ASP",
   "Action",
+  "Action",
 ];
 
 export const keys = ["company", "sort", "searchTerm"];

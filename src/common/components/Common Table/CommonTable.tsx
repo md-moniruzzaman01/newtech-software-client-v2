@@ -25,6 +25,7 @@ interface CommonTableProps {
   deleteBtn?: boolean;
   deleteFn?: any;
   editPageLink?: string;
+  user?: boolean;
 }
 
 // type TableData = Record<string, any>;
@@ -43,6 +44,7 @@ const CommonTable: FC<CommonTableProps> = ({
   deleteBtn,
   deleteFn,
   editPageLink,
+  user,
 }) => {
   return (
     <>
@@ -112,7 +114,9 @@ const CommonTable: FC<CommonTableProps> = ({
                       {dataLayout.map((layout, idx) => (
                         <td key={idx} className="border ">
                           {(layout === "item?.products?.serial_number" ||
-                            layout === "item?.serial_number") &&
+                            layout === "item?.serial_number" ||
+                            (user && layout === "item?.id") ||
+                            (user && layout === "item?._id")) &&
                           link ? (
                             <NavLink
                               className="text-solidBlack hover:underline hover:text-shadeOfGray"
