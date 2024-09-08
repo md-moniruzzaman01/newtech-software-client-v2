@@ -66,7 +66,7 @@ const Button: FC<ButtonProps> = ({
 
   const btn_danger = "px-5 rounded-md rounded-[4px] text-lg bg-shadeOfRed";
   const smallStyle =
-    "!px-3 !py-1 rounded-md text-xs bg-shadeOfLightBlue hover:bg-sideBarBtnColor hover:text-solidWhite text-solidBlack";
+    "!px-3 !py-1 rounded-md text-xs bg-sideBarBtnColor hover:bg-shadeOfLightBlue hover:text-solidWhite text-solidBlack";
 
   const linkStyle = `!text-linkColor !px-0 !py-0 hover:text-shadeOfBlue hover:underline !bg-transparent`;
   const transparentStyle = `!px-0 !py-0 !bg-transparent`;

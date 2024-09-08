@@ -124,9 +124,9 @@ const OthersApi = baseApi.injectEndpoints({
     }),
 
     getDashboardReciever: builder.query({
-      query: ({ token }) => {
+      query: ({ token, startDate }) => {
         return {
-          url: `/complaints/receiver`,
+          url: `/complaints/receiver?startDate=${startDate}`,
           headers: {
             authorization: token,
           },
@@ -148,9 +148,9 @@ const OthersApi = baseApi.injectEndpoints({
     }),
 
     getDashboardEngineerData: builder.query({
-      query: ({ token }) => {
+      query: ({ token, startDate }) => {
         return {
-          url: "/repair/engineer-data",
+          url: `/repair/engineer-data?startDate=${startDate}`,
           headers: {
             authorization: token,
           },
@@ -172,9 +172,9 @@ const OthersApi = baseApi.injectEndpoints({
     }),
 
     getDashboardCustomerData: builder.query({
-      query: ({ token }) => {
+      query: ({ token, startDate }) => {
         return {
-          url: "/complaints/customer",
+          url: `/complaints/customer?startDate=${startDate}`,
           headers: {
             authorization: token,
           },

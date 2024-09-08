@@ -67,7 +67,7 @@ const DashboardCustomerCard: FC<DashboardCustomerCardProps> = ({
         </div>
 
         {isOpen && (
-          <div className="mt-4">
+          <div className="mt-12">
             {customer.statusCounts.map((status, index) => (
               <div
                 key={index}

@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import Modal from "../Modal/Modal"; // Ensure you have this Modal component
 
 interface SingleStatus {
   status: string;
@@ -28,56 +28,73 @@ const DashboardEngineerCard: FC<DashboardEngineerCardProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleModal = () => setIsOpen(!isOpen);
 
   return (
-    <div className="shadow-md rounded-md mb-5 mt-2 mx-2">
-      <div
-        className="p-5 flex justify-between gap-2 items-center bg-solidWhite rounded-t-md cursor-pointer mt-2"
-        onClick={toggleDropdown}
-      >
-        <div className="text-sm">
-          <p className="font-medium">
+    <div
+      onClick={toggleModal}
+      className={`relative bg-solidWhite mx-2 shadow-md rounded-md p-4 transition-all duration-300 ease-in-out mb-4 cursor-pointer mt-4`}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-sm font-semibold">
             {engineer.name.firstName} {engineer.name.lastName}
-          </p>
-          <p className="text-xs">{engineer.email}</p>
+          </h2>
+          <p className="text-gray-600 text-[10px]">{engineer.email}</p>
         </div>
-        <div className="flex items-center space-x-5">
-          <div className="text-xs text-gray-600">
-            <p>Total Worked: {totalWorked}</p>
-          </div>
-
-          <div>
-            {isOpen ? (
-              <IoIosArrowUp className="h-6 w-6 text-gray-600" />
-            ) : (
-              <IoIosArrowDown className="h-6 w-6 text-gray-600" />
-            )}
+        <p className="text-[10px] text-gray-600 font-semibold">
+          Worked: {totalWorked}
+        </p>
+        <div className="absolute -right-2 -top-2">
+          <div className="bg-blue-100 text-blue-600 py-1 px-2 rounded-full text-[10px] font-semibold">
+            {statusCounts.length}
           </div>
         </div>
       </div>
-      {isOpen && <hr className="border-grayForBorder border-2" />}
-      {isOpen && (
-        <div className="p-5 bg-solidWhite rounded-b-md">
-          {statusCounts &&
-            statusCounts.map((item: SingleStatus, i: number) => (
-              <div key={i} className="flex justify-between items-center py-2">
-                <h3 className="w-36 text-gray-700 text-sm font-medium">
-                  {item.status}
-                </h3>
-                <div className="w-56 flex-1 bg-gray-200 rounded-full h-1 overflow-hidden">
-                  <div
-                    className="bg-blue-500 h-1 rounded-full"
-                    style={{ width: `${(item.count / totalWorked) * 100}%` }}
-                  ></div>
+
+      <Modal
+        header={`${engineer.name.firstName} ${engineer.name.lastName}`}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        bgColor="solidWhite"
+      >
+        <div className="flex flex-col md:flex-row md:justify-between mb-4">
+          <div className="mb-4 md:mb-0">
+            <h3 className="text-sm font-medium text-gray-800">Summary</h3>
+            <p className="text-xs text-gray-600">Total Worked: {totalWorked}</p>
+          </div>
+        </div>
+
+        {isOpen && (
+          <div className="mt-12">
+            {statusCounts.map((status, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between py-2"
+              >
+                <div className="w-1/3">
+                  <h4 className="text-gray-700 text-sm font-medium">
+                    {status.status}
+                  </h4>
                 </div>
-                <p className="w-20 text-right text-gray-700 text-sm">
-                  {item.count}
+                <div className="w-1/3 flex items-center">
+                  <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                    <div
+                      className="bg-blue-500 h-2 rounded-full"
+                      style={{
+                        width: `${(status.count / totalWorked) * 100}%`,
+                      }}
+                    ></div>
+                  </div>
+                </div>
+                <p className="w-1/3 text-right text-gray-700 text-sm">
+                  {status.count} Tasks
                 </p>
               </div>
             ))}
-        </div>
-      )}
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
