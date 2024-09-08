@@ -26,6 +26,7 @@ const CustomerCard = () => {
           onChange={(e) => setDateData(e.target.value)}
           className="max-h-7"
           inputType="date"
+          IsDisabled={customerData?.data?.length <= 0}
         />
         <Button disabled={!dateData} onClick={() => setDateData("")} small>
           All

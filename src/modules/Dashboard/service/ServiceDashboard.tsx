@@ -6,22 +6,17 @@ import InProgress from "../../../shared/libs/custom icons/InProgress";
 import PendingIcon from "../../../shared/libs/custom icons/PendingIcon";
 
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { authKey, emptyData } from "../../../shared/config/constaints";
+import { authKey } from "../../../shared/config/constaints";
 
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
-import {
-  useGetCardDataForServiceQuery,
-  useGetDashboardCustomerServiceDataQuery,
-  useGetDashboardEngineerServiceDataQuery,
-  useGetDashboardRecieverServiceQuery,
-} from "../../../redux/features/api/others";
+import { useGetCardDataForServiceQuery } from "../../../redux/features/api/others";
 import Chart from "./partials/chart";
 import { icons } from "../../../shared/libs/Icons";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 import FullBox from "../../../shared/libs/custom icons/FullBox";
-import DashboardRecieverCard from "../../../common/components/Dashboard Reciever Card/DashboardRecieverCard";
-import DashboardCustomerCard from "../../../common/components/Dashboard Customer Card/DashboardCustomerCard";
-import DashboardEngineerCard from "../../../common/components/Dashboard Engineer Card/DashboardEngineerCard";
+import EngineerCard from "./partials/Engineer Card/EngineerCard";
+import CustomerCard from "./partials/Customer Card/CustomerCard";
+import ReceiverCard from "./partials/Receiver Card/ReceiverCard";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const ServiceDashboard = () => {
@@ -46,23 +41,12 @@ const ServiceDashboard = () => {
     token,
   });
 
-  const { data: recieverData, isLoading: recieverLoading } =
-    useGetDashboardRecieverServiceQuery({ token });
-  const { data: engineerData, isLoading: engineerLoading } =
-    useGetDashboardEngineerServiceDataQuery({
-      token,
-    });
-  const { data: customerData, isLoading: customerLoading } =
-    useGetDashboardCustomerServiceDataQuery({
-      token,
-    });
-
   useEffect(() => {
     if (!isError && !isLoading) {
       setCardData(data?.data);
     }
   }, [data, isLoading, isError]);
-  if (isLoading || recieverLoading || engineerLoading || customerLoading) {
+  if (isLoading) {
     return <LoadingPage />;
   }
   if (isError) {
@@ -142,68 +126,15 @@ const ServiceDashboard = () => {
           </div>
         </div>
         <div className="col-span-1 bg-solidWhite rounded-md">
-          <div>
-            <h2 className="text-lg font-semibold px-5 pt-5">
-              Engineer Details
-            </h2>
-            <hr className="border-grayForBorder border-2 mt-2 mr-5" />
-          </div>
-          <div className="w-full h-[calc(100vh-360px)] overflow-y-auto overflow-x-hidden">
-            {engineerData?.data?.length > 0 ? (
-              engineerData?.data?.map((data, index) => (
-                <DashboardEngineerCard
-                  key={index}
-                  engineer={data.engineer}
-                  statusCounts={data.statusCounts}
-                  totalWorked={data.totalWorked}
-                />
-              ))
-            ) : (
-              <span className="flex justify-center items-center h-full">
-                {emptyData}
-              </span>
-            )}
-          </div>
+          <EngineerCard />
         </div>
 
         <div className="col-span-1 bg-solidWhite rounded-md">
-          <div>
-            <h2 className="text-lg font-semibold px-5 pt-5">
-              Customer Details
-            </h2>
-            <hr className="border-grayForBorder border-2 mt-2 mr-5" />
-          </div>
-          <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
-            {customerData?.data?.length > 0 ? (
-              customerData?.data?.map((data, index) => (
-                <DashboardCustomerCard key={index} customer={data} />
-              ))
-            ) : (
-              <span className="flex justify-center items-center h-full">
-                {emptyData}
-              </span>
-            )}
-          </div>
+          <CustomerCard />
         </div>
 
         <div className="col-span-1 bg-solidWhite rounded-md">
-          <div>
-            <h2 className="text-lg font-semibold px-5 pt-5">
-              Reciever Details
-            </h2>
-            <hr className="border-grayForBorder border-2 mt-2 mr-5" />
-          </div>
-          <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
-            {recieverData?.data?.length > 0 ? (
-              recieverData?.data?.map((data, index) => (
-                <DashboardRecieverCard key={index} data={data} />
-              ))
-            ) : (
-              <span className="flex justify-center items-center h-full">
-                {emptyData}
-              </span>
-            )}
-          </div>
+          <ReceiverCard />
         </div>
       </div>
     </div>

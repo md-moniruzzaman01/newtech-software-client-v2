@@ -3,17 +3,19 @@ import { useState } from "react";
 import ComponentLoading from "../../../../../common/components/Component Loading/ComponentLoading";
 import DashboardEngineerCard from "../../../../../common/components/Dashboard Engineer Card/DashboardEngineerCard";
 import Input from "../../../../../common/components/Input";
-import { useGetDashboardEngineerDataQuery } from "../../../../../redux/features/api/others";
 import { authKey, emptyData } from "../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import Button from "../../../../../common/components/Button";
+import { useGetDashboardEngineerServiceDataQuery } from "../../../../../redux/features/api/others";
 
 const EngineerCard = () => {
   const [dateData, setDateData] = useState("");
   const token = getFromLocalStorage(authKey);
 
   const { data: engineerData, isLoading: engineerLoading } =
-    useGetDashboardEngineerDataQuery({ token, startDate: dateData });
+    useGetDashboardEngineerServiceDataQuery({
+      token,
+    });
 
   if (engineerLoading) {
     return <ComponentLoading />;
