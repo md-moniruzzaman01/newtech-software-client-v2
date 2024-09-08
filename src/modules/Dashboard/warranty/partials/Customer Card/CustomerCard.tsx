@@ -2,18 +2,19 @@
 import { useState } from "react";
 import ComponentLoading from "../../../../../common/components/Component Loading/ComponentLoading";
 import DashboardCustomerCard from "../../../../../common/components/Dashboard Customer Card/DashboardCustomerCard";
-import Input from "../../../../../common/components/Input";
 import { useGetDashboardCustomerDataQuery } from "../../../../../redux/features/api/others";
 import { authKey, emptyData } from "../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
-import Button from "../../../../../common/components/Button";
+import SortByDate from "../../../../../common/components/Sort By Date/SortByDate";
 
 const CustomerCard = () => {
-  const [dateData, setDateData] = useState("");
   const token = getFromLocalStorage(authKey);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const sortByDate = `startDate=${startDate}&endDate=${endDate}` || "";
 
   const { data: customerData, isLoading: customerLoading } =
-    useGetDashboardCustomerDataQuery({ token, startDate: dateData });
+    useGetDashboardCustomerDataQuery({ token, sortByDate });
   if (customerLoading) {
     return <ComponentLoading />;
   }
@@ -22,15 +23,11 @@ const CustomerCard = () => {
     <div>
       <div className="flex justify-between items-center pt-5 pb-2 px-3">
         <h2 className="text-lg font-semibold  ">Customer Details</h2>
-        <Input
-          onChange={(e) => setDateData(e.target.value)}
-          className="max-h-7"
-          inputType="date"
-          IsDisabled={customerData?.data?.length <= 0}
+        <SortByDate
+          setStartDate={setStartDate}
+          startDate={startDate}
+          setEndDate={setEndDate}
         />
-        <Button disabled={!dateData} onClick={() => setDateData("")} small>
-          All
-        </Button>
       </div>
       <hr className="border-grayForBorder border-2 mt-2 mr-5" />
       <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
