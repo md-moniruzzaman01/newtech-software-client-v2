@@ -11,7 +11,9 @@ const ComplaintMiniCard: React.FC<ComplaintMiniCardProps> = ({
   return (
     <div className="text-center bg-solidWhite py-5 space-y-2 rounded-lg">
       <div className=" text-center space-y-3 overflow-x-auto">
-        <p className="overflow-x-auto">Serial No: {notes}</p>
+        <p className="overflow-x-auto text-sm">
+          Serial No: <span className="text-xs">{notes}</span>
+        </p>
         <div className="flex justify-center items-center gap-2 overflow-x-auto">
           <h3 className="font-medium overflow-x-auto">{status}</h3>
         </div>
