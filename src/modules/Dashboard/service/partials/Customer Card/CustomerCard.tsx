@@ -18,7 +18,7 @@ const CustomerCard = () => {
       token,
       sortByDate,
     });
-
+  console.log(customerData);
   if (customerLoading) {
     return <ComponentLoading />;
   }

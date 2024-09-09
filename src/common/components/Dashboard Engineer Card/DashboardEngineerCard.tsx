@@ -9,7 +9,7 @@ interface SingleStatus {
 }
 
 interface EngineerData {
-  _id: string;
+  id: string;
   name: {
     firstName: string;
     lastName: string;
@@ -39,7 +39,7 @@ const DashboardEngineerCard: FC<DashboardEngineerCardProps> = ({
     >
       <div className="flex items-center justify-between gap-3">
         <div>
-          <NavLink to={`/engineers-list/engineer-details/${""}`}>
+          <NavLink to={`/engineers-list/engineer-details/${engineer?.id}`}>
             <Button link>
               <h2 className="text-sm font-semibold">
                 {engineer.name.firstName} {engineer.name.lastName}

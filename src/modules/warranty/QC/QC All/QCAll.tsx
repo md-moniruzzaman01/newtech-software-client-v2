@@ -37,8 +37,6 @@ const QCAll = () => {
     return <LoadingPage />;
   }
 
-  console.log(qcData);
-
   return (
     <div className="px-5">
       <Navbar name={"QC All"}></Navbar>

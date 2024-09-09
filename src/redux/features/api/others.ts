@@ -138,7 +138,7 @@ const OthersApi = baseApi.injectEndpoints({
     getDashboardRecieverService: builder.query({
       query: ({ token, sortByDate }) => {
         return {
-          url: `/complaints/receiver/services?${sortByDate}`,
+          url: `/complaints/receiver-services?${sortByDate}`,
           headers: {
             authorization: token,
           },
@@ -162,7 +162,7 @@ const OthersApi = baseApi.injectEndpoints({
     getDashboardEngineerServiceData: builder.query({
       query: ({ token, sortByDate }) => {
         return {
-          url: `/repair/engineer-data/services?${sortByDate}`,
+          url: `/repair/engineer-data-services?${sortByDate}`,
           headers: {
             authorization: token,
           },
@@ -186,7 +186,7 @@ const OthersApi = baseApi.injectEndpoints({
     getDashboardCustomerServiceData: builder.query({
       query: ({ token, sortByDate }) => {
         return {
-          url: `/complaints/customer/service?${sortByDate}`,
+          url: `/complaints/customer-service?${sortByDate}`,
           headers: {
             authorization: token,
           },
