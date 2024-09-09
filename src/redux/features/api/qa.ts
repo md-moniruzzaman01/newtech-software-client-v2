@@ -83,7 +83,7 @@ const QAApi = baseApi.injectEndpoints({
     getQAProducts: builder.query({
       query: (params) => {
         return {
-          url: `/product?repair_status=Repaired&repair_status=Return%20to%20Qa%20library&${params?.query}`,
+          url: `/product?repair_status=Repaired&repair_status=Return%20to%20Qa%20library&&repair_status=NTF&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

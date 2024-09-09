@@ -20,7 +20,6 @@ import {
   serviceRepairsRoutes,
 } from "./routes/service";
 import { partners } from "./routes/partner";
-import { employee } from "./routes/employee";
 import { settings } from "./routes/settings";
 import { others } from "./routes/others";
 import { engineer } from "./routes/engineer";
@@ -54,7 +53,6 @@ export const router = createBrowserRouter([
       ...serviceInvoicesRoutes,
       ...ServiceQARoute,
       ...partners,
-      ...employee,
       ...settings,
       ...others,
       ...engineer,

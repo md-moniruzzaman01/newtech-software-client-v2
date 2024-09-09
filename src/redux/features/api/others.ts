@@ -195,9 +195,20 @@ const OthersApi = baseApi.injectEndpoints({
       providesTags: [],
     }),
     getDashboardQAData: builder.query({
-      query: ({ token }) => {
+      query: ({ token, sortByDate }) => {
         return {
-          url: `/qa/data`,
+          url: `/qa/data?${sortByDate}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
+    getDashboardQAServiceData: builder.query({
+      query: ({ token, sortByDate }) => {
+        return {
+          url: `/qa/data-services?${sortByDate}`,
           headers: {
             authorization: token,
           },
@@ -206,9 +217,20 @@ const OthersApi = baseApi.injectEndpoints({
       providesTags: [],
     }),
     getDashboardQCData: builder.query({
-      query: ({ token }) => {
+      query: ({ token, sortByDate }) => {
         return {
-          url: `/qc/data`,
+          url: `/qc/data?${sortByDate}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
+    getDashboardQCServiceData: builder.query({
+      query: ({ token, sortByDate }) => {
+        return {
+          url: `/qc/data-services?${sortByDate}`,
           headers: {
             authorization: token,
           },
@@ -237,4 +259,6 @@ export const {
   useGetDashboardRecieverServiceQuery,
   useGetDashboardQADataQuery,
   useGetDashboardQCDataQuery,
+  useGetDashboardQAServiceDataQuery,
+  useGetDashboardQCServiceDataQuery,
 } = OthersApi;

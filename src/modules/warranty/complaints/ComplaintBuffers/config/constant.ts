@@ -41,5 +41,4 @@ export const btnValue = [
   { label: "Leak material", value: "Leak Material" },
   { label: "Repair Difficulty", value: "Repair Difficulty" },
   { label: "CN", value: "CN" },
-  { label: "NTF", value: "NTF" },
 ];

@@ -3,7 +3,7 @@ import { useState } from "react";
 import ComponentLoading from "../../../../../common/components/Component Loading/ComponentLoading";
 import DashboardQCCard from "../../../../../common/components/Dashboard QC Card/DashboardQCCard";
 import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
-import { useGetDashboardQCDataQuery } from "../../../../../redux/features/api/others";
+import { useGetDashboardQCServiceDataQuery } from "../../../../../redux/features/api/others";
 import { authKey, emptyData } from "../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import SortByDate from "../../../../../common/components/Sort By Date/SortByDate";
@@ -13,10 +13,12 @@ const QCCard = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const sortByDate = `startDate=${startDate}&endDate=${endDate}` || "";
-  const { data, isLoading, isError, error } = useGetDashboardQCDataQuery({
-    token,
-    sortByDate,
-  });
+  const { data, isLoading, isError, error } = useGetDashboardQCServiceDataQuery(
+    {
+      token,
+      sortByDate,
+    }
+  );
   if (isLoading) {
     return <ComponentLoading />;
   }

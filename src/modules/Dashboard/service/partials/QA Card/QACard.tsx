@@ -1,29 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import ComponentLoading from "../../../../../common/components/Component Loading/ComponentLoading";
-import DashboardQCCard from "../../../../../common/components/Dashboard QC Card/DashboardQCCard";
-import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
-import { useGetDashboardQCDataQuery } from "../../../../../redux/features/api/others";
+import DashboardQACard from "../../../../../common/components/Dashboard QA Card/DashboardQACard";
+import { useGetDashboardQAServiceDataQuery } from "../../../../../redux/features/api/others";
 import { authKey, emptyData } from "../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 import SortByDate from "../../../../../common/components/Sort By Date/SortByDate";
 
-const QCCard = () => {
+const QACard = () => {
   const token = getFromLocalStorage(authKey);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const sortByDate = `startDate=${startDate}&endDate=${endDate}` || "";
-  const { data, isLoading, isError, error } = useGetDashboardQCDataQuery({
+  const { data, isLoading } = useGetDashboardQAServiceDataQuery({
     token,
     sortByDate,
   });
+
   if (isLoading) {
     return <ComponentLoading />;
   }
 
-  if (isError) {
-    return <ErrorShow error={error} />;
-  }
   return (
     <div>
       <div className="flex justify-between items-center pt-5 pb-2 px-3">
@@ -38,7 +35,7 @@ const QCCard = () => {
       <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
         {data?.data?.length > 0 ? (
           data?.data?.map((data: any, index: string) => (
-            <DashboardQCCard key={index} data={data} />
+            <DashboardQACard key={index} data={data} />
           ))
         ) : (
           <span className="flex justify-center items-center h-full">
@@ -50,4 +47,4 @@ const QCCard = () => {
   );
 };
 
-export default QCCard;
+export default QACard;
