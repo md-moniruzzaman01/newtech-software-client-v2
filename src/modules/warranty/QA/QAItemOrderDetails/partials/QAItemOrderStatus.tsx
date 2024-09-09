@@ -7,7 +7,7 @@ import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage
 import { authKey } from "../../../../../shared/config/constaints";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUpdateStatusQAMutation } from "../../../../../redux/features/api/qa";
-import swal from "sweetalert";
+import { showSwal } from "../../../../../shared/helpers/SwalShower";
 
 const QAItemOrderStatus = () => {
   // const [droppedImage, setDroppedImage] = useState<string>();
@@ -30,12 +30,10 @@ const QAItemOrderStatus = () => {
     };
 
     const result: any = await updateStatusQA({ id, fullData, token });
-    if (result?.data?.success) {
-      swal("Success", `${result?.data?.message}`, "success");
+    const isSwalTrue = showSwal(result);
+    if (isSwalTrue) {
       navigate("/qa-my-library");
       form.reset();
-    } else {
-      swal("Error", `${result?.error?.data?.message}`, "error");
     }
   };
 

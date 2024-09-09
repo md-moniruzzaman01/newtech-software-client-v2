@@ -31,14 +31,14 @@ const QCMyItems = () => {
     token,
     query,
   });
-
+  console.log(data);
   useEffect(() => {
-    if (data) {
-      setTotalItems(data.meta.total);
-      setLimit(data.meta.limit);
+    if (!isLoading || !isError) {
+      setTotalItems(data?.meta.total);
+      setLimit(data?.meta.limit);
       setCurrentPage(data?.meta?.page);
     }
-  }, [data]);
+  }, [isLoading, isError, data]);
 
   if (isLoading) {
     return <LoadingPage />;

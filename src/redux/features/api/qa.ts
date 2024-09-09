@@ -39,7 +39,7 @@ const QAApi = baseApi.injectEndpoints({
     getOldQas: builder.query({
       query: (params) => {
         return {
-          url: `/qa/my-library`,
+          url: `/qa/my-library?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
