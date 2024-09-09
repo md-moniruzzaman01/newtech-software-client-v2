@@ -6,20 +6,24 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import { useGetProductsAllQuery } from "../../../../redux/features/api/others";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { QCTableHeader, tableLayout } from "./config/constants";
+import { fields, keys, QCTableHeader, tableLayout } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const QCAll = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
   const token = getFromLocalStorage(authKey);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const {
     data: qcData,
     isLoading,
     isError,
-  } = useGetProductsAllQuery({ token });
+  } = useGetProductsAllQuery({ token, query });
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -32,6 +36,8 @@ const QCAll = () => {
   if (isLoading) {
     return <LoadingPage />;
   }
+
+  console.log(qcData);
 
   return (
     <div className="px-5">

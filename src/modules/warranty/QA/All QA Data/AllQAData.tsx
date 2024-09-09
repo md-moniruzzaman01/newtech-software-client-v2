@@ -6,16 +6,20 @@ import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { QATableHeader, tableLayout } from "./config/constants";
+import { fields, keys, QATableHeader, tableLayout } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const AllQAData = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
+  const [searchParams] = useSearchParams();
   const token = getFromLocalStorage(authKey);
-  const { data: qaData, isLoading } = useGetAllQAQuery({ token });
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
+  const { data: qaData, isLoading } = useGetAllQAQuery({ token, query });
 
   useEffect(() => {
     if (qaData) {

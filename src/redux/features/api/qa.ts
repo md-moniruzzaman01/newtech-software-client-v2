@@ -28,7 +28,7 @@ const QAApi = baseApi.injectEndpoints({
     getAllQA: builder.query({
       query: (params) => {
         return {
-          url: `/qa/data?${params.query}`,
+          url: `/qa?${params.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -50,7 +50,7 @@ const QAApi = baseApi.injectEndpoints({
     getAllQAService: builder.query({
       query: (params) => {
         return {
-          url: `/qa/data-services?${params?.query}`,
+          url: `/qa?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
