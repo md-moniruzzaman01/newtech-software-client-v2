@@ -17,6 +17,7 @@ import FullBox from "../../../shared/libs/custom icons/FullBox";
 import EngineerCard from "./partials/Engineer Card/EngineerCard";
 import CustomerCard from "./partials/Customer Card/CustomerCard";
 import ReceiverCard from "./partials/Receiver Card/ReceiverCard";
+import QACard from "./partials/QA Card/QACard";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const WarrantyDashboard = () => {
@@ -143,6 +144,9 @@ const WarrantyDashboard = () => {
 
         <div className="col-span-1 bg-solidWhite rounded-md">
           <ReceiverCard />
+        </div>
+        <div className="col-span-1 bg-solidWhite rounded-md">
+          <QACard />
         </div>
       </div>
     </div>
