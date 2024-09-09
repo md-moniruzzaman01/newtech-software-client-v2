@@ -205,6 +205,17 @@ const OthersApi = baseApi.injectEndpoints({
       },
       providesTags: [],
     }),
+    getDashboardQCData: builder.query({
+      query: ({ token }) => {
+        return {
+          url: `/qc/data`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+      providesTags: [],
+    }),
   }),
 });
 
@@ -225,4 +236,5 @@ export const {
   useGetDashboardEngineerServiceDataQuery,
   useGetDashboardRecieverServiceQuery,
   useGetDashboardQADataQuery,
+  useGetDashboardQCDataQuery,
 } = OthersApi;

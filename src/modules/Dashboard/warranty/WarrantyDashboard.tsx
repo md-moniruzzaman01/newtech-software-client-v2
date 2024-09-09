@@ -18,6 +18,7 @@ import EngineerCard from "./partials/Engineer Card/EngineerCard";
 import CustomerCard from "./partials/Customer Card/CustomerCard";
 import ReceiverCard from "./partials/Receiver Card/ReceiverCard";
 import QACard from "./partials/QA Card/QACard";
+import QCCard from "./partials/QC Card/QCCard";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const WarrantyDashboard = () => {
@@ -147,6 +148,9 @@ const WarrantyDashboard = () => {
         </div>
         <div className="col-span-1 bg-solidWhite rounded-md">
           <QACard />
+        </div>
+        <div className="col-span-1 bg-solidWhite rounded-md">
+          <QCCard />
         </div>
       </div>
     </div>

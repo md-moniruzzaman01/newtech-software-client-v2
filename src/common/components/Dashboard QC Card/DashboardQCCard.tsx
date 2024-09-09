@@ -8,8 +8,8 @@ interface StatusCount {
   count: number;
 }
 
-interface QaCheckerData {
-  qa_checker: {
+interface QCCheckerData {
+  qc_checker: {
     id: string;
     name: {
       firstName: string;
@@ -22,11 +22,11 @@ interface QaCheckerData {
   totalChecked: number;
 }
 
-interface DashboardQaCheckerCardProps {
-  data: QaCheckerData;
+interface DashboardQCCheckerCardProps {
+  data: QCCheckerData;
 }
 
-const DashboardQACard: FC<DashboardQaCheckerCardProps> = ({ data }) => {
+const DashboardQCCard: FC<DashboardQCCheckerCardProps> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -39,13 +39,13 @@ const DashboardQACard: FC<DashboardQaCheckerCardProps> = ({ data }) => {
       <div className="flex items-center justify-between">
         <div>
           <NavLink
-            to={`/engineers-list/engineer-details/${data?.qa_checker?.id}`}
+            to={`/engineers-list/engineer-details/${data?.qc_checker?.id}`}
           >
             <Button link>
-              <h2 className="text-sm font-semibold">{`${data?.qa_checker?.name.firstName} ${data?.qa_checker?.name.lastName}`}</h2>
+              <h2 className="text-sm font-semibold">{`${data?.qc_checker?.name.firstName} ${data?.qc_checker?.name.lastName}`}</h2>
             </Button>
           </NavLink>
-          <p className="text-xs text-gray-600">{data?.qa_checker?.email}</p>
+          <p className="text-xs text-gray-600">{data?.qc_checker?.email}</p>
         </div>
         <p className="text-[10px] text-gray-600">
           Total Checked: {data.totalChecked}
@@ -60,7 +60,7 @@ const DashboardQACard: FC<DashboardQaCheckerCardProps> = ({ data }) => {
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        header={`${data?.qa_checker?.name.firstName} ${data?.qa_checker?.name.lastName}`}
+        header={`${data?.qc_checker?.name.firstName} ${data?.qc_checker?.name.lastName}`}
         bgColor="solidWhite"
       >
         <div className="flex flex-col md:flex-row md:justify-between mb-4">
@@ -106,4 +106,4 @@ const DashboardQACard: FC<DashboardQaCheckerCardProps> = ({ data }) => {
   );
 };
 
-export default DashboardQACard;
+export default DashboardQCCard;

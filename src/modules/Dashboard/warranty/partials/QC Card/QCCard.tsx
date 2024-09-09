@@ -1,18 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ComponentLoading from "../../../../../common/components/Component Loading/ComponentLoading";
-import DashboardQACard from "../../../../../common/components/Dashboard QA Card/DashboardQACard";
-import { useGetDashboardQADataQuery } from "../../../../../redux/features/api/others";
+import DashboardQCCard from "../../../../../common/components/Dashboard QC Card/DashboardQCCard";
+import ErrorShow from "../../../../../common/components/Error Show/ErrorShow";
+import { useGetDashboardQCDataQuery } from "../../../../../redux/features/api/others";
 import { authKey, emptyData } from "../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
 
-const QACard = () => {
+const QCCard = () => {
   const token = getFromLocalStorage(authKey);
-  const { data, isLoading } = useGetDashboardQADataQuery({ token });
-
+  const { data, isLoading, isError, error } = useGetDashboardQCDataQuery({
+    token,
+  });
   if (isLoading) {
     return <ComponentLoading />;
   }
 
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
   return (
     <div>
       <div className="flex justify-between items-center pt-5 pb-2 px-3">
@@ -22,7 +27,7 @@ const QACard = () => {
       <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
         {data?.data?.length > 0 ? (
           data?.data?.map((data: any, index: string) => (
-            <DashboardQACard key={index} data={data} />
+            <DashboardQCCard key={index} data={data} />
           ))
         ) : (
           <span className="flex justify-center items-center h-full">
@@ -34,4 +39,4 @@ const QACard = () => {
   );
 };
 
-export default QACard;
+export default QCCard;
