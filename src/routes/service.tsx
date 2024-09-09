@@ -8,8 +8,9 @@ import ComplaintsServiceInDetails from "../modules/services/Complaints Service I
 import ComplaintsServicePayment from "../modules/services/Complaints Service Payment Page/ComplaintsServicePayment";
 import ComplaintsServicePaymentsInvoice from "../modules/services/Complaints Service Payments Invoice/ComplaintsServicePaymentsInvoice";
 import MyComplaintsService from "../modules/services/My Complaints Service/MyComplaintsService";
+import AllQADataService from "../modules/services/QA Service/All QA Data/AllQADataService";
 import QAItemsService from "../modules/services/QA Service/QA/QAItems";
-import QCMyItemsService from "../modules/services/QA Service/QAAll/QAAll";
+import QAMyItemsService from "../modules/services/QA Service/QAAll/QAAll";
 import QAItemServiceOrderDetails from "../modules/services/QA Service/QAItemOrderDetails/QAItemOrderDetails";
 import QCMyLibraryService from "../modules/services/QA Service/QAMyLibrary/QAMyLibrary";
 import BillPendingService from "../modules/services/invoice/BillPendingService/BillPendingService";
@@ -55,7 +56,8 @@ export const serviceComplaintsRoutes = [
 ];
 
 export const ServiceQARoute = [
-  { path: "/service-qa-all", element: <QCMyItemsService /> },
+  { path: "/service-qa-all-items", element: <AllQADataService /> },
+  { path: "/service-qa-all", element: <QAMyItemsService /> },
   { path: "/service-qa-items", element: <QAItemsService /> },
   { path: "/service-qa-my-library", element: <QCMyLibraryService /> },
   {

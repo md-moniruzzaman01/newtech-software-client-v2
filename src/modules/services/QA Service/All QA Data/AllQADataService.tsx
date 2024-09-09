@@ -1,35 +1,32 @@
 import { useEffect, useState } from "react";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-
-import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-
-import { QATableHeader, fields, keys, tableLayout } from "./config/constants";
-import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import { authKey } from "../../../../shared/config/constaints";
+import { useGetAllQAServiceQuery } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
-import { useGetQasQuery } from "../../../../redux/features/api/qa";
+import { fields, keys, QATableHeader, tableLayout } from "./config/constants";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
-const QAMyItemsService = () => {
-  const [checkedRows, setCheckedRows] = useState<string[]>([]);
+const AllQADataService = () => {
+  const token = getFromLocalStorage(authKey);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
-  const token = getFromLocalStorage(authKey);
-  const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading, error } = useGetQasQuery({
-    id,
+  const { data, isLoading, isError, error } = useGetAllQAServiceQuery({
     token,
     query,
   });
+
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -47,7 +44,7 @@ const QAMyItemsService = () => {
 
   return (
     <div className=" px-5">
-      <Navbar name="Service QA Library"></Navbar>
+      <Navbar name="Service QA All" />
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -59,9 +56,6 @@ const QAMyItemsService = () => {
               itemData={data?.data}
               headerData={QATableHeader}
               dataLayout={tableLayout}
-              checkedRows={checkedRows}
-              setCheckedRows={setCheckedRows}
-              checkbox
             />
           </div>
         </div>
@@ -78,4 +72,4 @@ const QAMyItemsService = () => {
   );
 };
 
-export default QAMyItemsService;
+export default AllQADataService;

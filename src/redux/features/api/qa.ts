@@ -28,7 +28,7 @@ const QAApi = baseApi.injectEndpoints({
     getAllQA: builder.query({
       query: (params) => {
         return {
-          url: `/qa`,
+          url: `/qa?${params.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -40,6 +40,17 @@ const QAApi = baseApi.injectEndpoints({
       query: (params) => {
         return {
           url: `/qa/my-library`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["qa"],
+    }),
+    getAllQAService: builder.query({
+      query: (params) => {
+        return {
+          url: `/qa?${params?.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -127,4 +138,5 @@ export const {
   useQaReturnToLibraryMutation,
   useGetMyQasQuery,
   useGetAllQAQuery,
+  useGetAllQAServiceQuery,
 } = QAApi;
