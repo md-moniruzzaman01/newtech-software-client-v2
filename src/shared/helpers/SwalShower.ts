@@ -8,7 +8,7 @@ export const showSwal = (result) => {
       title: "Success",
       text: result.data.message,
       icon: "success",
-      timer: 1000,
+      timer: 2000,
     });
 
     return true;
