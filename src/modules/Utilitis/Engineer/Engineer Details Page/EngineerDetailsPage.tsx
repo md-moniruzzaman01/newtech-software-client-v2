@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useGetEngineerByIdQuery } from "../../../redux/features/api/engineers";
-import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { authKey } from "../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
+import { useGetEngineerByIdQuery } from "../../../../redux/features/api/engineers";
 
 const EngineerDetailsPage = () => {
   const { id } = useParams();

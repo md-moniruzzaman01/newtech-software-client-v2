@@ -1,26 +1,25 @@
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import Navbar from "../../../common/widgets/Navbar/Navbar";
-import CommonTable from "../../../common/components/Common Table/CommonTable";
-import Pagination from "../../../common/widgets/Pagination/Pagination";
-import {
-  useDeleteEngineerMutation,
-  useGetEngineersListQuery,
-} from "../../../redux/features/api/engineers";
-import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
-import { authKey } from "../../../shared/config/constaints";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import {
   fields,
   headerForEngineersTable,
   keys,
   tableLayout,
 } from "./config/constant";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
-import ErrorShow from "../../../common/components/Error Show/ErrorShow";
-import { useEffect, useState } from "react";
-import { constructQuery } from "../../../shared/helpers/constructQuery";
-import SearchBar from "../../../common/components/SearchBar/SearchBar";
-import swal from "sweetalert";
-import { showSwal } from "../../../shared/helpers/SwalShower.ts";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../shared/config/constaints";
+import {
+  useDeleteEngineerMutation,
+  useGetEngineersListQuery,
+} from "../../../../redux/features/api/engineers";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import Navbar from "../../../../common/widgets/Navbar/Navbar";
+import SearchBar from "../../../../common/components/SearchBar/SearchBar";
+import CommonTable from "../../../../common/components/Common Table/CommonTable";
+import Pagination from "../../../../common/widgets/Pagination/Pagination";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const EngineersList = () => {
   const [currentPage, setCurrentPage] = useState(1);

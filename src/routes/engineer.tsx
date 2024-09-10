@@ -1,7 +1,7 @@
-import EngineerDetailsPage from "../modules/Utilitis/Engineer Details Page/EngineerDetailsPage";
-import EngineerEditPage from "../modules/Utilitis/Engineer Edit Page/EngineerEditPage";
-import EngineerAdd from "../modules/Utilitis/EngineerAdd/EngineerAdd";
-import EngineersList from "../modules/Utilitis/Engineers List/EngineersList";
+import EngineerDetailsPage from "../modules/Utilitis/Engineer/Engineer Details Page/EngineerDetailsPage";
+import EngineerEditPage from "../modules/Utilitis/Engineer/Engineer Edit Page/EngineerEditPage";
+import EngineerAdd from "../modules/Utilitis/Engineer/EngineerAdd/EngineerAdd";
+import EngineersList from "../modules/Utilitis/Engineer/Engineers List/EngineersList";
 
 export const engineer = [
   { path: "/engineer-edit-page/:id", element: <EngineerEditPage /> },
