@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
 import Modal from "../Modal/Modal";
+import { NavLink } from "react-router-dom";
+import Button from "../Button";
 
 interface StatusCount {
   status: string;
@@ -8,8 +10,7 @@ interface StatusCount {
 }
 
 interface CustomerData {
-  _id: string;
-  customer?: { name: string; company: string };
+  customer?: { name: string; company: string; id: string };
   statusCounts: StatusCount[];
   totalProducts: number;
   totalValue: number;
@@ -17,10 +18,12 @@ interface CustomerData {
 
 interface DashboardCustomerCardProps {
   customer: CustomerData;
+  nameLink?: string;
 }
 
 const DashboardCustomerCard: FC<DashboardCustomerCardProps> = ({
   customer,
+  nameLink,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +36,13 @@ const DashboardCustomerCard: FC<DashboardCustomerCardProps> = ({
     >
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-sm font-semibold">{customer?.customer?.name}</h2>
+          <NavLink to={`${nameLink}/${customer?.customer?.id}`}>
+            <Button link>
+              <h2 className="text-sm font-semibold">
+                {customer?.customer?.name}
+              </h2>
+            </Button>
+          </NavLink>
           <p className="text-gray-600 text-[10px]">
             {customer?.customer?.company}
           </p>

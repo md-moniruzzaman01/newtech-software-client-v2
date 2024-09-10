@@ -71,7 +71,7 @@ const CustomerDetailsPage = () => {
               HeaderData={DemoTableHeaderForCustomerDetails}
             />
             <div className="fixed bottom-2  right-5">
-              <Pagination></Pagination>
+              <Pagination />
             </div>
           </div>
         </div>

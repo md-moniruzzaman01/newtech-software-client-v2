@@ -84,7 +84,7 @@ const Partner = () => {
             headerData={HeaderForCustomerTable}
             itemData={data?.data}
             dataLayout={PartnerData}
-            link="/partner/order-details"
+            link="/partner/details"
             deleteBtn
             deleteFn={handleDelete}
           ></CommonTable>

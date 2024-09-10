@@ -15,7 +15,7 @@ const CustomerCard = () => {
 
   const { data: customerData, isLoading: customerLoading } =
     useGetDashboardCustomerDataQuery({ token, sortByDate });
-  console.log("hello", customerData);
+  console.log(customerData);
   if (customerLoading) {
     return <ComponentLoading />;
   }
@@ -34,7 +34,11 @@ const CustomerCard = () => {
       <div className="w-full h-[calc(100vh-280px)] overflow-y-auto overflow-x-hidden">
         {customerData?.data?.length > 0 ? (
           customerData?.data?.map((data: any, index: string) => (
-            <DashboardCustomerCard key={index} customer={data} />
+            <DashboardCustomerCard
+              nameLink="/partner/details"
+              key={index}
+              customer={data}
+            />
           ))
         ) : (
           <span className="flex justify-center items-center h-full">
