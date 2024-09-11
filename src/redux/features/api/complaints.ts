@@ -105,7 +105,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
     getMyComplaint: builder.query({
       query: (params) => {
         return {
-          url: `/complaints/my-library/${params?.id}?warranty=${params.warranty}&${params?.query}`,
+          url: `/complaints/my-library/${params?.id}?warranty=true&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

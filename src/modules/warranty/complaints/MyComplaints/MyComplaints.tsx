@@ -27,12 +27,11 @@ const MyComplaints = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const warranty = true;
+
   const { data, isError, isLoading, error } = useGetMyComplaintQuery({
     id: user?.userId,
     query,
     token,
-    warranty,
   });
 
   useEffect(() => {
