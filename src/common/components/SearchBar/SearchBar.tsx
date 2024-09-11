@@ -63,10 +63,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Input
-            value={activeRoute}
+            defaultValue={activeRoute}
             onChange={(e) => setActiveRoute(e.target.value)}
             inputName="searchTerm"
-            inputPlaceholder="searchTerm"
+            inputPlaceholder="Search"
           />
 
           <div>

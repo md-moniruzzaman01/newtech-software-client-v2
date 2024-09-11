@@ -4,7 +4,6 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import { useGetAllRepairsQuery } from "../../../../redux/features/api/repair";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
@@ -14,6 +13,7 @@ import { MyQCTableHeader, fields, keys, tableLayout } from "./config/constants";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { useGetAllRepairServiceQuery } from "../../../../redux/features/api/repair";
 
 const EngineerAllRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +26,7 @@ const EngineerAllRepairs = () => {
   const token = getFromLocalStorage(authKey);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const user = getUserInfo();
-  const { data, isError, isLoading, error } = useGetAllRepairsQuery({
+  const { data, isError, isLoading, error } = useGetAllRepairServiceQuery({
     id: user._id,
     token,
     query,
@@ -38,7 +38,7 @@ const EngineerAllRepairs = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);
-  console.log("my library", data);
+
   if (isLoading) {
     return <LoadingPage />;
   }

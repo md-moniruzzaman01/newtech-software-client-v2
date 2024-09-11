@@ -162,6 +162,7 @@ export type ComplaintMiniCardProps = {
   notes?: string;
   date?: string;
   note?: string;
+  link?: string;
 };
 
 export type InventoryRequestDetailsCardProps = {

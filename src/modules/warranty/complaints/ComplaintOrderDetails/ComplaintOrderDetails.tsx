@@ -41,7 +41,7 @@ const ComplaintOrderDetails = () => {
   if (complaintsError) {
     return <ErrorShow error={complaintsError} />;
   }
-
+  console.log(complaintsSingleData);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
@@ -176,6 +176,7 @@ const ComplaintOrderDetails = () => {
               }`}
               notes={`${item?.serial_number}`}
               date={item?.createdAt?.toString().slice(0, 10)}
+              link={`/qc-all?searchTerm=${item?.serial_number}`}
             />
           ))}
         {complaintsSingleData?.Qa?.length > 0 &&
@@ -188,7 +189,9 @@ const ComplaintOrderDetails = () => {
                 " " +
                 item?.qa_checker_id?.Engineer?.name?.lastName
               }`}
+              date={`${item?.createdAt?.slice(0, 10)}`}
               notes={`${item?.serial_number}`}
+              link={`/qa-all-items?searchTerm=${item?.serial_number}`}
             />
           ))}
 
@@ -205,6 +208,7 @@ const ComplaintOrderDetails = () => {
               notes={`${item?.serial_number}`}
               date={item?.createdAt?.toString().slice(0, 10)}
               note={item?.note}
+              link={`/engineer-all-repairs?searchTerm=${item?.serial_number}`}
             />
           ))}
       </div>
