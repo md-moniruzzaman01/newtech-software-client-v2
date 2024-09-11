@@ -1,10 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../Button";
-import Input from "../Input";
 import { SearchBarProps } from "../../../shared/config/types";
 import { useState } from "react";
 import EngineersFilter from "../EngineersFilter/EngineersFilter";
 import { getUserInfo } from "../../../services/auth.service";
+import InputWithValue from "../InputWithValue/InputWithValue";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link,
@@ -62,13 +62,24 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <div>
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Input
-            defaultValue={activeRoute}
-            onChange={(e) => setActiveRoute(e.target.value)}
-            inputName="searchTerm"
-            inputPlaceholder="Search"
-          />
-
+          <div className="relative">
+            <InputWithValue
+              className="pr-7"
+              value={activeRoute}
+              onChange={(e) => setActiveRoute(e.target.value)}
+              inputName="searchTerm"
+              inputPlaceholder="Search"
+            />
+            {activeRoute && (
+              <Button
+                onClick={() => setActiveRoute("")}
+                transparent
+                className="!absolute right-2 top-0 bottom-0 !text-black border-l-2  !pl-2"
+              >
+                &#10005;
+              </Button>
+            )}
+          </div>
           <div>
             <Button onClick={() => handleFilter(activeRoute)} primary>
               Search
