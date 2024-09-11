@@ -41,7 +41,7 @@ const ComplaintOrderDetails = () => {
   if (complaintsError) {
     return <ErrorShow error={complaintsError} />;
   }
-  console.log(complaintsSingleData);
+
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
