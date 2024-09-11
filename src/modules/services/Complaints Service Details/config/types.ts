@@ -70,4 +70,5 @@ export type ComplaintMiniCardProps = {
   img?: string;
   status?: string;
   notes?: string;
+  link?: string;
 };

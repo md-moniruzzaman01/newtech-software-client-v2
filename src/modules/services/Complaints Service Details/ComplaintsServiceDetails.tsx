@@ -187,6 +187,7 @@ const ComplaintsServiceDetails = () => {
                 item?.qa_checker_id?.Engineer?.name?.lastName
               }`}
               notes={`${item?.serial_number}`}
+              link={`/service-qa-all-items?searchTerm=${item?.serial_number}`}
             />
           ))}
 
@@ -201,6 +202,7 @@ const ComplaintsServiceDetails = () => {
                 item?.engineer?.Engineer?.name?.lastName
               }`}
               notes={`${item?.serial_number}`}
+              link={`/service-engineer-all-repairs?searchTerm=${item?.serial_number}`}
             />
           ))}
       </div>
