@@ -74,7 +74,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               <Button
                 onClick={() => setActiveRoute("")}
                 transparent
-                className="!absolute right-2 top-0 bottom-0 !text-black border-l-2  !pl-2"
+                className="!absolute right-2 top-0 bottom-0 !text-black border-l-2 !my-2  !pl-2"
               >
                 &#10005;
               </Button>
