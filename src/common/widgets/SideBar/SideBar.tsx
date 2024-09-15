@@ -20,6 +20,7 @@ import SettingsRoute from "./partials/SettingsRoute/SettingsRoute";
 import { icons } from "../../../shared/libs/Icons";
 import swal from "sweetalert";
 import { authKey } from "../../../shared/config/constaints";
+import InventoryRoute from "./partials/InventoryRoute/InventoryRoute";
 
 // routeStyle
 const routeStyle = "pl-[30px] py-2  flex  items-center gap-3";
@@ -165,16 +166,10 @@ const SideBar = () => {
             </div>
           )}
 
-          {(user?.power?.includes("01") ||
-            user?.power?.includes("04") ||
-            user?.role === "admin") && (
-            <NavLink to="/inventory">
-              <div className={routeStyle}>
-                <FiMonitor className="text-xl" />
-                <span>Inventory</span>
-              </div>
-            </NavLink>
-          )}
+          <div>
+            <InventoryRoute />
+          </div>
+
           {activeRoute &&
             (user.role === "admin" ||
               user?.power?.includes("01") ||
