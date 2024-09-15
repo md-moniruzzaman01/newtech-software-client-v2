@@ -30,6 +30,7 @@ const Swap = () => {
   const [limit, setLimit] = useState(50);
   const [totalItems, setTotalItems] = useState(0);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
+  const [checkedRows, setCheckedRows] = useState([]);
 
   const {
     data: swapData,
@@ -39,12 +40,12 @@ const Swap = () => {
   } = useGetSwapQuery({ token, query });
 
   useEffect(() => {
-    if (!swapData && !swapIsLoading) {
+    if (!isError && !swapIsLoading) {
       setTotalItems(swapData?.meta?.total);
       setLimit(swapData?.meta.limit);
       setCurrentPage(swapData?.meta?.page);
     }
-  }, [swapData, swapIsLoading]);
+  }, [swapData, swapIsLoading, isError]);
 
   if (swapIsLoading) {
     return <LoadingPage />;
@@ -67,9 +68,11 @@ const Swap = () => {
               itemData={swapData?.data}
               headerData={complaintsTableHeader}
               dataLayout={tableLayout}
-              link="/swap/swap-details"
               modal
               setIsOpen={setIsOpen}
+              checkedRows={checkedRows}
+              setCheckedRows={setCheckedRows}
+              checkbox
             />
           </div>
         </div>

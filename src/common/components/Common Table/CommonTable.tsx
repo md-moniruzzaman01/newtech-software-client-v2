@@ -161,16 +161,7 @@ const CommonTable: FC<CommonTableProps> = ({
                           </div>
                         </td>
                       )}
-                      {link && modal ? (
-                        <td className="border">
-                          <span className="!text-black flex justify-center">
-                            <BsFillInfoCircleFill
-                              onClick={() => setIsOpen(true)}
-                              className=" cursor-pointer"
-                            />
-                          </span>
-                        </td>
-                      ) : (
+                      {link && (
                         <td className="border">
                           <NavLink
                             className=" !text-black flex justify-center"
@@ -184,6 +175,17 @@ const CommonTable: FC<CommonTableProps> = ({
                           </NavLink>
                         </td>
                       )}
+                      {modal && (
+                        <td className="border">
+                          <span className="!text-black flex justify-center">
+                            <BsFillInfoCircleFill
+                              onClick={() => setIsOpen(true)}
+                              className=" cursor-pointer"
+                            />
+                          </span>
+                        </td>
+                      )}
+
                       {editPageLink && (
                         <td className="border">
                           <NavLink

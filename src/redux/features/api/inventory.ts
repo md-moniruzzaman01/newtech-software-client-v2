@@ -92,6 +92,19 @@ const InventoryApi = baseApi.injectEndpoints({
 
       providesTags: [],
     }),
+    // need to change this api
+    getBadParts: builder.query({
+      query: ({ token, query }) => {
+        return {
+          url: `/complaints?${query}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+
+      providesTags: [],
+    }),
   }),
 });
 
@@ -104,4 +117,5 @@ export const {
   useInventoryApproveMutation,
   useInventoryRejectMutation,
   useGetSwapQuery,
+  useGetBadPartsQuery,
 } = InventoryApi;
