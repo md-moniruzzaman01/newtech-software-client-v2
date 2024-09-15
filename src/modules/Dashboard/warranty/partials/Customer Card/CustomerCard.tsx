@@ -15,7 +15,6 @@ const CustomerCard = () => {
 
   const { data: customerData, isLoading: customerLoading } =
     useGetDashboardCustomerDataQuery({ token, sortByDate });
-  console.log(customerData);
   if (customerLoading) {
     return <ComponentLoading />;
   }

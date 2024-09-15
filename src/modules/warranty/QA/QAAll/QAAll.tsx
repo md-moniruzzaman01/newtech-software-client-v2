@@ -31,7 +31,6 @@ const QCMyItems = () => {
     token,
     query,
   });
-  console.log(data);
   useEffect(() => {
     if (!isLoading || !isError) {
       setTotalItems(data?.meta.total);
