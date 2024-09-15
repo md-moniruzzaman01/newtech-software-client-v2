@@ -20,6 +20,7 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
+import swal from "sweetalert";
 
 const EngineersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
