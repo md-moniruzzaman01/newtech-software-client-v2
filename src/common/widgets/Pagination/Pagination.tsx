@@ -28,6 +28,10 @@ const Pagination: React.FC<PaginationProps> = ({
     setInputValue(currentPage);
   }, [currentPage]);
 
+  if (totalItems <= 0) {
+    return null;
+  }
+
   const handleItemsPerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value === "" ? "" : parseInt(e.target.value, 10);
     setInputValue(value);

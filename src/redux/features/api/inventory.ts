@@ -78,19 +78,20 @@ const InventoryApi = baseApi.injectEndpoints({
 
       providesTags: ["inventory"],
     }),
-    // updatePost: builder.mutation({
-    //   query: ({ postId, updatedPost }) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "PUT",
-    //     body: updatedPost,
-    //   }),
-    // }),
-    // deletePost: builder.mutation({
-    //   query: (postId) => ({
-    //     url: `/posts/${postId}`,
-    //     method: "DELETE",
-    //   }),
-    // }),
+
+    // need to change this api
+    getSwap: builder.query({
+      query: ({ token, query }) => {
+        return {
+          url: `/complaints?${query}`,
+          headers: {
+            authorization: token,
+          },
+        };
+      },
+
+      providesTags: [],
+    }),
   }),
 });
 
@@ -102,4 +103,5 @@ export const {
   useGetInventoryPartsByIdQuery,
   useInventoryApproveMutation,
   useInventoryRejectMutation,
+  useGetSwapQuery,
 } = InventoryApi;
