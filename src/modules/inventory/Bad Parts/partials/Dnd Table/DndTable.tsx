@@ -8,6 +8,7 @@ import {
   removeFromLocalStorage,
   setToLocalStorage,
 } from "../../../../../shared/helpers/local_storage";
+import Button from "../../../../../common/components/Button";
 
 interface Item {
   id: string;
@@ -177,6 +178,17 @@ const DndTable = ({ data }: DndTableProps) => {
     drop: (item: { index: number; id: string }) => handleDrop(item),
   });
 
+  const handleAllDelete = () => {
+    setCheckedRows([]);
+    removeFromLocalStorage("selectedItem");
+  };
+
+  const handleDeleteSingleItem = (id) => {
+    setCheckedRows((prevCheckedRows) =>
+      prevCheckedRows.filter((row) => row.id !== id)
+    );
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="flex justify-between gap-5 w-full">
@@ -224,20 +236,45 @@ const DndTable = ({ data }: DndTableProps) => {
           <h3 className="flex justify-between text-center bg-white rounded-md p-2 shadow-md">
             <span className="font-medium text-xl">Selected Item</span>
             <span>Total: {checkedRows.length}</span>
+            <span>
+              <Button
+                disabled={checkedRows?.length <= 0}
+                danger
+                small
+                onClick={handleAllDelete}
+              >
+                Delete All
+              </Button>
+            </span>
           </h3>
           <div className="mt-4 max-h-screen overflow-y-auto">
             {checkedRows.length > 0 ? (
               checkedRows.map((item) => (
                 <div
                   key={item.id}
-                  className="mb-2 bg-white rounded-md p-2 shadow-md"
+                  className="mb-2 bg-white rounded-md p-2 shadow-md flex justify-between"
                 >
-                  <p>
-                    <strong>ID:</strong> {item.id}
-                  </p>
-                  <p>
-                    <strong>Serial No:</strong> {item.serial_number || "N/A"}
-                  </p>
+                  <div>
+                    <p>
+                      <strong>ID: </strong>
+                      <span className="text-sm">{item.id}</span>
+                    </p>
+                    <p>
+                      <strong>Serial No:</strong>
+                      <span className="text-sm">
+                        {item.serial_number || "N/A"}
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <Button
+                      onClick={() => handleDeleteSingleItem(item?.id)}
+                      danger
+                      small
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </div>
               ))
             ) : (
