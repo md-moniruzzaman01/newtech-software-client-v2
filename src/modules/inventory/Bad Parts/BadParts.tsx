@@ -29,7 +29,7 @@ const BadParts = () => {
     isError,
     error,
   } = useGetBadPartsQuery({ token, query });
-  console.log("hello", badPartsData?.data);
+
   useEffect(() => {
     if (!isError && !isLoading) {
       setTotalItems(badPartsData?.meta?.total);

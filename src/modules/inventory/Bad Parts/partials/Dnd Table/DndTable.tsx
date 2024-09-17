@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DndProvider, useDrop, useDrag } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ITEM_TYPE } from "../../config/constants";
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+  setToLocalStorage,
+} from "../../../../../shared/helpers/local_storage";
 
 interface Item {
   id: string;
@@ -40,12 +45,7 @@ const DraggableRow = ({
 
   const [, drop] = useDrop({
     accept: ITEM_TYPE,
-    hover: () => {
-      // if (draggedItem.index !== index) {
-      //   moveRow(draggedItem.index, index);
-      //   draggedItem.index = index; // Update the drag index
-      // }
-    },
+    hover: () => {},
   });
 
   return (
@@ -60,7 +60,12 @@ const DraggableRow = ({
             type="checkbox"
             className="checkbox form-checkbox h-5 w-5"
             checked={checked}
-            onChange={() => handleRowSelect(item)}
+            onChange={() =>
+              handleRowSelect({
+                id: item?.id,
+                serial_number: item.products?.serial_number,
+              })
+            }
           />
         </label>
       </td>
@@ -83,46 +88,73 @@ const DraggableRow = ({
 const DndTable = ({ data }: DndTableProps) => {
   const [checkedRows, setCheckedRows] = useState<Item[]>([]);
 
-  const handleRowSelect = (item: Item) => {
-    setCheckedRows((prevCheckedRows) => {
-      const isChecked = prevCheckedRows.some(
-        (row) => row.id === item.id && row.serial_number === item.serial_number
-      );
-      if (isChecked) {
-        return prevCheckedRows.filter(
-          (row) =>
-            row.id !== item.id || row.serial_number !== item.serial_number
-        );
-      } else {
-        return [...prevCheckedRows, item];
-      }
-    });
+  // Function to handle individual row selection
+  const handleRowSelect = (item: any) => {
+    console.log("hello world", item);
+    const itemId = {
+      id: item?.id,
+      serial_number: item?.serial_number,
+    };
+
+    const isAlreadyChecked = checkedRows.some((row) => row.id === itemId.id);
+
+    const newCheckedRows = isAlreadyChecked
+      ? checkedRows.filter((row) => row.id !== itemId.id)
+      : [...checkedRows, itemId];
+
+    setCheckedRows(newCheckedRows);
   };
 
   const handleSelectAll = () => {
-    setCheckedRows(
-      data.length > 0 &&
-        data.every((item) =>
-          checkedRows.some(
-            (row) =>
-              row.id === item.id && row.serial_number === item.serial_number
-          )
-        )
-        ? []
-        : data
+    const allIdsOnPage = data.map((item: any) => ({
+      id: item?.id,
+      serial_number: item?.products?.serial_number,
+    }));
+
+    const isAllChecked = allIdsOnPage.every((item) =>
+      checkedRows.some(
+        (row) => row.id === item.id && row.serial_number === item.serial_number
+      )
     );
+
+    const newCheckedRows = isAllChecked
+      ? checkedRows.filter(
+          (row) =>
+            !allIdsOnPage.some(
+              (item) =>
+                item.id === row.id && item.serial_number === row.serial_number
+            )
+        )
+      : [
+          ...checkedRows,
+          ...allIdsOnPage.filter(
+            (item) =>
+              !checkedRows.some(
+                (row) =>
+                  row.id === item.id && row.serial_number === item.serial_number
+              )
+          ),
+        ];
+
+    setCheckedRows(newCheckedRows);
   };
 
-  // const moveRow = useCallback(
-  //   (dragIndex: number, hoverIndex: number) => {
-  //     const updatedData = [...tableData];
-  //     const [draggedRow] = updatedData.splice(dragIndex, 1);
-  //     updatedData.splice(hoverIndex, 0, draggedRow);
-  //     setTableData(updatedData);
-  //   },
-  //   [tableData]
-  // );
+  useEffect(() => {
+    const storedData = getFromLocalStorage("selectedItem");
+    if (storedData) {
+      setCheckedRows(JSON.parse(storedData));
+    }
+  }, []);
 
+  // Update localStorage whenever the checked rows change
+  useEffect(() => {
+    if (checkedRows.length > 0) {
+      setToLocalStorage("selectedItem", JSON.stringify(checkedRows));
+    } else {
+      removeFromLocalStorage("selectedItem");
+    }
+  }, [checkedRows]);
+  console.log("checkedRows", checkedRows);
   const handleDrop = (item: { index: number; id: string }) => {
     const droppedItem = data[item.index];
     setCheckedRows((prevCheckedRows) => {
@@ -153,11 +185,7 @@ const DndTable = ({ data }: DndTableProps) => {
                       checked={
                         data.length > 0 &&
                         data.every((item) =>
-                          checkedRows.some(
-                            (row) =>
-                              row.id === item.id &&
-                              row.serial_number === item.serial_number
-                          )
+                          checkedRows.some((row) => row.id === item.id)
                         )
                       }
                       onChange={handleSelectAll}
@@ -177,11 +205,7 @@ const DndTable = ({ data }: DndTableProps) => {
                   index={index}
                   item={item}
                   // moveRow={moveRow}
-                  checked={checkedRows.some(
-                    (row) =>
-                      row.id === item.id &&
-                      row.serial_number === item.serial_number
-                  )}
+                  checked={checkedRows.some((row) => row.id === item.id)}
                   handleRowSelect={handleRowSelect}
                 />
               ))}
