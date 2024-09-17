@@ -21,4 +21,4 @@ export const tableLayout = [
   "item?.received_date?.toString()?.slice(0,10)",
 ];
 
-export const ITEM_TYPE = "ITEM"; // Ensure ITEM_TYPE is defined and imported
+export const ITEM_TYPE = "ITEM"; //

@@ -56,7 +56,7 @@ const BadParts = () => {
         <div>
           <StatusGroup />
           <DndProvider backend={HTML5Backend}>
-            <div className="pt-5">
+            <div className="pt-5 pb-20">
               <DndTable data={badPartsData?.data} />
             </div>
           </DndProvider>

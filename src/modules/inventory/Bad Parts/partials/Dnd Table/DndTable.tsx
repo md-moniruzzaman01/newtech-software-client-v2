@@ -1,144 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { DndProvider, useDrop, useDrag } from "react-dnd";
+import { DndProvider, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { ITEM_TYPE } from "../../config/constants";
 import {
   getFromLocalStorage,
   removeFromLocalStorage,
   setToLocalStorage,
 } from "../../../../../shared/helpers/local_storage";
 import Button from "../../../../../common/components/Button";
-
-interface Item {
-  id: string;
-  serial_number: any;
-  products?: { serial_number: any };
-  customer?: { contact_person: string };
-  Nonwarrentycustomer?: { name: string };
-  received_date?: Date;
-}
-
-interface DndTableProps {
-  data: Item[];
-}
-
-interface DraggableRowProps {
-  item: Item;
-  index: number;
-  checked: boolean;
-  handleRowSelect: (item: Item) => void;
-}
-
-const DraggableRow = ({
-  item,
-  index,
-  checked,
-  handleRowSelect,
-}: DraggableRowProps) => {
-  const [{ isDragging }, drag] = useDrag({
-    type: ITEM_TYPE,
-    item: { index, id: item.id },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const [, drop] = useDrop({
-    accept: ITEM_TYPE,
-    hover: () => {},
-  });
-
-  return (
-    <tr
-      ref={(node) => drag(drop(node))} // Combine drag and drop refs
-      key={item.id}
-      className={`text-center ${isDragging ? "opacity-50" : ""}`}
-    >
-      <td className="border">
-        <label>
-          <input
-            type="checkbox"
-            className="checkbox form-checkbox h-5 w-5"
-            checked={checked}
-            onChange={() =>
-              handleRowSelect({
-                id: item?.id,
-                serial_number: item.products?.serial_number,
-              })
-            }
-          />
-        </label>
-      </td>
-      <td className="py-2 px-4 border">{item.id}</td>
-      <td className="py-2 px-4 border">
-        {item.products?.serial_number || "N/A"}
-      </td>
-      <td className="py-2 px-4 border">
-        {item.customer?.contact_person ||
-          item.Nonwarrentycustomer?.name ||
-          "N/A"}
-      </td>
-      <td className="py-2 px-4 border">
-        {item.received_date?.toString()?.slice(0, 10)}
-      </td>
-    </tr>
-  );
-};
+import { handleAllDelete } from "./helpers/handleDeleteAll";
+import { handleDeleteSingleItem } from "./helpers/handleDeleteSingleItem";
+import { emptyData } from "../../../../../shared/config/constaints";
+import { handleDrop } from "./helpers/handleDrop";
+import { handleSelectAll } from "./helpers/handleSelectAll";
+import { handleRowSelect } from "./helpers/handleSelectRow";
+import { ITEM_TYPE } from "../../config/constants";
+import DraggableRow from "./partials/DraggableRow/DraggableRow";
+import { DndTableProps, Item } from "../../config/type";
 
 const DndTable = ({ data }: DndTableProps) => {
   const [checkedRows, setCheckedRows] = useState<Item[]>([]);
 
   // Function to handle individual row selection
-  const handleRowSelect = (item: any) => {
-    console.log("hello world", item);
-    const itemId = {
-      id: item?.id,
-      serial_number: item?.serial_number,
-    };
-
-    const isAlreadyChecked = checkedRows.some((row) => row.id === itemId.id);
-
-    const newCheckedRows = isAlreadyChecked
-      ? checkedRows.filter((row) => row.id !== itemId.id)
-      : [...checkedRows, itemId];
-    console.log("newCheckedRows", newCheckedRows);
-    setCheckedRows(newCheckedRows);
-  };
-
-  const handleSelectAll = () => {
-    const allIdsOnPage = data.map((item: any) => ({
-      id: item?.id,
-      serial_number: item?.products?.serial_number,
-    }));
-
-    const isAllChecked = allIdsOnPage.every((item) =>
-      checkedRows.some(
-        (row) => row.id === item.id && row.serial_number === item.serial_number
-      )
-    );
-
-    const newCheckedRows = isAllChecked
-      ? checkedRows.filter(
-          (row) =>
-            !allIdsOnPage.some(
-              (item) =>
-                item.id === row.id && item.serial_number === row.serial_number
-            )
-        )
-      : [
-          ...checkedRows,
-          ...allIdsOnPage.filter(
-            (item) =>
-              !checkedRows.some(
-                (row) =>
-                  row.id === item.id && row.serial_number === item.serial_number
-              )
-          ),
-        ];
-
-    setCheckedRows(newCheckedRows);
-  };
 
   useEffect(() => {
     const storedData = getFromLocalStorage("selectedItem");
@@ -155,39 +38,12 @@ const DndTable = ({ data }: DndTableProps) => {
       removeFromLocalStorage("selectedItem");
     }
   }, [checkedRows]);
-  console.log("checkedRows", checkedRows);
-
-  const handleDrop = (item: { index: number; id: string }) => {
-    const droppedItem = data[item.index];
-    setCheckedRows((prevCheckedRows) => {
-      if (!prevCheckedRows.find((row) => row.id === droppedItem.id)) {
-        return [
-          ...prevCheckedRows,
-          {
-            id: droppedItem?.id,
-            serial_number: droppedItem.products?.serial_number,
-          },
-        ];
-      }
-      return prevCheckedRows;
-    });
-  };
 
   const [, drop] = useDrop({
     accept: ITEM_TYPE,
-    drop: (item: { index: number; id: string }) => handleDrop(item),
+    drop: (item: { index: number; id: string }) =>
+      handleDrop({ item, setCheckedRows, data }),
   });
-
-  const handleAllDelete = () => {
-    setCheckedRows([]);
-    removeFromLocalStorage("selectedItem");
-  };
-
-  const handleDeleteSingleItem = (id) => {
-    setCheckedRows((prevCheckedRows) =>
-      prevCheckedRows.filter((row) => row.id !== id)
-    );
-  };
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -207,7 +63,9 @@ const DndTable = ({ data }: DndTableProps) => {
                           checkedRows.some((row) => row.id === item.id)
                         )
                       }
-                      onChange={handleSelectAll}
+                      onChange={() =>
+                        handleSelectAll({ data, checkedRows, setCheckedRows })
+                      }
                     />
                   </label>
                 </th>
@@ -225,7 +83,9 @@ const DndTable = ({ data }: DndTableProps) => {
                   item={item}
                   // moveRow={moveRow}
                   checked={checkedRows.some((row) => row.id === item.id)}
-                  handleRowSelect={handleRowSelect}
+                  handleRowSelect={() =>
+                    handleRowSelect({ item, checkedRows, setCheckedRows })
+                  }
                 />
               ))}
             </tbody>
@@ -241,13 +101,13 @@ const DndTable = ({ data }: DndTableProps) => {
                 disabled={checkedRows?.length <= 0}
                 danger
                 small
-                onClick={handleAllDelete}
+                onClick={() => handleAllDelete({ setCheckedRows })}
               >
                 Delete All
               </Button>
             </span>
           </h3>
-          <div className="mt-4 max-h-screen overflow-y-auto">
+          <div className="mt-2 max-h-[2000px] overflow-y-auto">
             {checkedRows.length > 0 ? (
               checkedRows.map((item) => (
                 <div
@@ -268,7 +128,9 @@ const DndTable = ({ data }: DndTableProps) => {
                   </div>
                   <div>
                     <Button
-                      onClick={() => handleDeleteSingleItem(item?.id)}
+                      onClick={() =>
+                        handleDeleteSingleItem({ setCheckedRows, id: item?.id })
+                      }
                       danger
                       small
                     >
@@ -278,7 +140,7 @@ const DndTable = ({ data }: DndTableProps) => {
                 </div>
               ))
             ) : (
-              <p className="text-center">No items selected</p>
+              <p className="text-center">{emptyData} Available</p>
             )}
           </div>
         </div>
