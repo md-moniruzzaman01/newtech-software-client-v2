@@ -12,6 +12,8 @@ import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import DndTable from "./partials/Dnd Table/DndTable";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const BadParts = () => {
   const [searchParams] = useSearchParams();
@@ -27,7 +29,7 @@ const BadParts = () => {
     isError,
     error,
   } = useGetBadPartsQuery({ token, query });
-
+  console.log("hello", badPartsData?.data);
   useEffect(() => {
     if (!isError && !isLoading) {
       setTotalItems(badPartsData?.meta?.total);
@@ -53,9 +55,11 @@ const BadParts = () => {
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <StatusGroup />
-          <div className="pt-5">
-            <DndTable data={badPartsData?.data} />
-          </div>
+          <DndProvider backend={HTML5Backend}>
+            <div className="pt-5">
+              <DndTable data={badPartsData?.data} />
+            </div>
+          </DndProvider>
         </div>
         <div className="fixed bottom-2  right-5">
           <Pagination
