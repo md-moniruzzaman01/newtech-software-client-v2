@@ -101,7 +101,7 @@ const DndTable = ({ data }: DndTableProps) => {
     const newCheckedRows = isAlreadyChecked
       ? checkedRows.filter((row) => row.id !== itemId.id)
       : [...checkedRows, itemId];
-
+    console.log("newCheckedRows", newCheckedRows);
     setCheckedRows(newCheckedRows);
   };
 
@@ -155,11 +155,18 @@ const DndTable = ({ data }: DndTableProps) => {
     }
   }, [checkedRows]);
   console.log("checkedRows", checkedRows);
+
   const handleDrop = (item: { index: number; id: string }) => {
     const droppedItem = data[item.index];
     setCheckedRows((prevCheckedRows) => {
       if (!prevCheckedRows.find((row) => row.id === droppedItem.id)) {
-        return [...prevCheckedRows, droppedItem];
+        return [
+          ...prevCheckedRows,
+          {
+            id: droppedItem?.id,
+            serial_number: droppedItem.products?.serial_number,
+          },
+        ];
       }
       return prevCheckedRows;
     });
