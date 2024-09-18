@@ -18,6 +18,7 @@ const BadPartsSubmit = () => {
     rate: "",
     fsc: "",
     vat: "",
+    esc: "",
   });
 
   useEffect(() => {
@@ -90,6 +91,12 @@ const BadPartsSubmit = () => {
             labelName="VAT"
             inputName="vat"
             value={formData.vat}
+            onChange={handleInputChange}
+          />
+          <InputWithValue
+            labelName="ESC"
+            inputName="esc"
+            value={formData.esc}
             onChange={handleInputChange}
           />
         </div>
