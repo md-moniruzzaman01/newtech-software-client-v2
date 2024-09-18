@@ -10,4 +10,6 @@ export type Item = {
 
 export type DndTableProps = {
   data: Item[];
+  checkedRows: Item[];
+  setCheckedRows: any;
 };

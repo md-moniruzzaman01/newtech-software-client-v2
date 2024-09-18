@@ -1,3 +1,4 @@
+import BadPartsSubmit from "../modules/inventory/Bad Parts Submit/BadPartsSubmit";
 import BadParts from "../modules/inventory/Bad Parts/BadParts";
 import ExportParts from "../modules/inventory/Export Parts/ExportParts";
 import GoodParts from "../modules/inventory/Good Parts/GoodParts";
@@ -21,6 +22,7 @@ export const InventoryRoutes = [
   { path: "/good-parts", element: <GoodParts /> },
   { path: "/swap", element: <Swap /> },
   { path: "/bad-parts", element: <BadParts /> },
+  { path: "/bad-parts/submission", element: <BadPartsSubmit /> },
   { path: "/scrap", element: <Scrap /> },
   { path: "/export-parts", element: <ExportParts /> },
 ];

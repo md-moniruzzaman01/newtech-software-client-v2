@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import { authKey } from "../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
@@ -14,8 +14,11 @@ import Pagination from "../../../common/widgets/Pagination/Pagination";
 import DndTable from "./partials/Dnd Table/DndTable";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { Item } from "./config/type";
+import Button from "../../../common/components/Button";
 
 const BadParts = () => {
+  const [checkedRows, setCheckedRows] = useState<Item[]>([]);
   const [searchParams] = useSearchParams();
   const token = getFromLocalStorage(authKey);
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,14 +53,24 @@ const BadParts = () => {
     <div className=" px-5">
       <Navbar name="Bad Parts" />
       <div className="pt-5">
-        <SearchBar />
+        <SearchBar>
+          <NavLink to={"/bad-parts/submission"}>
+            <Button disabled={!checkedRows?.length} primary>
+              Submit
+            </Button>
+          </NavLink>
+        </SearchBar>
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <StatusGroup />
           <DndProvider backend={HTML5Backend}>
             <div className="pt-5 pb-20">
-              <DndTable data={badPartsData?.data} />
+              <DndTable
+                checkedRows={checkedRows}
+                setCheckedRows={setCheckedRows}
+                data={badPartsData?.data}
+              />
             </div>
           </DndProvider>
         </div>

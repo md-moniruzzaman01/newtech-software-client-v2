@@ -20,6 +20,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   handleDelete,
   handleReturn,
   handleCancel,
+  children,
   isMiddleBtn = false,
   disabled = false,
   checkedRows,
@@ -169,6 +170,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 handleSubmit={handleSubmit}
               />
             )}
+            {children}
           </div>
         </div>
       </div>

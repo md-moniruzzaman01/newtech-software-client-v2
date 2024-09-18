@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { DndProvider, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {
@@ -16,11 +16,9 @@ import { handleSelectAll } from "./helpers/handleSelectAll";
 import { handleRowSelect } from "./helpers/handleSelectRow";
 import { ITEM_TYPE } from "../../config/constants";
 import DraggableRow from "./partials/DraggableRow/DraggableRow";
-import { DndTableProps, Item } from "../../config/type";
+import { DndTableProps } from "../../config/type";
 
-const DndTable = ({ data }: DndTableProps) => {
-  const [checkedRows, setCheckedRows] = useState<Item[]>([]);
-
+const DndTable = ({ data, checkedRows, setCheckedRows }: DndTableProps) => {
   // Function to handle individual row selection
 
   useEffect(() => {
@@ -92,7 +90,7 @@ const DndTable = ({ data }: DndTableProps) => {
           </table>
         </div>
 
-        <div ref={drop} className="w-1/3 border border-grayForBorder p-4">
+        <div ref={drop} className="w-1/3 border border-grayForBorder  pb-4">
           <h3 className="flex justify-between text-center bg-white rounded-md p-2 shadow-md">
             <span className="font-medium text-xl">Selected Item</span>
             <span>Total: {checkedRows.length}</span>
@@ -107,7 +105,7 @@ const DndTable = ({ data }: DndTableProps) => {
               </Button>
             </span>
           </h3>
-          <div className="mt-2 max-h-[2000px] overflow-y-auto">
+          <div className="mt-2 max-h-[2000px] overflow-y-auto px-3">
             {checkedRows.length > 0 ? (
               checkedRows.map((item) => (
                 <div
@@ -140,7 +138,7 @@ const DndTable = ({ data }: DndTableProps) => {
                 </div>
               ))
             ) : (
-              <p className="text-center">{emptyData} Available</p>
+              <p className="text-center py-44">{emptyData} Available</p>
             )}
           </div>
         </div>
