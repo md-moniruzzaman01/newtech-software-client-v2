@@ -6,7 +6,7 @@ import swal from "sweetalert";
 const ErrorShow = ({ error }) => {
   const navigate = useNavigate();
   if (!error || !error.data) {
-    return null; // If error object or data is missing, return null
+    return null;
   }
 
   if (error?.status === 403 || error.status === 401) {

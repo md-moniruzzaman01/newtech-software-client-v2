@@ -1,6 +1,6 @@
 @media print {
-    .recipe {
-      page-break-after: always;
-      page-break-inside: initial;
-    }
+  .recipe {
+    page-break-after: always;
+    page-break-inside: initial;
   }
+}
