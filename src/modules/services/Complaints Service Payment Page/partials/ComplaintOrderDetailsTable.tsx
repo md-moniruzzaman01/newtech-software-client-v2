@@ -90,7 +90,14 @@ const ComplaintOrderDetailsTable = ({
       setRepairServiceCharge(serviceCharge);
       setTotalBillAmount(totalCharge);
     }
-  }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
+  }, [
+    billData,
+    billError,
+    billLoading,
+    setHiddenDiscount,
+    setDiscount,
+    discount,
+  ]);
 
   const handleSubmitPayment = async () => {
     const fullData = {
@@ -124,6 +131,7 @@ const ComplaintOrderDetailsTable = ({
     totalBillAmount -
       ((totalHiddenDiscountDefault / 100) * totalBillAmount +
         (totalDiscountDefault / 100) * totalBillAmount);
+
   return (
     <div className="w-full">
       <div>
@@ -347,8 +355,10 @@ const ComplaintOrderDetailsTable = ({
                   inputPlaceholder="Amount..."
                   inputName="amount"
                   inputType="number"
+                  required
+                  minValue={1}
                 />
-                <Input inputPlaceholder="Note..." inputName="note" />
+                <Input inputPlaceholder="Note..." inputName="note" required />
                 <Button loading={isLoading} primary className="w-full">
                   Submit
                 </Button>
