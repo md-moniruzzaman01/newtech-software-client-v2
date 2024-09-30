@@ -26,7 +26,8 @@ export const BillServiceTableHeader = [
   "Due",
   "status",
   "created",
-  "created date",
+  "Updated",
+  "Action",
   "Action",
   "Action",
 ];
@@ -38,6 +39,6 @@ export const tableLayout = [
   "item?.total_amount",
   "item?.due",
   "item?.status",
-  "item?.generatedby?.Engineer?.firstName",
   "item?.createdAt?.toString()?.slice(0,10)",
+  "item?.updatedAt?.toString()?.slice(0,10)",
 ];
