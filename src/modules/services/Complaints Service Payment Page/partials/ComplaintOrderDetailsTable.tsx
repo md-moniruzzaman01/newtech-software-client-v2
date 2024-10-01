@@ -43,6 +43,7 @@ const ComplaintOrderDetailsTable = ({
   const [repairServiceCharge, setRepairServiceCharge] = useState<
     IDiscount[] | []
   >([]);
+
   const [totalBillAmount, setTotalBillAmount] = useState<number>(0);
 
   const token = getFromLocalStorage(authKey);
@@ -54,6 +55,7 @@ const ComplaintOrderDetailsTable = ({
   } = useGetBillByIdQuery({ id, token });
   const [updateDiscount, { isLoading: updateDiscountLoading }] =
     useBillUpdateDiscountMutation();
+
   useEffect(() => {
     if (!billError && !billLoading) {
       setBillSingleData(billData?.data);
@@ -61,17 +63,32 @@ const ComplaintOrderDetailsTable = ({
       const serviceCharge = billData?.data?.repair.map((item) => {
         if (item.discount) {
           const existingIndex = discount.findIndex(
-            (d: IDiscount) => d.id === item?.discount?.id
+            (d: IDiscount) => d.id === item?.id
           );
           if (existingIndex !== 1) {
             const UpdateDiscount = {
-              id: item.discount.id,
+              id: item?.id,
               amount: item.discount.amount,
             };
+
             if (item.discount.type === "Discount") {
-              setDiscount([UpdateDiscount]);
+              setDiscount((prev) => {
+                // Check if the item with the same id already exists
+                const exists = prev.some(
+                  (discountItem: any) => discountItem.id === UpdateDiscount.id
+                );
+                // Only add if it does not exist
+                return exists ? prev : [...prev, UpdateDiscount];
+              });
             } else {
-              setHiddenDiscount([UpdateDiscount]);
+              setHiddenDiscount((prev) => {
+                // Check if the item with the same id already exists in hiddenDiscount
+                const exists = prev.some(
+                  (hiddenItem: any) => hiddenItem.id === UpdateDiscount.id
+                );
+                // Only add if it does not exist
+                return exists ? prev : [...prev, UpdateDiscount];
+              });
             }
           }
         }
@@ -90,14 +107,7 @@ const ComplaintOrderDetailsTable = ({
       setRepairServiceCharge(serviceCharge);
       setTotalBillAmount(totalCharge);
     }
-  }, [
-    billData,
-    billError,
-    billLoading,
-    setHiddenDiscount,
-    setDiscount,
-    discount,
-  ]);
+  }, [billData, billError, billLoading, setHiddenDiscount, setDiscount]);
 
   const handleSubmitPayment = async () => {
     const fullData = {
@@ -131,6 +141,8 @@ const ComplaintOrderDetailsTable = ({
     totalBillAmount -
       ((totalHiddenDiscountDefault / 100) * totalBillAmount +
         (totalDiscountDefault / 100) * totalBillAmount);
+
+  console.log(discount);
 
   return (
     <div className="w-full">
@@ -171,8 +183,7 @@ const ComplaintOrderDetailsTable = ({
                   IsDisabled={isEdit}
                   defaultValue={
                     discount.find(
-                      (discountItem: IDiscount) =>
-                        item?.discount?.id === discountItem?.id
+                      (discountItem: IDiscount) => item?.id === discountItem?.id
                     )?.amount || 0
                   }
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -191,8 +202,7 @@ const ComplaintOrderDetailsTable = ({
                   IsDisabled={isEdit}
                   defaultValue={
                     hiddenDiscount.find(
-                      (discountItem: IDiscount) =>
-                        item?.discount?.id === discountItem?.id
+                      (discountItem: IDiscount) => item?.id === discountItem?.id
                     )?.amount || 0
                   }
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>

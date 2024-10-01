@@ -219,7 +219,7 @@ const Withdraw = () => {
                   inputName="amount"
                   inputType="number"
                 />
-                <Input labelName="Note" inputName="note" />
+                <Input labelName="Note" inputName="note" required />
                 <div>
                   <Button
                     type="submit"
