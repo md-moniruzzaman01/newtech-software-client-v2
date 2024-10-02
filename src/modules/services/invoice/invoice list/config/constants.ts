@@ -19,13 +19,14 @@ export type SearchParams = {
 };
 
 export const BillServiceTableHeader = [
-  "bill ID",
-  "customer",
-  "complaints count",
-  "total amount",
+  "Bill ID",
+  "Customer",
+  "Complaints Count",
+  "Total Amount",
   "Due",
-  "status",
-  "created",
+  "Status",
+  "Note",
+  "Created",
   "Updated",
   "Action",
   "Action",
@@ -39,6 +40,7 @@ export const tableLayout = [
   "item?.total_amount",
   "item?.due",
   "item?.status",
+  "item?.note",
   "item?.createdAt?.toString()?.slice(0,10)",
   "item?.updatedAt?.toString()?.slice(0,10)",
 ];
