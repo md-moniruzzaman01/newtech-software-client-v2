@@ -71,7 +71,7 @@ const WarrantyDashboard = () => {
           className="bg-mintFrost"
         /> */}
         <DashboardCard
-          link="/complaints?repair_status=Pending"
+          link="/complaints"
           title="Total Complaints"
           money={`${CardData?.TotalComplaintsCount}`}
           className="bg-LightLavender"

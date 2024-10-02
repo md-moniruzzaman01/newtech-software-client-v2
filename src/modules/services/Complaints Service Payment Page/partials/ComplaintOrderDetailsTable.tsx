@@ -142,8 +142,6 @@ const ComplaintOrderDetailsTable = ({
       ((totalHiddenDiscountDefault / 100) * totalBillAmount +
         (totalDiscountDefault / 100) * totalBillAmount);
 
-  console.log(discount);
-
   return (
     <div className="w-full">
       <div>

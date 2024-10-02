@@ -70,7 +70,7 @@ const ServiceDashboard = () => {
           className="bg-mintFrost"
         /> */}
         <DashboardCard
-          link="/complaints-service?repair_status=Pending"
+          link="/complaints-service"
           title="Total Complaints"
           money={`${CardData?.TotalComplaintsCount}`}
           className="bg-LightLavender"
