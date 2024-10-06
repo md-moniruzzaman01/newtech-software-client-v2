@@ -17,6 +17,7 @@ import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
+import { icons } from "../../../shared/libs/Icons";
 
 const Inventory = () => {
   const token = getFromLocalStorage(authKey);
@@ -46,8 +47,16 @@ const Inventory = () => {
   return (
     <div className="px-5">
       <Navbar name="Inventory" />
-      <div className="pt-5 pb-2">
+      <div className="flex justify-between pt-5 pb-2">
         <InventoryStatusGroup />
+
+        <NavLink to={"/"}>
+          <Button>
+            <span className="flex items-center gap-2">
+              <span className="text-xl">{icons?.warehouse}</span> Warehouse
+            </span>
+          </Button>
+        </NavLink>
       </div>
 
       <div className="bg-solidWhite py-2 px-2">
