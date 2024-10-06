@@ -24,7 +24,7 @@ export const handlePaymentSubmit = async (
   const url = `${SERVER_URL}/bill/payment/${id}`;
   const fullData = { paymentamount, note };
 
-  setIsLoading(false);
+  setIsLoading(true);
   await fetch(url, {
     method: "PATCH",
     headers: {
@@ -49,11 +49,11 @@ export const handlePaymentSubmit = async (
 export const handleDelivededWithOutPaySubmit = async (
   id: string,
   navigate: any,
-  setIsLoading: any
+  setIsLoadingDelivery: any
 ) => {
   const token = getFromLocalStorage(authKey);
   const url = `${SERVER_URL}/bill/delivered/${id}`;
-  setIsLoading(true);
+  setIsLoadingDelivery(true);
   fetch(url, {
     method: "PATCH",
     headers: {
@@ -66,6 +66,6 @@ export const handleDelivededWithOutPaySubmit = async (
       if (data?.success) {
         navigate(`/service-invoice/${data?.data?.id}`);
       }
-      setIsLoading(false);
+      setIsLoadingDelivery(false);
     });
 };

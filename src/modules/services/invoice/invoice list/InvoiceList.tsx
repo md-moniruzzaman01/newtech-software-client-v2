@@ -45,7 +45,7 @@ const InvoiceList = () => {
     query,
   });
 
-  const [deleteBill] = useDeleteBillMutation();
+  const [deleteBill, { isLoading }] = useDeleteBillMutation();
 
   useEffect(() => {
     if (billData) {
@@ -72,7 +72,7 @@ const InvoiceList = () => {
     });
   };
 
-  if (billsLoading) {
+  if (billsLoading || isLoading) {
     return <LoadingPage />;
   }
   if (billsError) {

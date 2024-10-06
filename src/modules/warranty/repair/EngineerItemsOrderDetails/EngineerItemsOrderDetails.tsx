@@ -11,6 +11,7 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useGetRepairByIdQuery } from "../../../../redux/features/api/repair";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import Calibration from "./partials/Calibration/Calibration";
 
 const EngineerItemsOrderDetails = () => {
   const [select_parts_replece, setSelect_parts_replace] = useState(1);
@@ -29,6 +30,8 @@ const EngineerItemsOrderDetails = () => {
         return (
           <EngineerPartsReplace id={data?.data?.repairId} repairItemId={id} />
         );
+      case 3:
+        return <Calibration />;
     }
   }
   if (isLoading) {
@@ -135,6 +138,7 @@ const EngineerItemsOrderDetails = () => {
           >
             <option value={1}>No Need To change parts</option>
             <option value={2}>Need parts to Repair</option>
+            <option value={3}>Calibration</option>
           </select>
 
           {showContainer(select_parts_replece)}

@@ -31,6 +31,7 @@ const ComplaintOrderDetailsTable = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDelivery, setIsLoadingDelivery] = useState(false);
 
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
@@ -336,11 +337,15 @@ const ComplaintOrderDetailsTable = ({
             Rejected
           </Button> */}
             <Button
-              loading={isLoading}
+              loading={isLoadingDelivery}
               mini
               className="w-full"
               onClick={() =>
-                handleDelivededWithOutPaySubmit(id, navigate, setIsLoading)
+                handleDelivededWithOutPaySubmit(
+                  id,
+                  navigate,
+                  setIsLoadingDelivery
+                )
               }
               primary
             >
@@ -359,6 +364,7 @@ const ComplaintOrderDetailsTable = ({
                 className="space-y-4 p-2"
               >
                 <Input
+                  labelName="Amount"
                   defaultValue={billSingleData?.due}
                   inputPlaceholder="Amount..."
                   inputName="amount"
@@ -366,7 +372,12 @@ const ComplaintOrderDetailsTable = ({
                   required
                   minValue={1}
                 />
-                <Input inputPlaceholder="Note..." inputName="note" required />
+                <Input
+                  labelName="Note"
+                  inputPlaceholder="Note..."
+                  inputName="note"
+                  required
+                />
                 <Button loading={isLoading} primary className="w-full">
                   Submit
                 </Button>
