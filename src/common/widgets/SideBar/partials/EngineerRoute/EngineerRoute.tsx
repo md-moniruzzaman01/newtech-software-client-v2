@@ -81,6 +81,19 @@ const EngineerRoute = () => {
             <span>My Library</span>
           </div>
         </NavLink>
+
+        <NavLink
+          to={
+            activeRoute
+              ? "/engineer-requested-item"
+              : "/service-engineer-requested-item"
+          }
+        >
+          <div className={routeStyle}>
+            <span>&#8618;</span>
+            <span>Requested Item</span>
+          </div>
+        </NavLink>
       </section>
     </div>
   );

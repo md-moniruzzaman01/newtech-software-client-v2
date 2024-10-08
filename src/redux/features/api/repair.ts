@@ -92,6 +92,18 @@ const RepairApi = baseApi.injectEndpoints({
       providesTags: ["repair"],
     }),
 
+    getRepairsForRequested: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints?warranty=true&repair_status=Required%20Parts&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+      providesTags: ["repair"],
+    }),
+
     getRepairsForService: builder.query({
       query: (params) => {
         return {
@@ -142,4 +154,5 @@ export const {
   useRepairWarrantyReturnToLibraryMutation,
   useGetRepairsForServiceQuery,
   useGetAllProductsForRepairQuery,
+  useGetRepairsForRequestedQuery,
 } = RepairApi;

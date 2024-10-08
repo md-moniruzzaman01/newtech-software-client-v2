@@ -29,6 +29,7 @@ import LeakMaterial from "../modules/warranty/complaints/Leak Metarial/LeakMater
 import QCAll from "../modules/warranty/QC/QC All/QCAll";
 import AllQAData from "../modules/warranty/QA/All QA Data/AllQAData";
 import EngineerAllRepairs from "../modules/warranty/repair/Engineer All Repairs/EngineerAllRepairs";
+import RequestedItem from "../modules/warranty/repair/Requested Item/RequestedItem";
 
 export const warrantyComplaintsRoutes = [
   { path: "/", element: <WarrantyDashboard /> },
@@ -71,6 +72,7 @@ export const warrantyRepairsRoutes = [
   { path: "/engineer-my-repaired", element: <MyRepairs /> },
   { path: "/engineer-all-repairs", element: <EngineerAllRepairs /> },
   { path: "/engineer-my-library", element: <MyLibrary /> },
+  { path: "/engineer-requested-item", element: <RequestedItem /> },
 ];
 
 export const warrantybillsRoutes = [
