@@ -6,7 +6,7 @@ import {
   FaQuestion,
   FaRegUser,
 } from "react-icons/fa";
-import { IoMdClose, IoMdList } from "react-icons/io";
+import { IoIosArrowUp, IoMdClose, IoMdList } from "react-icons/io";
 import { MdDashboard, MdMenu } from "react-icons/md";
 import CrossIcon from "./custom icons/CrossIcon";
 import { MdMoneyOffCsred } from "react-icons/md";
@@ -25,6 +25,7 @@ import { MdOutlineWarehouse } from "react-icons/md";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const icons: any = {
   DownArrow: <FaCaretDown />,
+  upArrow: <IoIosArrowUp />,
   MenuOpen: <MdMenu />,
   MenuClose: <IoMdClose />,
   Dashboard: <MdDashboard />,

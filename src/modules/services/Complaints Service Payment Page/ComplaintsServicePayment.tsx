@@ -11,10 +11,14 @@ import { MdModeEdit } from "react-icons/md";
 import { useGetBillByIdQuery } from "../../../redux/features/api/service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
+import { findBranch } from "../../../shared/helpers/findBranch";
+import TransactionDetailsCard from "./partials/Transaction Card/TransactionDetailsCard";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const ComplaintsServicePayment = () => {
   const { id } = useParams();
   const [isEdit, setIsEdit] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
@@ -38,7 +42,7 @@ const ComplaintsServicePayment = () => {
     <div className="px-5">
       <Navbar name={"Complaint's Service Payments"} />
 
-      <div className="grid grid-cols-5 gap-2 pt-8">
+      <div className="grid grid-cols-4 gap-2 pt-8">
         <ComplaintHeaderCard
           headerDetails={billSingleData?.createdAt.toString().slice(0, 10)}
           bgColor="primary"
@@ -50,17 +54,11 @@ const ComplaintsServicePayment = () => {
           headerTitle="ID"
         />
         <ComplaintHeaderCard
-          headerDetails={
-            billSingleData?.generatedby?.Engineer?.name?.firstName || emptyData
-          }
+          headerDetails={findBranch(billSingleData?.branch) || emptyData}
           bgColor="primary"
-          headerTitle="Name"
+          headerTitle="Branch"
         />
-        <ComplaintHeaderCard
-          headerDetails={billSingleData?.generatedby?.Engineer?.id || emptyData}
-          bgColor="primary"
-          headerTitle="Engineer ID"
-        />
+
         <ComplaintHeaderCard
           headerDetails={billSingleData?.status}
           bgColor="primary"
@@ -69,12 +67,12 @@ const ComplaintsServicePayment = () => {
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-2 py-5">
+      <div className="grid grid-cols-3 gap-2 py-3">
         <ComplaintDetailsCard
           headerTitle="Customer Details"
           CardInformation={[
-            { title: "ID", value: billSingleData?.customer?.id },
-            { title: "Address", value: billSingleData?.customer?.name },
+            { title: "Name", value: billSingleData?.customer?.name },
+            { title: "Address", value: billSingleData?.customer?.email },
           ]}
         />
         <ComplaintDetailsCard
@@ -97,19 +95,37 @@ const ComplaintsServicePayment = () => {
             { title: "Repair Count", value: billSingleData?.repair?.length },
           ]}
         />
-        <div className="col-span-3 bg-solidWhite px-5 py-5">
-          <div className="flex justify-between  py-2 ">
-            <h2 className="text-2xl font-semibold">Order Summery</h2>
-            <div
-              className={`cursor-pointer hover:text-shadeOfRed ${
-                !isEdit && "text-shadeOfRed"
-              }`}
-            >
-              <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
-            </div>
+        <div className="col-span-3 rounded-md">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full flex justify-between px-5 py-3 bg-solidWhite shadow-md"
+          >
+            <h5 className="text-xl font-semibold">Transaction Details</h5>
+            <p>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</p>
+          </button>
+          <div
+            className={`transition-all duration-1000 overflow-hidden  pt-2 ${
+              isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <TransactionDetailsCard
+              transactionData={billSingleData?.transaction}
+            />
           </div>
-          <ComplaintOrderDetailsTable isEdit={isEdit} id={id} />
         </div>
+      </div>
+      <div className=" bg-solidWhite px-5 py-3">
+        <div className="flex justify-between  py-2 ">
+          <h2 className="text-2xl font-semibold">Order Summery</h2>
+          <div
+            className={`cursor-pointer hover:text-shadeOfRed ${
+              !isEdit && "text-shadeOfRed"
+            }`}
+          >
+            <MdModeEdit onClick={() => setIsEdit(!isEdit)} />
+          </div>
+        </div>
+        <ComplaintOrderDetailsTable isEdit={isEdit} id={id} />
       </div>
     </div>
   );

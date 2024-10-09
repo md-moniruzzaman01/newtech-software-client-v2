@@ -63,7 +63,7 @@ export type ComplaintsOrderDetailsProps = {
   id: string;
   branch: string;
   createdAt: string;
-  customer: { id?: string; name?: string };
+  customer: { id?: string; name?: string; email?: string };
   due: number;
   status?: string;
   generatedby: {
@@ -73,6 +73,7 @@ export type ComplaintsOrderDetailsProps = {
   repair: RepairItem[];
   total_paid?: number;
   total_amount?: number;
+  transaction: any;
   updatedAt: string;
   __v: number;
   _id: string;
