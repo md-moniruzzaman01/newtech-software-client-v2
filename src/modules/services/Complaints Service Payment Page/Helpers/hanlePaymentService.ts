@@ -23,7 +23,6 @@ export const handlePaymentSubmit = async (
 
   const url = `${SERVER_URL}/bill/payment/${id}`;
   const fullData = { paymentamount, note };
-
   setIsLoading(true);
   await fetch(url, {
     method: "PATCH",

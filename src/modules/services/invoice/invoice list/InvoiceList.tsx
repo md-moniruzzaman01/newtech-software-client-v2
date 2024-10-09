@@ -44,7 +44,6 @@ const InvoiceList = () => {
     token,
     query,
   });
-
   const [deleteBill, { isLoading }] = useDeleteBillMutation();
 
   useEffect(() => {
