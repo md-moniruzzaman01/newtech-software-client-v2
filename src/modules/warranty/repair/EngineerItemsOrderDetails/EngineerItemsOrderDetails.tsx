@@ -21,6 +21,7 @@ const EngineerItemsOrderDetails = () => {
     id,
     token,
   });
+  console.log(data);
   function showContainer(containerNumber: number) {
     switch (containerNumber) {
       case 1:

@@ -29,6 +29,9 @@ interface CommonTableProps {
   user?: boolean;
   modal?: boolean;
   setIsOpen?: any;
+  functionBtnValue?: string;
+  functionBtn?: any;
+  functionBtnLoading?: boolean;
 }
 
 // type TableData = Record<string, any>;
@@ -50,6 +53,9 @@ const CommonTable: FC<CommonTableProps> = ({
   user,
   modal,
   setIsOpen = false,
+  functionBtnValue,
+  functionBtn,
+  functionBtnLoading,
 }) => {
   return (
     <>
@@ -138,6 +144,19 @@ const CommonTable: FC<CommonTableProps> = ({
                           )}
                         </td>
                       ))}
+
+                      {functionBtn && (
+                        <td className="border">
+                          <Button
+                            small
+                            loading={functionBtnLoading}
+                            onClick={() => functionBtn(item?.id)}
+                          >
+                            {functionBtnValue}
+                          </Button>
+                        </td>
+                      )}
+
                       {btnLink && (
                         <td className="border">
                           <NavLink

@@ -17,25 +17,22 @@ export const fields = "";
 
 export const MyEngineerLibraryHeader = [
   "ID",
-  "Serial No",
+  "S/N No.",
   "Order ID",
-  "Category Name",
-  "Receiver",
   "Customer",
+  "Engineer ID",
   "Status",
-  "Last Update",
-  "RD",
+  "Qc CreatedAt",
+  "Action",
   "Action",
 ];
 
 export const tableLayout = [
   "item?.id",
-  "item?.products?.serial_number",
-  "item?.order_number",
-  "item?.category_name",
-  "item?.receiver",
-  "item?.customer?.contact_person",
-  "item?.repair_status",
-  " item?.updatedAt?.toString()?.substring(0, 10)",
+  "item?.serial_number",
+  "item?.repairId",
+  "item?.repair?.customer?.contact_person",
+  "item?.engineer?.id",
+  "item?.status",
   " item?.createdAt?.toString()?.substring(0, 10)",
 ];

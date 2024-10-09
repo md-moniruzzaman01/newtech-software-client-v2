@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
@@ -10,41 +11,36 @@ import {
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import { getUserInfo } from "../../../../services/auth.service";
-import {
-  useGetRepairsForRequestedQuery,
-  useRepairWarrantyReturnToLibraryMutation,
-} from "../../../../redux/features/api/repair";
+import { useGetRepairsForRequestedQuery } from "../../../../redux/features/api/repair";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
-import { showSwal } from "../../../../shared/helpers/SwalShower";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
+import { useUpdateRepairStatusMutation } from "../../../../redux/features/api/engineers";
+import { WarningSwal } from "../../../../shared/helpers/warningSwal";
+import { showSwal } from "../../../../shared/helpers/SwalShower";
 
 const RequestedItem = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
-  const [checkedRows, setCheckedRows] = useState<
-    { repair_id: string; qc_id: string }[]
-  >([]);
+
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const [repairWarrantyReturnToLibrary, { isLoading: returnLoading }] =
-    useRepairWarrantyReturnToLibraryMutation();
+
+  const [updateRepairStatus, { isLoading: updateRepairIsloading }] =
+    useUpdateRepairStatusMutation();
+
   const { data, isError, isLoading, error } = useGetRepairsForRequestedQuery({
     id: user._id,
     query,
     token,
   });
-
-  console.log(data);
-
-  const fullData = { repairIds: checkedRows };
 
   useEffect(() => {
     if (data) {
@@ -54,18 +50,22 @@ const RequestedItem = () => {
     }
   }, [data]);
 
+  const handleSubmit = async (id) => {
+    const fullData = {
+      status: "Repaired",
+      note: "",
+    };
+
+    const result: any = await updateRepairStatus({ id, fullData, token });
+    showSwal(result);
+  };
+
   if (isLoading) {
     return <LoadingPage />;
   }
   if (isError) {
     return <ErrorShow error={error} />;
   }
-
-  const handleReturnData = async () => {
-    const result = await repairWarrantyReturnToLibrary({ token, fullData });
-
-    showSwal(result);
-  };
 
   return (
     <div className=" px-5">
@@ -76,13 +76,7 @@ const RequestedItem = () => {
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <div>
-            <StatusGroup
-              isSelected={checkedRows?.length <= 0}
-              isReturnLoading={returnLoading}
-              handleReturnData={handleReturnData}
-              dltBtnValue="Delete"
-              returnBtnValue="Return to the Engineer Library"
-            />
+            <StatusGroup />
           </div>
           <div className="pt-5">
             <CommonTable
@@ -90,9 +84,15 @@ const RequestedItem = () => {
               itemData={data?.data}
               headerData={MyEngineerLibraryHeader}
               dataLayout={tableLayout}
-              checkedRows={checkedRows}
-              setCheckedRows={setCheckedRows}
-              checkbox
+              functionBtn={(id: string) =>
+                WarningSwal(
+                  handleSubmit,
+                  id,
+                  "You want to delivered this data!"
+                )
+              }
+              functionBtnLoading={updateRepairIsloading}
+              functionBtnValue="Delivery"
             />
           </div>
         </div>

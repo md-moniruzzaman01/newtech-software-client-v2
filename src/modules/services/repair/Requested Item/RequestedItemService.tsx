@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
@@ -10,10 +11,7 @@ import {
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { getUserInfo } from "../../../../services/auth.service";
-import {
-  useGetRepairsQuery,
-  useRepairWarrantyReturnToLibraryMutation,
-} from "../../../../redux/features/api/repair";
+
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
@@ -22,27 +20,29 @@ import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
+import { WarningSwal } from "../../../../shared/helpers/warningSwal";
+import { useUpdateRepairStatusMutation } from "../../../../redux/features/api/engineers";
+import { useGetRepairsForRequestedForServiceQuery } from "../../../../redux/features/api/repair";
 
 const RequestedItemService = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
-  const [checkedRows, setCheckedRows] = useState<
-    { repair_id: string; qc_id: string }[]
-  >([]);
+
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const [repairWarrantyReturnToLibrary, { isLoading: returnLoading }] =
-    useRepairWarrantyReturnToLibraryMutation();
-  const { data, isError, isLoading, error } = useGetRepairsQuery({
-    id: user._id,
-    query,
-    token,
-  });
 
-  const fullData = { repairIds: checkedRows };
+  const [updateRepairStatus, { isLoading: updateRepairIsloading }] =
+    useUpdateRepairStatusMutation();
+
+  const { data, isError, isLoading, error } =
+    useGetRepairsForRequestedForServiceQuery({
+      id: user._id,
+      query,
+      token,
+    });
 
   useEffect(() => {
     if (data) {
@@ -52,18 +52,22 @@ const RequestedItemService = () => {
     }
   }, [data]);
 
+  const handleSubmit = async (id) => {
+    const fullData = {
+      status: "Repaired",
+      note: "",
+    };
+
+    const result: any = await updateRepairStatus({ id, fullData, token });
+    showSwal(result);
+  };
+
   if (isLoading) {
     return <LoadingPage />;
   }
   if (isError) {
     return <ErrorShow error={error} />;
   }
-
-  const handleReturnData = async () => {
-    const result = await repairWarrantyReturnToLibrary({ token, fullData });
-
-    showSwal(result);
-  };
 
   return (
     <div className=" px-5">
@@ -74,23 +78,23 @@ const RequestedItemService = () => {
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
           <div>
-            <StatusGroup
-              isSelected={checkedRows?.length <= 0}
-              isReturnLoading={returnLoading}
-              handleReturnData={handleReturnData}
-              dltBtnValue="Delete"
-              returnBtnValue="Return to the Engineer Library"
-            />
+            <StatusGroup />
           </div>
           <div className="pt-5">
             <CommonTable
-              link="/engineer-items/order-details"
+              link="/service-engineer-items/order-details"
               itemData={data?.data}
               headerData={MyEngineerLibraryHeader}
               dataLayout={tableLayout}
-              checkedRows={checkedRows}
-              setCheckedRows={setCheckedRows}
-              checkbox
+              functionBtn={(id: string) =>
+                WarningSwal(
+                  handleSubmit,
+                  id,
+                  "You want to delivered this data!"
+                )
+              }
+              functionBtnLoading={updateRepairIsloading}
+              functionBtnValue="Delivery"
             />
           </div>
         </div>
