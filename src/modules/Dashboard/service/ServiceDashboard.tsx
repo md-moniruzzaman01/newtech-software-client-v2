@@ -19,7 +19,6 @@ import CustomerCard from "./partials/Customer Card/CustomerCard";
 import ReceiverCard from "./partials/Receiver Card/ReceiverCard";
 import QACard from "./partials/QA Card/QACard";
 import QCCard from "./partials/QC Card/QCCard";
-import FilterForDashboard from "./partials/Filter system/FilterForDashboard";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const ServiceDashboard = () => {
@@ -59,10 +58,6 @@ const ServiceDashboard = () => {
     <div className="px-5">
       <div className="pb-5">
         <Navbar name="Welcome," />
-      </div>
-
-      <div className="pb-5 flex justify-end">
-        <FilterForDashboard />
       </div>
 
       <div className="grid grid-cols-4 gap-3">
