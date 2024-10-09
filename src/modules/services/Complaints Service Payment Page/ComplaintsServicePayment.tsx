@@ -34,7 +34,7 @@ const ComplaintsServicePayment = () => {
       setBillSingleData(billData?.data);
     }
   }, [billData, billError, BillLoading]);
-
+  console.log(billData);
   if (BillLoading) {
     return <LoadingPage />;
   }
@@ -104,7 +104,7 @@ const ComplaintsServicePayment = () => {
             <p>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</p>
           </button>
           <div
-            className={`transition-all duration-1000 overflow-hidden  pt-2 ${
+            className={`transition-all duration-1000 overflow-hidden pt-2 ${
               isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
             }`}
           >
