@@ -18,7 +18,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 const ComplaintsServicePayment = () => {
   const { id } = useParams();
   const [isEdit, setIsEdit] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
@@ -32,9 +32,10 @@ const ComplaintsServicePayment = () => {
   useEffect(() => {
     if (!billError && !BillLoading) {
       setBillSingleData(billData?.data);
+      setIsOpen(billData?.data?.transaction?.length);
     }
   }, [billData, billError, BillLoading]);
-  console.log(billData);
+
   if (BillLoading) {
     return <LoadingPage />;
   }
