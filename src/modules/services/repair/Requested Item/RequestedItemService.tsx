@@ -34,7 +34,7 @@ const RequestedItemService = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
 
-  const [updateRepairStatus, { isLoading: updateRepairIsloading }] =
+  const [updateRepairStatus, { isLoading: updateRepairIsLoading }] =
     useUpdateRepairStatusMutation();
 
   const { data, isError, isLoading, error } =
@@ -63,7 +63,7 @@ const RequestedItemService = () => {
     showSwal(result);
   };
 
-  if (isLoading) {
+  if (isLoading || updateRepairIsLoading) {
     return <LoadingPage />;
   }
   if (isError) {
@@ -94,7 +94,6 @@ const RequestedItemService = () => {
                   "You want to delivered this data!"
                 )
               }
-              functionBtnLoading={updateRepairIsloading}
               functionBtnValue="Delivery"
             />
           </div>
