@@ -29,7 +29,7 @@ const QCCard = () => {
   return (
     <div>
       <div className="flex justify-between items-center pt-5 pb-2 px-3">
-        <h2 className="text-lg font-semibold  ">QA Details</h2>
+        <h2 className="text-lg font-semibold  ">QC Details</h2>
         <SortByDate
           setStartDate={setStartDate}
           startDate={startDate}
