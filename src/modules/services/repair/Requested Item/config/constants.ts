@@ -31,7 +31,7 @@ export const tableLayout = [
   "item?.id",
   "item?.serial_number",
   "item?.repairId",
-  "item?.repair?.customer?.contact_person",
+  "item?.repair?.Nonwarrentycustomer?.name",
   "item?.engineer?.id",
   "item?.status",
   " item?.createdAt?.toString()?.substring(0, 10)",
