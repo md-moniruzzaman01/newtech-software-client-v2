@@ -22,7 +22,6 @@ export const keys = [
   "repair-status",
   "searchTerm",
   "category_name",
-  "searchTerm",
 ];
 
 export const tableLayout = [
