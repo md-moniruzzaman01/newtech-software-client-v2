@@ -16,6 +16,7 @@ import { useGetServicesByIdQuery } from "../../../redux/features/api/service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 import { isUserAdmin } from "../../../services/auth.service";
+import TransactionDetails from "./partials/TransactionDetails";
 
 const ComplaintsServiceDetails = () => {
   const { id } = useParams();
@@ -30,7 +31,7 @@ const ComplaintsServiceDetails = () => {
     error: complaintsError,
   } = useGetServicesByIdQuery({ id, token });
 
-  console.log("hello", complaintsData);
+  console.log("hello", complaintsData?.data?.bill?.transaction);
 
   useEffect(() => {
     if (!complaintsIsError && !complaintsLoading) {
@@ -104,9 +105,10 @@ const ComplaintsServiceDetails = () => {
               value: complaintsSingleData?.total_charge,
             },
             {
-              title: "Due",
+              title: `${complaintsSingleData?.due ? "Due" : "Paid"}`,
               value:
-                complaintsSingleData?.due || complaintsSingleData?.total_charge,
+                complaintsSingleData?.due ||
+                complaintsSingleData?.bill?.total_paid,
             },
           ]}
         />
@@ -123,11 +125,13 @@ const ComplaintsServiceDetails = () => {
             },
           ]}
         />
+      </div>
 
+      <div className="grid grid-cols-3 gap-5">
         <div
           className={`${
             isUserAdmin() ? "col-span-2" : "col-span-3"
-          } bg-solidWhite px-5 py-5`}
+          } bg-solidWhite px-5 py-5 `}
         >
           <div className="flex justify-between items-center  py-2 ">
             <h2 className="text-2xl font-semibold">Order Summery</h2>
@@ -164,7 +168,7 @@ const ComplaintsServiceDetails = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-5 mb-5 gap-5">
+      <div className="grid grid-cols-5 mb-5 gap-5 py-4">
         {complaintsSingleData?.Qc?.length > 0 &&
           complaintsSingleData?.Qc?.map((item, index) => (
             <ComplaintMiniCard
@@ -210,6 +214,9 @@ const ComplaintsServiceDetails = () => {
               link={`/service-engineer-all-repairs?searchTerm=${item?.serial_number}`}
             />
           ))}
+        <TransactionDetails
+          transaction={complaintsData?.data?.bill?.transaction || []}
+        />
       </div>
     </div>
   );

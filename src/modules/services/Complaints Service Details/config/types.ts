@@ -33,6 +33,7 @@ export type ComplaintsOrderDetailsProps = {
   Qc: any[]; // Assuming any type for now
   RepairItem: any[]; // Assuming any type for now
   branch: string;
+  bill?: { total_paid?: number };
   brand_name: string;
   category_name: string;
   createdAt: string; // Assuming ISO date string format
