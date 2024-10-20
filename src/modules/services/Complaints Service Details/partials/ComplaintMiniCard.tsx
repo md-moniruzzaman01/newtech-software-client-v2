@@ -7,10 +7,12 @@ const ComplaintMiniCard: React.FC<ComplaintMiniCardProps> = ({
   status,
   notes,
   link,
+  header,
 }) => {
   return (
     <div>
       <div className="bg-solidWhite text-center space-y-5 py-5 overflow-x-auto">
+        {header && <p className="font-bold">{header}</p>}
         <p className="overflow-x-auto">
           Serial No:{" "}
           {link ? (

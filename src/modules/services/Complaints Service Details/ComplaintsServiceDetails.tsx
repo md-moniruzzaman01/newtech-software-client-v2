@@ -30,6 +30,8 @@ const ComplaintsServiceDetails = () => {
     error: complaintsError,
   } = useGetServicesByIdQuery({ id, token });
 
+  console.log("hello", complaintsData);
+
   useEffect(() => {
     if (!complaintsIsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);
@@ -166,6 +168,7 @@ const ComplaintsServiceDetails = () => {
         {complaintsSingleData?.Qc?.length > 0 &&
           complaintsSingleData?.Qc?.map((item, index) => (
             <ComplaintMiniCard
+              header="QC Status"
               key={index}
               status={`Status: ${item?.status}`}
               name={`Name: ${
@@ -179,6 +182,7 @@ const ComplaintsServiceDetails = () => {
         {complaintsSingleData?.Qa?.length > 0 &&
           complaintsSingleData?.Qa?.map((item, index) => (
             <ComplaintMiniCard
+              header="QA Status"
               key={index}
               status={`Status: ${item?.status}`}
               name={`Name: ${
@@ -194,6 +198,7 @@ const ComplaintsServiceDetails = () => {
         {complaintsSingleData?.RepairItem?.length > 0 &&
           complaintsSingleData?.RepairItem?.map((item, index) => (
             <ComplaintMiniCard
+              header="Engineer Status"
               key={index}
               status={`Status: ${item?.status}`}
               name={`Name: ${
