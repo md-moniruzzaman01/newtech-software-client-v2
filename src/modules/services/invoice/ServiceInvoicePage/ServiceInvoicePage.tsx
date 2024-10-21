@@ -23,6 +23,8 @@ const ServiceInvoicePage = () => {
     token,
   });
 
+  console.log(billData?.data?.transaction?.slice(-1)[0]?.note);
+
   const { userId } = getUserInfo();
   const { data: fullUserInfo, isLoading: userIsLoading } = useGetUserQuery({
     token,
@@ -110,7 +112,7 @@ const ServiceInvoicePage = () => {
                   <th className=" px-4 py-2">Serial No</th>
                   <th className=" px-4 py-2">Model No</th>
                   <th className=" px-4 py-2">Problem</th>
-                  {billData?.data?.transaction?.note && (
+                  {billData?.data?.transaction?.slice(-1)[0]?.note && (
                     <th className=" px-4 py-2">Note</th>
                   )}
                   {/* <th className=" px-4 py-2">Discount</th> */}
@@ -131,9 +133,9 @@ const ServiceInvoicePage = () => {
                       <td className=" px-4 py-2">
                         {item?.products?.problems?.toString()}
                       </td>
-                      {item?.transaction?.note && (
+                      {billData?.data?.transaction?.slice(-1)[0]?.note && (
                         <td className=" px-4 py-2">
-                          {item?.transaction?.note?.toString()}
+                          {billData?.data?.transaction?.slice(-1)[0]?.note}
                         </td>
                       )}
                       {/* <td className=" px-4 py-2">0.00 %</td> */}

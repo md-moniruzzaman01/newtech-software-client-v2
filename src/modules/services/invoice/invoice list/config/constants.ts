@@ -42,7 +42,7 @@ export const tableLayout = [
   "item?.transaction?.length && item?.transaction?.map?.((data, index) => index === item?.transaction?.length - 1 ? `${data?.amount} ` : `${data?.amount}, `)",
   "item?.due",
   "item?.status",
-  "item?.note",
+  "item?.transaction?.slice(-1)[0]?.note",
   "item?.createdAt?.toString()?.slice(0,10)",
   "item?.updatedAt?.toString()?.slice(0,10)",
 ];
