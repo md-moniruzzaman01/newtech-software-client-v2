@@ -24,7 +24,7 @@ const TransactionDetails = ({ transaction }) => {
           </div>
         ))
       ) : (
-        <p>No transaction details available</p>
+        <p className="text-sm pt-5 italic">No transaction details available</p>
       )}
     </div>
   );
