@@ -110,6 +110,9 @@ const ServiceInvoicePage = () => {
                   <th className=" px-4 py-2">Serial No</th>
                   <th className=" px-4 py-2">Model No</th>
                   <th className=" px-4 py-2">Problem</th>
+                  {billData?.data?.transaction?.note && (
+                    <th className=" px-4 py-2">Note</th>
+                  )}
                   {/* <th className=" px-4 py-2">Discount</th> */}
                   <th className=" px-4 py-2">Total</th>
                 </tr>
@@ -128,6 +131,11 @@ const ServiceInvoicePage = () => {
                       <td className=" px-4 py-2">
                         {item?.products?.problems?.toString()}
                       </td>
+                      {item?.transaction?.note && (
+                        <td className=" px-4 py-2">
+                          {item?.transaction?.note?.toString()}
+                        </td>
+                      )}
                       {/* <td className=" px-4 py-2">0.00 %</td> */}
                       <td className=" px-4 py-2">{item?.total_charge}</td>
                     </tr>
