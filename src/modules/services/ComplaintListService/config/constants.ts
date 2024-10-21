@@ -1,5 +1,5 @@
 export const fields =
-  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer,category_name";
+  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer,category_name,updatedAt";
 export const keys = [
   "brand_name",
   "branch",
@@ -38,6 +38,7 @@ export const complaintsTableHeader = [
   "Brand",
   "Status",
   "RD",
+  "UD",
   "Action",
   "Action",
 ];
@@ -51,4 +52,5 @@ export const tableLayout = [
   "item?.brand_name",
   "item?.repair_status",
   "item?.received_date?.toString()?.slice(0,10)",
+  "item?.updatedAt?.toString()?.slice(0,10)",
 ];
