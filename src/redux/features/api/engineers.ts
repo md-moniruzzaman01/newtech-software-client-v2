@@ -11,15 +11,17 @@ const EngineerApi = baseApi.injectEndpoints({
         },
         body: fullData,
       }),
+      invalidatesTags: ["engineer"],
     }),
     deleteEngineer: builder.mutation({
       query: ({ id, token }) => ({
-        url: `/engineer/${id}`,
+        url: `/engineers/${id}`,
         method: "DELETE",
         headers: {
           authorization: token,
         },
       }),
+      invalidatesTags: ["engineer"],
     }),
     getEngineers: builder.query({
       query: ({ token, query }) => {
@@ -30,6 +32,7 @@ const EngineerApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["engineer"],
     }),
     getEngineerById: builder.query({
       query: ({ token, id }) => {
@@ -40,6 +43,7 @@ const EngineerApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["engineer"],
     }),
     editEngineer: builder.mutation({
       query: ({ fullData, token, id }) => {
@@ -52,6 +56,7 @@ const EngineerApi = baseApi.injectEndpoints({
           body: fullData,
         };
       },
+      invalidatesTags: ["engineer"],
     }),
     getEngineersList: builder.query({
       query: ({ token, query }) => {
@@ -62,6 +67,7 @@ const EngineerApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["engineer"],
     }),
     getEngineersData: builder.query({
       query: ({ token }) => {
@@ -72,6 +78,7 @@ const EngineerApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["engineer"],
     }),
     getEngineerDataForService: builder.query({
       query: ({ token }) => {
@@ -82,6 +89,7 @@ const EngineerApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["engineer"],
     }),
     updateRepairStatus: builder.mutation({
       query: ({ id, fullData, token }) => ({

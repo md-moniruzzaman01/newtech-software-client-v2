@@ -41,7 +41,7 @@ const EngineerEditPage = () => {
     isError,
     error,
   } = useGetMainCategoryQuery({});
-
+  console.log(engineer);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
