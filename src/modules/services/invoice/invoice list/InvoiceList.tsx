@@ -53,6 +53,7 @@ const InvoiceList = () => {
       setCurrentPage(billData?.meta?.page);
     }
   }, [billData]);
+  console.log(billData);
 
   const handleDeleteBil = async (id: string) => {
     swal({
