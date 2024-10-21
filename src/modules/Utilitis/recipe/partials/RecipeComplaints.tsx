@@ -18,7 +18,7 @@ const RecipeComplaints = ({
       <div>
         <FormOfRecipe products={products} />
       </div>
-      <FooterOfRecipe />
+      <FooterOfRecipe info={info} />
     </div>
   );
 };

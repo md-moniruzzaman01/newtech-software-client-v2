@@ -1,4 +1,4 @@
-const FooterOfRecipe = () => {
+const FooterOfRecipe = ({ info }) => {
   return (
     <div className="absolute bottom-0">
       <div className=" flex justify-between text-center">
@@ -7,11 +7,13 @@ const FooterOfRecipe = () => {
       </div>
       <div className="mt-4">
         <p className="text-xs italic ">
-          The warrenty is not applicable to Headphones,Memory Card, Data Cable,
+          The warranty is not applicable to Headphones,Memory Card, Data Cable,
           Sticker removed items, Burnt and Physically damage items.
           <span className="block">
-            Please take delivery within one month, after that time the authority
-            will not be responsible.
+            {info?.warranty
+              ? "Please take delivery within one month, after that time the authority will not be responsible."
+              : ""}
+            {/* need to change */}
           </span>
         </p>
       </div>

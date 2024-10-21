@@ -46,11 +46,19 @@ const FormOfRecipe = ({ products }: { products: any }) => {
       </table>
       <div className="pt-2 text-xs flex gap-10">
         <p className="flex items-center gap-1.5">
-          <input type="checkbox" checked={products?.isWindowsInstallations} />
+          <input
+            type="checkbox"
+            readOnly
+            checked={products?.isWindowsInstallations}
+          />
           Windows installation 'C' Drive
         </p>
         <p className="flex items-center gap-1.5">
-          <input type="checkbox" checked={products?.isSSDOrHDDFullFormat} />
+          <input
+            readOnly
+            type="checkbox"
+            checked={products?.isSSDOrHDDFullFormat}
+          />
           SSD/HDD Full Format
         </p>
       </div>
