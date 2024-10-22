@@ -11,9 +11,9 @@ import { MdModeEdit } from "react-icons/md";
 import { useGetBillByIdQuery } from "../../../redux/features/api/service";
 import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import ComplaintOrderDetailsTable from "./partials/ComplaintOrderDetailsTable";
-import { findBranch } from "../../../shared/helpers/findBranch";
 import TransactionDetailsCard from "./partials/Transaction Card/TransactionDetailsCard";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { getBranchName } from "../../../shared/helpers/getBranchName";
 
 const ComplaintsServicePayment = () => {
   const { id } = useParams();
@@ -55,7 +55,7 @@ const ComplaintsServicePayment = () => {
           headerTitle="ID"
         />
         <ComplaintHeaderCard
-          headerDetails={findBranch(billSingleData?.branch) || emptyData}
+          headerDetails={getBranchName(billSingleData?.branch) || emptyData}
           bgColor="primary"
           headerTitle="Branch"
         />

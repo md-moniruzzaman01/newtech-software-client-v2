@@ -1,11 +1,8 @@
 import { branches } from "../config/constaints";
 
-export const getBranchName = (id: string, brand = false) => {
-  if (!brand) {
-    const branchName = branches?.find((item) => item.id === id);
-    return branchName?.value;
-  } else {
-    const branchName = branches?.find((item) => item.id === id);
-    return branchName?.value;
-  }
+export const getBranchName = (id: string) => {
+  const branchName: { id: string; value: string } | undefined = branches?.find(
+    (branch) => branch?.id === id
+  );
+  return branchName?.value;
 };

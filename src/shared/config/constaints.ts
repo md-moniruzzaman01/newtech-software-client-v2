@@ -23,6 +23,38 @@ export const engineerPower = [
   { id: "08", value: "assistant Engineer" },
 ];
 
+// just checking purpose not others
+export const brand = [
+  { id: "1", value: "MSI" },
+  { id: "2", value: "ACER" },
+  { id: "3", value: "D-LINK" },
+  { id: "4", value: "DAHUA" },
+];
+
+export const skill = [
+  { id: "1", value: "Desktop" },
+  { id: "2", value: "Laptop" },
+  { id: "3", value: "Router" },
+  { id: "4", value: "Monitor" },
+  { id: "5", value: "Speaker" },
+  { id: "6", value: "VGA" },
+  { id: "7", value: "SSD" },
+  { id: "8", value: "PSU" },
+  { id: "9", value: "COOLER" },
+  { id: "10", value: "HEAD PHONE" },
+  { id: "11", value: "Gaming Gadgets" },
+  { id: "12", value: "MOTHERBOARD" },
+  { id: "13", value: "Printer" },
+  { id: "14", value: "Scanner" },
+  { id: "15", value: "TV Panel" },
+  { id: "16", value: "Projector" },
+  { id: "17", value: "tab" },
+  { id: "18", value: "Switch" },
+  { id: "20", value: "Clone CPU" },
+  { id: "21", value: "Dahua" },
+  { id: "22", value: "White Board" },
+];
+// end
 // others;
 
 export const FilterOptions = [

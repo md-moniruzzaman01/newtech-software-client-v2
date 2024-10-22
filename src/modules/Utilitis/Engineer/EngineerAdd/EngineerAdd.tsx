@@ -71,7 +71,7 @@ const EngineerAdd = () => {
         asp,
         designation,
 
-        profileImage: "img",
+        profileImage: "",
       },
     };
     const result: any = await addEngineer({ fullData, token });
