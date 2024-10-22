@@ -8,6 +8,7 @@ const Modal = ({
   children,
   header,
   bgColor = "solidWhite",
+  size = "max-w-3xl",
 }) => {
   return (
     <div>
@@ -30,7 +31,7 @@ const Modal = ({
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel
-                    className={`w-full max-w-md transform overflow-hidden rounded-2xl bg-${bgColor} py-7 px-5 text-left align-middle shadow-xl transition-all`}
+                    className={`w-full ${size} transform overflow-hidden rounded-2xl bg-${bgColor} py-7 px-5 text-left align-middle shadow-xl transition-all`}
                   >
                     <div className="flex justify-between items-center pb-5">
                       <h2 className="text-xl font-semibold ">{header}</h2>
