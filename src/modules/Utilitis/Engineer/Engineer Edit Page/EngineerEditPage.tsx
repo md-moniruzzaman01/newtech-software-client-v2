@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 //internal
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   authKey,
   branches,
@@ -27,6 +27,7 @@ import Button from "../../../../common/components/Button";
 const EngineerEditPage = () => {
   const token = getFromLocalStorage(authKey);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data: engineer, isLoading: engineerLoading } =
     useGetEngineerByIdQuery({ token, id });
@@ -64,29 +65,27 @@ const EngineerEditPage = () => {
     const designation = (
       form.elements.namedItem("designation") as HTMLInputElement
     ).value;
-    const password = (form.elements.namedItem("password") as HTMLInputElement)
-      .value;
 
     const fullData = {
-      password,
-      engineer: {
-        name: { firstName, middleName, lastName },
-        contactNo,
-        email,
-        branch,
-        power,
-        Skill,
-        asp,
-        designation,
+      name: { firstName, middleName, lastName },
+      contactNo,
+      email,
+      branch,
+      power,
+      Skill,
+      asp,
+      designation,
 
-        profileImage: "img",
-      },
+      profileImage: "",
     };
     const result: any = await editEngineer({ fullData, token, id });
+    console.log(result);
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
+      navigate("/engineers-list");
       setPowerArr([]);
       setSkillArr([]);
+      setAspArr([]);
       form.reset();
     }
   };
@@ -173,7 +172,6 @@ const EngineerEditPage = () => {
               labelName="Designation"
               inputName="designation"
             />
-            <Input required labelName="Password" inputName="password" />
 
             {/* <div className="space-y-2">
               <h2 className="font-semibold">Upload Profile Image:</h2>
