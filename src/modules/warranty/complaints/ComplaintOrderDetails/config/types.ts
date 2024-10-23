@@ -53,6 +53,7 @@ export type ComplaintsOrderDetailsProps = {
   turnaround_time: string; // Assuming ISO date string format
   updatedAt: string; // Assuming ISO date string format
   warranty: boolean;
+  completed_date?: string;
   __v: number;
   _id: string;
   message: string;
