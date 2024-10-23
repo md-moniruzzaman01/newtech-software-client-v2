@@ -10,16 +10,21 @@ const DiscountDetails = ({ discountItems }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white min-w-60 min-h-[157px] shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
+    <div className="bg-white min-w-60 min-h-[156px] shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
       <div>
         <h2 className="text-xl font-semibold mb-4 flex items-center">
           <FontAwesomeIcon icon={faTags} className="mr-2 text-purple-500" />
           Discount Items
         </h2>
-        <p>Total: {discountItems.length}</p>
         <p>
-          Total Discount:{" "}
-          {discountItems.reduce((sum, item) => sum + item.amount, 0)} BDT
+          <strong>Total:</strong>{" "}
+          <span className="text-purple-500">{discountItems.length}</span>
+        </p>
+        <p>
+          <strong>Total Discount:</strong>{" "}
+          <span className="text-purple-500">
+            {discountItems.reduce((sum, item) => sum + item.amount, 0)} BDT
+          </span>
         </p>
       </div>
       {/* <Button small onClick={() => setIsOpen(true)} className="self-end mt-9">

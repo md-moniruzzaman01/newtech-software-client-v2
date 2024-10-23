@@ -8,7 +8,7 @@ import { headerForRepair, tableLayoutForRepair } from "../config/constants";
 
 const RepairDetails = ({ repairItems }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(repairItems);
   return (
     <div className="bg-white min-w-60 shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
       <div>
@@ -16,11 +16,34 @@ const RepairDetails = ({ repairItems }) => {
           <FontAwesomeIcon icon={faWrench} className="mr-2 text-blue-500" />
           Repair Items
         </h2>
-        <p>Total: {repairItems.length}</p>
         <p>
-          Warranty Count: {repairItems.filter((item) => item.warranty).length}
+          <strong>Total: </strong>
+          <span className="text-blue-500">{repairItems.length}</span>
         </p>
-        <p>Latest Repair: {repairItems[0]?.repairId || "N/A"}</p>
+        <p>
+          <strong>Repaired Count: </strong>
+          <span className="text-blue-500">
+            {repairItems.filter((item) => item.status === "Repaired").length}
+          </span>
+        </p>
+        <p>
+          <strong>Warranty Count: </strong>
+          <span className="text-blue-500">
+            {repairItems.filter((item) => item.warranty).length}
+          </span>
+        </p>
+        <p>
+          <strong>Non Warranty Count: </strong>{" "}
+          <span className="text-blue-500">
+            {repairItems.filter((item) => !item.warranty).length}
+          </span>
+        </p>
+        <p>
+          <strong>Latest Repair:</strong>{" "}
+          <span className="text-blue-500">
+            {repairItems[0]?.repairId || "N/A"}
+          </span>
+        </p>
       </div>
       {/* <Button
         small

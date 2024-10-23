@@ -8,7 +8,7 @@ import { headerForQa, tableLayoutForQa } from "../config/constants";
 
 const QaDetails = ({ qaItems }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(qaItems);
   return (
     <div className="bg-white min-w-60 shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
       <div>
@@ -19,12 +19,34 @@ const QaDetails = ({ qaItems }) => {
           />
           QA Items
         </h2>
-        <p>Total: {qaItems.length}</p>
         <p>
-          QA OK Count:{" "}
-          {qaItems.filter((item) => item.status === "QA Ok").length}
+          <strong>Total: </strong>{" "}
+          <span className="text-green-500">{qaItems.length}</span>
         </p>
-        <p>Latest QA: {qaItems[0]?.serial_number || "N/A"}</p>
+        <p>
+          <strong>QA OK Count: </strong>
+          <span className="text-green-500">
+            {qaItems.filter((item) => item.status === "QA Ok").length}
+          </span>
+        </p>
+        <p>
+          <strong>Warranty Count: </strong>
+          <span className="text-green-500">
+            {qaItems.filter((item) => item.warranty).length}
+          </span>
+        </p>
+        <p>
+          <strong>Non Warranty Count: </strong>{" "}
+          <span className="text-green-500">
+            {qaItems.filter((item) => !item.warranty).length}
+          </span>
+        </p>
+        <p>
+          <strong>Latest QA: </strong>{" "}
+          <span className="text-green-500">
+            {qaItems[0]?.serial_number || "N/A"}
+          </span>
+        </p>
       </div>
       {/* <Button onClick={() => setIsOpen(true)} small className="self-end mt-3">
         View Details

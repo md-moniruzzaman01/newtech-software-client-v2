@@ -17,6 +17,8 @@ import {
   tableLayoutForQc,
   tableLayoutForRepair,
 } from "../config/constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const UserInfo = ({ data }) => {
   const { user, QaItems, QcItems, repairItems, discountItems, BillItems } =
@@ -26,20 +28,28 @@ const UserInfo = ({ data }) => {
   return (
     <div>
       <div className="bg-white pt-2 px-5 pb-3 rounded-lg shadow-lg  mx-auto">
-        {/* Password Change Action */}
-        {needsPasswordChange && (
-          <div className="flex justify-end  pt-3 pr-5">
-            <NavLink
-              to={`${
-                user?.role === "admin"
-                  ? "/change-password"
-                  : "/user-change-password"
-              }`}
-            >
-              <Button small>Change Password</Button>
-            </NavLink>
-          </div>
-        )}
+        <div className="flex items-center justify-between py-5">
+          <header className="flex justify-between items-center ">
+            <h1 className="text-3xl font-bold flex items-center">
+              <FontAwesomeIcon icon={faUser} className="mr-2 text-blue-500" />
+              Employee's Summary
+            </h1>
+          </header>
+          {/* Password Change Action */}
+          {needsPasswordChange && (
+            <div className="">
+              <NavLink
+                to={`${
+                  user?.role === "admin"
+                    ? "/change-password"
+                    : "/user-change-password"
+                }`}
+              >
+                <Button small>Change Password</Button>
+              </NavLink>
+            </div>
+          )}
+        </div>
         {/* Profile Header */}
         <div className="flex flex-col text-center items-center mb-6">
           {Engineer?.profileImage ? (
@@ -116,7 +126,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       </div>
-      {repairItems?.length && (
+      {repairItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">Repair Details</h2>
           <CommonTable
@@ -126,7 +136,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       )}
-      {QcItems?.length && (
+      {QcItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">QC Details</h2>
           <CommonTable
@@ -136,7 +146,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       )}
-      {QaItems?.length && (
+      {QaItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">QA Details</h2>
           <CommonTable
@@ -146,7 +156,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       )}
-      {discountItems?.length && (
+      {discountItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">Discount Details</h2>
           <CommonTable
@@ -156,7 +166,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       )}
-      {BillItems?.length && (
+      {BillItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">Bill Details</h2>
           <CommonTable

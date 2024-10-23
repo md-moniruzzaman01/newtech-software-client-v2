@@ -8,7 +8,7 @@ import { headerForQc, tableLayoutForQc } from "../config/constants";
 
 const QcDetails = ({ qcItems }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(qcItems);
   return (
     <div className="bg-white min-w-60 shadow-lg rounded-lg  p-5 flex flex-col justify-between h-full">
       <div>
@@ -19,12 +19,22 @@ const QcDetails = ({ qcItems }) => {
           />
           QC Items
         </h2>
-        <p>Total: {qcItems.length}</p>
         <p>
-          QC OK Count:{" "}
-          {qcItems.filter((item) => item.status === "QC Ok").length}
+          <strong>Total:</strong>{" "}
+          <span className="text-yellow-500"> {qcItems.length}</span>
         </p>
-        <p>Latest QC: {qcItems[0]?.serial_number || "N/A"}</p>
+        <p>
+          <strong>QC OK Count:</strong>{" "}
+          <span className="text-yellow-500">
+            {qcItems.filter((item) => item.status === "QC Ok").length}
+          </span>
+        </p>
+        <p>
+          <strong>Latest QC:</strong>{" "}
+          <span className="text-yellow-500">
+            {qcItems[0]?.serial_number || "N/A"}
+          </span>
+        </p>
       </div>
       {/* <Button small onClick={() => setIsOpen(true)} className="self-end mt-3">
         View Details

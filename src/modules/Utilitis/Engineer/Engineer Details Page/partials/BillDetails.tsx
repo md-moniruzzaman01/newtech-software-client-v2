@@ -10,16 +10,21 @@ const BillDetails = ({ billItems }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white min-w-60 min-h-[157px] shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
+    <div className="bg-white min-w-60 min-h-[156px] shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
       <div>
         <h2 className="text-xl  font-semibold mb-4 flex items-center">
           <FontAwesomeIcon icon={faFileInvoice} className="mr-2 text-red-500" />
           Bill Items
         </h2>
-        <p>Total: {billItems.length}</p>
         <p>
-          Total Amount:{" "}
-          {billItems.reduce((sum, item) => sum + item.total_amount, 0)} BDT
+          <strong>Total:</strong>{" "}
+          <span className="text-red-500">{billItems.length}</span>
+        </p>
+        <p>
+          <strong>Total Amount:</strong>{" "}
+          <span className="text-red-500">
+            {billItems.reduce((sum, item) => sum + item.total_amount, 0)} BDT
+          </span>
         </p>
       </div>
       {/* <Button small onClick={() => setIsOpen(true)} className="self-end mt-9">
