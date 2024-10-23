@@ -31,8 +31,6 @@ const ComplaintsServiceDetails = () => {
     error: complaintsError,
   } = useGetServicesByIdQuery({ id, token });
 
-  console.log("hello", complaintsData?.data?.bill?.transaction);
-
   useEffect(() => {
     if (!complaintsIsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);

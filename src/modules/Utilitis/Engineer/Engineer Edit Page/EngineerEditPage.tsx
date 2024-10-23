@@ -42,7 +42,7 @@ const EngineerEditPage = () => {
     isError,
     error,
   } = useGetMainCategoryQuery({});
-  console.log(engineer);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget; // Use currentTarget for the form element
@@ -79,7 +79,7 @@ const EngineerEditPage = () => {
       profileImage: "",
     };
     const result: any = await editEngineer({ fullData, token, id });
-    console.log(result);
+
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {
       navigate("/engineers-list");

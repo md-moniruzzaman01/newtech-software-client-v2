@@ -23,8 +23,6 @@ const ServiceInvoicePage = () => {
     token,
   });
 
-  console.log(billData?.data?.transaction?.slice(-1)[0]?.note);
-
   const { userId } = getUserInfo();
   const { data: fullUserInfo, isLoading: userIsLoading } = useGetUserQuery({
     token,

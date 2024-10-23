@@ -25,7 +25,7 @@ const Calibration = () => {
     const parts = shedAndSplit(partsName);
 
     const fullData = { motherboardName, parts };
-    console.log(fullData);
+
     const result = await createPartsRequest({ fullData, token });
     const swalIsTrue = showSwal(result);
     if (swalIsTrue) {

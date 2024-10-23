@@ -13,7 +13,7 @@ const EngineerDetailsPage = () => {
     id,
     token,
   });
-  console.log(data?.data);
+
   if (isLoading) {
     return <LoadingPage />;
   }

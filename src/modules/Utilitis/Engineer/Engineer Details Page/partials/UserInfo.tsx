@@ -24,7 +24,7 @@ const UserInfo = ({ data }) => {
   const { user, QaItems, QcItems, repairItems, discountItems, BillItems } =
     data.data;
   const { Engineer, needsPasswordChange } = user;
-  console.log(QaItems);
+
   return (
     <div>
       <div className="bg-white pt-2 px-5 pb-3 rounded-lg shadow-lg  mx-auto">

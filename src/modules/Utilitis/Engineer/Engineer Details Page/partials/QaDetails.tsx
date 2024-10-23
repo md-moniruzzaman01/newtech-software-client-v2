@@ -8,7 +8,7 @@ import { headerForQa, tableLayoutForQa } from "../config/constants";
 
 const QaDetails = ({ qaItems }) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(qaItems);
+
   return (
     <div className="bg-white min-w-60 shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
       <div>

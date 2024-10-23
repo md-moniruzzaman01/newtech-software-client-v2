@@ -29,7 +29,7 @@ const ComplaintOrderDetails = () => {
     isLoading: complaintsLoading,
     error: complaintsError,
   } = useGetComplaintByIdQuery({ id, token });
-  console.log(complaintsData);
+
   useEffect(() => {
     if (!complaintsIsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);

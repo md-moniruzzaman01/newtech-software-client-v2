@@ -9,6 +9,6 @@ export const handleRowSelect = ({ item, checkedRows, setCheckedRows }) => {
   const newCheckedRows = isAlreadyChecked
     ? checkedRows.filter((row) => row.id !== itemId.id)
     : [...checkedRows, itemId];
-  console.log("newCheckedRows", newCheckedRows);
+
   setCheckedRows(newCheckedRows);
 };
