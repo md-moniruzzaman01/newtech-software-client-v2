@@ -51,7 +51,7 @@ const ComplaintsServiceDetails = () => {
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
 
-      <div className="grid grid-cols-4 gap-2 pt-8">
+      <div className="grid grid-cols-5 gap-2 pt-8">
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.createdAt
             ?.toString()
@@ -65,6 +65,13 @@ const ComplaintsServiceDetails = () => {
             ?.slice(0, 10)}
           bgColor="primary"
           headerTitle="Due Date"
+        />
+        <ComplaintHeaderCard
+          headerDetails={complaintsSingleData?.completed_date
+            ?.toString()
+            ?.slice(0, 10)}
+          bgColor="primary"
+          headerTitle="Completed Date"
         />
         <ComplaintHeaderCard
           headerDetails={complaintsSingleData?.category_name}

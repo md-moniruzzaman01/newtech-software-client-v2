@@ -50,6 +50,7 @@ const ComplaintListService = () => {
     query,
     token,
   });
+  console.log(complaintsData);
   const [deleteComplaints, { isLoading }] = useDeleteComplaintsMutation();
   const [cancelComplaints, { isLoading: cancelLoading }] =
     useCancelComplaintsMutation();

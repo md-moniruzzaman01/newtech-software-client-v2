@@ -1,4 +1,4 @@
-import { cx } from "../../../shared/config/constaints";
+import { cx, emptyData } from "../../../shared/config/constaints";
 
 interface ComplaintHeaderCardProps {
   bgColor?: string;
@@ -45,7 +45,7 @@ const ComplaintHeaderCard: React.FC<ComplaintHeaderCardProps> = ({
         <div>
           <div>
             <h3 className={`font-medium text-sm overflow-auto`}>
-              {headerDetails}
+              {headerDetails || emptyData}
             </h3>
           </div>
         </div>

@@ -1,5 +1,5 @@
 export const fields =
-  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer,category_name,updatedAt";
+  "id,customer,brand_name,repair_status,order_number,received_date,Qc,RepairItem,Qa,partrequest,Nonwarrentycustomer,category_name,completed_date,updatedAt";
 export const keys = [
   "brand_name",
   "branch",
@@ -38,7 +38,7 @@ export const complaintsTableHeader = [
   "Brand",
   "Status",
   "RD",
-  "UD",
+  "Updated Date",
   "Action",
   "Action",
 ];
