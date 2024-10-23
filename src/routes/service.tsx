@@ -6,7 +6,6 @@ import ComplaintsDeliveryService from "../modules/services/Complaints Delivery S
 import ComplaintsServiceDetails from "../modules/services/Complaints Service Details/ComplaintsServiceDetails";
 import ComplaintsServiceInDetails from "../modules/services/Complaints Service In Details/ComplaintsServiceInDetails";
 import ComplaintsServicePayment from "../modules/services/Complaints Service Payment Page/ComplaintsServicePayment";
-import ComplaintsServicePaymentsInvoice from "../modules/services/Complaints Service Payments Invoice/ComplaintsServicePaymentsInvoice";
 import MyComplaintsService from "../modules/services/My Complaints Service/MyComplaintsService";
 import AllQADataService from "../modules/services/QA Service/All QA Data/AllQADataService";
 import QAItemsService from "../modules/services/QA Service/QA/QAItems";
@@ -44,10 +43,7 @@ export const serviceComplaintsRoutes = [
     path: "/complaints-service-payments/:id",
     element: <ComplaintsServicePayment />,
   },
-  {
-    path: "/complaints-service-payments/invoice/:id",
-    element: <ComplaintsServicePaymentsInvoice />,
-  },
+
   { path: "/my-complaints-service", element: <MyComplaintsService /> },
   {
     path: "/complaints-delivery-service",

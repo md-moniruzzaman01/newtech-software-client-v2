@@ -55,6 +55,28 @@ const BillApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["bill"],
     }),
+    servicePayment: builder.mutation({
+      query: ({ id, token, fullData }) => ({
+        url: `/bill/payment/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+        body: fullData,
+      }),
+      invalidatesTags: ["bill"],
+    }),
+
+    serviceDeliveredWithOutPayment: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/bill/delivered/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: token,
+        },
+      }),
+      invalidatesTags: ["bill"],
+    }),
   }),
 });
 
@@ -64,4 +86,6 @@ export const {
   useGetBillByIdQuery,
   useDeleteBillMutation,
   useGetPendingBillsQuery,
+  useServicePaymentMutation,
+  useServiceDeliveredWithOutPaymentMutation,
 } = BillApi;

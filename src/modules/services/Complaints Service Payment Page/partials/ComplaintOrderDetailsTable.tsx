@@ -21,6 +21,10 @@ import {
 } from "../Helpers/hanlePaymentService";
 import { useNavigate } from "react-router-dom";
 import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
+import {
+  useServiceDeliveredWithOutPaymentMutation,
+  useServicePaymentMutation,
+} from "../../../../redux/features/api/bill.ts";
 
 const ComplaintOrderDetailsTable = ({
   id,
@@ -30,8 +34,6 @@ const ComplaintOrderDetailsTable = ({
   isEdit?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingDelivery, setIsLoadingDelivery] = useState(false);
 
   const [billSingleData, setBillSingleData] =
     useState<ComplaintsOrderDetailsProps | null>(null);
@@ -56,6 +58,12 @@ const ComplaintOrderDetailsTable = ({
   } = useGetBillByIdQuery({ id, token });
   const [updateDiscount, { isLoading: updateDiscountLoading }] =
     useBillUpdateDiscountMutation();
+
+  const [servicePayment, { isLoading: paymentLoading }] =
+    useServicePaymentMutation();
+
+  const [deliveredWithOutPayment, { isLoading: withOutPaymentLoading }] =
+    useServiceDeliveredWithOutPaymentMutation();
 
   useEffect(() => {
     if (!billError && !billLoading) {
@@ -337,14 +345,14 @@ const ComplaintOrderDetailsTable = ({
             Rejected
           </Button> */}
             <Button
-              loading={isLoadingDelivery}
+              loading={withOutPaymentLoading}
               mini
               className="w-full"
               onClick={() =>
                 handleDelivededWithOutPaySubmit(
                   id,
                   navigate,
-                  setIsLoadingDelivery
+                  deliveredWithOutPayment
                 )
               }
               primary
@@ -359,7 +367,7 @@ const ComplaintOrderDetailsTable = ({
             >
               <form
                 onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
-                  handlePaymentSubmit(e, id, navigate, setIsLoading)
+                  handlePaymentSubmit(e, id, navigate, servicePayment)
                 }
                 className="space-y-4 p-2"
               >
@@ -378,7 +386,7 @@ const ComplaintOrderDetailsTable = ({
                   inputName="note"
                   required
                 />
-                <Button loading={isLoading} primary className="w-full">
+                <Button loading={paymentLoading} primary className="w-full">
                   Submit
                 </Button>
               </form>
