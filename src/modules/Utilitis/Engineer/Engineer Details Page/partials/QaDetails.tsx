@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import Button from "../../../../../common/components/Button";
+// import Button from "../../../../../common/components/Button";
 import { useState } from "react";
 import Modal from "../../../../../common/components/Modal/Modal";
 import CommonTable from "../../../../../common/components/Common Table/CommonTable";
@@ -10,7 +10,7 @@ const QaDetails = ({ qaItems }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
+    <div className="bg-white min-w-60 shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
       <div>
         <h2 className="text-xl font-semibold mb-4 flex items-center">
           <FontAwesomeIcon
@@ -26,9 +26,9 @@ const QaDetails = ({ qaItems }) => {
         </p>
         <p>Latest QA: {qaItems[0]?.serial_number || "N/A"}</p>
       </div>
-      <Button onClick={() => setIsOpen(true)} small className="self-end mt-3">
+      {/* <Button onClick={() => setIsOpen(true)} small className="self-end mt-3">
         View Details
-      </Button>
+      </Button> */}
       <Modal
         size="max-7xl"
         header={"Qa Details"}

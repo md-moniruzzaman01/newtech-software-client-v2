@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileInvoice } from "@fortawesome/free-solid-svg-icons";
-import Button from "../../../../../common/components/Button";
+// import Button from "../../../../../common/components/Button";
 import { useState } from "react";
 import CommonTable from "../../../../../common/components/Common Table/CommonTable";
 import Modal from "../../../../../common/components/Modal/Modal";
@@ -10,7 +10,7 @@ const BillDetails = ({ billItems }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white min-h-[192px] shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
+    <div className="bg-white min-w-60 min-h-[157px] shadow-lg  rounded-lg p-5 flex flex-col justify-between h-full">
       <div>
         <h2 className="text-xl  font-semibold mb-4 flex items-center">
           <FontAwesomeIcon icon={faFileInvoice} className="mr-2 text-red-500" />
@@ -22,9 +22,9 @@ const BillDetails = ({ billItems }) => {
           {billItems.reduce((sum, item) => sum + item.total_amount, 0)} BDT
         </p>
       </div>
-      <Button small onClick={() => setIsOpen(true)} className="self-end mt-9">
+      {/* <Button small onClick={() => setIsOpen(true)} className="self-end mt-9">
         View Details
-      </Button>
+      </Button> */}
       <Modal
         size="max-7xl"
         header={"Bill Details"}

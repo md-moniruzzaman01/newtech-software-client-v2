@@ -103,11 +103,11 @@ export const tableLayoutForQa = [
   "item.repair.order_number", // Order Number
   "item.createdAt?.slice(0, 10)", // Created Date
   "item.updatedAt?.slice(0, 10)", // Updated Date
-  "item.warranty", // Warranty
+  "item.warranty ? `Yes` : `No`", // Warranty
   "item.qa_checker_id", // QA Checker ID
 ];
 export const headerForQc = [
-  "QA ID",
+  "QC ID",
   "Branch",
   "Serial No",
   "Status",
@@ -117,7 +117,7 @@ export const headerForQc = [
   "Created Date",
   "Updated Date",
   "Warranty",
-  "QA Checker ID",
+  "QC Checker ID",
 ];
 
 export const tableLayoutForQc = [
@@ -130,6 +130,6 @@ export const tableLayoutForQc = [
   "item.repair.order_number", // Order Number
   "item.createdAt?.slice(0, 10)", // Created Date
   "item.updatedAt?.slice(0, 10)", // Updated Date
-  "item.warranty", // Warranty
-  "item.qa_checker_id", // QA Checker ID
+  "item.warranty ? `Yes` : `No`", // Warranty
+  "item.qc_checker_id", // QA Checker ID
 ];
