@@ -16,33 +16,8 @@ const RepairDetails = ({ repairItems }) => {
           <FontAwesomeIcon icon={faWrench} className="mr-2 text-blue-500" />
           Repair Items
         </h2>
-        <p>
-          <strong>Total: </strong>
-          <span className="text-blue-500">{repairItems?.length}</span>
-        </p>
-        <p>
-          <strong>Repaired Count: </strong>
-          <span className="text-blue-500">
-            {repairItems?.filter((item) => item?.status === "Repaired")?.length}
-          </span>
-        </p>
-        <p>
-          <strong>Warranty Count: </strong>
-          <span className="text-blue-500">
-            {repairItems?.filter((item) => item?.warranty)?.length}
-          </span>
-        </p>
-        <p>
-          <strong>Non Warranty Count: </strong>{" "}
-          <span className="text-blue-500">
-            {repairItems?.filter((item) => !item?.warranty)?.length}
-          </span>
-        </p>
-        <p>
-          <strong>Latest Repair:</strong>{" "}
-          <span className="text-blue-500">
-            {repairItems[0]?.repairId || "N/A"}
-          </span>
+        <p className="text-blue-500 text-4xl font-semibold text-center py-4">
+          15+
         </p>
       </div>
       {/* <Button

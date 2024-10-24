@@ -19,21 +19,8 @@ const QcDetails = ({ qcItems }) => {
           />
           QC Items
         </h2>
-        <p>
-          <strong>Total:</strong>{" "}
-          <span className="text-yellow-500"> {qcItems?.length}</span>
-        </p>
-        <p>
-          <strong>QC OK Count:</strong>{" "}
-          <span className="text-yellow-500">
-            {qcItems?.filter((item) => item?.status === "QC Ok")?.length}
-          </span>
-        </p>
-        <p>
-          <strong>Latest QC:</strong>{" "}
-          <span className="text-yellow-500">
-            {qcItems[0]?.serial_number || "N/A"}
-          </span>
+        <p className="text-4xl font-semibold text-center py-4 text-yellow-500">
+          35+
         </p>
       </div>
       {/* <Button small onClick={() => setIsOpen(true)} className="self-end mt-3">

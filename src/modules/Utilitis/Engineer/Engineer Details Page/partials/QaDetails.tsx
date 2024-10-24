@@ -19,33 +19,8 @@ const QaDetails = ({ qaItems }) => {
           />
           QA Items
         </h2>
-        <p>
-          <strong>Total: </strong>{" "}
-          <span className="text-green-500">{qaItems?.length}</span>
-        </p>
-        <p>
-          <strong>QA OK Count: </strong>
-          <span className="text-green-500">
-            {qaItems?.filter((item) => item?.status === "QA Ok")?.length}
-          </span>
-        </p>
-        <p>
-          <strong>Warranty Count: </strong>
-          <span className="text-green-500">
-            {qaItems?.filter((item) => item?.warranty)?.length}
-          </span>
-        </p>
-        <p>
-          <strong>Non Warranty Count: </strong>{" "}
-          <span className="text-green-500">
-            {qaItems?.filter((item) => !item?.warranty)?.length}
-          </span>
-        </p>
-        <p>
-          <strong>Latest QA: </strong>{" "}
-          <span className="text-green-500">
-            {qaItems[0]?.serial_number || "N/A"}
-          </span>
+        <p className="text-4xl font-semibold text-center py-4 text-green-500">
+          12+
         </p>
       </div>
       {/* <Button onClick={() => setIsOpen(true)} small className="self-end mt-3">

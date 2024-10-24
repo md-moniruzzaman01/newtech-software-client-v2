@@ -47,10 +47,10 @@ const UserInfo = ({ data }) => {
                 <img
                   src={Engineer?.profileImage}
                   alt="Profile"
-                  className="w-52 h-40  border-2 border-blue-500 shadow-lg"
+                  className="w-40 h-40  border-2 border-blue-500 shadow-lg"
                 />
               ) : (
-                <div className="w-40 h-40  border-2 border-blue-500 flex items-center justify-center text-4xl shadow-lg">
+                <div className="w-40 h-40  border-2 border-blue-500 flex items-center justify-center text-7xl shadow-lg">
                   {icons?.user}
                 </div>
               )}
@@ -119,9 +119,9 @@ const UserInfo = ({ data }) => {
               <h2 className="font-semibold text-blue-500 text-lg border-b border-grayForBorder pb-2">
                 User Info
               </h2>
-              <div className="pt-2">
+              <div className="pt-2 text-lg font-semibold">
                 <div className="grid grid-cols-3">
-                  <div className="col-span-2 space-y-2 text-lg">
+                  <div className="col-span-2 space-y-2 ">
                     <p className="text-gray-700 border-b border-grayForBorder pb-2">
                       <span className="font-semibold">ID:</span>
                     </p>
@@ -138,7 +138,7 @@ const UserInfo = ({ data }) => {
                       <span className="font-semibold">Updated:</span>
                     </p>
                   </div>
-                  <div className="col-span-1 space-y-2 text-blue-500 text-lg">
+                  <div className="col-span-1 space-y-2 text-blue-500">
                     <p className="border-b border-grayForBorder pb-2">
                       {user?.id}
                     </p>
@@ -162,7 +162,7 @@ const UserInfo = ({ data }) => {
         </div>
 
         {/* user summary cards  */}
-        <div>
+        <div className="pt-5">
           <Summary
             qaItems={QaItems}
             qcItems={QcItems}
