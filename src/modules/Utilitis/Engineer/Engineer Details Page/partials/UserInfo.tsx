@@ -19,6 +19,7 @@ import {
 } from "../config/constants";
 
 import { getUserInfo } from "../../../../../services/auth.service";
+import { emptyData } from "../../../../../shared/config/constaints";
 
 const UserInfo = ({ data }) => {
   const userInfo = getUserInfo();
@@ -84,10 +85,18 @@ const UserInfo = ({ data }) => {
             </div>
 
             <div className="italic col-span-1">
-              <strong>Join Date: </strong>
-              <span className="text-blue-500 ">
-                {Engineer?.createdAt?.slice(0, 10)}
-              </span>
+              <p>
+                <strong>Join Date: </strong>
+                <span className="text-blue-500 ">
+                  {Engineer?.createdAt?.slice(0, 10)}
+                </span>
+              </p>
+              <p>
+                <strong>Last Update: </strong>
+                <span className="text-blue-500 ">
+                  {Engineer?.updatedAt?.slice(0, 10)}
+                </span>
+              </p>
             </div>
 
             {/* powers  */}
@@ -97,9 +106,13 @@ const UserInfo = ({ data }) => {
                   Power Levels
                 </h2>
                 <ul className="list-disc pl-5 text-gray-600">
-                  {Engineer?.power?.map((power, index) => (
-                    <li key={index}>{getPowerName(power)}</li>
-                  ))}
+                  {Engineer?.power?.length > 0 ? (
+                    Engineer?.power?.map((power, index) => (
+                      <li key={index}>{getPowerName(power)}</li>
+                    ))
+                  ) : (
+                    <span className="font-semibold">{emptyData}</span>
+                  )}
                 </ul>
               </div>
               <div>
@@ -107,9 +120,13 @@ const UserInfo = ({ data }) => {
                   Skills ID
                 </h2>
                 <ul className="list-disc pl-5 text-gray-600">
-                  {Engineer?.Skill?.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                  ))}
+                  {Engineer?.Skill?.length > 0 ? (
+                    Engineer?.Skill?.map((skill, index) => (
+                      <li key={index}>{skill}</li>
+                    ))
+                  ) : (
+                    <span className="font-semibold">{emptyData}</span>
+                  )}
                 </ul>
               </div>
             </div>
@@ -119,10 +136,10 @@ const UserInfo = ({ data }) => {
               <h2 className="font-semibold text-blue-500 text-lg border-b border-grayForBorder pb-2">
                 User Info
               </h2>
-              <div className="pt-2 text-lg font-semibold">
+              <div className="pt-2 ">
                 <div className="grid grid-cols-3">
                   <div className="col-span-2 space-y-2 ">
-                    <p className="text-gray-700 border-b border-grayForBorder pb-2">
+                    <p className="text-gray-700 border-b border-grayForBorder pb-2 text-lg font-semibold">
                       <span className="font-semibold">ID:</span>
                     </p>
                     <p className="text-gray-700 border-b border-grayForBorder pb-2">
@@ -134,11 +151,8 @@ const UserInfo = ({ data }) => {
                     <p className="text-gray-700 border-b border-grayForBorder pb-2">
                       <span className="font-semibold">Contact:</span>
                     </p>
-                    <p className="text-gray-700 border-b border-grayForBorder pb-2">
-                      <span className="font-semibold">Updated:</span>
-                    </p>
                   </div>
-                  <div className="col-span-1 space-y-2 text-blue-500">
+                  <div className="col-span-1 space-y-2 ">
                     <p className="border-b border-grayForBorder pb-2">
                       {user?.id}
                     </p>
@@ -150,9 +164,6 @@ const UserInfo = ({ data }) => {
                     </p>
                     <p className="border-b border-grayForBorder pb-2">
                       {Engineer?.contactNo}
-                    </p>
-                    <p className="border-b border-grayForBorder pb-2">
-                      {Engineer?.updatedAt?.slice(0, 10)}
                     </p>
                   </div>
                 </div>
