@@ -12,7 +12,7 @@ const FooterOfRecipe = ({ info }) => {
           <span className="block">
             {info?.warranty
               ? "Please take delivery within one month, after that time the authority will not be responsible."
-              : ""}
+              : "Note: Diagnostic charge will be applied if the product is returned without repair."}
             {/* need to change */}
           </span>
         </p>
