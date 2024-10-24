@@ -18,24 +18,24 @@ const RepairDetails = ({ repairItems }) => {
         </h2>
         <p>
           <strong>Total: </strong>
-          <span className="text-blue-500">{repairItems.length}</span>
+          <span className="text-blue-500">{repairItems?.length}</span>
         </p>
         <p>
           <strong>Repaired Count: </strong>
           <span className="text-blue-500">
-            {repairItems.filter((item) => item.status === "Repaired").length}
+            {repairItems?.filter((item) => item?.status === "Repaired")?.length}
           </span>
         </p>
         <p>
           <strong>Warranty Count: </strong>
           <span className="text-blue-500">
-            {repairItems.filter((item) => item.warranty).length}
+            {repairItems?.filter((item) => item?.warranty)?.length}
           </span>
         </p>
         <p>
           <strong>Non Warranty Count: </strong>{" "}
           <span className="text-blue-500">
-            {repairItems.filter((item) => !item.warranty).length}
+            {repairItems?.filter((item) => !item?.warranty)?.length}
           </span>
         </p>
         <p>

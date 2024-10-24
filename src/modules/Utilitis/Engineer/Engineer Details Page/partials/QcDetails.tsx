@@ -21,12 +21,12 @@ const QcDetails = ({ qcItems }) => {
         </h2>
         <p>
           <strong>Total:</strong>{" "}
-          <span className="text-yellow-500"> {qcItems.length}</span>
+          <span className="text-yellow-500"> {qcItems?.length}</span>
         </p>
         <p>
           <strong>QC OK Count:</strong>{" "}
           <span className="text-yellow-500">
-            {qcItems.filter((item) => item.status === "QC Ok").length}
+            {qcItems?.filter((item) => item?.status === "QC Ok")?.length}
           </span>
         </p>
         <p>

@@ -18,12 +18,12 @@ const BillDetails = ({ billItems }) => {
         </h2>
         <p>
           <strong>Total:</strong>{" "}
-          <span className="text-red-500">{billItems.length}</span>
+          <span className="text-red-500">{billItems?.length}</span>
         </p>
         <p>
           <strong>Total Amount:</strong>{" "}
           <span className="text-red-500">
-            {billItems.reduce((sum, item) => sum + item.total_amount, 0)} BDT
+            {billItems?.reduce((sum, item) => sum + item?.total_amount, 0)} BDT
           </span>
         </p>
       </div>

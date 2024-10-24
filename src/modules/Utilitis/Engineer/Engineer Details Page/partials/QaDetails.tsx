@@ -21,24 +21,24 @@ const QaDetails = ({ qaItems }) => {
         </h2>
         <p>
           <strong>Total: </strong>{" "}
-          <span className="text-green-500">{qaItems.length}</span>
+          <span className="text-green-500">{qaItems?.length}</span>
         </p>
         <p>
           <strong>QA OK Count: </strong>
           <span className="text-green-500">
-            {qaItems.filter((item) => item.status === "QA Ok").length}
+            {qaItems?.filter((item) => item?.status === "QA Ok")?.length}
           </span>
         </p>
         <p>
           <strong>Warranty Count: </strong>
           <span className="text-green-500">
-            {qaItems.filter((item) => item.warranty).length}
+            {qaItems?.filter((item) => item?.warranty)?.length}
           </span>
         </p>
         <p>
           <strong>Non Warranty Count: </strong>{" "}
           <span className="text-green-500">
-            {qaItems.filter((item) => !item.warranty).length}
+            {qaItems?.filter((item) => !item?.warranty)?.length}
           </span>
         </p>
         <p>

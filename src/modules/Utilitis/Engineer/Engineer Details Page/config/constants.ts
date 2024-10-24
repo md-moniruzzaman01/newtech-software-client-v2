@@ -37,18 +37,18 @@ export const headerForBill = [
 ];
 
 export const tableLayoutForBill = [
-  "item.id", // Bill ID
-  "item.status",
-  "item.customer",
-  "item.branch",
-  "item.repair[0]?.id", // Repair ID (assuming there's only one repair item in the array)
-  "item.repair[0]?.serial_number", // Serial No
-  "item.repair[0]?.repair_status", // Repair Status
-  "item.createdAt?.slice(0, 10)", // Created Date
-  "item.updatedAt?.slice(0, 10)", // Updated Date
-  "item.total_amount", // Total Amount
-  "item.total_paid", // Total Paid
-  "item.due", // Due Amount
+  "item?.id", // Bill ID
+  "item?.status",
+  "item?.customer",
+  "item?.branch",
+  "item?.repair[0]?.id", // Repair ID (assuming there's only one repair item in the array)
+  "item?.repair[0]?.serial_number", // Serial No
+  "item?.repair[0]?.repair_status", // Repair Status
+  "item?.createdAt?.slice(0, 10)", // Created Date
+  "item?.updatedAt?.slice(0, 10)", // Updated Date
+  "item?.total_amount", // Total Amount
+  "item?.total_paid", // Total Paid
+  "item?.due", // Due Amount
 ];
 
 export const headerForDiscount = [
@@ -66,17 +66,17 @@ export const headerForDiscount = [
 ];
 
 export const tableLayoutForDiscount = [
-  "item.id", // Discount ID
-  "item.branch",
-  "item.amount", // Discount Amount
-  "item.type", // Type of Discount
-  "item.discount_provider", // Discount Provider ID
-  "item.MWcustomer", // MW Customer ID
-  "item.Repair.id", // Repair ID
-  "item.Repair.serial_number", // Serial No
-  "item.Repair.repair_status", // Repair Status
-  "item.createdAt?.slice(0, 10)", // Created Date
-  "item.updatedAt?.slice(0, 10)", // Updated Date
+  "item?.id", // Discount ID
+  "item?.branch",
+  "item?.amount", // Discount Amount
+  "item?.type", // Type of Discount
+  "item?.discount_provider", // Discount Provider ID
+  "item?.MWcustomer", // MW Customer ID
+  "item?.Repair?.id", // Repair ID
+  "item?.Repair?.serial_number", // Serial No
+  "item?.Repair?.repair_status", // Repair Status
+  "item?.createdAt?.slice(0, 10)", // Created Date
+  "item?.updatedAt?.slice(0, 10)", // Updated Date
 ];
 
 export const headerForQa = [
@@ -94,17 +94,17 @@ export const headerForQa = [
 ];
 
 export const tableLayoutForQa = [
-  "item.id", // QA ID
-  "item.branch",
-  "item.serial_number", // Serial No
-  "item.status", // QA Status
-  "item.repair.id", // Repair ID
-  "item.repair.repair_status", // Repair Status
-  "item.repair.order_number", // Order Number
-  "item.createdAt?.slice(0, 10)", // Created Date
-  "item.updatedAt?.slice(0, 10)", // Updated Date
-  "item.warranty ? `Yes` : `No`", // Warranty
-  "item.qa_checker_id", // QA Checker ID
+  "item?.id", // QA ID
+  "item?.branch",
+  "item?.serial_number", // Serial No
+  "item?.status", // QA Status
+  "item?.repair?.id", // Repair ID
+  "item?.repair?.repair_status", // Repair Status
+  "item?.repair?.order_number", // Order Number
+  "item?.createdAt?.slice(0, 10)", // Created Date
+  "item?.updatedAt?.slice(0, 10)", // Updated Date
+  "item?.warranty ? `Yes` : `No`", // Warranty
+  "item?.qa_checker_id", // QA Checker ID
 ];
 export const headerForQc = [
   "QC ID",
@@ -121,15 +121,15 @@ export const headerForQc = [
 ];
 
 export const tableLayoutForQc = [
-  "item.id", // QA ID
-  "item.branch",
-  "item.serial_number", // Serial No
-  "item.status", // QA Status
-  "item.repair.id", // Repair ID
-  "item.repair.repair_status", // Repair Status
-  "item.repair.order_number", // Order Number
-  "item.createdAt?.slice(0, 10)", // Created Date
-  "item.updatedAt?.slice(0, 10)", // Updated Date
-  "item.warranty ? `Yes` : `No`", // Warranty
-  "item.qc_checker_id", // QA Checker ID
+  "item?.id", // QA ID
+  "item?.branch",
+  "item?.serial_number", // Serial No
+  "item?.status", // QA Status
+  "item?.repair?.id", // Repair ID
+  "item?.repair?.repair_status", // Repair Status
+  "item?.repair?.order_number", // Order Number
+  "item?.createdAt?.slice(0, 10)", // Created Date
+  "item?.updatedAt?.slice(0, 10)", // Updated Date
+  "item?.warranty ? `Yes` : `No`", // Warranty
+  "item?.qc_checker_id", // QA Checker ID
 ];

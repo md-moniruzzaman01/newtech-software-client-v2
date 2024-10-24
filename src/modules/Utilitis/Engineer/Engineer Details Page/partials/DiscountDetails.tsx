@@ -18,12 +18,12 @@ const DiscountDetails = ({ discountItems }) => {
         </h2>
         <p>
           <strong>Total:</strong>{" "}
-          <span className="text-purple-500">{discountItems.length}</span>
+          <span className="text-purple-500">{discountItems?.length}</span>
         </p>
         <p>
           <strong>Total Discount:</strong>{" "}
           <span className="text-purple-500">
-            {discountItems.reduce((sum, item) => sum + item.amount, 0)} BDT
+            {discountItems?.reduce((sum, item) => sum + item?.amount, 0)} BDT
           </span>
         </p>
       </div>

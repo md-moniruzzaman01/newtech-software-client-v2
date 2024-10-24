@@ -54,7 +54,7 @@ const UserInfo = ({ data }) => {
         <div className="flex flex-col text-center items-center mb-6">
           {Engineer?.profileImage ? (
             <img
-              src={Engineer.profileImage}
+              src={Engineer?.profileImage}
               alt="Profile"
               className="w-24 h-24 rounded-full border-2 border-blue-500 shadow-lg"
             />
@@ -64,10 +64,10 @@ const UserInfo = ({ data }) => {
             </div>
           )}
           <h1 className="text-2xl font-bold mt-3 text-gray-800">
-            {Engineer.name.firstName} {Engineer.name.lastName}
+            {Engineer?.name?.firstName} {Engineer?.name?.lastName}
           </h1>
-          <p className="text-gray-600 text-sm">{Engineer.designation}</p>
-          <p className="text-gray-700 text-sm">{Engineer.email}</p>
+          <p className="text-gray-600 text-sm">{Engineer?.designation}</p>
+          <p className="text-gray-700 text-sm">{Engineer?.email}</p>
         </div>
 
         {/* User and Engineer Info */}
@@ -75,33 +75,34 @@ const UserInfo = ({ data }) => {
           <div className="space-y-1">
             <h2 className="font-semibold text-gray-800">User Info</h2>
             <p className="text-gray-700">
-              <span className="font-medium">ID:</span> {user.id}
+              <span className="font-medium">ID:</span> {user?.id}
             </p>
             <p className="text-gray-700">
-              <span className="font-medium">Role:</span> {user.role}
+              <span className="font-medium">Role:</span> {user?.role}
             </p>
             <p className="text-gray-700">
               <span className="font-medium">Branch:</span>{" "}
-              {getBranchName(user.branch)}
+              {getBranchName(user?.branch)}
             </p>
 
             <p className="text-gray-700">
-              <span className="font-medium">Contact:</span> {Engineer.contactNo}
+              <span className="font-medium">Contact:</span>{" "}
+              {Engineer?.contactNo}
             </p>
             <p className="text-gray-700">
               <span className="font-medium">Created:</span>{" "}
-              {new Date(Engineer.createdAt).toLocaleDateString()}
+              {new Date(Engineer?.createdAt).toLocaleDateString()}
             </p>
             <p className="text-gray-700">
               <span className="font-medium">Updated:</span>{" "}
-              {new Date(Engineer.updatedAt).toLocaleDateString()}
+              {new Date(Engineer?.updatedAt).toLocaleDateString()}
             </p>
           </div>
-          {/* Skills and Power Levels */}
+
           <div className="">
             <h2 className="font-semibold text-gray-800">Power Levels</h2>
             <ul className="list-disc pl-5 text-gray-600">
-              {Engineer.power.map((power, index) => (
+              {Engineer?.power?.map((power, index) => (
                 <li key={index}>{getPowerName(power)}</li>
               ))}
             </ul>
@@ -109,13 +110,14 @@ const UserInfo = ({ data }) => {
           <div className="">
             <h2 className="font-semibold text-gray-800">Skills ID</h2>
             <ul className="list-disc pl-5 text-gray-600">
-              {Engineer.Skill.map((skill, index) => (
+              {Engineer?.Skill?.map((skill, index) => (
                 <li key={index}>{skill}</li>
               ))}
             </ul>
           </div>
         </div>
 
+        {/* user summary cards  */}
         <div>
           <Summary
             qaItems={QaItems}
@@ -126,6 +128,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       </div>
+
       {repairItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">Repair Details</h2>
@@ -136,6 +139,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       )}
+
       {QcItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">QC Details</h2>
@@ -156,6 +160,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       )}
+
       {discountItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">Discount Details</h2>
@@ -166,6 +171,7 @@ const UserInfo = ({ data }) => {
           />
         </div>
       )}
+
       {BillItems?.length > 0 && (
         <div className="bg-solidWhite pt-5 px-5 my-5 rounded-md">
           <h2 className="text-2xl font-semibold pb-5">Bill Details</h2>
