@@ -44,7 +44,7 @@ const ComplaintsServiceDetails = () => {
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
-
+  console.log("complaints", complaintsData);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Order Details"} />
@@ -103,19 +103,26 @@ const ComplaintsServiceDetails = () => {
           ]}
         />
         <ComplaintDetailsCard
-          headerTitle="Billing Address"
+          headerTitle="Billing Details"
           CardInformation={[
             {
               title: "Total Charge",
-              value: complaintsSingleData?.total_charge,
+              value:
+                complaintsSingleData?.bill?.total_amount ||
+                "Bill Not Yet Created",
             },
             {
-              title: `${complaintsSingleData?.due ? "Due" : "Paid"}`,
+              title: "Total Paid",
               value:
-                complaintsSingleData?.due ||
-                complaintsSingleData?.bill?.total_paid,
+                complaintsSingleData?.bill?.total_paid ||
+                "Bill Not Yet Created",
             },
           ]}
+          link={`${
+            complaintsSingleData?.bill
+              ? `/complaints-service-payments/${complaintsSingleData.bill.id}`
+              : ""
+          }`}
         />
         <ComplaintDetailsCard
           headerTitle="Complaints Details"

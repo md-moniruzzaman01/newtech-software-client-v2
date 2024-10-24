@@ -40,6 +40,7 @@ export type complaintDetailsCardProps = {
   headerTitle?: string;
   className?: string;
   CardInformation: complaintSingleDetailsProps[];
+  link?: string;
 };
 export type complaintSingleDetailsProps = {
   title: string;
