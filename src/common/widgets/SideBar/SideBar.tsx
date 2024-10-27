@@ -202,11 +202,15 @@ const SideBar = () => {
               <span>Engineer</span>
             </div>
           </NavLink> */}
-          {!activeRoute && (
-            <div>
-              <BillRoute />
-            </div>
-          )}
+          {!activeRoute &&
+            (user.role === "admin" ||
+              user?.power?.includes("01") ||
+              user?.power?.includes("03") ||
+              user?.power?.includes("04")) && (
+              <div>
+                <BillRoute />
+              </div>
+            )}
           {/* <NavLink to="/partner">
             <div className={routeStyle}>
               <IoPeople className="text-xl" />
