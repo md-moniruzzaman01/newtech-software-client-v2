@@ -1,9 +1,7 @@
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import { NavLink } from "react-router-dom";
 import Button from "../../../../common/components/Button";
-import TableStatus from "../../../../common/components/TableStatus/TableStatus";
 import {
-  btnValues,
   headerDataForCategory,
   headerDataForCategoryWarranty,
   tableLayout,
@@ -130,9 +128,6 @@ const CategoryList = () => {
 
       {/* table start here  */}
       <div className="bg-solidWhite p-3">
-        <div className="py-2">
-          <TableStatus btnValues={btnValues} />
-        </div>
         <div>
           <CommonTable
             deleteBtn={isUserAdmin()}

@@ -4,6 +4,7 @@ export const headerDataForCategory = [
   "Category ID",
   "Charge",
   "Create Date",
+  "Action",
 ];
 export const headerDataForCategoryWarranty = [
   "#",
@@ -16,7 +17,6 @@ export const headerDataForCategoryWarranty = [
   "CN",
   "NTF",
   "Create Date",
-  "Action",
   "Action",
 ];
 
@@ -38,9 +38,4 @@ export const tableLayoutForWarranty = [
   "item?.CN",
   "item?.NTF",
   "item?.createdAt?.toString()?.slice(0,10)",
-];
-
-export const btnValues = [
-  { label: "Pending", value: "Pending" },
-  { label: "Completed", value: "Completed" },
 ];
