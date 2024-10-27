@@ -68,7 +68,7 @@ const UserInfo = ({ data }) => {
                 {userInfo?.userId === user?.id || userInfo?.role === "admin" ? (
                   <NavLink
                     to={`${
-                      user?.role === "admin"
+                      userInfo?.role === "admin"
                         ? "/change-password"
                         : "/user-change-password"
                     }`}
