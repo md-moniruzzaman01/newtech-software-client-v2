@@ -138,7 +138,7 @@ const UserInfo = ({ data }) => {
               <div className="pt-2 ">
                 <div className="grid grid-cols-3">
                   <div className="col-span-2 space-y-2 ">
-                    <p className="text-gray-700 border-b border-grayForBorder pb-2 text-lg font-semibold">
+                    <p className="text-gray-700 border-b border-grayForBorder pb-1 text-lg font-semibold">
                       <span className="font-semibold">ID:</span>
                     </p>
                     <p className="text-gray-700 border-b border-grayForBorder pb-2">
