@@ -50,7 +50,7 @@ const SideBar = () => {
       if (user?.role === "admin") {
         navigate("/services");
       } else {
-        navigate("/service-engineer-dashboard");
+        navigate("/services-engineer-dashboard");
       }
     }
   }, [navigate, activeRoute]);

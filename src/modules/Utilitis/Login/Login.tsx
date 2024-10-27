@@ -83,7 +83,8 @@ const Login = () => {
             if (user?.role === "admin") {
               navigate("/services");
             } else {
-              navigate("/service-engineer-dashboard");
+              navigate("/services-engineer-dashboard");
+              setToLocalStorage("activeRoute", "false");
             }
           }
         } else {
