@@ -66,13 +66,13 @@ const Complaint = () => {
     if (storedActiveRoute) {
       setActiveRoute(JSON.parse(storedActiveRoute));
     }
-    if (!complaintsLoading && !complaintsIsError) {
+    if (complaintsData) {
       setComplaints(complaintsData?.data);
       setTotalItems(complaintsData.meta.total);
       setLimit(complaintsData.meta.limit);
       setCurrentPage(complaintsData?.meta?.page);
     }
-  }, [complaintsData, complaintsLoading, complaintsIsError]);
+  }, [complaintsData]);
   useEffect(() => {
     if (searchParams?.get("repair_status")) {
       setIsActiveBtn(searchParams?.get("repair_status"));

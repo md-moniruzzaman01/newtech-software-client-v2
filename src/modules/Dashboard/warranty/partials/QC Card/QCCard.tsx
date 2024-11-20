@@ -13,10 +13,12 @@ const QCCard = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const sortByDate = `startDate=${startDate}&endDate=${endDate}` || "";
+
   const { data, isLoading, isError, error } = useGetDashboardQCDataQuery({
     token,
     sortByDate,
   });
+
   if (isLoading) {
     return <ComponentLoading />;
   }

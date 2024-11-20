@@ -38,8 +38,8 @@ const TableStatus: React.FC<TableStatusProps> = ({ btnValues, status }) => {
       queryParams.delete("branch");
       queryParams.delete("searchTerm");
       queryParams.delete("category_name");
-      queryParams.delete("start_Date");
-      queryParams.delete("end_Date");
+      queryParams.delete("startDate");
+      queryParams.delete("endDate");
     } else {
       queryParams.set(paramName, paramValue); // Set the search parameter if paramValue is not empty
     }

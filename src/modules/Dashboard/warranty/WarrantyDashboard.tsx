@@ -19,6 +19,9 @@ import CustomerCard from "./partials/Customer Card/CustomerCard";
 import ReceiverCard from "./partials/Receiver Card/ReceiverCard";
 import QACard from "./partials/QA Card/QACard";
 import QCCard from "./partials/QC Card/QCCard";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../shared/helpers/constructQuery";
+import { fields, keys } from "./config/constants";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const WarrantyDashboard = () => {
@@ -38,9 +41,12 @@ const WarrantyDashboard = () => {
   });
 
   const token = getFromLocalStorage(authKey);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys);
 
   const { data, isError, isLoading, error } = useGetCardDataQuery({
     token,
+    query,
   });
 
   useEffect(() => {
@@ -56,6 +62,7 @@ const WarrantyDashboard = () => {
   if (isLoading) {
     return <LoadingPage />;
   }
+
   return (
     <div className="px-5">
       <div className="pb-5">

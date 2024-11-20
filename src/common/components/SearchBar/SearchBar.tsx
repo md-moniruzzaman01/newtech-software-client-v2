@@ -46,8 +46,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
       queryParams.delete("sort");
       queryParams.delete("repair_status");
       queryParams.delete("branch");
-      queryParams.delete("start_Date");
-      queryParams.delete("end_Date");
+      queryParams.delete("starDate");
+      queryParams.delete("endDate");
     } else {
       queryParams.set(paramName, paramValue);
     }

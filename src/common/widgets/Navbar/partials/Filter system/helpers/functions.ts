@@ -10,8 +10,8 @@ export const handleFilter = ({ event, startDate, endDate, navigate }) => {
   const queryParams = new URLSearchParams(window?.location?.search);
 
   if (brand) {
-    queryParams.delete("brand_name");
-    queryParams.append("brand_name", brand);
+    queryParams.delete("brandName");
+    queryParams.append("brandName", brand);
   }
   if (branch) {
     queryParams.delete("branch");
@@ -20,17 +20,17 @@ export const handleFilter = ({ event, startDate, endDate, navigate }) => {
 
   if (startDate) {
     const day = startDate?.getDate();
-    const month = startDate?.getMonth() + 1; // Month is zero-indexed, so we add 1 to get the correct month number
+    const month = startDate?.getMonth() + 1;
     const year = startDate?.getFullYear();
-    queryParams.delete("start_Date");
-    queryParams.append("start_Date", `${day}-${month}-${year}`);
+    queryParams.delete("startDate");
+    queryParams.append("startDate", `${year}-${month}-${day}`);
   }
   if (endDate) {
     const day = endDate.getDate();
-    const month = endDate.getMonth() + 1; // Month is zero-indexed, so we add 1 to get the correct month number
+    const month = endDate.getMonth() + 1;
     const year = endDate.getFullYear();
-    queryParams.delete("end_Date");
-    queryParams.append("end_Date", `${day}-${month}-${year}`);
+    queryParams.delete("endDate");
+    queryParams.append("endDate", `${year}-${month}-${day}`);
   }
 
   navigate(`?${queryParams.toString()}`);

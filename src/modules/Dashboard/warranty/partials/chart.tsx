@@ -13,9 +13,10 @@ import { Bar } from "react-chartjs-2";
 import { useGetChartDataQuery } from "../../../../redux/features/api/others";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { labels } from "../config/constants";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import ComponentLoading from "../../../../common/components/Component Loading/ComponentLoading";
+
+import SortByYear from "../../../../common/components/Sort By Year/SortByYear";
 
 ChartJS.register(
   CategoryScale,
@@ -28,7 +29,12 @@ ChartJS.register(
 
 const Chart = () => {
   const [chartData, setChartData] = useState([]);
+  const [year, setYear] = useState("");
+
+  const sortByYear = `year=${year}` || "";
+
   const token = getFromLocalStorage(authKey);
+
   const {
     data: ChartData,
     isError: ChartsError,
@@ -36,7 +42,10 @@ const Chart = () => {
     error,
   } = useGetChartDataQuery({
     token,
+    sortByYear,
   });
+
+  console.log(chartData);
 
   useEffect(() => {
     if (!ChartsLoading && !ChartsError) {
@@ -66,6 +75,8 @@ const Chart = () => {
       },
     },
   };
+
+  const labels = chartData?.map((data) => data?.month);
 
   const data = {
     labels,
@@ -114,9 +125,12 @@ const Chart = () => {
   }
 
   return (
-    <>
+    <div className="relative">
       <Bar options={options} data={data} />
-    </>
+      <div className="absolute top-5 right-2">
+        <SortByYear setYear={setYear} year={year} />
+      </div>
+    </div>
   );
 };
 

@@ -3,9 +3,10 @@ import { baseApi } from "../../api/apiSlice";
 const OthersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getChartData: builder.query({
-      query: ({ token }) => {
+      query: ({ token, sortByYear }) => {
+        console.log("hello bye", sortByYear);
         return {
-          url: "/complaints/chart",
+          url: `/complaints/chart?${sortByYear}`,
           headers: {
             authorization: token,
           },
@@ -13,9 +14,10 @@ const OthersApi = baseApi.injectEndpoints({
       },
     }),
     getCardData: builder.query({
-      query: ({ token }) => {
+      query: ({ token, query }) => {
+        console.log("hello", query);
         return {
-          url: "/complaints/card",
+          url: `/complaints/card?${query}`,
           headers: {
             authorization: token,
           },

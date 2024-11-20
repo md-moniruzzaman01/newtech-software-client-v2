@@ -11,6 +11,7 @@ interface InputProps {
   value?: string;
   onChange?: any;
   minValue?: number | string;
+  maxValue?: number | string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,6 +26,7 @@ const Input: React.FC<InputProps> = ({
   minValue,
   // value,
   onChange,
+  maxValue,
 }) => {
   return (
     <div>
@@ -34,6 +36,7 @@ const Input: React.FC<InputProps> = ({
             <label className="text-lg font-semibold">{labelName}</label>
           </div>
           <input
+            max={maxValue}
             min={minValue}
             required={required}
             onChange={onChange} // Added onChange event handler
