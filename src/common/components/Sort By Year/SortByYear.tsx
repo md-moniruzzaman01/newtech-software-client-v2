@@ -4,18 +4,22 @@ import Input from "../Input";
 import Modal from "../Modal/Modal";
 
 const SortByYear = ({ setYear, year }) => {
-  const [isYear, setIsYear] = useState("");
+  const [isYear, setIsYear] = useState(year || "");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFilter = () => {
-    if (isYear) {
+    const currentYear = new Date().getFullYear();
+    if (isYear && isYear >= 1900 && isYear <= currentYear) {
       setYear(isYear);
+      setIsOpen(false);
+    } else {
+      alert("Please enter a valid year between 1900 and the current year.");
     }
-    setIsOpen(false);
   };
 
   const handleClear = () => {
     setYear("");
+    setIsYear(""); // Clear local state
   };
 
   return (
@@ -29,6 +33,7 @@ const SortByYear = ({ setYear, year }) => {
         <div className="space-y-5">
           <Input
             labelName="Year"
+            defaultValue={isYear}
             onChange={(e) => setIsYear(e.target.value)}
             className="max-h-7"
             inputType="number"

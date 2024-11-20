@@ -31,7 +31,7 @@ const Chart = () => {
   const [chartData, setChartData] = useState([]);
   const [year, setYear] = useState("");
 
-  const sortByYear = `year=${year}` || "";
+  const query = `year=${year}` || "";
 
   const token = getFromLocalStorage(authKey);
 
@@ -39,10 +39,11 @@ const Chart = () => {
     data: ChartData,
     isError: ChartsError,
     isLoading: ChartsLoading,
+    isFetching,
     error,
   } = useGetChartDataQuery({
     token,
-    sortByYear,
+    query,
   });
 
   console.log(chartData);
@@ -116,7 +117,7 @@ const Chart = () => {
     ],
   };
 
-  if (ChartsLoading) {
+  if (ChartsLoading || isFetching) {
     return <ComponentLoading className="min-h-96" height="100" width="100" />;
   }
 

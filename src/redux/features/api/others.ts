@@ -3,10 +3,10 @@ import { baseApi } from "../../api/apiSlice";
 const OthersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getChartData: builder.query({
-      query: ({ token, sortByYear }) => {
-        console.log("hello bye", sortByYear);
+      query: ({ token, query }) => {
+        console.log("hello bye", query);
         return {
-          url: `/complaints/chart?${sortByYear}`,
+          url: `/complaints/chart?${query}`,
           headers: {
             authorization: token,
           },
