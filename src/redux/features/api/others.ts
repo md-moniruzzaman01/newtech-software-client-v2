@@ -13,6 +13,7 @@ const OthersApi = baseApi.injectEndpoints({
         };
       },
     }),
+
     getCardData: builder.query({
       query: ({ token, query }) => {
         console.log("hello", query);

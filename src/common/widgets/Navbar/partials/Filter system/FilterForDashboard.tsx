@@ -1,39 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import DatePicker from "react-datepicker";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
-import InputFilterById from "../../../../../common/components/InputFilterById/InputFilterById";
 import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import Button from "../../../../../common/components/Button";
-import { useGetBrandsQuery } from "../../../../../redux/features/api/Brand";
-import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
-import { authKey, branches } from "../../../../../shared/config/constaints";
+import { branches } from "../../../../../shared/config/constaints";
 import { handleClearQueryParams, handleFilter } from "./helpers/functions";
 import { useNavigate } from "react-router-dom";
 
 const FilterForDashboard = () => {
-  const token = getFromLocalStorage(authKey);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [brands, setBrands] = useState([]);
 
   const navigate = useNavigate();
 
   const formRef = useRef<HTMLFormElement>(null);
-
-  const {
-    data: brandData,
-    isError: brandsError,
-    isLoading: brandsLoading,
-  } = useGetBrandsQuery({ token });
-
-  useEffect(() => {
-    if (!brandsError && !brandsLoading) {
-      setBrands(brandData?.data);
-    }
-  }, [brandData, brandsLoading, brandsError]);
 
   return (
     <div>
@@ -100,17 +83,6 @@ const FilterForDashboard = () => {
                   </div>
 
                   <div className="flex flex-col gap-5 py-5  px-5">
-                    {
-                      <div className="w-full space-y-2">
-                        <InputFilterById
-                          Filter={brands}
-                          label="Brand"
-                          inputName="brand"
-                          placeholder="Select a brand"
-                        />
-                      </div>
-                    }
-
                     <div className="w-full space-y-2 ">
                       <InputFilter
                         Filter={branches}
