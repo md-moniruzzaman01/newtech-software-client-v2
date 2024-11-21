@@ -1,9 +1,10 @@
 import { authKey } from "../../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../../shared/helpers/local_storage";
 
-export const handleDownload = () => {
+export const handleDownload = (query, startDate, endDate) => {
   const token = getFromLocalStorage(authKey);
-  const apiUrl = `${import.meta.env.VITE_SERVER_URL}/utils/download`;
+  console.log("query", query);
+  const apiUrl = `${import.meta.env.VITE_SERVER_URL}/utils/download?${query}`;
   fetch(apiUrl, {
     method: "GET",
     headers: {
@@ -20,7 +21,9 @@ export const handleDownload = () => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "shipment.xlsx";
+      startDate && endDate
+        ? (a.download = `NEWTECH-report-from${startDate}-to-${endDate}.xlsx`)
+        : (a.download = `NEWTECH-Report.xlsx`);
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

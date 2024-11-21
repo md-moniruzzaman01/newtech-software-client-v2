@@ -46,8 +46,6 @@ const Chart = () => {
     query,
   });
 
-  console.log(chartData);
-
   useEffect(() => {
     if (!ChartsLoading && !ChartsError) {
       setChartData(ChartData?.data);
