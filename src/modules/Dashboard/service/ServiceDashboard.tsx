@@ -19,6 +19,9 @@ import CustomerCard from "./partials/Customer Card/CustomerCard";
 import ReceiverCard from "./partials/Receiver Card/ReceiverCard";
 import QACard from "./partials/QA Card/QACard";
 import QCCard from "./partials/QC Card/QCCard";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../shared/helpers/constructQuery";
+import { fields, keys } from "./config/constants";
 // import TotalCard from "../../../common/components/TotalCard/TotalCard";
 
 const ServiceDashboard = () => {
@@ -38,16 +41,19 @@ const ServiceDashboard = () => {
   });
 
   const token = getFromLocalStorage(authKey);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys);
 
   const { data, isError, isLoading, error } = useGetCardDataForServiceQuery({
     token,
+    query,
   });
 
   useEffect(() => {
-    if (!isError && !isLoading) {
+    if (data) {
       setCardData(data?.data);
     }
-  }, [data, isLoading, isError]);
+  }, [data]);
   if (isLoading) {
     return <LoadingPage />;
   }

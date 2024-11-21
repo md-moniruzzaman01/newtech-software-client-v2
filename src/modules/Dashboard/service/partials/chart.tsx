@@ -13,9 +13,9 @@ import { Bar } from "react-chartjs-2";
 import { useGetChartDataForServiceQuery } from "../../../../redux/features/api/others";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { labels } from "../config/constants";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import ComponentLoading from "../../../../common/components/Component Loading/ComponentLoading";
+import SortByYear from "../../../../common/components/Sort By Year/SortByYear";
 
 ChartJS.register(
   CategoryScale,
@@ -30,13 +30,18 @@ ChartJS.register(
 const Chart = () => {
   const [chartData, setChartData] = useState([]);
   const token = getFromLocalStorage(authKey);
+  const [year, setYear] = useState("");
+
+  const query = `year=${year}` || "";
   const {
     data: Chart,
     isError: ChartsError,
     isLoading: ChartsLoading,
     error,
+    isFetching,
   } = useGetChartDataForServiceQuery({
     token,
+    query,
   });
 
   useEffect(() => {
@@ -67,6 +72,8 @@ const Chart = () => {
       },
     },
   };
+
+  const labels = chartData?.map((data) => data?.month);
 
   const data = {
     labels,
@@ -106,7 +113,7 @@ const Chart = () => {
     ],
   };
 
-  if (ChartsLoading) {
+  if (ChartsLoading || isFetching) {
     return <ComponentLoading className="min-h-96" height="100" width="100" />;
   }
 
@@ -115,9 +122,12 @@ const Chart = () => {
   }
 
   return (
-    <>
+    <div className="relative">
       <Bar options={options} data={data} />
-    </>
+      <div className="absolute top-5 right-2">
+        <SortByYear setYear={setYear} year={year} />
+      </div>
+    </div>
   );
 };
 

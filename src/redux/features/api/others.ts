@@ -28,7 +28,7 @@ const OthersApi = baseApi.injectEndpoints({
     getChartDataForService: builder.query({
       query: (params) => {
         return {
-          url: "/complaints/chart/services",
+          url: `/complaints/chart/services?${params.query}`,
           headers: {
             authorization: params?.token,
           },
@@ -37,8 +37,9 @@ const OthersApi = baseApi.injectEndpoints({
     }),
     getCardDataForService: builder.query({
       query: (params) => {
+        console.log("service", params?.query);
         return {
-          url: "/complaints/card/services",
+          url: `/complaints/card/services?${params.query}`,
           headers: {
             authorization: params?.token,
           },

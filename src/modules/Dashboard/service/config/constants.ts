@@ -20,6 +20,8 @@ export const tableLayout = [
   "item?.received_date?.toString()?.slice(0,10)",
 ];
 
+export const fields = "";
+export const keys = ["startDate", "endDate", "branch"];
 
 export const labels = [
   "January",

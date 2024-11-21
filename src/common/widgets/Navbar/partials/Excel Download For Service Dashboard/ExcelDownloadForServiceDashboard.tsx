@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import Button from "../../../../components/Button";
 import { handleDownload } from "./helpers/handleDownload";
 
-const ExcelDownloadForDashboard = () => {
+const ExcelDownloadForServiceDashboard = () => {
   const [searchParams] = useSearchParams();
   const startDate = searchParams.get("startDate");
   const endDate = searchParams.get("endDate");
@@ -15,4 +15,4 @@ const ExcelDownloadForDashboard = () => {
   );
 };
 
-export default ExcelDownloadForDashboard;
+export default ExcelDownloadForServiceDashboard;

@@ -48,7 +48,7 @@ const WarrantyDashboard = () => {
     token,
     query,
   });
-
+  console.log("card", data);
   useEffect(() => {
     if (!isError && !isLoading) {
       setCardData(data?.data);

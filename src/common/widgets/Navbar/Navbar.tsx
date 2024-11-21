@@ -27,6 +27,7 @@ import {
 import { showSwal } from "../../../shared/helpers/SwalShower.ts";
 import FilterForDashboard from "./partials/Filter system/FilterForDashboard.tsx";
 import ExcelDownloadForDashboard from "./partials/Excel Download For Dashboard/ExcelDownloadForDashboard.tsx";
+import ExcelDownloadForServiceDashboard from "./partials/Excel Download For Service Dashboard/ExcelDownloadForServiceDashboard.tsx";
 
 interface NavbarProps {
   name?: string;
@@ -316,8 +317,12 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
               </Menu>
             </div>
           </div>
-          {(location.pathname === "/" || location.pathname === "/services") && (
+          {location.pathname === "/" ? (
             <ExcelDownloadForDashboard />
+          ) : (
+            location.pathname === "/services" && (
+              <ExcelDownloadForServiceDashboard />
+            )
           )}
 
           {(location.pathname === "/" || location.pathname === "/services") && (
