@@ -1,5 +1,6 @@
 import { authKey } from "../../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../../shared/helpers/local_storage";
+import swal from "sweetalert";
 
 export const handleDownload = async (startDate, endDate) => {
   try {
