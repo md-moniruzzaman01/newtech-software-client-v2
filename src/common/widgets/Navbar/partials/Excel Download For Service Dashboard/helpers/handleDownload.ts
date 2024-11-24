@@ -5,7 +5,7 @@ export const handleDownload = async (startDate, endDate) => {
   try {
     const token = getFromLocalStorage(authKey);
 
-    const apiUrl = `${import.meta.env.VITE_SERVER_URL}/utils/service/download`;
+    const apiUrl = `${import.meta.env.VITE_SOME_KEY}/utils/service/download`;
 
     const response = await fetch(apiUrl, {
       method: "POST",

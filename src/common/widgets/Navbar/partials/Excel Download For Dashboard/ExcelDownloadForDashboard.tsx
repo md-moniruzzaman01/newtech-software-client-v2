@@ -5,16 +5,25 @@ import { icons } from "../../../../../shared/libs/Icons";
 
 const ExcelDownloadForDashboard = () => {
   const [searchParams] = useSearchParams();
-  const startDate = searchParams.get("startDate");
-  const endDate = searchParams.get("endDate");
+  const startDate = searchParams.get("startDate") || "";
+  const endDate = searchParams.get("endDate") || "";
   return (
     <div>
-      <Button
-        icon={icons?.excel}
-        onClick={() => handleDownload(startDate, endDate)}
+      <abbr
+        title={
+          !startDate || !endDate
+            ? "To download, please filter by date first."
+            : ""
+        }
       >
-        Download
-      </Button>
+        <Button
+          disabled={!startDate || !endDate}
+          icon={icons?.excel}
+          onClick={() => handleDownload(startDate, endDate)}
+        >
+          Download
+        </Button>
+      </abbr>
     </div>
   );
 };

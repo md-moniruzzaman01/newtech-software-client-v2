@@ -4,7 +4,6 @@ const OthersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getChartData: builder.query({
       query: ({ token, query }) => {
-        console.log("hello bye", query);
         return {
           url: `/complaints/chart?${query}`,
           headers: {
@@ -16,7 +15,6 @@ const OthersApi = baseApi.injectEndpoints({
 
     getCardData: builder.query({
       query: ({ token, query }) => {
-        console.log("hello", query);
         return {
           url: `/complaints/card?${query}`,
           headers: {
@@ -37,7 +35,6 @@ const OthersApi = baseApi.injectEndpoints({
     }),
     getCardDataForService: builder.query({
       query: (params) => {
-        console.log("service", params?.query);
         return {
           url: `/complaints/card/services?${params.query}`,
           headers: {
