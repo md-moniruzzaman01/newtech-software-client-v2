@@ -22,6 +22,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdOutlineWarehouse } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
+import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const icons: any = {
@@ -50,6 +51,7 @@ export const icons: any = {
   delete: <RiDeleteBin6Line />,
   warehouse: <MdOutlineWarehouse />,
   link: <FiExternalLink className="text-xl" />,
+  excel: <PiMicrosoftExcelLogoFill />,
 
   // other icon
   // full_box: <FullBox />,

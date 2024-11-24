@@ -23,6 +23,7 @@ const Button: FC<ButtonProps> = ({
   link,
   transparent,
   animationLength,
+  icon,
   onClick = () => {},
 }) => {
   const [percentage, setPercentage] = useState(0);
@@ -117,6 +118,7 @@ const Button: FC<ButtonProps> = ({
       type={type}
     >
       {loading && _renderLoading()}
+      {icon && <span className="pr-2">{icon}</span>}
       {children || `This is Button`}
     </button>
   );
