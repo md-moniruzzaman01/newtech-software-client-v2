@@ -2,7 +2,7 @@ import { authKey } from "../../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../../shared/helpers/local_storage";
 import swal from "sweetalert";
 
-export const handleDownload = async (startDate, endDate) => {
+export const handleDownload = async (startDate, endDate, brandId) => {
   try {
     const token = getFromLocalStorage(authKey);
 
@@ -14,7 +14,7 @@ export const handleDownload = async (startDate, endDate) => {
         authorization: token,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ startDate, endDate }),
+      body: JSON.stringify({ startDate, endDate, brandId }),
     });
 
     if (!response.ok) {

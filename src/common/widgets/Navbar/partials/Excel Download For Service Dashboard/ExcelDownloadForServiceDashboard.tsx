@@ -7,6 +7,8 @@ const ExcelDownloadForServiceDashboard = () => {
   const [searchParams] = useSearchParams();
   const startDate = searchParams.get("startDate") || "";
   const endDate = searchParams.get("endDate") || "";
+  const brandId = searchParams.get("brandName") || "";
+
   return (
     <div>
       <abbr
@@ -19,7 +21,7 @@ const ExcelDownloadForServiceDashboard = () => {
         <Button
           disabled={!startDate || !endDate}
           icon={icons?.excel}
-          onClick={() => handleDownload(startDate, endDate)}
+          onClick={() => handleDownload(startDate, endDate, brandId)}
         >
           Download
         </Button>
