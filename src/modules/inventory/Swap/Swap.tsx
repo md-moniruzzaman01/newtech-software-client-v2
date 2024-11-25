@@ -68,8 +68,8 @@ const Swap = () => {
               itemData={swapData?.data}
               headerData={complaintsTableHeader}
               dataLayout={tableLayout}
-              modal
-              setIsOpen={setIsOpen}
+              // modal
+              // setIsOpen={setIsOpen}
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
