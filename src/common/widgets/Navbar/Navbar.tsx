@@ -69,13 +69,12 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
     } else {
       const result: any = await updateNotification({ id, token });
       if (result?.data?.success) {
-        navigate(`${result?.data?.link}`);
+        navigate(`${result?.data?.data?.link}`);
       } else {
         swal("Error", `${result?.error?.data?.message}`, "error");
       }
     }
   };
-
   const handleMarkAsRead = async () => {
     const result = await markAsRead({ token });
     showSwal(result);
@@ -167,12 +166,12 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
                               key={index}
                               className={`${
                                 item?.isRead
-                                  ? "bg-readMessageColor text-linkColor" // Use a subdued color for read messages
-                                  : "bg-unReadMessageColor text-solidBlack" // Use a darker color for unread messages
+                                  ? "bg-readMessageColor text-linkColor"
+                                  : "bg-unReadMessageColor text-solidBlack"
                               } rounded-md px-5 pt-3 cursor-pointer`}
                             >
                               <div>
-                                <p className="text-sm">
+                                <p className="text-xs text-end">
                                   {item?.createdAt?.toString()?.slice(0, 10)}
                                 </p>
                                 <div className="flex justify-center items-center gap-5 pt-1">

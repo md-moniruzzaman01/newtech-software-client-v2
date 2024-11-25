@@ -47,7 +47,7 @@ const QCMyItems = () => {
     setIsOpen(true);
     setId(id);
   };
-  console.log();
+
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
