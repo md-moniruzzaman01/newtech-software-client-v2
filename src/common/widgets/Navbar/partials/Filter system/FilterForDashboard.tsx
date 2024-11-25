@@ -7,14 +7,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import Button from "../../../../../common/components/Button";
 import { handleClearQueryParams, handleFilter } from "./helpers/functions";
 import { useNavigate } from "react-router-dom";
+import { useGetBrandsQuery } from "../../../../../redux/features/api/Brand";
+import { getFromLocalStorage } from "../../../../../shared/helpers/local_storage";
+import { authKey } from "../../../../../shared/config/constaints";
+import InputFilterById from "../../../../components/InputFilterById/InputFilterById";
 
 const FilterForDashboard = () => {
+  const token = getFromLocalStorage(authKey);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   const navigate = useNavigate();
 
   const formRef = useRef<HTMLFormElement>(null);
+
+  const { data: brandData } = useGetBrandsQuery({ token });
 
   return (
     <div>
@@ -61,7 +68,7 @@ const FilterForDashboard = () => {
                   }
                   className="w-full"
                 >
-                  <div className="px-5 py-5  w-full">
+                  <div className="px-5 pt-5  w-full">
                     <label className="text-lg font-semibold ">Date</label>
                     <div className="flex items-center gap-2 justify-center pt-2">
                       <DatePicker
@@ -90,6 +97,17 @@ const FilterForDashboard = () => {
                       />
                     </div>
                   </div> */}
+
+                  <div className="flex flex-col gap-5 py-5 px-5">
+                    <div className="w-full space-y-2">
+                      <InputFilterById
+                        Filter={brandData?.data}
+                        label="Brand"
+                        inputName="brand"
+                        placeholder="Select a brand"
+                      />
+                    </div>
+                  </div>
 
                   <div className="flex justify-around items-center pb-5">
                     <div>
