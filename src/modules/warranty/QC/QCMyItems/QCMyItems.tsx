@@ -9,29 +9,45 @@ import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 
 import { QCTableHeader, fields, keys, tableLayout } from "./config/constants";
-import { useGetOldQcsQuery } from "../../../../redux/features/api/qc";
+import {
+  useGetOldQcsQuery,
+  useUpdateStatusQCMutation,
+} from "../../../../redux/features/api/qc";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { getUserInfo } from "../../../../services/auth.service";
+import Modal from "../../../../common/components/Modal/Modal";
+import InputWithValue from "../../../../common/components/InputWithValue/InputWithValue";
+import Button from "../../../../common/components/Button";
+import { handleAddRMA } from "./helpers/handleAddRMA";
 
 const QCMyItems = () => {
-  const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
+  const [isOpen, setIsOpen] = useState(false);
+  const [rma, setRma] = useState("");
+  const [id, setId] = useState("");
 
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
+  const [addRMA, { isLoading: rmaLoading }] = useUpdateStatusQCMutation();
   const { data, isError, isLoading, error } = useGetOldQcsQuery({
     id: user._id,
     token,
     query,
   });
+
+  const handleModal = (id) => {
+    setIsOpen(true);
+    setId(id);
+  };
+
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -60,9 +76,8 @@ const QCMyItems = () => {
               itemData={data?.data}
               headerData={QCTableHeader}
               dataLayout={tableLayout}
-              checkedRows={checkedRows}
-              setCheckedRows={setCheckedRows}
-              checkbox
+              modalFunc={handleModal}
+              modalDisabled="item?.rma"
             />
           </div>
         </div>
@@ -75,6 +90,23 @@ const QCMyItems = () => {
           />
         </div>
       </div>
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen} header={"Add RMA"}>
+        <div className="space-y-4">
+          <InputWithValue
+            required
+            labelName="RMA"
+            inputName="rma"
+            onChange={(e) => setRma(e.target.value)}
+          />
+          <Button
+            loading={rmaLoading}
+            onClick={() => handleAddRMA(rma, id, addRMA, setIsOpen)}
+            mini
+          >
+            Submit
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 };

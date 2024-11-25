@@ -10,7 +10,6 @@ import { emptyData } from "../../../shared/config/constaints";
 import Button from "../Button";
 import { icons } from "../../../shared/libs/Icons";
 import { MdModeEdit } from "react-icons/md";
-import { BsFillInfoCircleFill } from "react-icons/bs";
 
 interface CommonTableProps {
   headerData: string[];
@@ -27,10 +26,10 @@ interface CommonTableProps {
   deleteFn?: any;
   editPageLink?: string;
   user?: boolean;
-  modal?: boolean;
-  setIsOpen?: any;
+  modalFunc?: any;
   functionBtnValue?: string;
   functionBtn?: any;
+  modalDisabled?: string;
 }
 
 // type TableData = Record<string, any>;
@@ -50,10 +49,10 @@ const CommonTable: FC<CommonTableProps> = ({
   deleteFn,
   editPageLink,
   user,
-  modal,
-  setIsOpen = false,
+  modalFunc,
   functionBtnValue,
   functionBtn,
+  modalDisabled,
 }) => {
   return (
     <>
@@ -188,14 +187,16 @@ const CommonTable: FC<CommonTableProps> = ({
                           </NavLink>
                         </td>
                       )}
-                      {modal && (
+                      {modalFunc && (
                         <td className="border">
-                          <span className="!text-black flex justify-center">
-                            <BsFillInfoCircleFill
-                              onClick={() => setIsOpen(true)}
-                              className=" cursor-pointer"
-                            />
-                          </span>
+                          <Button
+                            disabled={eval(modalDisabled)}
+                            className=" flex justify-center  text-xl "
+                            link
+                            onClick={() => modalFunc(item?.id)}
+                          >
+                            {icons?.page}
+                          </Button>
                         </td>
                       )}
 

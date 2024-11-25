@@ -5,6 +5,7 @@ export const QCTableHeader = [
   "RMA",
   "Status",
   "Qc CreatedAt",
+  "Add RMA",
 ];
 
 export const tableLayout = [

@@ -14,6 +14,7 @@ const QCApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["complaints", "qc"],
     }),
+
     updateStatusQC: builder.mutation({
       query: ({ fullData, token, id }) => ({
         url: `/qc/${id}`,
