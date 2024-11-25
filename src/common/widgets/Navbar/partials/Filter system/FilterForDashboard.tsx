@@ -4,9 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useRef, useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
-import InputFilter from "../../../../../common/components/InputFilter/InputFilter";
 import Button from "../../../../../common/components/Button";
-import { branches } from "../../../../../shared/config/constaints";
 import { handleClearQueryParams, handleFilter } from "./helpers/functions";
 import { useNavigate } from "react-router-dom";
 
@@ -63,7 +61,7 @@ const FilterForDashboard = () => {
                   }
                   className="w-full"
                 >
-                  <div className="px-5 pt-5  w-full">
+                  <div className="px-5 py-5  w-full">
                     <label className="text-lg font-semibold ">Date</label>
                     <div className="flex items-center gap-2 justify-center pt-2">
                       <DatePicker
@@ -74,7 +72,7 @@ const FilterForDashboard = () => {
                         className="px-1 py-2 w-full border border-black rounded-sm"
                       />
                       <DatePicker
-                        placeholderText=" (dd/mm/yyyy)"
+                        placeholderText="To (dd/mm/yyyy)"
                         selected={endDate}
                         onChange={(date: Date) => setEndDate(date)}
                         className="px-1 py-2 w-full border border-black rounded-sm"
@@ -82,7 +80,7 @@ const FilterForDashboard = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-5 py-5  px-5">
+                  {/* <div className="flex flex-col gap-5 py-5  px-5">
                     <div className="w-full space-y-2 ">
                       <InputFilter
                         Filter={branches}
@@ -91,7 +89,7 @@ const FilterForDashboard = () => {
                         placeholder="Select a Branch"
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="flex justify-around items-center pb-5">
                     <div>
