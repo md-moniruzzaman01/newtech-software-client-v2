@@ -13,7 +13,7 @@ import {
   useGetEngineerByIdQuery,
 } from "../../../../redux/features/api/engineers";
 import { useGetBrandsQuery } from "../../../../redux/features/api/Brand";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetMainCategoryQuery } from "../../../../redux/features/api/Category";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
@@ -89,6 +89,18 @@ const EngineerEditPage = () => {
       form.reset();
     }
   };
+
+  useEffect(() => {
+    if (engineer?.data?.power) {
+      setPowerArr(engineer.data.power);
+    }
+    if (engineer?.data?.Skill) {
+      setSkillArr(engineer.data.Skill);
+    }
+    if (engineer?.data?.asp) {
+      setAspArr(engineer.data.asp);
+    }
+  }, [engineer]);
 
   if (brandIsLoading || mainCategoryLoading || engineerLoading) {
     return <LoadingPage />;
