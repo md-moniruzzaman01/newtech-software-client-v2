@@ -49,59 +49,59 @@ const InventoryRoute = () => {
           </NavLink>
         )}
 
-        {activeRoute && (
+        {/* {activeRoute && (
           <NavLink to={"/part-request"}>
             <div className={routeStyle}>
               <span>&#8618;</span>
               <span>Part Request</span>
             </div>
           </NavLink>
-        )}
+        )} */}
 
-        {activeRoute && (
+        {/* {activeRoute && (
           <NavLink to={"/good-parts"}>
             <div className={routeStyle}>
               <span>&#8618;</span>
               <span>Good Parts</span>
             </div>
           </NavLink>
-        )}
+        )} */}
 
-        {activeRoute && (
+        {/* {activeRoute && (
           <NavLink to={"/swap"}>
             <div className={routeStyle}>
               <span>&#8618;</span>
               <span>Swap</span>
             </div>
           </NavLink>
-        )}
+        )} */}
 
-        {activeRoute && (
+        {/* {activeRoute && (
           <NavLink to={"/bad-parts"}>
             <div className={routeStyle}>
               <span>&#8618;</span>
               <span>Bad Parts</span>
             </div>
           </NavLink>
-        )}
+        )} */}
 
-        {activeRoute && (
+        {/* {activeRoute && (
           <NavLink to={"/scrap"}>
             <div className={routeStyle}>
               <span>&#8618;</span>
               <span>Scrap</span>
             </div>
           </NavLink>
-        )}
+        )} */}
 
-        {activeRoute && (
+        {/* {activeRoute && (
           <NavLink to={"/export-parts"}>
             <div className={routeStyle}>
               <span>&#8618;</span>
               <span>Export Parts</span>
             </div>
           </NavLink>
-        )}
+        )} */}
       </section>
     </div>
   );

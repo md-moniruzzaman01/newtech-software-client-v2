@@ -19,9 +19,9 @@ import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { getUserInfo } from "../../../../services/auth.service";
 import Modal from "../../../../common/components/Modal/Modal";
-import InputWithValue from "../../../../common/components/InputWithValue/InputWithValue";
 import Button from "../../../../common/components/Button";
 import { handleAddRMA } from "./helpers/handleAddRMA";
+import Input from "../../../../common/components/Input";
 
 const QCMyItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +47,7 @@ const QCMyItems = () => {
     setIsOpen(true);
     setId(id);
   };
-
+  console.log();
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -77,7 +77,9 @@ const QCMyItems = () => {
               headerData={QCTableHeader}
               dataLayout={tableLayout}
               modalFunc={handleModal}
-              modalDisabled="item?.rma"
+              modalDisabled={
+                "item?.rma === 'null' || item?.rma === 'N/A' || item?.rma === '123' || item?.rma === '0' || item?.rma === 'n/a'"
+              }
             />
           </div>
         </div>
@@ -92,7 +94,8 @@ const QCMyItems = () => {
       </div>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} header={"Add RMA"}>
         <div className="space-y-4">
-          <InputWithValue
+          <Input
+            defaultValue={data?.data?.find((value) => value?.id === id)?.rma}
             required
             labelName="RMA"
             inputName="rma"

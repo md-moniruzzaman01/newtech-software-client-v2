@@ -190,7 +190,7 @@ const CommonTable: FC<CommonTableProps> = ({
                       {modalFunc && (
                         <td className="border">
                           <Button
-                            disabled={eval(modalDisabled)}
+                            disabled={!eval(modalDisabled)}
                             className=" flex justify-center  text-xl "
                             link
                             onClick={() => modalFunc(item?.id)}
