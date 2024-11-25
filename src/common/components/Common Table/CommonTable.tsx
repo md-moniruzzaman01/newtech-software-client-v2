@@ -195,7 +195,7 @@ const CommonTable: FC<CommonTableProps> = ({
                             link
                             onClick={() => modalFunc(item?.id)}
                           >
-                            {icons?.page}
+                            {icons?.edit}
                           </Button>
                         </td>
                       )}

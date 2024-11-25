@@ -7,7 +7,7 @@ import {
   FaRegUser,
 } from "react-icons/fa";
 import { IoIosArrowUp, IoMdClose, IoMdList } from "react-icons/io";
-import { MdDashboard, MdMenu } from "react-icons/md";
+import { MdDashboard, MdMenu, MdModeEdit } from "react-icons/md";
 import CrossIcon from "./custom icons/CrossIcon";
 import { MdMoneyOffCsred } from "react-icons/md";
 import { FcCancel } from "react-icons/fc";
@@ -54,6 +54,7 @@ export const icons: any = {
   link: <FiExternalLink className="text-xl" />,
   excel: <PiMicrosoftExcelLogoFill />,
   page: <FaPager />,
+  edit: <MdModeEdit />,
 
   // other icon
   // full_box: <FullBox />,
