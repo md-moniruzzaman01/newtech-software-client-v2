@@ -22,6 +22,7 @@ export const btnValue = [
   { label: "Delivered", value: "Delivered" },
   { label: "Unpaid", value: "Unpaid" },
   { label: "Paid", value: "Paid" },
+  { label: "CN", value: "CN" },
 ];
 
 export type SearchParams = {

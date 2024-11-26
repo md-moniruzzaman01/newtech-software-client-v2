@@ -9,7 +9,7 @@ const ExcelDownloadForDashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
   const startDate = searchParams.get("startDate") || "";
   const endDate = searchParams.get("endDate") || "";
-  const brandId = searchParams.get("brandName") || "";
+  const brandId = searchParams.get("brandId") || "";
   return (
     <div>
       <abbr

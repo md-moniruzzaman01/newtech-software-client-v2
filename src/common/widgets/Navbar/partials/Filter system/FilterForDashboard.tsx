@@ -22,7 +22,6 @@ const FilterForDashboard = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const { data: brandData } = useGetBrandsQuery({ token });
-
   return (
     <div>
       <div className="w-full">

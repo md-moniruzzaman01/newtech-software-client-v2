@@ -10,8 +10,8 @@ export const handleFilter = ({ event, startDate, endDate, navigate }) => {
   const queryParams = new URLSearchParams(window?.location?.search);
 
   if (brand) {
-    queryParams.delete("brandName");
-    queryParams.append("brandName", brand);
+    queryParams.delete("brandId");
+    queryParams.append("brandId", brand);
   }
   if (branch) {
     queryParams.delete("branch");
