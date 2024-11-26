@@ -148,13 +148,14 @@ const Complaint = () => {
   //   console.log(checkedRows);
   // };
 
+  if (complaintsLoading) {
+    return <LoadingPage />;
+  }
+
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
 
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
   return (
     <div className=" px-5">
       <Navbar name="Complaint"></Navbar>
