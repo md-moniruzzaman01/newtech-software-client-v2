@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { removeUserInfo } from "../../../services/auth.service";
 import { authKey } from "../../../shared/config/constaints";
+import swal from "sweetalert";
 
 const ErrorShow = ({ error }) => {
   const navigate = useNavigate();
