@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -34,7 +33,7 @@ const ComplaintsDelivered = () => {
   const token = getFromLocalStorage(authKey);
   const [updateDeliveryComplaints, { isLoading: deliveryStatusLoading }] =
     useUpdateComplaintsStatusDeliveryMutation();
-  const { data, isError, isLoading, error } =
+  const { data, isError, isLoading, error, isFetching } =
     useGetReadyForDelivaryComplaintsQuery({
       query,
       token,
@@ -62,9 +61,6 @@ const ComplaintsDelivered = () => {
     });
   };
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -92,6 +88,7 @@ const ComplaintsDelivered = () => {
               headerData={complaintsTableHeader}
               link="/complaints/order-details"
               dataLayout={tableLayout}
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

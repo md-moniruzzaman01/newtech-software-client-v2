@@ -13,7 +13,6 @@ import {
   useDeleteEngineerMutation,
   useGetEngineersListQuery,
 } from "../../../../redux/features/api/engineers";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
@@ -35,6 +34,7 @@ const EngineersList = () => {
     isLoading,
     isError,
     error,
+    isFetching,
   } = useGetEngineersListQuery({ token, query });
 
   const [deleteEngineer] = useDeleteEngineerMutation();
@@ -64,9 +64,6 @@ const EngineersList = () => {
     });
   };
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -99,6 +96,7 @@ const EngineersList = () => {
             editPageLink="/engineer-edit-page"
             user
             link={"/engineers-list/engineer-details"}
+            loading={isLoading || isFetching}
           />
         </div>
       </div>

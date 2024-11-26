@@ -14,7 +14,6 @@ import {
   useDeletePartnerMutation,
   useGetPartnersQuery,
 } from "../../../../redux/features/api/Partner";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
@@ -33,7 +32,7 @@ const Partner = () => {
   const [deletePartner, { isLoading: partnerDeleteLoading }] =
     useDeletePartnerMutation();
 
-  const { data, isError, isLoading, error } = useGetPartnersQuery({
+  const { data, isError, isLoading, error, isFetching } = useGetPartnersQuery({
     token,
     query,
   });
@@ -63,9 +62,6 @@ const Partner = () => {
     });
   };
 
-  if (isLoading || partnerDeleteLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -87,6 +83,7 @@ const Partner = () => {
             link="/partner/details"
             deleteBtn
             deleteFn={handleDelete}
+            loading={isLoading || isFetching || partnerDeleteLoading}
           ></CommonTable>
         </div>
       </div>

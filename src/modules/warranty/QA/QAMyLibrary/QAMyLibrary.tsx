@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -34,7 +33,7 @@ const QCMyLibrary = () => {
   const user = getUserInfo();
   const [returnToLibrary, { isLoading: returnToLibraryIsLoading }] =
     useQaReturnToLibraryMutation();
-  const { data, isError, isLoading, error } = useGetMyQasQuery({
+  const { data, isError, isLoading, error, isFetching } = useGetMyQasQuery({
     id: user._id,
     token,
     query,
@@ -51,17 +50,16 @@ const QCMyLibrary = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-  if (isError) {
-    return <ErrorShow error={error} />;
-  }
 
   const handleReturnData = async () => {
     const result = await returnToLibrary({ token, fullData });
     showSwal(result);
   };
+
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
+
   return (
     <div className=" px-5">
       <Navbar name="My QA Items"></Navbar>
@@ -88,6 +86,7 @@ const QCMyLibrary = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               link="/qa-items/order-details"
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

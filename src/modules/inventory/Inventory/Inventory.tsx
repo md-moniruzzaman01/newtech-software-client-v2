@@ -12,7 +12,6 @@ import {
   tableLayout,
 } from "./config/constants";
 import { NavLink } from "react-router-dom";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
@@ -28,6 +27,7 @@ const Inventory = () => {
     isLoading: inventoryLoading,
     isError: inventoryIsError,
     error: inventoryError,
+    isFetching,
   } = useGetInventoryPartsQuery({ token, query });
 
   useEffect(() => {
@@ -35,10 +35,6 @@ const Inventory = () => {
       setInventoryData(inventory?.data);
     }
   }, [inventoryIsError, inventoryLoading, inventory]);
-
-  if (inventoryLoading) {
-    return <LoadingPage />;
-  }
 
   if (inventoryIsError) {
     return <ErrorShow error={inventoryError} />;
@@ -81,6 +77,7 @@ const Inventory = () => {
           itemData={inventoryData}
           dataLayout={tableLayout}
           link="/inventory/request-details"
+          loading={inventoryLoading || isFetching}
         />
       </div>
 

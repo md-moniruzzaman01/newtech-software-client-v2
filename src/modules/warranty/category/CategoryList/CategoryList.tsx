@@ -9,7 +9,6 @@ import {
 } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import {
   useDeleteCategoryForServiceMutation,
   useDeleteCategoryForWarrantyMutation,
@@ -36,12 +35,14 @@ const CategoryList = () => {
     isLoading: categoriesLoading,
     isError,
     error,
+    isFetching,
   } = useGetServiceCategoryAllQuery({ token });
   const {
     data: categoriesForWarranty,
     isLoading: categoriesForWarrantyLoading,
     isError: categoriesForWarrantyIsError,
     error: categoriesForWarrantyError,
+    isFetching: isFetchForWarranty,
   } = useGetCategoryAllQuery({ token });
 
   const [deleteWarrantyCategory] = useDeleteCategoryForWarrantyMutation();
@@ -101,10 +102,6 @@ const CategoryList = () => {
     });
   };
 
-  if (categoriesLoading || categoriesForWarrantyLoading) {
-    return <LoadingPage />;
-  }
-
   if (isError || categoriesForWarrantyIsError) {
     return <ErrorShow error={categoriesForWarrantyError || error} />;
   }
@@ -147,6 +144,12 @@ const CategoryList = () => {
                 : headerDataForCategory
             }
             editPageLink="/category-edit"
+            loading={
+              categoriesLoading ||
+              categoriesForWarrantyLoading ||
+              isFetching ||
+              isFetchForWarranty
+            }
           />
         </div>
       </div>

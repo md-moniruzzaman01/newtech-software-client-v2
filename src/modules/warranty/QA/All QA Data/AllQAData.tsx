@@ -8,7 +8,6 @@ import StatusGroup from "../../../../common/components/Status Group";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import { fields, keys, QATableHeader, tableLayout } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
@@ -19,7 +18,11 @@ const AllQAData = () => {
   const [searchParams] = useSearchParams();
   const token = getFromLocalStorage(authKey);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
-  const { data: qaData, isLoading } = useGetAllQAQuery({ token, query });
+  const {
+    data: qaData,
+    isLoading,
+    isFetching,
+  } = useGetAllQAQuery({ token, query });
 
   useEffect(() => {
     if (qaData) {
@@ -28,10 +31,6 @@ const AllQAData = () => {
       setCurrentPage(qaData?.meta?.page);
     }
   }, [qaData]);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
 
   return (
     <div className=" px-5">
@@ -47,6 +46,7 @@ const AllQAData = () => {
               itemData={qaData?.data}
               headerData={QATableHeader}
               dataLayout={tableLayout}
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

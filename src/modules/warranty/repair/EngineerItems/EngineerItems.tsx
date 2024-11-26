@@ -55,6 +55,7 @@ const EngineerItems = () => {
     isError,
     isLoading,
     error: productRepairError,
+    isFetching,
   } = useGetProductsForRepairQuery({
     query,
     token,
@@ -116,15 +117,16 @@ const EngineerItems = () => {
     setAsp(selectedAsp?.target?.value);
   };
 
+  if (assignLoading || brandsLoading) {
+    return <LoadingPage />;
+  }
+
   if (isError || assignIsError || engineerError || brandsIsError) {
     return (
       <ErrorShow
         error={error || productRepairError || assignError || brandsError}
       />
     );
-  }
-  if (isLoading || assignLoading || brandsLoading) {
-    return <LoadingPage />;
   }
 
   return (
@@ -159,6 +161,7 @@ const EngineerItems = () => {
             productData
             setCheckedRows={setCheckedRows}
             checkbox
+            loading={isLoading || isFetching}
           />
 
           <div className="fixed bottom-2  right-5">

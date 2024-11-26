@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router-dom";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -37,7 +36,7 @@ const MyLibrary = () => {
   const user = getUserInfo();
   const [repairWarrantyReturnToLibrary, { isLoading: returnLoading }] =
     useRepairWarrantyReturnToLibraryMutation();
-  const { data, isError, isLoading, error } = useGetRepairsQuery({
+  const { data, isError, isLoading, error, isFetching } = useGetRepairsQuery({
     id: user._id,
     query,
     token,
@@ -53,9 +52,6 @@ const MyLibrary = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -92,6 +88,7 @@ const MyLibrary = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

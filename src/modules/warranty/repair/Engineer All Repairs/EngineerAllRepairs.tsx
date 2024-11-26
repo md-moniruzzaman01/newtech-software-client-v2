@@ -1,5 +1,4 @@
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -25,11 +24,12 @@ const EngineerAllRepairs = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading } = useGetAllProductsForRepairQuery({
-    id: user._id,
-    token,
-    query,
-  });
+  const { data, isError, isLoading, isFetching } =
+    useGetAllProductsForRepairQuery({
+      id: user._id,
+      token,
+      query,
+    });
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -38,9 +38,6 @@ const EngineerAllRepairs = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     console.error(isError);
 
@@ -67,6 +64,7 @@ const EngineerAllRepairs = () => {
               setCheckedRows={setCheckedRows}
               checkbox
               link="/engineer-items/order-details"
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

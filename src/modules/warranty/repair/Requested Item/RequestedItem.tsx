@@ -12,7 +12,6 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
 import { getUserInfo } from "../../../../services/auth.service";
 import { useGetRepairsForRequestedQuery } from "../../../../redux/features/api/repair";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
@@ -36,11 +35,12 @@ const RequestedItem = () => {
   const [updateRepairStatus, { isLoading: updateRepairIsLoading }] =
     useUpdateRepairStatusMutation();
 
-  const { data, isError, isLoading, error } = useGetRepairsForRequestedQuery({
-    id: user._id,
-    query,
-    token,
-  });
+  const { data, isError, isLoading, error, isFetching } =
+    useGetRepairsForRequestedQuery({
+      id: user._id,
+      query,
+      token,
+    });
 
   useEffect(() => {
     if (data) {
@@ -60,16 +60,13 @@ const RequestedItem = () => {
     showSwal(result);
   };
 
-  if (isLoading || updateRepairIsLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
 
   return (
     <div className=" px-5">
-      <Navbar name="Working (Beta)" />
+      <Navbar name="Requested Item (Beta)" />
       <div className="pt-5">
         <SearchBar />
       </div>
@@ -92,6 +89,7 @@ const RequestedItem = () => {
                 )
               }
               functionBtnValue="Delivery"
+              loading={isLoading || isFetching || updateRepairIsLoading}
             />
           </div>
         </div>

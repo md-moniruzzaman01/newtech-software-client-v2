@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -17,7 +16,6 @@ import { getUserInfo } from "../../../../services/auth.service";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCMyItems = () => {
-  const [checkedRows, setCheckedRows] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
@@ -26,7 +24,7 @@ const QCMyItems = () => {
 
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading, error } = useGetOldQasQuery({
+  const { data, isError, isLoading, error, isFetching } = useGetOldQasQuery({
     id: user._id,
     token,
     query,
@@ -39,9 +37,6 @@ const QCMyItems = () => {
     }
   }, [isLoading, isError, data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -60,9 +55,10 @@ const QCMyItems = () => {
               itemData={data?.data}
               headerData={QATableHeader}
               dataLayout={tableLayout}
-              checkedRows={checkedRows}
-              setCheckedRows={setCheckedRows}
-              checkbox
+              // checkedRows={checkedRows}
+              // setCheckedRows={setCheckedRows}
+              // checkbox
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

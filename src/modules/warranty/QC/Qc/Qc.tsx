@@ -5,7 +5,6 @@ import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { QCTableHeader, fields, keys, tableLayout } from "./config/constants";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import StatusGroup from "../../../../common/components/Status Group";
 import { QATableBodyProps } from "../../QA/QA/config/types";
 import { useGetEngineersQuery } from "../../../../redux/features/api/engineers";
@@ -35,6 +34,7 @@ const Qc = () => {
     isError: complaintsIsError,
     isLoading: complaintsLoading,
     error: complaintsError,
+    isFetching,
   } = useGetProductsQuery({
     query,
     token,
@@ -79,10 +79,6 @@ const Qc = () => {
     engineerData,
   ]);
 
-  if (complaintsLoading || isLoading) {
-    return <LoadingPage />;
-  }
-
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
@@ -110,6 +106,7 @@ const Qc = () => {
             setCheckedRows={setCheckedRows}
             checkbox
             productData
+            loading={complaintsLoading || isFetching || isLoading}
           />
 
           <div className="fixed bottom-2  right-5">

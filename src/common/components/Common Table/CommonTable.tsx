@@ -10,6 +10,7 @@ import { emptyData } from "../../../shared/config/constaints";
 import Button from "../Button";
 import { icons } from "../../../shared/libs/Icons";
 import { MdModeEdit } from "react-icons/md";
+import ComponentLoading from "../Component Loading/ComponentLoading";
 
 interface CommonTableProps {
   headerData: string[];
@@ -30,6 +31,7 @@ interface CommonTableProps {
   functionBtnValue?: string;
   functionBtn?: any;
   modalDisabled?: string;
+  loading?: boolean;
 }
 
 // type TableData = Record<string, any>;
@@ -53,12 +55,17 @@ const CommonTable: FC<CommonTableProps> = ({
   functionBtnValue,
   functionBtn,
   modalDisabled,
+  loading,
 }) => {
   return (
     <>
       <div className="flex justify-center w-full pb-14">
         <div className="overflow-x-auto w-full ">
-          {itemData?.length > 0 ? (
+          {loading ? (
+            <div className="py-10">
+              <ComponentLoading width="80" height="80" />
+            </div>
+          ) : itemData?.length > 0 ? (
             <table className="table text-center w-full border border-collapse border-gray-800">
               {/* head */}
               <thead className=" text-black border text-center">
@@ -219,7 +226,9 @@ const CommonTable: FC<CommonTableProps> = ({
               </tbody>
             </table>
           ) : (
-            <div className="text-center font-medium text-2xl">{emptyData}</div>
+            <div className="text-center font-medium text-2xl pt-10">
+              {emptyData}
+            </div>
           )}
         </div>
       </div>

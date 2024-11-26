@@ -19,7 +19,6 @@ import {
 } from "./config/constants";
 import { authKey } from "../../../../shared/config/constaints";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { TableBodyProps } from "./config/types";
@@ -48,6 +47,7 @@ const Complaint = () => {
     isError: complaintsIsError,
     error: complaintsError,
     isLoading: complaintsLoading,
+    isFetching,
   } = useGetComplaintsQuery({
     query,
     token,
@@ -148,10 +148,6 @@ const Complaint = () => {
   //   console.log(checkedRows);
   // };
 
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
-
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
@@ -191,6 +187,7 @@ const Complaint = () => {
               btnLink="/recipe"
               btnValue="Invoice"
               link="/complaints/order-details"
+              loading={complaintsLoading || isFetching}
             />
           </div>
         </div>

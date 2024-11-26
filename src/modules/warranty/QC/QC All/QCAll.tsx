@@ -8,9 +8,9 @@ import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { fields, keys, QCTableHeader, tableLayout } from "./config/constants";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const QCAll = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +23,8 @@ const QCAll = () => {
     data: qcData,
     isLoading,
     isError,
+    error,
+    isFetching,
   } = useGetProductsAllQuery({ token, query });
 
   useEffect(() => {
@@ -33,8 +35,8 @@ const QCAll = () => {
     }
   }, [qcData, isLoading, isError]);
 
-  if (isLoading) {
-    return <LoadingPage />;
+  if (isError) {
+    return <ErrorShow error={error} />;
   }
 
   return (
@@ -51,6 +53,7 @@ const QCAll = () => {
             headerData={QCTableHeader}
             dataLayout={tableLayout}
             productData
+            loading={isLoading || isFetching}
           />
 
           <div className="fixed bottom-2  right-5">

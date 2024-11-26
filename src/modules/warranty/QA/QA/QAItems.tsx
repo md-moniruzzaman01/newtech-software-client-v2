@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -37,6 +36,7 @@ const QAItems = () => {
     isError: complaintsIsError,
     isLoading: complaintsLoading,
     error: complaintsError,
+    isFetching,
   } = useGetQAProductsQuery({
     query,
     token,
@@ -79,9 +79,6 @@ const QAItems = () => {
     engineerLoading,
     engineerData,
   ]);
-  if (complaintsLoading || isLoading) {
-    return <LoadingPage />;
-  }
 
   if (complaintsIsError || engineerIsError) {
     return <ErrorShow error={complaintsError || engineerError} />;
@@ -110,6 +107,7 @@ const QAItems = () => {
             setCheckedRows={setCheckedRows}
             checkbox
             productData
+            loading={isLoading || isFetching || complaintsLoading}
           />
           <div className="fixed bottom-2  right-5">
             <Pagination

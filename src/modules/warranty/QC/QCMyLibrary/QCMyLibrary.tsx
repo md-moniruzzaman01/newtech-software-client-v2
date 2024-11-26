@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -33,7 +32,7 @@ const QCMyLibrary = () => {
   const token = getFromLocalStorage(authKey);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const user = getUserInfo();
-  const { data, isError, isLoading, error } = useGetQcsQuery({
+  const { data, isError, isLoading, error, isFetching } = useGetQcsQuery({
     id: user._id,
     token,
     query,
@@ -46,13 +45,6 @@ const QCMyLibrary = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-  if (isError) {
-    return <ErrorShow error={error} />;
-  }
-
   const handleReturnData = async () => {
     const fullData = {
       repairIds: checkedRows,
@@ -60,6 +52,10 @@ const QCMyLibrary = () => {
     const result = await qcReturnToLibrary({ token, fullData });
     showSwal(result);
   };
+
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
 
   return (
     <div className=" px-5">
@@ -87,6 +83,7 @@ const QCMyLibrary = () => {
               setCheckedRows={setCheckedRows}
               checkbox
               link="/qc/order-details"
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

@@ -15,7 +15,6 @@ import {
 } from "./config/constants";
 import { useGetMyComplaintQuery } from "../../../../redux/features/api/complaints";
 import { getUserInfo } from "../../../../services/auth.service";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useEffect, useState } from "react";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
@@ -28,11 +27,12 @@ const MyComplaints = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
 
-  const { data, isError, isLoading, error } = useGetMyComplaintQuery({
-    id: user?.userId,
-    query,
-    token,
-  });
+  const { data, isError, isLoading, error, isFetching } =
+    useGetMyComplaintQuery({
+      id: user?.userId,
+      query,
+      token,
+    });
 
   useEffect(() => {
     if (!isLoading && !isError) {
@@ -42,9 +42,6 @@ const MyComplaints = () => {
     }
   }, [data, isError, isLoading]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -64,6 +61,7 @@ const MyComplaints = () => {
               headerData={complaintsTableHeader}
               link="/complaints/order-details"
               dataLayout={tableLayout}
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

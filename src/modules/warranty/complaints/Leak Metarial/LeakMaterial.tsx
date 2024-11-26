@@ -15,7 +15,6 @@ import {
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useEffect, useState } from "react";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
 const LeakMaterial = () => {
@@ -38,6 +37,7 @@ const LeakMaterial = () => {
     isLoading,
     isError,
     error,
+    isFetching,
   } = useGetLeakMaterialQuery({ token, query });
 
   useEffect(() => {
@@ -47,10 +47,6 @@ const LeakMaterial = () => {
       setCurrentPage(LeakMaterial?.meta?.page);
     }
   }, [isLoading, isError, LeakMaterial]);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
 
   if (isError) {
     return <ErrorShow error={error} />;
@@ -79,6 +75,7 @@ const LeakMaterial = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               productData
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

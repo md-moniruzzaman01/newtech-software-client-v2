@@ -19,7 +19,6 @@ import {
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useEffect, useState } from "react";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 
@@ -46,6 +45,7 @@ const ComplaintBuffers = () => {
     isLoading,
     isError,
     error,
+    isFetching,
   } = useGetBuffersQuery({ token, query });
 
   useEffect(() => {
@@ -80,10 +80,6 @@ const ComplaintBuffers = () => {
     setIsTrue(false);
   };
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -116,6 +112,7 @@ const ComplaintBuffers = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               productData
+              loading={isLoading || isFetching}
 
               // link="/complaints/order-details"
             />

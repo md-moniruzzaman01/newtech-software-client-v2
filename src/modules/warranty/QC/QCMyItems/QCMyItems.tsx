@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -37,7 +36,7 @@ const QCMyItems = () => {
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
   const [addRMA, { isLoading: rmaLoading }] = useUpdateStatusQCMutation();
-  const { data, isError, isLoading, error } = useGetOldQcsQuery({
+  const { data, isError, isLoading, error, isFetching } = useGetOldQcsQuery({
     id: user._id,
     token,
     query,
@@ -55,9 +54,7 @@ const QCMyItems = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -80,6 +77,7 @@ const QCMyItems = () => {
               modalDisabled={
                 "item?.rma === 'null' || item?.rma === 'N/A' || item?.rma === '123' || item?.rma === '0' || item?.rma === 'n/a'"
               }
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

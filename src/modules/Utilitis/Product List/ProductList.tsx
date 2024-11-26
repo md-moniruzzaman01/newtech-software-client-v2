@@ -5,7 +5,6 @@ import { QATableHeader, fields, keys, tableLayout } from "./config/constants";
 import { authKey } from "../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { useGetProductsAllQuery } from "../../../redux/features/api/others";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
@@ -22,10 +21,11 @@ const ProductList = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const token = getFromLocalStorage(authKey);
-  const { data, isError, isLoading, error } = useGetProductsAllQuery({
-    token,
-    query,
-  });
+  const { data, isError, isLoading, error, isFetching } =
+    useGetProductsAllQuery({
+      token,
+      query,
+    });
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -34,9 +34,6 @@ const ProductList = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -58,6 +55,7 @@ const ProductList = () => {
               setCheckedRows={setCheckedRows}
               checkbox
               link="/product-list/details"
+              loading={isLoading || isFetching}
             />
           </div>
         </div>
