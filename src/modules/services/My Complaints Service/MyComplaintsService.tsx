@@ -14,7 +14,6 @@ import {
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
@@ -43,6 +42,7 @@ const MyComplaintsService = () => {
     isError: complaintsIsError,
     isLoading: complaintsLoading,
     error: complaintsError,
+    isFetching,
   } = useGetMyComplaintQuery({
     id: user?.userId,
     query,
@@ -78,10 +78,6 @@ const MyComplaintsService = () => {
     console.log(checkedRows);
   };
 
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
-
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
@@ -114,6 +110,7 @@ const MyComplaintsService = () => {
               setCheckedRows={setCheckedRows}
               checkbox
               link="/complaints-service-details"
+              loading={complaintsLoading || isFetching}
             />
           </div>
         </div>

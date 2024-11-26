@@ -6,7 +6,6 @@ import {
   setToLocalStorage,
 } from "../../../../shared/helpers/local_storage";
 import { authKey } from "../../../../shared/config/constaints";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
@@ -43,7 +42,7 @@ const EngineerLibraryForService = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
 
-  const { data, isError, isLoading, error } =
+  const { data, isError, isLoading, error, isFetching } =
     useGetServiceProductsForRepairQuery({
       query,
       token,
@@ -115,10 +114,6 @@ const EngineerLibraryForService = () => {
     <ErrorShow error={error || engineerError || brandsError} />;
   }
 
-  if (isLoading || assignLoading || brandsLoading) {
-    return <LoadingPage />;
-  }
-
   return (
     <div className="px-5">
       <Navbar name={"Engineer Items"} />
@@ -151,6 +146,7 @@ const EngineerLibraryForService = () => {
             setCheckedRows={setCheckedRows}
             checkbox
             productData
+            loading={isLoading || isFetching || assignLoading || brandsLoading}
           />
 
           <div className="fixed bottom-2  right-5">

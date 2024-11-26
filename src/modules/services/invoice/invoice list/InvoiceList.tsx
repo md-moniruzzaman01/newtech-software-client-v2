@@ -12,7 +12,6 @@ import {
   keys,
   tableLayout,
 } from "./config/constants";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import {
   useDeleteBillMutation,
@@ -40,6 +39,7 @@ const InvoiceList = () => {
     error,
     isError: billsError,
     isLoading: billsLoading,
+    isFetching,
   } = useGetBillsQuery({
     token,
     query,
@@ -72,9 +72,6 @@ const InvoiceList = () => {
     });
   };
 
-  if (billsLoading || isLoading) {
-    return <LoadingPage />;
-  }
   if (billsError) {
     return <ErrorShow error={error} />;
   }
@@ -106,6 +103,7 @@ const InvoiceList = () => {
               checkbox
               deleteBtn
               deleteFn={handleDeleteBil}
+              loading={isLoading || billsLoading || isFetching}
             />
           </div>
         </div>

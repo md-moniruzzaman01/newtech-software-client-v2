@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -25,7 +24,7 @@ const QAMyItemsService = () => {
 
   const token = getFromLocalStorage(authKey);
   const id = "65f7d1b8ff0aba99b376d459";
-  const { data, isError, isLoading, error } = useGetQasQuery({
+  const { data, isError, isLoading, error, isFetching } = useGetQasQuery({
     id,
     token,
     query,
@@ -38,9 +37,6 @@ const QAMyItemsService = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -62,6 +58,7 @@ const QAMyItemsService = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

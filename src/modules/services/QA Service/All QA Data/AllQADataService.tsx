@@ -10,7 +10,6 @@ import { useGetAllQAServiceQuery } from "../../../../redux/features/api/qa";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { fields, keys, QATableHeader, tableLayout } from "./config/constants";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const AllQADataService = () => {
@@ -22,10 +21,11 @@ const AllQADataService = () => {
   const [searchParams] = useSearchParams();
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
-  const { data, isLoading, isError, error } = useGetAllQAServiceQuery({
-    token,
-    query,
-  });
+  const { data, isLoading, isError, error, isFetching } =
+    useGetAllQAServiceQuery({
+      token,
+      query,
+    });
 
   useEffect(() => {
     if (data) {
@@ -35,9 +35,6 @@ const AllQADataService = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -56,6 +53,7 @@ const AllQADataService = () => {
               itemData={data?.data}
               headerData={QATableHeader}
               dataLayout={tableLayout}
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

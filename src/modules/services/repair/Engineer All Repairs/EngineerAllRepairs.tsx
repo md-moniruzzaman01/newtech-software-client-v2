@@ -1,5 +1,4 @@
 // import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -26,11 +25,12 @@ const EngineerAllRepairs = () => {
   const token = getFromLocalStorage(authKey);
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const user = getUserInfo();
-  const { data, isError, isLoading, error } = useGetAllRepairServiceQuery({
-    id: user._id,
-    token,
-    query,
-  });
+  const { data, isError, isLoading, error, isFetching } =
+    useGetAllRepairServiceQuery({
+      id: user._id,
+      token,
+      query,
+    });
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -39,19 +39,17 @@ const EngineerAllRepairs = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-  if (isError) {
-    return <ErrorShow error={error} />;
-  }
-
   const handleDeleteData = () => {
     console.log(checkedRows);
   };
   const handleReturnData = () => {
     console.log(checkedRows);
   };
+
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
+
   return (
     <div className=" px-5">
       <Navbar name="All Repairs" />
@@ -77,6 +75,7 @@ const EngineerAllRepairs = () => {
               checkbox
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
+              loading={isLoading || isFetching}
             ></CommonTable>
           </div>
         </div>

@@ -1,4 +1,3 @@
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -33,11 +32,12 @@ const MyRepairs = () => {
   const query = constructQuery(searchParams, fields, keys, currentPage, limit);
 
   const user = getUserInfo();
-  const { data, isError, isLoading, error } = useGetOldRepairsForServiceQuery({
-    id: user._id,
-    token,
-    query,
-  });
+  const { data, isError, isLoading, error, isFetching } =
+    useGetOldRepairsForServiceQuery({
+      id: user._id,
+      token,
+      query,
+    });
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -46,9 +46,6 @@ const MyRepairs = () => {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -72,6 +69,7 @@ const MyRepairs = () => {
               checkbox
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
+              loading={isLoading || isFetching}
             />
           </div>
         </div>

@@ -11,7 +11,6 @@ import {
   keys,
   tableLayout,
 } from "./config/constants";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import { useDispatch } from "react-redux";
 import { setIds } from "../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
@@ -42,6 +41,7 @@ const CreateInvoice = () => {
     isError: complaintsIsError,
     isLoading: complaintsLoading,
     error: complaintsError,
+    isFetching,
   } = useGetServicesForBillQuery({
     token,
     query,
@@ -81,10 +81,6 @@ const CreateInvoice = () => {
     }
   };
 
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
-
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
@@ -113,6 +109,7 @@ const CreateInvoice = () => {
               checkedRows={checkedRows}
               setCheckedRows={setCheckedRows}
               checkbox
+              loading={complaintsLoading || isFetching}
             />
           </div>
         </div>

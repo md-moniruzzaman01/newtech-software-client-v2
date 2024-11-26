@@ -14,7 +14,6 @@ import { useGetWalkingCustomerServiceQuery } from "../../../redux/features/api/u
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { useSearchParams } from "react-router-dom";
 import { constructQuery } from "../../../shared/helpers/constructQuery";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 const WalkingCustomerForService = () => {
@@ -32,6 +31,7 @@ const WalkingCustomerForService = () => {
     isLoading: customerLoading,
     isError,
     error,
+    isFetching,
   } = useGetWalkingCustomerServiceQuery({
     token,
     query,
@@ -44,10 +44,6 @@ const WalkingCustomerForService = () => {
       setCurrentPage(walkingCustomer?.meta?.page);
     }
   }, [walkingCustomer]);
-
-  if (customerLoading) {
-    return <LoadingPage />;
-  }
 
   if (isError) {
     return <ErrorShow error={error} />;
@@ -65,6 +61,7 @@ const WalkingCustomerForService = () => {
             headerData={customerTableHeader}
             dataLayout={tableLayout}
             itemData={walkingCustomer?.data}
+            loading={customerLoading || isFetching}
           />
         </div>
 

@@ -13,7 +13,6 @@ import {
 } from "./config/constants";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../common/components/Status Group";
@@ -46,6 +45,7 @@ const ComplaintListService = () => {
     isError: complaintsIsError,
     isLoading: complaintsLoading,
     error: complaintsError,
+    isFetching,
   } = useGetServicesQuery({
     query,
     token,
@@ -122,10 +122,6 @@ const ComplaintListService = () => {
     });
   };
 
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
-
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
@@ -161,6 +157,7 @@ const ComplaintListService = () => {
               link="/complaints-service-details"
               btnLink="/recipe"
               btnValue="Invoice"
+              loading={complaintsLoading || isFetching}
             />
           </div>
         </div>

@@ -11,8 +11,6 @@ import {
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { getUserInfo } from "../../../../services/auth.service";
-
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { showSwal } from "../../../../shared/helpers/SwalShower";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -37,7 +35,7 @@ const RequestedItemService = () => {
   const [updateRepairStatus, { isLoading: updateRepairIsLoading }] =
     useUpdateRepairStatusMutation();
 
-  const { data, isError, isLoading, error } =
+  const { data, isError, isLoading, error, isFetching } =
     useGetRepairsForRequestedForServiceQuery({
       id: user._id,
       query,
@@ -62,9 +60,6 @@ const RequestedItemService = () => {
     showSwal(result);
   };
 
-  if (isLoading || updateRepairIsLoading) {
-    return <LoadingPage />;
-  }
   if (isError) {
     return <ErrorShow error={error} />;
   }
@@ -94,6 +89,7 @@ const RequestedItemService = () => {
                 )
               }
               functionBtnValue="Delivery"
+              loading={isLoading || isFetching || updateRepairIsLoading}
             />
           </div>
         </div>

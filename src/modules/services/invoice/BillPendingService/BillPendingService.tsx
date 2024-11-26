@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
-import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { authKey } from "../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
-import { BillTableHeader, tableLayout } from "./config/constant";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { BillTableHeader, fields, keys, tableLayout } from "./config/constant";
 import { useGetPendingBillsQuery } from "../../../../redux/features/api/bill";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
+import { useSearchParams } from "react-router-dom";
 
 const BillPendingService = () => {
   const [billData, setBillData] = useState([]);
@@ -17,13 +17,17 @@ const BillPendingService = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(50);
   const token = getFromLocalStorage(authKey);
+  const [searchParams] = useSearchParams();
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const {
     data: complaintsData,
     isError: complaintsIsError,
     isLoading: complaintsLoading,
     error: complaintsError,
+    isFetching,
   } = useGetPendingBillsQuery({
     token,
+    query,
   });
 
   useEffect(() => {
@@ -40,10 +44,6 @@ const BillPendingService = () => {
     }
   }, [complaintsData, complaintsLoading, complaintsIsError]);
 
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
-
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
@@ -56,13 +56,14 @@ const BillPendingService = () => {
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          <StatusGroup btnGroupValue={[]} />
+          {/* <StatusGroup btnGroupValue={[]} /> */}
           <div className="pt-5">
             <CommonTable
               dataLayout={tableLayout}
               headerData={BillTableHeader}
               itemData={billData}
               link="/complaints-service-payments"
+              loading={complaintsLoading || isFetching}
             />
           </div>
         </div>

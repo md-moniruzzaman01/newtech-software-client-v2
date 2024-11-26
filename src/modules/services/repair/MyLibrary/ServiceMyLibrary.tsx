@@ -1,5 +1,4 @@
 import { useSearchParams } from "react-router-dom";
-import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
 import SearchBar from "../../../../common/components/SearchBar/SearchBar";
 import StatusGroup from "../../../../common/components/Status Group";
 import Navbar from "../../../../common/widgets/Navbar/Navbar";
@@ -34,11 +33,12 @@ const ServiceMyLibrary = () => {
   const user = getUserInfo();
   const [returnToLibrary, { isLoading: returnToLibraryIsLoading }] =
     useRepairReturnToLibraryMutation();
-  const { data, isError, isLoading, error } = useGetRepairsForServiceQuery({
-    id: user._id,
-    query,
-    token,
-  });
+  const { data, isError, isLoading, error, isFetching } =
+    useGetRepairsForServiceQuery({
+      id: user._id,
+      query,
+      token,
+    });
   useEffect(() => {
     if (data) {
       setTotalItems(data.meta.total);
@@ -46,12 +46,6 @@ const ServiceMyLibrary = () => {
       setCurrentPage(data?.meta?.page);
     }
   }, [data]);
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-  if (isError) {
-    return <ErrorShow error={error} />;
-  }
 
   const handleReturnData = async () => {
     const fullData = {
@@ -60,6 +54,10 @@ const ServiceMyLibrary = () => {
     const result = await returnToLibrary({ token, fullData });
     showSwal(result);
   };
+
+  if (isError) {
+    return <ErrorShow error={error} />;
+  }
   return (
     <div className=" px-5">
       <Navbar name="Engineer My Library"></Navbar>
@@ -86,6 +84,7 @@ const ServiceMyLibrary = () => {
               setCheckedRows={setCheckedRows}
               checkbox
               link="/service-engineer-items/order-details"
+              loading={isLoading || isFetching}
             ></CommonTable>
           </div>
         </div>

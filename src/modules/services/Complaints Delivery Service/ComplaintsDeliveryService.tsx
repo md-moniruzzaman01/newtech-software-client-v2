@@ -13,7 +13,6 @@ import {
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 import { authKey } from "../../../shared/config/constaints";
 import { useGetReadyForDelivaryServicesQuery } from "../../../redux/features/api/complaints";
-import LoadingPage from "../../../common/components/LoadingPage/LoadingPage";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
 import SearchBar from "../../../common/components/SearchBar/SearchBar";
 
@@ -34,7 +33,7 @@ const ComplaintsDeliveryService = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [checkedRows, setCheckedRows] = useState<string[]>([]);
-  const query = constructQuery(searchParams, fields, keys);
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
   const token = getFromLocalStorage(authKey);
   const [createBill, { isLoading }] = useCreateBillMutation();
 
@@ -43,6 +42,7 @@ const ComplaintsDeliveryService = () => {
     isError: complaintsIsError,
     isLoading: complaintsLoading,
     error: complaintsError,
+    isFetching,
   } = useGetReadyForDelivaryServicesQuery({
     query,
     token,
@@ -88,10 +88,6 @@ const ComplaintsDeliveryService = () => {
     }
   };
 
-  if (complaintsLoading) {
-    return <LoadingPage />;
-  }
-
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
   }
@@ -124,6 +120,7 @@ const ComplaintsDeliveryService = () => {
               setCheckedRows={setCheckedRows}
               checkbox
               link="/complaints-service-details"
+              loading={complaintsLoading || isFetching}
             />
           </div>
         </div>
