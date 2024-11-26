@@ -9,9 +9,16 @@ import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../../../../services/auth.service";
 import CommonTable from "../../../../common/components/Common Table/CommonTable";
-import { MyRepairTableHeader, tableLayout } from "./config/constants";
+import {
+  fields,
+  keys,
+  MyRepairTableHeader,
+  tableLayout,
+} from "./config/constants";
 import { useGetOldRepairsForServiceQuery } from "../../../../redux/features/api/repair";
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import { useSearchParams } from "react-router-dom";
+import { constructQuery } from "../../../../shared/helpers/constructQuery";
 
 const MyRepairs = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,10 +28,15 @@ const MyRepairs = () => {
     { repair_id: string; qc_id: string }[]
   >([]);
   const token = getFromLocalStorage(authKey);
+  const [searchParams] = useSearchParams();
+
+  const query = constructQuery(searchParams, fields, keys, currentPage, limit);
+
   const user = getUserInfo();
   const { data, isError, isLoading, error } = useGetOldRepairsForServiceQuery({
     id: user._id,
     token,
+    query,
   });
   useEffect(() => {
     if (data) {

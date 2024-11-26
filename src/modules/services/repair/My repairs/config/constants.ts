@@ -33,3 +33,12 @@ export const tableLayout = [
   "item?.createdAt?.toString()?.slice(0,10)",
   "item?.updatedAt?.toString()?.slice(0,10)",
 ];
+
+export const fields = "";
+export const keys = [
+  "brand_name",
+  "sort",
+  "repair_status",
+  "searchTerm",
+  "category_name",
+];
