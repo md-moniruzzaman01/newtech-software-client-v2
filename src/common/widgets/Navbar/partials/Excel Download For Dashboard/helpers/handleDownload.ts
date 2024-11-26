@@ -2,8 +2,14 @@ import { authKey } from "../../../../../../shared/config/constaints";
 import { getFromLocalStorage } from "../../../../../../shared/helpers/local_storage";
 import swal from "sweetalert";
 
-export const handleDownload = async (startDate, endDate, brandId) => {
+export const handleDownload = async (
+  startDate,
+  endDate,
+  brandId,
+  setIsLoading
+) => {
   try {
+    setIsLoading(true);
     const token = getFromLocalStorage(authKey);
 
     const apiUrl = `${import.meta.env.VITE_SOME_KEY}/utils/download`;
@@ -35,8 +41,9 @@ export const handleDownload = async (startDate, endDate, brandId) => {
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
+    setIsLoading(false);
   } catch (error) {
-    console.error("Download Error:", error);
     swal("Error!", error.message, "error");
+    setIsLoading(false);
   }
 };
