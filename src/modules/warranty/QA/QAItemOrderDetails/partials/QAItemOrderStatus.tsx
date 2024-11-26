@@ -28,7 +28,6 @@ const QAItemOrderStatus = () => {
       note,
       qa_image: [],
     };
-
     const result: any = await updateStatusQA({ id, fullData, token });
     const isSwalTrue = showSwal(result);
     if (isSwalTrue) {
