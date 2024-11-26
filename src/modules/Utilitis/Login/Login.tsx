@@ -142,9 +142,9 @@ const Login = () => {
             Login
           </Button>
         </form>
-        <Button onClick={() => setIsOpen(true)} link className="mt-5">
+        {/* <Button onClick={() => setIsOpen(true)} link className="mt-5">
           Forget Password
-        </Button>
+        </Button> */}
       </div>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen} header={"Forget Password"}>
         <form onSubmit={handleSendId}>
