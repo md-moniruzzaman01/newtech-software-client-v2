@@ -21,7 +21,7 @@ export const tableLayout = [
 ];
 
 export const fields = "";
-export const keys = ["startDate", "endDate", "branch"];
+export const keys = ["startDate", "endDate", "brandId"];
 
 export const labels = [
   "January",
