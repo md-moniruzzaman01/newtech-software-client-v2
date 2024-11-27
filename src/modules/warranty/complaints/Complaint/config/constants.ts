@@ -41,6 +41,7 @@ export const complaintsTableHeader = [
   "Brand",
   "QC",
   "QA",
+  "Repair",
   "Status",
   "RD",
   "Invoice",
@@ -56,6 +57,7 @@ export const tableLayout = [
   "item?.brand_name",
   "item?.Qc?.length",
   "item?.Qa?.length",
+  "item?.RepairItem?.length",
   "item?.repair_status",
   "item?.received_date?.toString()?.slice(0,10)",
 ];

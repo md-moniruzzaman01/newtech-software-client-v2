@@ -52,7 +52,7 @@ const Complaint = () => {
     query,
     token,
   });
-
+  console.log("hello", complaintsData);
   const [updateDeliveryComplaints, { isLoading: deliveryStatusLoading }] =
     useUpdateComplaintsStatusDeliveryMutation();
   const [cancelComplaints, { isLoading: cancelLoading }] =
