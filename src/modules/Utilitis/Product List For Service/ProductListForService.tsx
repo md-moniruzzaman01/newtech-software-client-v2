@@ -35,8 +35,6 @@ const ProductListForService = () => {
   }, [data]);
 
   if (isError) {
-    console.error(isError);
-
     return <ErrorShow error={error} />;
   }
 

@@ -9,7 +9,6 @@ export const handleDownload = async (
   setIsLoading
 ) => {
   try {
-    console.log("id", brandId);
     setIsLoading(true);
     const token = getFromLocalStorage(authKey);
 

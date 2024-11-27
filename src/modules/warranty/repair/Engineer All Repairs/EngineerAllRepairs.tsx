@@ -11,6 +11,7 @@ import { getUserInfo } from "../../../../services/auth.service";
 import { useGetAllProductsForRepairQuery } from "../../../../redux/features/api/repair";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 
 const EngineerAllRepairs = () => {
   const [searchParams] = useSearchParams();
@@ -24,7 +25,7 @@ const EngineerAllRepairs = () => {
   >([]);
   const token = getFromLocalStorage(authKey);
   const user = getUserInfo();
-  const { data, isError, isLoading, isFetching } =
+  const { data, isError, isLoading, isFetching, error } =
     useGetAllProductsForRepairQuery({
       id: user._id,
       token,
@@ -39,9 +40,7 @@ const EngineerAllRepairs = () => {
   }, [data]);
 
   if (isError) {
-    console.error(isError);
-
-    return <div>Error</div>;
+    return <ErrorShow error={error} />;
   }
 
   return (

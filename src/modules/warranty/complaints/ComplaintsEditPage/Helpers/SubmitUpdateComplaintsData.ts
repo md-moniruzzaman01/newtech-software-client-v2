@@ -56,7 +56,7 @@ export const handleUpdateComplaintsData = async (
     }
     setIsLoading(false);
   } catch (error) {
-    console.error("Error adding complaint:", error);
+    swal("Error", error?.message, "error");
     setIsLoading(false);
   }
 };

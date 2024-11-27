@@ -66,7 +66,7 @@ const QCApi = baseApi.injectEndpoints({
     getAllProducts: builder.query({
       query: (params) => {
         return {
-          url: `/product?warranty=true&&${params?.query}`,
+          url: `/product?warranty=true&repair_status=QC%20Ok&repair_status=CID&repair_status=QC%20Failed&${params?.query}`,
           headers: {
             authorization: params?.token,
           },

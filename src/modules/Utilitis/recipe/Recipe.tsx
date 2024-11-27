@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
+import swal from "sweetalert";
 
 import "./config/style.css";
 import Button from "../../../common/components/Button";
@@ -34,7 +35,7 @@ const Recipe = () => {
           })
             .then((res) => res.json())
             .then((data) => tempComplaints.push(data.data))
-            .catch((error) => console.error("Error fetching complaint:", error))
+            .catch((error) => swal("Error", error.message, "error"))
         )
       ).then(() => {
         // Update state with fetched data once all requests are complete

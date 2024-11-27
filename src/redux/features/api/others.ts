@@ -86,7 +86,7 @@ const OthersApi = baseApi.injectEndpoints({
     getProductsAll: builder.query({
       query: ({ token, query }) => {
         return {
-          url: `/product?repair_status=QC%20Ok&repair_status=CID&repair_status=QC%20Failed&${query}`,
+          url: `/product?${query}`,
           headers: {
             authorization: token,
           },

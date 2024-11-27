@@ -89,7 +89,7 @@ export const handleDataSubmit = async (
         setloading(false);
       });
   } catch (error) {
-    console.error("Error adding complaint:", error);
+    swal("error", error?.message, "error");
   }
   setRedirectToPayment(false);
 };

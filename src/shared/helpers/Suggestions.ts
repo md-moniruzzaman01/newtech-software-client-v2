@@ -1,5 +1,6 @@
 import { SERVER_URL } from "../config/secret.ts";
 import { partnerProps } from "../config/types";
+import swal from "sweetalert";
 
 export const fetchData = async (
   searchValue: string,
@@ -22,7 +23,7 @@ export const fetchData = async (
       setSuggestions(newSuggestions);
     }
   } catch (error) {
-    console.error("Error fetching suggestions:", error);
+    swal("Error", error.message, "error");
   }
   setIsLoadingSuggestion(false);
 };
