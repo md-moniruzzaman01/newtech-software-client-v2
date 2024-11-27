@@ -63,7 +63,10 @@ const ComplaintBuffers = () => {
     };
 
     const result = await updateBuffer({ token, fullData });
-    showSwal(result);
+    const isSwalTrue = showSwal(result);
+    if (isSwalTrue) {
+      setCheckedRows([]);
+    }
   };
   const handleReturnCN = async () => {
     setIsTrue(true);
@@ -76,6 +79,7 @@ const ComplaintBuffers = () => {
     const isSwalTrue = showSwal(result);
     if (isSwalTrue) {
       setIsTrue(false);
+      setCheckedRows([]);
     }
     setIsTrue(false);
   };
