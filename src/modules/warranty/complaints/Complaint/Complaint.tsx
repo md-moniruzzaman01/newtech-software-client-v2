@@ -154,7 +154,7 @@ const Complaint = () => {
 
   return (
     <div className=" px-5">
-      <Navbar name="Complaint"></Navbar>
+      <Navbar name="Complaint" />
       <div className="pt-5">
         <SearchBar
           // handleReturn={handleReturn}
