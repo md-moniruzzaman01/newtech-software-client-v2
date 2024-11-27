@@ -154,7 +154,7 @@ const ComplaintsApi = baseApi.injectEndpoints({
           },
         };
       },
-      providesTags: ["repair"],
+      providesTags: ["repair", "complaints"],
     }),
 
     updateBuffers: builder.mutation({
