@@ -29,4 +29,6 @@ export const keys = [
   "repair_status",
   "searchTerm",
   "category_name",
+  "startDate",
+  "endDate",
 ];

@@ -20,5 +20,5 @@ export const HeaderForCustomerTable = [
   "Action",
 ];
 
-export const keys = ["company", "sort", "searchTerm"];
+export const keys = ["company", "sort", "searchTerm", "startDate", "endDate"];
 export const fields = "";

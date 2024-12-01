@@ -7,5 +7,5 @@ export const PrincipleData = ["item?.id"];
 
 export const HeaderForPrincipleTable = ["ID", "Name", "Action"];
 
-export const keys = ["Name", "searchTerm"];
+export const keys = ["Name", "searchTerm", "startDate", "endDate"];
 export const fields = "";

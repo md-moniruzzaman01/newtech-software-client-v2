@@ -16,9 +16,5 @@ export const ComplaintsTableHeader = [
   "Action",
 ];
 
-
-export const fields =
-  "";
-export const keys = [
-  "searchTerm",
-];
+export const fields = "";
+export const keys = ["searchTerm", "startDate", "endDate"];

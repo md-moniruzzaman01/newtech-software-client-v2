@@ -1,5 +1,12 @@
 export const fields = "";
-export const keys = ["branch", "sort", "status", "searchTerm"];
+export const keys = [
+  "branch",
+  "sort",
+  "status",
+  "searchTerm",
+  "startDate",
+  "endDate",
+];
 
 export const btnValue = [
   { label: "pending", value: "pending" },

@@ -21,4 +21,4 @@ export const tableLayout = [
 ];
 
 export const fields = "";
-export const keys = ["searchTerm"];
+export const keys = ["searchTerm", "startDate", "endDate"];

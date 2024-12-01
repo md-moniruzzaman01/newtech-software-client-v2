@@ -6,6 +6,8 @@ export const keys = [
   "repair-status",
   "searchTerm",
   "category",
+  "startDate",
+  "endDate",
 ];
 
 export const btnValue = [

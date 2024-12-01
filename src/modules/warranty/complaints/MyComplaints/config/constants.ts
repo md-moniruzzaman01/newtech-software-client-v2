@@ -6,6 +6,8 @@ export const keys = [
   "repair_status",
   "searchTerm",
   "category",
+  "startDate",
+  "endDate",
 ];
 
 export const complaintsTableHeader = [
