@@ -13,7 +13,9 @@ export const engineerSelectData = { id: "", user: "" };
 export const fields = "";
 export const keys = [
   "brand_name",
+  "branch",
   "sort",
+  "sortOrder",
   "repair-status",
   "searchTerm",
   "category_name",

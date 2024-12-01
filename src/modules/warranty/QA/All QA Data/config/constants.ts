@@ -23,6 +23,8 @@ export const fields = "";
 export const keys = [
   "brand_name",
   "sort",
+  "sortOrder",
+  "branch",
   "repair_status",
   "searchTerm",
   "category_name",

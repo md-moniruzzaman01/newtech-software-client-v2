@@ -24,8 +24,10 @@ export const tableLayout = [
 ];
 
 export const keys = [
+  "branch",
   "brand_name",
   "sort",
+  "sortOrder",
   "repair-status",
   "searchTerm",
   "category_name",
