@@ -34,8 +34,8 @@ export const handleDownload = async (
     a.href = url;
     a.download =
       startDate && endDate
-        ? `NEWTECH-report-from${startDate}-to-${endDate}.xlsx`
-        : `NEWTECH-Report.xlsx`;
+        ? `NEWTECH-Warranty-Report-From${startDate}-To-${endDate}.xlsx`
+        : `NEWTECH-Warranty-Report.xlsx`;
 
     document.body.appendChild(a);
     a.click();
