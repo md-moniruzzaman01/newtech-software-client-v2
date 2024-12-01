@@ -10,9 +10,13 @@ import { branches } from "../../../shared/config/constaints";
 import TableStatus from "../TableStatus/TableStatus";
 import { statusGroupProps } from "./config/types";
 import { useGetBrandsQuery } from "../../../redux/features/api/Brand";
-import { filterOptionsForFiler } from "./config/constants";
+import {
+  filterOptionsForFiler,
+  hideRoutes,
+  rareAccess,
+} from "./config/constants";
 import { useGetMainCategoryQuery } from "../../../redux/features/api/Category";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InputFilterById from "../InputFilterById/InputFilterById";
 import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
 
@@ -38,6 +42,7 @@ const StatusGroup: FC<statusGroupProps> = ({
   const [brands, setBrands] = useState([]);
   const [category, setCategory] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -226,43 +231,52 @@ const StatusGroup: FC<statusGroupProps> = ({
                     </div>
 
                     <div className="flex flex-col gap-5 py-5  px-5">
-                      {activeRoute && (
+                      {!hideRoutes?.includes(location?.pathname) &&
+                        activeRoute && (
+                          <div className="w-full space-y-2">
+                            <InputFilterById
+                              Filter={brands}
+                              label="Brand"
+                              inputName="brand"
+                              placeholder="Select a brand"
+                            />
+                          </div>
+                        )}
+
+                      {!hideRoutes?.includes(location?.pathname) && (
                         <div className="w-full space-y-2">
-                          <InputFilterById
-                            Filter={brands}
-                            label="Brand"
-                            inputName="brand"
-                            placeholder="Select a brand"
+                          <InputFilter
+                            Filter={filterOptionsForFiler}
+                            label="Sort By"
+                            inputName="sort"
+                            placeholder="Sort"
                           />
                         </div>
                       )}
 
-                      <div className="w-full space-y-2">
-                        <InputFilter
-                          Filter={filterOptionsForFiler}
-                          label="Sort By"
-                          inputName="sort"
-                          placeholder="Sort"
-                        />
-                      </div>
+                      {!hideRoutes?.includes(location?.pathname) && (
+                        <div className="w-full space-y-2 ">
+                          <InputFilter
+                            onChange={setCategory}
+                            Filter={categories?.data}
+                            label="Category"
+                            inputName="category_name"
+                            placeholder="Select a Category"
+                          />
+                        </div>
+                      )}
 
-                      <div className="w-full space-y-2 ">
-                        <InputFilter
-                          onChange={setCategory}
-                          Filter={categories?.data}
-                          label="Category"
-                          inputName="category_name"
-                          placeholder="Select a Category"
-                        />
-                      </div>
-                      <div className="w-full space-y-2 ">
-                        <InputFilter
-                          Filter={branches}
-                          label="Branch"
-                          inputName="branch"
-                          placeholder="Select a Branch"
-                        />
-                      </div>
+                      {(!hideRoutes?.includes(location?.pathname) ||
+                        rareAccess.includes(location.pathname)) && (
+                        <div className="w-full space-y-2 ">
+                          <InputFilter
+                            Filter={branches}
+                            label="Branch"
+                            inputName="branch"
+                            placeholder="Select a Branch"
+                          />
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex justify-around items-center pb-5">
