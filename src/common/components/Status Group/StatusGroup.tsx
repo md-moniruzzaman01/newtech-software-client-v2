@@ -75,8 +75,10 @@ const StatusGroup: FC<statusGroupProps> = ({
     const queryParams = new URLSearchParams(window?.location?.search);
 
     if (sort) {
+      queryParams.delete("sortOrder");
       queryParams.delete("sort");
-      queryParams.append("sort", sort);
+      queryParams.append("sort", "createdAt");
+      queryParams.append("sortOrder", sort);
     }
 
     if (brand) {

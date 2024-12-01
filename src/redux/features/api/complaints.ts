@@ -112,6 +112,16 @@ const ComplaintsApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getMyComplaintService: builder.query({
+      query: (params) => {
+        return {
+          url: `/complaints/my-library/${params?.id}?warranty=false&${params?.query}`,
+          headers: {
+            authorization: params?.token,
+          },
+        };
+      },
+    }),
     getReadyForDelivaryComplaints: builder.query({
       query: (params) => {
         return {
@@ -195,4 +205,5 @@ export const {
   useComplaintEditMutation,
   useUpdateBuffersMutation,
   useGetLeakMaterialQuery,
+  useGetMyComplaintServiceQuery,
 } = ComplaintsApi;

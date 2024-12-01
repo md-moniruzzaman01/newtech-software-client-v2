@@ -20,7 +20,7 @@ import StatusGroup from "../../../common/components/Status Group";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import CommonTable from "../../../common/components/Common Table/CommonTable";
 import { getUserInfo } from "../../../services/auth.service";
-import { useGetMyComplaintQuery } from "../../../redux/features/api/complaints";
+import { useGetMyComplaintServiceQuery } from "../../../redux/features/api/complaints";
 import ErrorShow from "../../../common/components/Error Show/ErrorShow";
 
 //internal
@@ -43,7 +43,7 @@ const MyComplaintsService = () => {
     isLoading: complaintsLoading,
     error: complaintsError,
     isFetching,
-  } = useGetMyComplaintQuery({
+  } = useGetMyComplaintServiceQuery({
     id: user?.userId,
     query,
     token,
