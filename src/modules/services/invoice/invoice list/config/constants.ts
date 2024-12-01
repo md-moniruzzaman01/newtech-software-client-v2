@@ -1,9 +1,13 @@
 export const fields = "";
 export const keys = [
+  "brand_name",
   "branch",
   "sort",
-  "status",
+  "sortOrder",
+  "repair-status",
   "searchTerm",
+  "category_name",
+  "category",
   "startDate",
   "endDate",
 ];

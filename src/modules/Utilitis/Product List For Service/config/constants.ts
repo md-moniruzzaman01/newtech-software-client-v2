@@ -24,6 +24,8 @@ export const fields = "";
 export const keys = [
   "brand_name",
   "sort",
+  "branch",
+  "sortOrder",
   "repair_status",
   "searchTerm",
   "category_name",

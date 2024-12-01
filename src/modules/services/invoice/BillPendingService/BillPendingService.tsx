@@ -10,6 +10,7 @@ import CommonTable from "../../../../common/components/Common Table/CommonTable"
 import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
 import { useSearchParams } from "react-router-dom";
+import StatusGroup from "../../../../common/components/Status Group";
 
 const BillPendingService = () => {
   const [billData, setBillData] = useState([]);
@@ -56,7 +57,7 @@ const BillPendingService = () => {
       </div>
       <div className="mt-5 p-3 bg-solidWhite">
         <div>
-          {/* <StatusGroup btnGroupValue={[]} /> */}
+          <StatusGroup btnGroupValue={[]} />
           <div className="pt-5">
             <CommonTable
               dataLayout={tableLayout}

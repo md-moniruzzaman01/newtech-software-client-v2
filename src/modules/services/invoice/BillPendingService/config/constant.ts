@@ -22,6 +22,7 @@ export const keys = [
   "brand_name",
   "branch",
   "sort",
+  "sortOrder",
   "repair_status",
   "searchTerm",
   "category_name",
