@@ -28,7 +28,7 @@ const BranchForService = () => {
           headerTitle="Bill Information"
           details="Total Pending"
           price={data?.data?.BillData?.[0]?.totalPeinding || 0}
-          link="/branch/repair-complete"
+          link="/branch/billInfo"
         ></BranchCard>
         <BranchCard
           bgColor="lightBlue"
@@ -56,7 +56,7 @@ const BranchForService = () => {
           details="Total Withdraw"
           price={data?.data?.transactionData?.[0]?.totalWithdrawal || 0}
           count={data?.data?.transactionData?.[0]?.totalDeposit || 0}
-          link="/branch/available-money"
+          link="/branch/transactionInfo"
         ></BranchCard>
         <BranchCard
           bgColor="lightCyan"

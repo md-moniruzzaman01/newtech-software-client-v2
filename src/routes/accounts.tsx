@@ -11,10 +11,10 @@ import RepairComplete from "../modules/warranty/repair/RepaireComplete/RepairCom
 export const AccountsRoutes = [
   { path: "/branch", element: <Branch /> },
   { path: "/service-branch", element: <BranchForService /> },
-  { path: "/branch/repair-complete", element: <RepairComplete /> },
+  { path: "/branch/billInfo", element: <RepairComplete /> },
   { path: "/branch/total-repairing", element: <TotalRepairing /> },
   { path: "/branch/total-repaired", element: <TotalRepaired /> },
-  { path: "/branch/available-money", element: <AvailableMoney /> },
+  { path: "/branch/transactionInfo", element: <AvailableMoney /> },
   { path: "/branch/discount-amount", element: <DiscountAmount /> },
   { path: "/branch/withdraw", element: <Withdraw /> },
   { path: "/branch/order-count", element: <OrderCount /> },
