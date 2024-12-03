@@ -10,6 +10,7 @@ export const keys = [
   "category",
   "startDate",
   "endDate",
+  "status",
 ];
 
 export const btnValue = [

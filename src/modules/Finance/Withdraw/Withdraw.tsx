@@ -1,9 +1,5 @@
 import BranchCommonHeader from "../../../common/components/BranchCommonHeader/BranchCommonHeader";
-import {
-  FilterOptions,
-  authKey,
-  branches,
-} from "../../../shared/config/constaints";
+import { authKey, branches } from "../../../shared/config/constaints";
 import RepairCompleteCard from "../../../common/components/RepairCompleteCard/RepairCompleteCard";
 import Pagination from "../../../common/widgets/Pagination/Pagination";
 import Button from "../../../common/components/Button";
@@ -70,7 +66,7 @@ const Withdraw = () => {
   }, [withdrowData]);
 
   useEffect(() => {
-    if (!totalLoading && !totalError) {
+    if (totalData?.data) {
       const totalAvailable = totalData?.data?.reduce(
         (acc, curr) => acc + curr.total,
         0
@@ -88,7 +84,7 @@ const Withdraw = () => {
         setbranchAmount(branchData?.total);
       }
     }
-  }, [totalData, totalError, totalLoading]);
+  }, [totalData, user]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const HandleInputChange = (event: any) => {
@@ -140,15 +136,15 @@ const Withdraw = () => {
   if (withdrowLoading || totalLoading) {
     return <LoadingPage />;
   }
-  if (isError) {
+  if (isError || totalError) {
     return <ErrorShow error={error} />;
   }
   return (
     <div className=" px-5">
       <BranchCommonHeader
-        selectItems={FilterOptions}
+        // selectItems={FilterOptions}
         title="Withdraw"
-      ></BranchCommonHeader>
+      />
       <div className="grid grid-cols-2 gap-3 pt-5  ">
         <RepairCompleteCard
           bgColor="lightGreen"
@@ -161,7 +157,7 @@ const Withdraw = () => {
           headerTitle={`Total in Branch ${
             user.role === "engineer" ? user?.branch : ""
           }`}
-          branchTitle={`${branchAmount}`}
+          branchTitle={`${branchAmount || 0}`}
           isWithdraw={true}
         ></RepairCompleteCard>
       </div>

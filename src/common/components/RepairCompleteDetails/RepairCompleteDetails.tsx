@@ -1,29 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NavLink } from "react-router-dom";
+import { emptyData } from "../../../shared/config/constaints";
+import { getBranchName } from "../../../shared/helpers/getBranchName";
+import Button from "../Button";
+
 interface BranchRepairCompleteDetailsProps {
   header?: string;
-  branch1?: string;
-  branch2?: string;
-  branch3?: string;
-  branch4?: string;
-  branch5?: string;
-  branchData1?: string;
-  branchData2?: string;
-  branchData3?: string;
-  branchData4?: string;
-  branchData5?: string;
+  data?: any[];
+  title?: string;
+  info?: string;
+  link?: string;
+  linkBy?: string;
 }
 
 const RepairCompleteDetails: React.FC<BranchRepairCompleteDetailsProps> = ({
   header,
-  branch1,
-  branch2,
-  branch3,
-  branch4,
-  branch5,
-  branchData1,
-  branchData2,
-  branchData3,
-  branchData4,
-  branchData5,
+  data = [],
+  title,
+  info,
+  link,
+  linkBy = "item?.id",
 }) => {
   return (
     <div className="bg-[#FBFBFB] px-6 rounded-md">
@@ -32,41 +28,31 @@ const RepairCompleteDetails: React.FC<BranchRepairCompleteDetailsProps> = ({
           {header} <hr className="w-44 border-1 border-black" />
         </h1>
         <div className="space-y-3 ">
-          <div>
-            <div className="flex justify-between">
-              <h4>{branch1}</h4>
-              <p className="font-bold">{branchData1}</p>
-            </div>
-            <hr className="mt-3" />
-          </div>
-          <div>
-            <div className="flex justify-between ">
-              <h4>{branch2}</h4>
-              <p className="font-bold">{branchData2}</p>
-            </div>
-            <hr className="mt-3" />
-          </div>
-          <div>
-            <div className="flex justify-between ">
-              <h4>{branch3}</h4>
-              <p className="font-bold">{branchData3}</p>
-            </div>
-            <hr className="mt-3" />
-          </div>
-          <div>
-            <div className="flex justify-between ">
-              <h4>{branch4}</h4>
-              <p className="font-bold">{branchData4}</p>
-            </div>
-            <hr className="mt-3" />
-          </div>
-          <div>
-            <div className="flex justify-between ">
-              <h4>{branch5}</h4>
-              <p className="font-bold">{branchData5}</p>
-            </div>
-            <hr className="my-3" />
-          </div>
+          {data?.length > 0 ? (
+            data?.map((item, index) => (
+              <div key={index}>
+                <div className="flex justify-between">
+                  <h4>
+                    {eval(title) === item?.branch
+                      ? getBranchName(eval(title))
+                      : eval(title)}
+                  </h4>
+                  {link ? (
+                    <NavLink to={`${link}${eval(linkBy)}`}>
+                      <Button link>{eval(info)}</Button>
+                    </NavLink>
+                  ) : (
+                    <p className="font-bold">{eval(info)}</p>
+                  )}
+                </div>
+                <hr className="my-3" />
+              </div>
+            ))
+          ) : (
+            <span className="flex justify-center items-center min-h-40 font-medium text-2xl">
+              {emptyData}
+            </span>
+          )}
         </div>
       </div>
     </div>

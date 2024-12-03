@@ -1,116 +1,107 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
 import BranchCommonHeader from "../../../../common/components/BranchCommonHeader/BranchCommonHeader";
 import RepairCompleteCard from "../../../../common/components/RepairCompleteCard/RepairCompleteCard";
 import RepairCompleteDetails from "../../../../common/components/RepairCompleteDetails/RepairCompleteDetails";
-import { useGetServicesQuery } from "../../../../redux/features/api/service";
-import { FilterOptions } from "../../../../shared/config/constaints";
+import { authKey } from "../../../../shared/config/constaints";
+import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
+import { useGetBillsQuery } from "../../../../redux/features/api/bill";
+import ErrorShow from "../../../../common/components/Error Show/ErrorShow";
+import LoadingPage from "../../../../common/components/LoadingPage/LoadingPage";
+import { useGetWithdrawQuery } from "../../../../redux/features/api/withdraw";
 
 const RepairComplete = () => {
-  const [complaintsData, setComplaintsData] = useState([]);
-  const [complaintsDataDelivered, setComplaintsDataDelivered] = useState([]);
-  const { data: complaints, isError, isLoading } = useGetServicesQuery({});
+  const token = getFromLocalStorage(authKey);
 
-  useEffect(() => {
-    if (!isError && !isLoading) {
-      const completedComplaints = complaints?.data.filter(
-        (complaint: any) => complaint.repair_status === "Reject"
-      );
-      const deliveredComplaints = complaints?.data.filter(
-        (complaint: any) => complaint.repair_status === "Delivered"
-      );
-      setComplaintsData(completedComplaints);
-      setComplaintsDataDelivered(deliveredComplaints);
-    }
-  }, [isError, isLoading, complaints]);
+  const { data: withdrawData, isLoading: withdrawLoading } =
+    useGetWithdrawQuery({
+      token,
+    });
 
-  const totalRepairComplete =
-    complaintsData?.reduce(
-      (pre, curr) => pre + (curr?.RepairItem?.length ?? 0),
-      0
-    ) || 0;
-  const totalRepairDelivered =
-    complaintsDataDelivered?.reduce(
-      (pre, curr) => pre + (curr?.RepairItem?.length ?? 0),
-      0
-    ) || 0;
+  const {
+    data: billData,
+    error,
+    isError: billsError,
+    isLoading: billsLoading,
+    isFetching,
+  } = useGetBillsQuery({
+    token,
+  });
 
+  const recentDelivered = billData?.data
+    ?.filter(
+      (item) =>
+        item?.status === "Delivered Without Payment" ||
+        item.status === "Delivered"
+    )
+    ?.slice(0, 5);
+
+  const recentWithdraw = withdrawData?.data
+    ?.filter((item) => item?.type === "withdraw")
+    ?.slice(0, 5);
+
+  const recentCompleted = billData?.data
+    ?.filter((item) => item?.status === "Completed")
+    ?.slice(0, 5);
+
+  const recentIncome = billData?.data
+    ?.filter((item) => item?.status === "Delivered")
+    ?.slice(0, 5);
+
+  if (billsError) {
+    return <ErrorShow error={error} />;
+  }
+
+  if (billsLoading || isFetching || withdrawLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className=" px-5">
-      <BranchCommonHeader
-        selectItems={FilterOptions}
-        title="Repair Complete"
-      ></BranchCommonHeader>
+      <BranchCommonHeader title="Bill Information" />
       <div className="grid grid-cols-3 gap-3 pt-5 ">
         <RepairCompleteCard
           bgColor="primary"
-          headerTitle="Total Repair Complete"
-          branchTitle={totalRepairComplete}
-        ></RepairCompleteCard>
+          headerTitle="Total Completed"
+          branchTitle={"0"}
+        />
         <RepairCompleteCard
           bgColor="lightBlue"
-          headerTitle="Total Repair Delivered"
-          branchTitle={totalRepairDelivered}
-        ></RepairCompleteCard>
+          headerTitle="Total Delivered"
+          branchTitle={"0"}
+        />
         <RepairCompleteCard
           bgColor="lightYellow"
-          headerTitle="Total Repair Income"
-          branchTitle="$ 5,500"
-        ></RepairCompleteCard>
+          headerTitle="Total Income"
+          branchTitle="0"
+        />
       </div>
       <div className="w-full grid grid-cols-2 gap-4 py-5 ">
         <RepairCompleteDetails
           header="Recent Delivered"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="02"
-          branchData2="02"
-          branchData3="02"
-          branchData4="02"
-          branchData5="02"
-        ></RepairCompleteDetails>
+          data={recentDelivered}
+          title="item?.branch"
+          info={"item?.id"}
+          link={"/bill-list-service?searchTerm="}
+        />
         <RepairCompleteDetails
-          header="Recent Complete"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="02"
-          branchData2="02"
-          branchData3="02"
-          branchData4="02"
-          branchData5="02"
-        ></RepairCompleteDetails>
+          header="Recent Completed"
+          data={recentCompleted}
+          title="item?.branch"
+          info={"item?.total_amount"}
+          link={"/bill-list-service?searchTerm="}
+        />
         <RepairCompleteDetails
-          header="Income"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="02"
-          branchData2="02"
-          branchData3="02"
-          branchData4="02"
-          branchData5="02"
-        ></RepairCompleteDetails>
+          header="Recent Income"
+          data={recentIncome}
+          title="item?.customer?.name"
+          info={"item?.total_paid"}
+          link={"/bill-list-service?searchTerm="}
+        />
         <RepairCompleteDetails
           header="Withdraw"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="1,00,000.00"
-          branchData2="50,000.00"
-          branchData3="30,000.00"
-          branchData4="70,000.00"
-          branchData5="20,000.00"
+          data={recentWithdraw}
+          title="item?.branch"
+          info={"item?.amount"}
         ></RepairCompleteDetails>
       </div>
     </div>
