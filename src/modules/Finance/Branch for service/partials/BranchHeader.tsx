@@ -13,7 +13,7 @@ const BranchHeader = ({ setSelectedBranch, defaultValue }) => {
       <div className=" flex items-center justify-center gap-5">
         <NavLink to={"/Add-brand"}>
           <Button icon="+" className="rounded-full bg-btn_secondary ">
-            + Add Branch
+            Add Branch
           </Button>
         </NavLink>
         <div>
