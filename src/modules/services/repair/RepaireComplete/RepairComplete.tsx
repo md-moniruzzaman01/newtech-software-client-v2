@@ -3,7 +3,6 @@ import RepairCompleteCard from "../../../../common/components/RepairCompleteCard
 import RepairCompleteDetails from "../../../../common/components/RepairCompleteDetails/RepairCompleteDetails";
 import { FilterOptions } from "../../../../shared/config/constaints";
 
-
 const RepairComplete = () => {
   return (
     <div className=" px-5">
@@ -29,58 +28,10 @@ const RepairComplete = () => {
         ></RepairCompleteCard>
       </div>
       <div className="w-full grid grid-cols-2 gap-4 py-5 ">
-        <RepairCompleteDetails
-          header="Recent Delivered"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="02"
-          branchData2="02"
-          branchData3="02"
-          branchData4="02"
-          branchData5="02"
-        ></RepairCompleteDetails>
-        <RepairCompleteDetails
-          header="Recent Complete"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="02"
-          branchData2="02"
-          branchData3="02"
-          branchData4="02"
-          branchData5="02"
-        ></RepairCompleteDetails>
-        <RepairCompleteDetails
-          header="Income"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="02"
-          branchData2="02"
-          branchData3="02"
-          branchData4="02"
-          branchData5="02"
-        ></RepairCompleteDetails>
-        <RepairCompleteDetails
-          header="Withdraw"
-          branch1="Branch 1"
-          branch2="Branch 2"
-          branch3="Branch 3"
-          branch4="Branch 4"
-          branch5="Branch 5"
-          branchData1="1,00,000.00"
-          branchData2="50,000.00"
-          branchData3="30,000.00"
-          branchData4="70,000.00"
-          branchData5="20,000.00"
-        ></RepairCompleteDetails>
+        <RepairCompleteDetails header="Recent Delivered"></RepairCompleteDetails>
+        <RepairCompleteDetails header="Recent Complete"></RepairCompleteDetails>
+        <RepairCompleteDetails header="Income"></RepairCompleteDetails>
+        <RepairCompleteDetails header="Withdraw"></RepairCompleteDetails>
       </div>
     </div>
   );
