@@ -20,5 +20,5 @@ export const tableLayout = [
   "item?.serial_number",
   "item?.status",
   "item?.createdAt?.toString()?.slice(0,10)",
-  "item?.note",
+  "item?.note?.slice(0,40)",
 ];
