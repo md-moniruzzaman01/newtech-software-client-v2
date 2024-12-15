@@ -44,6 +44,7 @@ const BillApi = baseApi.injectEndpoints({
           },
         };
       },
+      providesTags: ["bill"],
     }),
     deleteBill: builder.mutation({
       query: ({ id, token }) => ({
