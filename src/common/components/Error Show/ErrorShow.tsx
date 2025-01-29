@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { removeUserInfo } from "../../../services/auth.service";
 import { authKey } from "../../../shared/config/constaints";
-import swal from "sweetalert";
 
 const ErrorShow = ({ error }) => {
   const navigate = useNavigate();
@@ -10,11 +9,7 @@ const ErrorShow = ({ error }) => {
   useEffect(() => {
     if (error?.status === 403 || error?.status === 401) {
       removeUserInfo(authKey);
-      swal({
-        title: "Error",
-        text: error?.data?.message || "Unknown error occurred",
-        icon: "error",
-      });
+
       if (error?.data?.message === "Token expired") {
         navigate("/login");
       }
