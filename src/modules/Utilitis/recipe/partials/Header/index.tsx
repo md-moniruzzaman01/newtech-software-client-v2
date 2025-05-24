@@ -41,9 +41,7 @@ const HeaderOfRecipe = ({ copy, info }: any) => {
             {info?.branch === "01" && (
               <div>
                 <p>Contact No: +880241082640</p>
-                <p>
-                  House-03, Road-07, Block-F <span>Banani, Dhaka-1213</span>
-                </p>
+                <p>1/A, Bhuiya Sikder Tower, 304 Tejgaon, Dhaka-1215</p>
               </div>
             )}
             {info?.branch === "03" && (
