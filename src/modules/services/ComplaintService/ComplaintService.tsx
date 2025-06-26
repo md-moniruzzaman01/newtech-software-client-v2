@@ -130,7 +130,6 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   if (categoryIsError || mainCategoryIsError) {
     return <ErrorShow error={categoryError || mainCategoryError} />;
   }
-  console.log("partner", partnerInfo);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>

@@ -1,30 +1,37 @@
-import { useRef } from "react";
+import { useState } from "react";
 import Button from "../../../common/components/Button";
 import HeaderWithCrossBtn from "../../../common/components/HeaderWithCrossBtn/HeaderWithCrossBtn";
 import Input from "../../../common/components/Input";
 import TextArea from "../../../common/components/TextArea/TextArea";
 import Navbar from "../../../common/widgets/Navbar/Navbar";
+import { useSendMessageMutation } from "../../../redux/features/api/others";
+import { showSwal } from "../../../shared/helpers/SwalShower";
+import { getFromLocalStorage } from "../../../shared/helpers/local_storage";
+import { authKey } from "../../../shared/config/constaints";
 
 const SendMessagePage = () => {
-  const formRef = useRef<HTMLFormElement>(null);
+  const token = getFromLocalStorage(authKey);
+  const [number, setNumber] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [sendMessage, { isLoading }] = useSendMessageMutation();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
 
-    const number = (form.elements.namedItem("number") as HTMLInputElement)
-      ?.value;
-    const message = (form.elements.namedItem("message") as HTMLInputElement)
-      ?.value;
+    const trimmedNumber = number.trim();
+    const trimmedMessage = message.trim();
+
     const fullData = {
-      number,
-      message,
+      number: trimmedNumber,
+      message: trimmedMessage,
     };
-    console.log(fullData);
-  };
-
-  const handleCancel = () => {
-    formRef.current?.reset();
+    const result = await sendMessage({ fullData, token });
+    const isSwalTrue = showSwal(result);
+    if (isSwalTrue) {
+      setNumber("");
+      setMessage("");
+    }
   };
 
   return (
@@ -33,18 +40,26 @@ const SendMessagePage = () => {
       <div className="pt-20">
         <div className="w-2/3 mx-auto bg-solidWhite rounded-md p-8">
           <HeaderWithCrossBtn name="Send Message" />
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="space-y-3 py-5"
-          >
-            <Input labelName="Number" inputName="number" />
-            <TextArea label="Message" name="message" />
+          <form onSubmit={handleSubmit} className="space-y-3 py-5">
+            <Input
+              labelName="Number"
+              inputName="number"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+            />
+            <TextArea
+              label="Message"
+              name="message"
+              onChange={(e) => setMessage(e.target.value)}
+              defaultValue={message}
+            />
             <div className="flex justify-center gap-20 items-center pt-8">
-              <Button danger sizeClass="px-8 py-2" onClick={handleCancel}>
-                Cancel
-              </Button>
-              <Button primary sizeClass="px-8 py-2" type="submit">
+              <Button
+                loading={isLoading}
+                primary
+                sizeClass="px-8 py-2"
+                type="submit"
+              >
                 Save
               </Button>
             </div>

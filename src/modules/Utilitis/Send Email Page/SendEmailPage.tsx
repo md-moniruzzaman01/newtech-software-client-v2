@@ -24,12 +24,16 @@ const SendEmailPage = () => {
     const fullData = {
       to,
       subject,
-      body: html,
+      html,
     };
 
     const result = await sendEmail({ fullData, token });
-    showSwal(result);
-    console.log("Email Data:", fullData);
+    const isSwalTrue = showSwal(result);
+    if (isSwalTrue) {
+      setTo("");
+      setSubject("");
+      setHtml("");
+    }
   };
 
   return (
@@ -59,9 +63,6 @@ const SendEmailPage = () => {
             </div>
 
             <div className="flex justify-center gap-20 items-center pt-8">
-              <Button danger sizeClass="px-8 py-2" type="button">
-                Cancel
-              </Button>
               <Button
                 loading={isLoading}
                 primary

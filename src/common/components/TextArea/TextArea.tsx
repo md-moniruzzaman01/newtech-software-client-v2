@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface textAreaProps {
   label?: string;
   placeholder?: string;
@@ -5,6 +6,7 @@ interface textAreaProps {
   IsDisabled?: boolean;
   defaultValue?: string;
   required?: boolean;
+  onChange?: any;
 }
 
 const TextArea: React.FC<textAreaProps> = ({
@@ -14,6 +16,7 @@ const TextArea: React.FC<textAreaProps> = ({
   IsDisabled = false,
   defaultValue,
   required,
+  onChange,
 }) => {
   return (
     <div>
@@ -28,6 +31,7 @@ const TextArea: React.FC<textAreaProps> = ({
           name={name}
           placeholder={placeholder}
           className=" border-2 mt-2   w-full pl-2 pt-2"
+          onChange={onChange}
         />
       </label>
     </div>

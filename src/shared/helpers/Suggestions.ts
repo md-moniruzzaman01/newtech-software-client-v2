@@ -34,7 +34,6 @@ export const handleSuggestionClick = async (
   setSearchInput: React.Dispatch<React.SetStateAction<string | null>>,
   setSuggestions: React.Dispatch<React.SetStateAction<partnerProps[] | []>>
 ) => {
-  console.log("selected", selected);
   setPartnerInfo({
     brand_name: selected.brand_name,
     partner_name: selected.name,
