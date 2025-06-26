@@ -194,8 +194,14 @@ export type UserEvent = {
 };
 
 export type partnerProps = {
-  name?: string;
+  partner_name?: string;
   contact_number?: string;
+  contact_person?: string;
   email?: string;
   address?: string;
+  brand_name?: string[];
+  id?: string;
+  status?: string;
+  name?: string;
+  partner_id?: string;
 };

@@ -34,13 +34,15 @@ export const handleSuggestionClick = async (
   setSearchInput: React.Dispatch<React.SetStateAction<string | null>>,
   setSuggestions: React.Dispatch<React.SetStateAction<partnerProps[] | []>>
 ) => {
-  setPartnerInfo((prevCustomerInfo: partnerProps) => ({
-    ...prevCustomerInfo,
-    contact_person: selected.name,
+  setPartnerInfo({
+    brand_name: selected.brand_name,
+    partner_name: selected.name,
     contact_number: selected.contact_number,
     email: selected.email,
     address: selected.address,
-  }));
+    status: selected?.status,
+    partner_id: selected?.id,
+  });
   setSearchInput(null);
   setSuggestions([]);
 };
@@ -52,8 +54,14 @@ export const handleChangeInput = (
 ) => {
   const { name, value } = event.target;
 
-  setPartnerInfo((prevCustomerInfo: partnerProps) => ({
-    ...prevCustomerInfo,
+  setPartnerInfo({
+    brand_name: [],
+    partner_name: "",
+    contact_number: "",
+    email: "",
+    address: "",
+    status: "",
+    id: "",
     [name]: value,
-  }));
+  });
 };

@@ -196,7 +196,6 @@ const ComplaintAddForWarranty = () => {
   if (partnerIsError || categoryIsError || brandsIsError) {
     return <ErrorShow error={partnerError || categoryError || brandsError} />;
   }
-
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -254,6 +253,7 @@ const ComplaintAddForWarranty = () => {
                   {/* Partner Name  */}
                   <div>
                     <Input
+                      key={partnerInfo?.partner_id}
                       defaultValue={`${
                         partnerInfo?.partner_name
                           ? partnerInfo?.partner_name
@@ -290,7 +290,7 @@ const ComplaintAddForWarranty = () => {
                                   setSuggestions
                                 )
                               }
-                              className="suggestion-item"
+                              className="suggestion-item cursor-pointer"
                             >
                               {`${suggestion?.name}-${suggestion?.contact_number}`}
                             </li>
