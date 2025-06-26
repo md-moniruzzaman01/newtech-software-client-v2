@@ -239,6 +239,17 @@ const OthersApi = baseApi.injectEndpoints({
       },
       providesTags: [],
     }),
+
+    sendEmail: builder.mutation({
+      query: ({ token }) => ({
+        url: `/auth/send-email`,
+        method: "POST",
+        headers: {
+          authorization: token,
+        },
+      }),
+      invalidatesTags: [],
+    }),
   }),
 });
 
@@ -262,4 +273,5 @@ export const {
   useGetDashboardQCDataQuery,
   useGetDashboardQAServiceDataQuery,
   useGetDashboardQCServiceDataQuery,
+  useSendEmailMutation,
 } = OthersApi;

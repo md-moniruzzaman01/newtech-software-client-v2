@@ -1648,9 +1648,9 @@ has-flag@^4.0.0:
   integrity sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
 
 hasown@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/hasown/-/hasown-2.0.0.tgz"
-  integrity sha512-vUptKVTpIJhcczKBbgnS+RtcuYMB8+oNzPK2/Hp3hanz8JmpATdmmgLgSaadVREkDm+e2giHwY3ZRkyjSIDDFA==
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/hasown/-/hasown-2.0.2.tgz"
+  integrity sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==
   dependencies:
     function-bind "^1.1.2"
 
@@ -2339,6 +2339,11 @@ react-select@^5.8.0:
     prop-types "^15.6.0"
     react-transition-group "^4.3.0"
     use-isomorphic-layout-effect "^1.1.2"
+
+react-simple-wysiwyg@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.npmjs.org/react-simple-wysiwyg/-/react-simple-wysiwyg-3.2.2.tgz"
+  integrity sha512-mHngkK1IgkZ/CVdGe6XRtE+w1Fr4U3nVN/Yynj7S+xN/uiVJEI/x0jug/nVMN9jJ/KoveL4dM0/ZLiS7HGz93g==
 
 react-smooth@^4.0.0:
   version "4.0.1"
