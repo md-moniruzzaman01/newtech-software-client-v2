@@ -10,7 +10,7 @@ export const fetchData = async (
 ) => {
   try {
     setIsLoadingSuggestion(true);
-    const url = `${SERVER_URL}/nw-customer?warranty=${warranty}&searchTerm=${searchValue}`;
+    const url = `${SERVER_URL}/nw-customer?warranty=${warranty}&searchTerm=${searchValue}&limit=5`;
     const response = await fetch(url, {
       method: "GET",
       headers: {
