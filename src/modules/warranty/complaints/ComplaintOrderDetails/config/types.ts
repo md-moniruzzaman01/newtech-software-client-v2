@@ -36,7 +36,12 @@ export type ComplaintsOrderDetailsProps = {
   brand_name: string;
   category_name: string;
   createdAt: string; // Assuming ISO date string format
-  customer: { contact_person?: string; contactNo?: string };
+  customer: {
+    contact_person?: string;
+    contactNo?: string;
+    email: string;
+    address: string;
+  };
   customer_contact_number: string;
   due: number;
   id: string;

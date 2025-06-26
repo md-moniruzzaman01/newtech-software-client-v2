@@ -29,7 +29,7 @@ const ComplaintOrderDetails = () => {
     isLoading: complaintsLoading,
     error: complaintsError,
   } = useGetComplaintByIdQuery({ id, token });
-
+  console.log("complaints", complaintsData);
   useEffect(() => {
     if (!complaintsIsError && !complaintsLoading) {
       setComplaintsSingleData(complaintsData?.data);
@@ -91,6 +91,25 @@ const ComplaintOrderDetails = () => {
       <div className="grid grid-cols-3 gap-2 py-5">
         <ComplaintDetailsCard
           headerTitle="Customer Details"
+          modalHeader="Customer Details"
+          modalData={[
+            {
+              title: "Name",
+              value: complaintsSingleData?.customer?.contact_person,
+            },
+            {
+              title: "Number",
+              value: complaintsSingleData?.customer?.contactNo,
+            },
+            {
+              title: "Email",
+              value: complaintsSingleData?.customer?.email,
+            },
+            {
+              title: "Address",
+              value: complaintsSingleData?.customer?.address,
+            },
+          ]}
           CardInformation={[
             {
               title: "Name",

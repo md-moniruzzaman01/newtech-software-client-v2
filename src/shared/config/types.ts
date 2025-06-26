@@ -41,6 +41,8 @@ export type complaintDetailsCardProps = {
   className?: string;
   CardInformation: complaintSingleDetailsProps[];
   link?: string;
+  modalHeader?: string;
+  modalData?: { title: string; value: string }[];
 };
 export type complaintSingleDetailsProps = {
   title: string;
