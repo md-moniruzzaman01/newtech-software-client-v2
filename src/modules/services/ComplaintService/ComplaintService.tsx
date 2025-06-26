@@ -130,6 +130,7 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
   if (categoryIsError || mainCategoryIsError) {
     return <ErrorShow error={categoryError || mainCategoryError} />;
   }
+  console.log("partner", partnerInfo);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Add"}></Navbar>
@@ -153,7 +154,10 @@ const ComplaintService: React.FC<ComplaintServiceProps> = () => {
               {/* Customers Name  */}
               <div>
                 <Input
-                  defaultValue={`${partnerInfo ? partnerInfo?.name : ""}`}
+                  key={partnerInfo?.partner_id}
+                  defaultValue={`${
+                    partnerInfo?.partner_name ? partnerInfo?.partner_name : ""
+                  }`}
                   IsDisabled={addedItem?.length > 0 ? true : false}
                   required
                   inputName="partner_name"

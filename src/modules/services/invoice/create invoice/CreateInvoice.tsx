@@ -67,7 +67,7 @@ const CreateInvoice = () => {
     checkedRows,
     dispatch,
   ]);
-
+  console.log("complaintsData", complaintsData);
   const handleBillGenerate = async () => {
     const fullData = {
       complaintIds: checkedRows,
