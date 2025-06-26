@@ -39,7 +39,6 @@ const ComplaintsServicePayment = () => {
   if (BillLoading) {
     return <LoadingPage />;
   }
-  console.log("bill", billSingleData);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Service Payments"} />
@@ -104,6 +103,7 @@ const ComplaintsServicePayment = () => {
               title: "Name",
               value: `${
                 billSingleData?.generatedby?.Engineer?.name?.firstName ||
+                billSingleData?.generatedby?.Admin?.name?.firstName ||
                 emptyData
               }  `,
             },

@@ -75,6 +75,7 @@ export type ComplaintsOrderDetailsProps = {
   generatedby: {
     Engineer: Engineer;
     id?: string;
+    Admin?: Engineer;
   };
   repair: RepairItem[];
   total_paid?: number;

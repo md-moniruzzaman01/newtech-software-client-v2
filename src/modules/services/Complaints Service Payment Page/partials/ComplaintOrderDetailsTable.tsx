@@ -154,9 +154,9 @@ const ComplaintOrderDetailsTable = ({
   return (
     <div className="w-full">
       <div>
-        <div className="grid grid-cols-8 gap-5 text-center text-sm font-semibold">
+        <div className="grid grid-cols-7 gap-5 text-center text-sm font-semibold">
           <div>Order No</div>
-          <div className="col-span-2">SL No</div>
+          <div>SL No</div>
           <div>Problem</div>
           <div>Status</div>
           <div>Discount</div>
@@ -171,7 +171,7 @@ const ComplaintOrderDetailsTable = ({
             billSingleData?.repair?.map((item, index) => (
               <div
                 key={index}
-                className="grid grid-cols-8  text-center text-sm"
+                className="grid grid-cols-7  text-center text-sm"
               >
                 <div className="border py-2 border-grayForBorder">
                   {item?.order_number}
@@ -180,7 +180,7 @@ const ComplaintOrderDetailsTable = ({
                   to={`/complaints-service?searchTerm=${item?.products?.serial_number}`}
                   className="!text-black !bg-transparent"
                 >
-                  <div className=" col-span-2 border py-2 border-grayForBorder">
+                  <div className="border py-2 border-grayForBorder">
                     {item?.products?.serial_number}
                   </div>
                 </NavLink>
