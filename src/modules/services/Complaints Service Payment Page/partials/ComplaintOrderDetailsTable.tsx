@@ -19,7 +19,7 @@ import {
   handleDelivededWithOutPaySubmit,
   handlePaymentSubmit,
 } from "../Helpers/hanlePaymentService";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { showSwal } from "../../../../shared/helpers/SwalShower.ts";
 import {
   useServiceDeliveredWithOutPaymentMutation,
@@ -176,9 +176,14 @@ const ComplaintOrderDetailsTable = ({
                 <div className="border py-2 border-grayForBorder">
                   {item?.order_number}
                 </div>
-                <div className=" col-span-2 border py-2 border-grayForBorder">
-                  {item?.products?.serial_number}
-                </div>
+                <NavLink
+                  to={`/complaints-service?searchTerm=${item?.products?.serial_number}`}
+                  className="!text-black !bg-transparent"
+                >
+                  <div className=" col-span-2 border py-2 border-grayForBorder">
+                    {item?.products?.serial_number}
+                  </div>
+                </NavLink>
                 <div className="border py-2 border-grayForBorder">
                   {item?.products?.problems?.join(",")}
                 </div>

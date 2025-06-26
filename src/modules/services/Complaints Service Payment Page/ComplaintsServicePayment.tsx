@@ -39,6 +39,7 @@ const ComplaintsServicePayment = () => {
   if (BillLoading) {
     return <LoadingPage />;
   }
+  console.log("bill", billSingleData);
   return (
     <div className="px-5">
       <Navbar name={"Complaint's Service Payments"} />
@@ -71,9 +72,28 @@ const ComplaintsServicePayment = () => {
       <div className="grid grid-cols-3 gap-2 py-3">
         <ComplaintDetailsCard
           headerTitle="Customer Details"
+          modalHeader="Customer Details"
+          modalData={[
+            { title: "Name", value: billSingleData?.customer?.name },
+            {
+              title: "Number",
+              value: billSingleData?.customer?.contact_number,
+            },
+            {
+              title: "Email",
+              value: billSingleData?.customer?.email,
+            },
+            {
+              title: "Address",
+              value: billSingleData?.customer?.address,
+            },
+          ]}
           CardInformation={[
             { title: "Name", value: billSingleData?.customer?.name },
-            { title: "Address", value: billSingleData?.customer?.email },
+            {
+              title: "Number",
+              value: billSingleData?.customer?.contact_number,
+            },
           ]}
         />
         <ComplaintDetailsCard

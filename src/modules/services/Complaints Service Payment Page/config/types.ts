@@ -63,7 +63,13 @@ export type ComplaintsOrderDetailsProps = {
   id: string;
   branch: string;
   createdAt: string;
-  customer: { id?: string; name?: string; email?: string };
+  customer: {
+    id?: string;
+    name?: string;
+    email?: string;
+    contact_number: string;
+    address: string;
+  };
   due: number;
   status?: string;
   generatedby: {
