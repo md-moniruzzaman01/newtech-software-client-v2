@@ -146,6 +146,10 @@ export type SearchBarProps = {
   handleDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleReturn?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleCancel?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleDropdown?: (e: any) => void;
+  dropdownOptions?: { label: string; value: any }[];
+  dropdownIsDisabled?: boolean;
+  dropdownPlaceholder?: string;
 
   isMiddleBtn?: boolean;
   disabled?: boolean;

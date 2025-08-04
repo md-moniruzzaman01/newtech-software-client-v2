@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface inputFilterProps {
   Filter: { label: string; value: string }[];
   label?: string;
@@ -7,6 +8,7 @@ interface inputFilterProps {
   defaultValue?: string;
   required?: boolean;
   inputName?: string;
+  onChange?: any;
 }
 
 const SelectForFilter: React.FC<inputFilterProps> = ({
@@ -17,6 +19,7 @@ const SelectForFilter: React.FC<inputFilterProps> = ({
   className,
   required = false,
   inputName,
+  onChange,
 }) => {
   return (
     <div className={`${label && "space-y-1"}`}>
@@ -27,6 +30,7 @@ const SelectForFilter: React.FC<inputFilterProps> = ({
         disabled={IsDisabled}
         className={` ${className} py-2  rounded-sm w-full border-2 text-shadeOfGray border-gray-200 shadow-sm ml-0 `}
         defaultValue={placeholder}
+        onChange={onChange}
       >
         <option value={placeholder} disabled>
           {placeholder}

@@ -17,7 +17,7 @@ import {
   keys,
   tableLayout,
 } from "./config/constants";
-import { authKey } from "../../../../shared/config/constaints";
+import { authKey, branches } from "../../../../shared/config/constaints";
 import Pagination from "../../../../common/widgets/Pagination/Pagination";
 import { getFromLocalStorage } from "../../../../shared/helpers/local_storage";
 import { constructQuery } from "../../../../shared/helpers/constructQuery";
@@ -147,6 +147,10 @@ const Complaint = () => {
   // const handleReturn = () => {
   //   console.log(checkedRows);
   // };
+  const moveToOthersBranch = (e) => {
+    console.log(e.target.value);
+    console.log("checkbox", checkedRows);
+  };
 
   if (complaintsIsError) {
     return <ErrorShow error={complaintsError} />;
@@ -157,6 +161,13 @@ const Complaint = () => {
       <Navbar name="Complaint" />
       <div className="pt-5">
         <SearchBar
+          handleDropdown={(e) => moveToOthersBranch(e)}
+          dropdownOptions={branches.map((branch) => ({
+            label: branch.value,
+            value: branch.id,
+          }))}
+          dropdownPlaceholder="Select a branch"
+          dropdownIsDisabled={checkedRows.length <= 0}
           // handleReturn={handleReturn}
           isMiddleBtnActive={isActiveBtn}
           disabled={checkedRows?.length <= 0}

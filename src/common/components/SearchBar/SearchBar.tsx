@@ -5,6 +5,7 @@ import { useState } from "react";
 import EngineersFilter from "../EngineersFilter/EngineersFilter";
 import { getUserInfo } from "../../../services/auth.service";
 import InputWithValue from "../InputWithValue/InputWithValue";
+import SelectForFilter from "../SelectForFilter/SelectForFilter";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   link,
@@ -31,6 +32,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   isReturnLoading = false,
   isDeleteLoading = false,
   isCancelLoading = false,
+  handleDropdown,
+  dropdownOptions = [],
+  dropdownIsDisabled = false,
+  dropdownPlaceholder = "",
 }) => {
   const [activeRoute, setActiveRoute] = useState("");
   const navigate = useNavigate();
@@ -138,6 +143,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
               )}
             </div>
           )}
+
+          <div>
+            {handleDropdown && (
+              <SelectForFilter
+                onChange={handleDropdown}
+                Filter={dropdownOptions}
+                IsDisabled={dropdownIsDisabled}
+                placeholder={dropdownPlaceholder}
+              />
+            )}
+          </div>
           <div>
             {link ? (
               <NavLink to={linkValue}>
