@@ -10,10 +10,18 @@ const FooterOfRecipe = ({ info }) => {
           The warranty is not applicable to Headphones,Memory Card, Data Cable,
           Sticker removed items, Burnt and Physically damage items.
           <span className="block">
-            {info?.warranty
-              ? "Please take delivery within one month, after that time the authority will not be responsible."
-              : "Note: Diagnostic charge will be applied if the product is returned without repair."}
-            {/* need to change */}
+            {info?.warranty ? (
+              "Please take delivery within one month, after that time the authority will not be responsible."
+            ) : (
+              <span className="text-xs text-red-500 font-bold">
+                <span>Note:</span>
+                <span className="ml-1">
+                  If the product is returned without repair, a diagnostic fee of
+                  <span className="mx-1 ">{info?.total_charge}</span>
+                  will be applied.
+                </span>
+              </span>
+            )}
           </span>
         </p>
       </div>
