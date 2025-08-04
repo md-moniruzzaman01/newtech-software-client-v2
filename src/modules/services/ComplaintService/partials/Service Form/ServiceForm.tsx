@@ -26,6 +26,7 @@ import Button from "../../../../../common/components/Button";
 import { handleDataSubmit } from "../../helpers/submitData";
 import { setIds } from "../../../../../redux/features/slice/Complaints service Ids for payment/ComplaintsServicePaymentIds";
 import { deleteAll, deleteData } from "../../helpers/deleteProducts";
+import { emptyData } from "../../../../../shared/config/constaints";
 
 1;
 const ServiceForm: React.FC<ComplaintServiceProps> = () => {
@@ -481,7 +482,7 @@ const ServiceForm: React.FC<ComplaintServiceProps> = () => {
                 ))
               ) : (
                 <div className="font-semibold  text-center mt-20">
-                  Empty Data
+                  {emptyData}
                 </div>
               )}
             </div>
