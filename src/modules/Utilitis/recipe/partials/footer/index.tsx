@@ -14,13 +14,11 @@ const FooterOfRecipe = ({ info }) => {
             {info?.warranty ? (
               "Please take delivery within one month, after that time the authority will not be responsible."
             ) : (
-              <span className="text-xs font-semibold text-gray-800">
-                <span className="text-red-500 font-bold">Note:</span>
+              <span className="text-xs text-red-500 font-bold">
+                <span>Note:</span>
                 <span className="ml-1">
                   If the product is returned without repair, a diagnostic fee of
-                  <span className="mx-1 text-red-500 font-bold">
-                    {info?.total_charge}
-                  </span>
+                  <span className="mx-1 ">{info?.total_charge}</span>
                   will be applied.
                 </span>
               </span>
