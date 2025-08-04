@@ -81,8 +81,8 @@ const Navbar: React.FC<NavbarProps> = ({ name = "Welcome" }) => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center  pt-[36px]">
+    <div className="bg-white px-3 rounded-md mt-5 py-3 shadow-md">
+      <div className="flex justify-between items-center ">
         <div className="flex justify-between items-center font-semibold text-2xl">
           <h1>{name}</h1>
           {(location.pathname === "/" ||
