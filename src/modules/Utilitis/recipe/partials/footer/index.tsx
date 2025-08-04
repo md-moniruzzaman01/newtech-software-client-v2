@@ -1,5 +1,4 @@
 const FooterOfRecipe = ({ info }) => {
-  console.log("info", info);
   return (
     <div className="absolute bottom-0">
       <div className=" flex justify-between text-center">
