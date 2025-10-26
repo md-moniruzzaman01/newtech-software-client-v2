@@ -86,7 +86,7 @@ const ServiceForm: React.FC<ComplaintServiceProps> = () => {
     }
   }, []);
 
-  const { name: partner_name, contact_number, email, address } = partnerInfo;
+  const { partner_name, contact_number, email, address } = partnerInfo;
 
   const fullData = {
     partner_name,
@@ -131,6 +131,7 @@ const ServiceForm: React.FC<ComplaintServiceProps> = () => {
   if (categoryIsError || mainCategoryIsError) {
     return <ErrorShow error={categoryError || mainCategoryError} />;
   }
+
   return (
     <div>
       <div className="grid grid-cols-[auto,320px] gap-1">
