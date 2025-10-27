@@ -383,7 +383,6 @@ const ComplaintOrderDetailsTable = ({
                   inputName="amount"
                   inputType="number"
                   required
-                  minValue={1}
                 />
                 <Input
                   labelName="Note"
