@@ -8,7 +8,9 @@ const FooterOfRecipe = ({ info }) => {
       <div className="mt-4">
         <p className="text-xs italic ">
           The warranty is not applicable to Headphones,Memory Card, Data Cable,
-          Sticker removed items, Burnt and Physically damage items.
+          Sticker removed items, Burnt and Physically damage items.{" "}
+          {!info?.warranty &&
+            "Please take delivery within three months, after that time the authority will not be responsible."}
           <span className="block">
             {info?.warranty ? (
               "Please take delivery within one month, after that time the authority will not be responsible."
