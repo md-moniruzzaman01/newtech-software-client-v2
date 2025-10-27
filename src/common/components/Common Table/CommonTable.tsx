@@ -30,6 +30,7 @@ interface CommonTableProps {
   modalFunc?: any;
   functionBtnValue?: string;
   functionBtn?: any;
+  functionBtnIsDisabled?: boolean;
   modalDisabled?: string;
   loading?: boolean;
 }
@@ -56,6 +57,7 @@ const CommonTable: FC<CommonTableProps> = ({
   functionBtn,
   modalDisabled,
   loading,
+  functionBtnIsDisabled = false,
 }) => {
   return (
     <>
@@ -151,7 +153,11 @@ const CommonTable: FC<CommonTableProps> = ({
 
                       {functionBtn && (
                         <td className="border">
-                          <Button small onClick={() => functionBtn(item?.id)}>
+                          <Button
+                            disabled={functionBtnIsDisabled}
+                            small
+                            onClick={() => functionBtn(item?.id)}
+                          >
                             {functionBtnValue}
                           </Button>
                         </td>

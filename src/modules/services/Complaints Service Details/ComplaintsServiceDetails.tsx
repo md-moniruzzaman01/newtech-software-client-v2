@@ -119,7 +119,7 @@ const ComplaintsServiceDetails = () => {
           ]}
           link={`${
             complaintsSingleData?.bill
-              ? `/complaints-service-payments/${complaintsSingleData.bill.id}`
+              ? `/service-invoice/${complaintsSingleData.bill.id}`
               : ""
           }`}
         />
